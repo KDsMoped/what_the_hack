@@ -1,0 +1,20 @@
+
+Game_Assets.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+test_button
+  rotate: false
+  xy: 2, 2
+  size: 128, 48
+  orig: 128, 48
+  offset: 0, 0
+  index: 0
+test_button
+  rotate: false
+  xy: 132, 2
+  size: 128, 48
+  orig: 128, 48
+  offset: 0, 0
+  index: 1
