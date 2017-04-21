@@ -43,6 +43,7 @@ public class Assets {
         testButton = new Array<TextureRegion>(2);
         testButton.addAll(atlas.findRegions("test_button"));
 
+        //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
         header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
         //...//

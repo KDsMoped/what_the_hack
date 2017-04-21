@@ -6,13 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.sun.jmx.snmp.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.HackingGame;
+
 import de.hsd.hacking.UI.Button;
 import de.hsd.hacking.UI.SimpleButton;
 import de.hsd.hacking.Utils.Constants;
@@ -40,7 +39,7 @@ public class MenuStage extends Stage {
         SimpleButton testButton = new SimpleButton(new Vector2(VIEWPORT_WIDTH / 2f, VIEWPORT_HEIGHT / 4f), "Test", assets, new Runnable() {
             @Override
             public void run() {
-                //Do nothing
+                //So kann man Console Prints machen
                 Gdx.app.log(Constants.TAG, "TEST-CLICK!!!");
             }
         }
@@ -59,6 +58,9 @@ public class MenuStage extends Stage {
     public void draw(){
         super.draw();
         Batch batch = getBatch();
+        //Wenn ein batch außerhalb der draw-Methode eines Actors benutzt wird, muss dieser mit begin() und end() gestartet und beendet werden.
+        //Wenn in einer draw Methode ein anderer Renderer (zB ShapeRenderer) verwendet werden soll,
+        // muss batch auch erst beendet werden, dann der andere renderer gestartet/beendet, und am Ende muss der batch wieder gestartet werden.
         batch.begin();
         assets.header_font.draw(getBatch(), "HACKINGGAME", 0, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, Align.center, false);
         batch.end();
@@ -67,6 +69,7 @@ public class MenuStage extends Stage {
     @Override
     public boolean touchDown(int x, int y, int pointer, int button){
 
+        //x,y sind Screen-Koordinaten. viewport.unproject(x,y) kann man diese in das Viewport-Koordinatensystem projizieren
         touchVector.set(getViewport().unproject(touchVector.set(x,y)));
         for (Button b :
                 buttons) {
@@ -86,6 +89,11 @@ public class MenuStage extends Stage {
         }
 
         return super.touchUp(x,y,pointer, button);
+    }
+
+    @Override
+    public void dispose(){
+       super.dispose();
     }
 
 }
