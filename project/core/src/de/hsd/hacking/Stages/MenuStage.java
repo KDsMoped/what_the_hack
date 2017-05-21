@@ -12,6 +12,7 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.UI.Button;
 import de.hsd.hacking.UI.SimpleButton;
 import de.hsd.hacking.Utils.Constants;
@@ -39,8 +40,9 @@ public class MenuStage extends Stage {
         SimpleButton testButton = new SimpleButton(new Vector2(VIEWPORT_WIDTH / 2f, VIEWPORT_HEIGHT / 4f), "Test", assets, new Runnable() {
             @Override
             public void run() {
-                //So kann man Console Prints machen
-                Gdx.app.log(Constants.TAG, "TEST-CLICK!!!");
+                Employee newEmployee = new Employee(Employee.EmployeeSkillLevel.getRandomSkillLevel());
+
+                Gdx.app.log(Constants.TAG, newEmployee.toString());
             }
         }
         );

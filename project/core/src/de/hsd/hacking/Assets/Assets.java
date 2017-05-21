@@ -33,6 +33,7 @@ public class Assets {
     public void load(){
         manager.load("img/badlogic.jpg", Texture.class);
         manager.load("img/Game_Assets.atlas", TextureAtlas.class);
+
         //synchrones Laden. Für mehrere Assets nicht so gut.
         //Dann muss in der render-Methode des aktuellen Screens manager.update() aufgerufen werden.
         //Die Methode gibt dann true zurück wenn fertig geladen wurde. Erst danach dürfen die Referenzen gesetzt werden
