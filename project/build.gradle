@@ -103,7 +103,8 @@ tasks.eclipse.doLast {
 }
 
 // Store the parameters you want to pass the texturePacker here...
-project.ext.texturePacker = [ "raw_assets/img", "android/assets/img", "Game_Assets"]
+project.ext.texturePacker = [ "raw_assets/img/game", "android/assets/img", "Game_Assets",
+                              "raw_assets/img/ui", "android/assets/img", "UI_Assets"]
 
 // Import the texture packer
 import com.badlogic.gdx.tools.texturepacker.TexturePacker
@@ -113,5 +114,6 @@ task texturePacker << {
     if (project.ext.has('texturePacker')) {
         logger.info "Calling TexturePacker: "+texturePacker
         TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
+        TexturePacker.process(texturePacker[3], texturePacker[4], texturePacker[5])
     }
 }

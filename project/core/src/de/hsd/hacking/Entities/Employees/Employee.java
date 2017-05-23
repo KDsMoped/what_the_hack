@@ -1,10 +1,18 @@
 package de.hsd.hacking.Entities.Employees;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
 
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Data.MovementProvider;
+import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Utils.FromTo;
 import de.hsd.hacking.Utils.RandomIntPool;
 
@@ -12,7 +20,15 @@ import de.hsd.hacking.Utils.RandomIntPool;
  * Created by Cuddl3s on 21.05.2017.
  */
 
-public class Employee {
+public class Employee extends Entity {
+
+    private final int SHADOW = 0;
+    private final int LEGS = 1;
+    private final int BODY = 2;
+    private final int HEAD = 3;
+    private final int HAIR = 4;
+
+
 
 
     public enum EmployeeSkillLevel {
@@ -24,19 +40,33 @@ public class Employee {
         public static EmployeeSkillLevel getRandomSkillLevel() { return VALUES[MathUtils.random(SIZE - 1)]; }
     }
 
+    //Graphics
+    private Assets assets;
+    private Animation[][] animations;
+    enum AnimState{
+        IDLE, MOVING
+    }
+    private AnimState animationState;
+
     //Data
     private String surName;
     private String lastName;
     private String description; // ? Needed ?
     private EmployeeSkillLevel skillLevel;
-
+    private Vector2 position;
     private ArrayList<Skill> skillSet;
+    private float elapsedTime = 0f;
+    private MovementProvider movementProvider;
+
+    private EmployeeState state;
 
     /**
      * Creates a new random employee
      * @param level The desired skill Level
      */
-    public Employee(EmployeeSkillLevel level){
+    public Employee(Assets assets, EmployeeSkillLevel level, MovementProvider movementProvider){
+
+        this.assets = assets;
 
         //Create random name
         String[] randomName = DataLoader.getInstance().getNewName();
@@ -66,6 +96,52 @@ public class Employee {
                 pool.removeNumber(randomInt);
             }
         }
+        this.movementProvider = movementProvider;
+        this.position = movementProvider.getStartPosition(this);
+        this.animationState = AnimState.IDLE;
+        this.state = new IdleState(this);
+        //Graphics
+        setUpAnimations();
+    }
+
+
+    //GETTER & SETTER
+
+    public Vector2 getPosition() {
+        return position;
+    }
+    public MovementProvider getMovementProvider() {
+        return movementProvider;
+    }
+    public AnimState getAnimationState() {
+        return animationState;
+    }
+
+    public void setAnimationState(AnimState animationState) {
+        this.animationState = animationState;
+    }
+
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        for (int i = 0; i < 5; i++) {
+            batch.draw(animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true), this.position.x, this.position.y);
+        }
+
+        super.draw(batch, parentAlpha);
+
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        elapsedTime += delta;
+        EmployeeState state = this.state.act(delta);
+        if (state != null){
+            this.state.leave();
+            this.state = state;
+            this.state.enter();
+        }
     }
 
     @Override
@@ -80,6 +156,32 @@ public class Employee {
             skills += skill.getType().name() + " : " + skill.getValue() + "; ";
         }
         return skills;
+    }
+
+    @Override
+    public String getName(){
+        return surName + " " +lastName;
+    }
+
+    void resetElapsedTime() {
+        this.elapsedTime = 0f;
+    }
+
+    private void setUpAnimations() {
+        this.animations = new Animation[AnimState.values().length][5];
+
+        animations[AnimState.MOVING.ordinal()][SHADOW] = new Animation(.5f, assets.default_character_shadow.get(0), assets.default_character_shadow.get(1));
+        animations[AnimState.MOVING.ordinal()][LEGS] = new Animation(.5f, assets.default_character_legs.get(0), assets.default_character_legs.get(1));
+        animations[AnimState.MOVING.ordinal()][BODY] = new Animation(.5f, assets.default_character_body.get(0), assets.default_character_body.get(1));
+        animations[AnimState.MOVING.ordinal()][HEAD] = new Animation(.5f, assets.default_character_head.get(0), assets.default_character_head.get(1));
+        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation(.5f, assets.default_character_hair.get(0), assets.default_character_hair.get(1));
+
+        animations[AnimState.IDLE.ordinal()][SHADOW] = new Animation(.5f, assets.default_character_shadow.get(2), assets.default_character_shadow.get(3));
+        animations[AnimState.IDLE.ordinal()][LEGS] = new Animation(.5f, assets.default_character_legs.get(2), assets.default_character_legs.get(3));
+        animations[AnimState.IDLE.ordinal()][BODY] = new Animation(.5f, assets.default_character_body.get(2), assets.default_character_body.get(3));
+        animations[AnimState.IDLE.ordinal()][HEAD] = new Animation(.5f, assets.default_character_head.get(2), assets.default_character_head.get(3));
+        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation(.5f, assets.default_character_hair.get(2), assets.default_character_hair.get(3));
+
     }
 
 

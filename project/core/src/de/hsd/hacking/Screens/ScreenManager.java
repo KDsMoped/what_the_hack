@@ -25,6 +25,14 @@ public class ScreenManager {
         game.setScreen(currentScreen);
     }
 
+    public static void setGameScreen(){
+        if(currentScreen != null){
+            currentScreen.dispose();
+        }
+        currentScreen = new GameScreen(game);
+        game.setScreen(currentScreen);
+    }
+
     public static void disposeCurrentScreen(){
         if (currentScreen != null){
             currentScreen.dispose();

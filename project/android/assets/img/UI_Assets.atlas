@@ -1,0 +1,23 @@
+
+UI_Assets.png
+size: 128,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Button_9_Patch_normal
+  rotate: false
+  xy: 2, 2
+  size: 48, 32
+  split: 5, 5, 5, 9
+  pad: -1, -1, 5, 0
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+Button_9_Patch_pressed
+  rotate: false
+  xy: 52, 2
+  size: 48, 32
+  split: 5, 5, 9, 5
+  orig: 48, 32
+  offset: 0, 0
+  index: -1

@@ -2,19 +2,17 @@ package de.hsd.hacking.Stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hsd.hacking.Assets.Assets;
 
-import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.UI.Button;
-import de.hsd.hacking.UI.SimpleButton;
+import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -23,32 +21,31 @@ import de.hsd.hacking.Utils.Constants;
 
 public class MenuStage extends Stage {
 
-    public static final float VIEWPORT_WIDTH = 256f;
+    public static final float VIEWPORT_WIDTH = 512f;
     public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private Assets assets;
-    private List<Button> buttons;
-
-    private Vector2 touchVector;
 
     public MenuStage(Assets assets){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
         this.assets = assets;
-        this.buttons = new ArrayList<Button>();
-        this.touchVector = new Vector2();
 
-        SimpleButton testButton = new SimpleButton(new Vector2(VIEWPORT_WIDTH / 2f, VIEWPORT_HEIGHT / 4f), "Test", assets, new Runnable() {
-            @Override
-            public void run() {
-                Employee newEmployee = new Employee(Employee.EmployeeSkillLevel.getRandomSkillLevel());
+        Skin uiSkin = new Skin(assets.ui_atlas);
 
-                Gdx.app.log(Constants.TAG, newEmployee.toString());
-            }
-        }
+
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("Button_9_Patch_normal"), uiSkin.getDrawable("Button_9_Patch_pressed"),
+                null, assets.gold_font);
+        style.pressedOffsetY = -5f;
+        TextButton button = new TextButton("START", style);
+        button.addListener(new ChangeListener() {
+               @Override
+               public void changed(ChangeEvent event, Actor actor) {
+                   ScreenManager.setGameScreen();
+               }
+           }
         );
-
-        buttons.add(testButton);
-        addActor(testButton);
+        button.setBounds(VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.1f, VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.3f);
+        addActor(button);
     }
 
     @Override
@@ -70,26 +67,11 @@ public class MenuStage extends Stage {
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button){
-
-        //x,y sind Screen-Koordinaten. viewport.unproject(x,y) kann man diese in das Viewport-Koordinatensystem projizieren
-        touchVector.set(getViewport().unproject(touchVector.set(x,y)));
-        for (Button b :
-                buttons) {
-            b.touchDown(touchVector);
-        }
-
         return super.touchDown(x,y,pointer,button);
     }
 
     @Override
     public boolean touchUp(int x, int y, int pointer, int button){
-
-        touchVector.set(getViewport().unproject(touchVector.set(x,y)));
-        for (Button b :
-                buttons) {
-            b.touchUp(touchVector);
-        }
-
         return super.touchUp(x,y,pointer, button);
     }
 

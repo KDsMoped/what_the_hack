@@ -1,58 +1,230 @@
 
 Game_Assets.png
-size: 256,128
+size: 512,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-Button_9_Patch
+FloorPlate_Cracks
   rotate: false
-  xy: 132, 2
-  size: 48, 32
-  split: 5, 5, 5, 9
-  pad: -1, -1, 5, 0
-  orig: 48, 32
-  offset: 0, 0
-  index: -1
-Test_9_Patch_Button
-  rotate: false
-  xy: 132, 2
-  size: 48, 32
-  orig: 48, 32
-  offset: 0, 0
-  index: 0
-Button_9_Patch_Pressed
-  rotate: false
-  xy: 198, 68
-  size: 48, 32
-  split: 5, 5, 9, 5
-  orig: 48, 32
-  offset: 0, 0
-  index: -1
-Test_9_Patch_Button
-  rotate: false
-  xy: 198, 68
-  size: 48, 32
-  orig: 48, 32
+  xy: 2, 134
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: 1
+FloorPlate_Cracks
+  rotate: false
+  xy: 2, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+FloorPlate_Cracks
+  rotate: false
+  xy: 68, 134
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
 FloorPlate_flat
   rotate: false
-  xy: 132, 36
+  xy: 2, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-test_button
+character/Body
   rotate: false
-  xy: 2, 52
-  size: 128, 48
-  orig: 128, 48
-  offset: 0, 0
-  index: 0
-test_button
-  rotate: false
-  xy: 2, 2
-  size: 128, 48
-  orig: 128, 48
+  xy: 68, 68
+  size: 32, 64
+  orig: 32, 64
   offset: 0, 0
   index: 1
+character/Body
+  rotate: false
+  xy: 68, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Body
+  rotate: false
+  xy: 68, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Body
+  rotate: false
+  xy: 134, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+character/Character
+  rotate: false
+  xy: 68, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+character/Character
+  rotate: false
+  xy: 68, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Character
+  rotate: false
+  xy: 102, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Character
+  rotate: false
+  xy: 168, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+character/Full
+  rotate: false
+  xy: 102, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+character/Full
+  rotate: false
+  xy: 102, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Full
+  rotate: false
+  xy: 136, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Full
+  rotate: false
+  xy: 202, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+character/Hair
+  rotate: false
+  xy: 136, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+character/Hair
+  rotate: false
+  xy: 136, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+character/Hair
+  rotate: false
+  xy: 136, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Hair
+  rotate: false
+  xy: 170, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Head
+  rotate: false
+  xy: 236, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+character/Head
+  rotate: false
+  xy: 236, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Head
+  rotate: false
+  xy: 236, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+character/Head
+  rotate: false
+  xy: 170, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Legs
+  rotate: false
+  xy: 204, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+character/Legs
+  rotate: false
+  xy: 204, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Legs
+  rotate: false
+  xy: 204, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+character/Legs
+  rotate: false
+  xy: 270, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Shadow
+  rotate: false
+  xy: 204, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+character/Shadow
+  rotate: false
+  xy: 204, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+character/Shadow
+  rotate: false
+  xy: 204, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+character/Shadow
+  rotate: false
+  xy: 204, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
