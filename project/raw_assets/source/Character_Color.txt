@@ -1,0 +1,4 @@
+Trousers 	#404040
+Shirt		#717171
+Skin		#d2d2d2
+Hair		#969696
