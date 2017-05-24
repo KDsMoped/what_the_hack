@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 
 /**
  * Created by Cuddl3s on 21.04.2017.
@@ -29,6 +31,8 @@ public class Assets {
     public Array<TextureRegion> default_character_head;
     public Array<TextureRegion> default_character_hair;
 
+    public Sound buttonSound;
+
 
     public Assets(){
         manager = new AssetManager();
@@ -38,6 +42,8 @@ public class Assets {
 
         manager.load("img/Game_Assets.atlas", TextureAtlas.class);
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
+
+        manager.load("sounds/dummy_button.wav", Sound.class);
 
         gold_font = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
         gold_font_small = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
@@ -50,6 +56,8 @@ public class Assets {
 
         atlas = manager.get("img/Game_Assets.atlas");
         ui_atlas = manager.get("img/UI_Assets.atlas");
+
+        buttonSound = manager.get("sounds/dummy_button.wav");
 
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
