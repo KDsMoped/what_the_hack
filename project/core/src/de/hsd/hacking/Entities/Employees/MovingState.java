@@ -19,7 +19,17 @@ public class MovingState extends EmployeeState {
 
     public MovingState(Employee employee) {
         super(employee);
-        this.destinationPos = employee.getMovementProvider().getNextMovetoPoint(employee);
+        Vector2 newPos = employee.getMovementProvider().getNextMovetoPoint(employee);
+        if (newPos != null){
+            this.destinationPos = newPos;
+            if (employee.getPosition().cpy().sub(destinationPos).x < 0){
+                employee.flipHorizontal(true);
+            }else{
+                employee.flipHorizontal(false);
+            }
+        }else{
+            this.destinationPos = employee.getPosition().cpy();
+        }
     }
 
     @Override

@@ -26,9 +26,9 @@ public class MenuStage extends Stage {
 
     private Assets assets;
 
-    public MenuStage(Assets assets){
+    public MenuStage(Assets loadedAssets){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
-        this.assets = assets;
+        this.assets = loadedAssets;
 
         Skin uiSkin = new Skin(assets.ui_atlas);
 
@@ -40,11 +40,12 @@ public class MenuStage extends Stage {
         button.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
+                   assets.buttonSound.play();
                    ScreenManager.setGameScreen();
                }
            }
         );
-        button.setBounds(VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.1f, VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.3f);
+        button.setBounds(VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.1f, VIEWPORT_WIDTH * 0.4f, VIEWPORT_HEIGHT * 0.3f);
         addActor(button);
     }
 

@@ -23,6 +23,7 @@ public class GameStage extends Stage {
 
     public static final float VIEWPORT_WIDTH = 512f;
     public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    private int employeeCount = 3;
 
     private Assets assets;
     private TileMap tileMovementProvider;
@@ -36,8 +37,13 @@ public class GameStage extends Stage {
         this.tileMovementProvider = new TileMap();
         Group employees = new Group();
         addActor(employees);
-        employees.addActor(new Employee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider));
-        employees.addActor(new Employee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider));
+        while(employeeCount > 0){
+            Employee e = new Employee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider);
+            employees.addActor(e);
+            employeeCount--;
+        }
+
+
     }
 
 

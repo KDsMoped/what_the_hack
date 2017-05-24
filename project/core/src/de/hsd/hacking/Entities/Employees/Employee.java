@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,7 @@ public class Employee extends Entity {
         IDLE, MOVING
     }
     private AnimState animationState;
+    private boolean flipped;
 
     //Data
     private String surName;
@@ -120,13 +122,18 @@ public class Employee extends Entity {
     public void setAnimationState(AnimState animationState) {
         this.animationState = animationState;
     }
+    public void flipHorizontal(boolean toRight){
+        this.flipped = toRight;
+    }
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         for (int i = 0; i < 5; i++) {
-            batch.draw(animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true), this.position.x, this.position.y);
+            TextureRegion frame = animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
+            batch.draw(frame, flipped ? this.position.x + frame.getRegionWidth() : this.position.x, this.position.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
         }
+        assets.gold_font_small.draw(batch, getName(), position.x - 30f, position.y + 70f, 92f, Align.center, false);
 
         super.draw(batch, parentAlpha);
 
