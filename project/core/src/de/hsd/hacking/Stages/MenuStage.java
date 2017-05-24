@@ -44,7 +44,7 @@ public class MenuStage extends Stage {
                }
            }
         );
-        button.setBounds(VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.1f, VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.3f);
+        button.setBounds(VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.1f, VIEWPORT_WIDTH * 0.4f, VIEWPORT_HEIGHT * 0.3f);
         addActor(button);
     }
 

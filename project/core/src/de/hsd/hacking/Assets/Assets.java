@@ -18,6 +18,7 @@ public class Assets {
     public BitmapFont standard_font;
     public BitmapFont header_font;
     public BitmapFont gold_font;
+    public BitmapFont gold_font_small;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
@@ -39,6 +40,8 @@ public class Assets {
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
 
         gold_font = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
+        gold_font_small = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
+        gold_font_small.getData().setScale(.5f);
 
         //synchrones Laden. Für mehrere Assets nicht so gut.
         //Dann muss in der render-Methode des aktuellen Screens manager.update() aufgerufen werden.
