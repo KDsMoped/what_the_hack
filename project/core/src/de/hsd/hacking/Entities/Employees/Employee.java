@@ -1,5 +1,8 @@
 package de.hsd.hacking.Entities.Employees;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,12 +11,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
+import com.google.gson.*;
+import com.google.gson.annotations.*;
+
 import java.util.ArrayList;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.FromTo;
 import de.hsd.hacking.Utils.RandomIntPool;
 
@@ -22,7 +29,6 @@ import de.hsd.hacking.Utils.RandomIntPool;
  */
 
 public class Employee extends Entity {
-
     private final int SHADOW = 0;
     private final int LEGS = 1;
     private final int BODY = 2;
@@ -41,26 +47,34 @@ public class Employee extends Entity {
         public static EmployeeSkillLevel getRandomSkillLevel() { return VALUES[MathUtils.random(SIZE - 1)]; }
     }
 
+    public enum HairStyle {
+        CRAZY, NEAT, NERD, RASTA;
+    }
+
     //Graphics
     private Assets assets;
     private Animation[][] animations;
     enum AnimState{
         IDLE, MOVING
     }
-    private AnimState animationState;
-    private boolean flipped;
+    @Expose private AnimState animationState;
+    @Expose private boolean flipped;
 
     //Data
-    private String surName;
-    private String lastName;
-    private String description; // ? Needed ?
-    private EmployeeSkillLevel skillLevel;
-    private Vector2 position;
-    private ArrayList<Skill> skillSet;
-    private float elapsedTime = 0f;
+    @Expose private String surName;
+    @Expose private String lastName;
+    @Expose private String description; // ? Needed ?
+    @Expose private EmployeeSkillLevel skillLevel;
+    @Expose private Vector2 position;
+    @Expose private ArrayList<Skill> skillSet;
+    @Expose private float elapsedTime = 0f;
     private MovementProvider movementProvider;
+    @Expose private HairStyle hairStyle;
+    @Expose private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
 
-    private EmployeeState state;
+    @Expose private EmployeeState state;
+
+    public Employee() {}
 
     /**
      * Creates a new random employee
@@ -117,6 +131,18 @@ public class Employee extends Entity {
     }
     public AnimState getAnimationState() {
         return animationState;
+    }
+
+    // We need hair, eye, skin, shirt, trousers, shoes
+    // hair can be replaced completely
+    public String serialize() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+        Gson gson = gsonBuilder.create();
+
+        String json = gson.toJson(this);
+
+        return json;
     }
 
     public void setAnimationState(AnimState animationState) {
