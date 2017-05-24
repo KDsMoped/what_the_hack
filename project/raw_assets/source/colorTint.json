@@ -1,0 +1,14 @@
+{
+  "Trousers": "404040ff",
+  "Shoes"	: "2d2d2dff",
+  "Shirt"	: "717171ff",
+  "Skin"	: "2d2d2dff",
+  "Eyes"	: "7c7c7cff",
+  "Hair"	: "969696ff",
+  "TrouserColors"		: ["4649c3ff", "4687c3ff", "6e4208ff", "291004ff"],
+  "ShoesColors"			: ["440849ff", "3e1c09ff", "d30000ff", "3e3e3eff"],
+  "ShirtColors"			: ["839fdfff", "28caa2ff", "9eca28ff", "7428caff"],
+  "SkinColors"			: ["e9c38cff", "dfca83ff", "eec39aff", "3b1d04ff"],
+  "EyesColors"			: ["2c86ebff", "2ceba1ff", "611500ff", "248711ff"],
+  "HairColors"			: ["e9df3eff", "e9a33eff", "543202ff", "ae4512ff"]
+}
