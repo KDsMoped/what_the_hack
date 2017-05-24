@@ -157,14 +157,14 @@ character/Head
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3
 character/Head
   rotate: false
   xy: 236, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 character/Head
   rotate: false
   xy: 170, 2
@@ -213,6 +213,13 @@ character/Shadow
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
+  index: 3
+character/Shadow
+  rotate: false
+  xy: 204, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
   index: 2
 character/Shadow
   rotate: false
@@ -221,10 +228,3 @@ character/Shadow
   orig: 32, 64
   offset: 0, 0
   index: 4
-character/Shadow
-  rotate: false
-  xy: 204, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3

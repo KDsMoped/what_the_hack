@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -24,7 +25,7 @@ public class GameStage extends Stage {
     public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private Assets assets;
-    private MovementProvider tileMovementProvider;
+    private TileMap tileMovementProvider;
 
     private ShapeRenderer debugBGRenderer;
 
@@ -48,6 +49,12 @@ public class GameStage extends Stage {
         debugBGRenderer.begin(ShapeRenderer.ShapeType.Filled);
         debugBGRenderer.setColor(Color.GRAY);
         debugBGRenderer.rect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        debugBGRenderer.setColor(Color.DARK_GRAY);
+        for (Vector2 tile :
+                tileMovementProvider.getTilePositions()) {
+            debugBGRenderer.rect(tile.x, tile.y + 8f, 32f, 16f);
+
+        }
         debugBGRenderer.end();
 
         super.draw();

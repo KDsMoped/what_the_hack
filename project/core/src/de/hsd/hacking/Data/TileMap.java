@@ -25,6 +25,10 @@ public class TileMap implements MovementProvider {
         entityPositions = new Entity[tilePositions.length];
     }
 
+    public Vector2[] getTilePositions() {
+        return tilePositions;
+    }
+
     @Override
     public Vector2 getNextMovetoPoint(Employee employee) {
         ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tilePositions.length);
@@ -50,7 +54,7 @@ public class TileMap implements MovementProvider {
         for (int i = 0; i < entityPositions.length; i++) {
             if(entityPositions[i] == null){
                 entityPositions[i] = employee;
-                return tilePositions[i];
+                return tilePositions[i].cpy();
             }
         }
         return null;
