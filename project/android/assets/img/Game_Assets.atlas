@@ -45,14 +45,14 @@ character/Body
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 2
 character/Body
   rotate: false
   xy: 68, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
+  index: 3
 character/Body
   rotate: false
   xy: 134, 134
@@ -157,14 +157,14 @@ character/Head
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 character/Head
   rotate: false
   xy: 236, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3
 character/Head
   rotate: false
   xy: 170, 2
@@ -185,14 +185,14 @@ character/Legs
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 character/Legs
   rotate: false
   xy: 204, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3
 character/Legs
   rotate: false
   xy: 270, 134
@@ -220,11 +220,11 @@ character/Shadow
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 character/Shadow
   rotate: false
   xy: 204, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3

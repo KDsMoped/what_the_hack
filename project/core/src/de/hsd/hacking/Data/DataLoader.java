@@ -28,7 +28,7 @@ public class DataLoader {
 
     private DataLoader(){
 
-        FileHandle employeeNames = Gdx.files.local("data/names.json");
+        FileHandle employeeNames = Gdx.files.internal("data/names.json");
         if (!employeeNames.exists()){
             Gdx.app.log(Constants.TAG, "NAMES JSON FILE DOESNT EXIST");
         }else{
