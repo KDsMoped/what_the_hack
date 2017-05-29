@@ -185,14 +185,14 @@ character/Legs
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3
 character/Legs
   rotate: false
   xy: 204, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 character/Legs
   rotate: false
   xy: 270, 134
@@ -213,7 +213,7 @@ character/Shadow
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 character/Shadow
   rotate: false
   xy: 204, 2
@@ -227,4 +227,4 @@ character/Shadow
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3

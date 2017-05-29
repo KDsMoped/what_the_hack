@@ -49,19 +49,6 @@ public class GameStage extends Stage {
 
     @Override
     public void draw() {
-        Batch batch = getBatch();
-        debugBGRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        debugBGRenderer.setTransformMatrix(batch.getTransformMatrix());
-        debugBGRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        debugBGRenderer.setColor(Color.GRAY);
-        debugBGRenderer.rect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        debugBGRenderer.setColor(Color.DARK_GRAY);
-        for (Vector2 tile :
-                tileMovementProvider.getTilePositions()) {
-            debugBGRenderer.rect(tile.x, tile.y + 8f, 32f, 16f);
-
-        }
-        debugBGRenderer.end();
 
         super.draw();
     }

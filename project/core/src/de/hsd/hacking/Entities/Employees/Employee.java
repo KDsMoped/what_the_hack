@@ -1,14 +1,12 @@
 package de.hsd.hacking.Entities.Employees;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
 import com.google.gson.*;
@@ -20,7 +18,6 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Entities.Entity;
-import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.FromTo;
 import de.hsd.hacking.Utils.RandomIntPool;
 
@@ -57,8 +54,8 @@ public class Employee extends Entity {
     enum AnimState{
         IDLE, MOVING
     }
-    @Expose private AnimState animationState;
-    @Expose private boolean flipped;
+    private AnimState animationState;
+    private boolean flipped;
 
     //Data
     @Expose private String surName;
@@ -67,11 +64,10 @@ public class Employee extends Entity {
     @Expose private EmployeeSkillLevel skillLevel;
     @Expose private Vector2 position;
     @Expose private ArrayList<Skill> skillSet;
-    @Expose private float elapsedTime = 0f;
+    private float elapsedTime = 0f;
     private MovementProvider movementProvider;
     @Expose private HairStyle hairStyle;
     @Expose private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
-
     @Expose private EmployeeState state;
 
     public Employee() {}
@@ -91,7 +87,7 @@ public class Employee extends Entity {
         this.skillLevel = level;
 
         //Skill points to spend. NOOB = 55, INTERMEDIATE = 65, PRO = 75, WIZARD = 85
-        //35 Points are spend by default (5 per Skill)
+        //35 Points are spent by default (5 per Skill)
         int skillPoints = 55 + skillLevel.ordinal() * 10;
         skillSet = new ArrayList<Skill>(7);
         for (SkillType type :
@@ -99,7 +95,8 @@ public class Employee extends Entity {
             skillSet.add(new Skill(type, 5));
             skillPoints -= 5;
         }
-
+        //RandomIntPool chooses a number randomly from a set of predefined numbers.
+        //Used numbers can either be removed or left in the set.
         RandomIntPool pool = new RandomIntPool(new FromTo(0, skillSet.size() - 1));
 
         while (skillPoints > 0){

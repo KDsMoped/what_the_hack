@@ -24,6 +24,7 @@ public class Assets {
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
+    public TextureAtlas character_atlas;
 
     public Array<TextureRegion> default_character_shadow;
     public Array<TextureRegion> default_character_legs;
@@ -42,6 +43,7 @@ public class Assets {
 
         manager.load("img/Game_Assets.atlas", TextureAtlas.class);
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
+        manager.load("img/Character_Assets.atlas", TextureAtlas.class);
 
         manager.load("sounds/dummy_button.wav", Sound.class);
 
@@ -56,6 +58,7 @@ public class Assets {
 
         atlas = manager.get("img/Game_Assets.atlas");
         ui_atlas = manager.get("img/UI_Assets.atlas");
+        character_atlas = manager.get("img/Character_Assets.atlas");
 
         buttonSound = manager.get("sounds/dummy_button.wav");
 
