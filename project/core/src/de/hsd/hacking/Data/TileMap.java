@@ -18,7 +18,6 @@ import de.hsd.hacking.Utils.RandomIntPool;
  * Holds all tiles in game and manages tile-movement through A* Pathfinder
  * Created by Cuddl3s on 24.05.2017.
  */
-
 public class TileMap extends Group implements TileMovementProvider  {
 
     private TilePathFinder pathFinder;
@@ -35,7 +34,6 @@ public class TileMap extends Group implements TileMovementProvider  {
         }
         this.pathFinder = new TilePathFinder(this);
     }
-
 
 
     @Override
@@ -58,6 +56,7 @@ public class TileMap extends Group implements TileMovementProvider  {
         }
         return null;
     }
+
     @Override
     public Path getPathToTile(Tile startTile, Tile destinationTile){
         int sTileNumber = startTile.getTileNumber();
@@ -108,6 +107,12 @@ public class TileMap extends Group implements TileMovementProvider  {
 
     }
 
+    /**
+     * Places an object at the specified tile
+     * @param entity object entity
+     * @param tileNumber number of the tile to place object on (= x * tiles.length + y)
+     * @return whether placement was successfull
+     */
     public boolean placeObjectEntity(Entity entity, int tileNumber){
         //TODO Check ob entity auch wirklich object ist
         int x = tileNumber / tiles.length;
@@ -119,6 +124,10 @@ public class TileMap extends Group implements TileMovementProvider  {
         return false;
     }
 
+    /**
+     * Removes the specified employee from his current tile
+     * @param employee
+     */
     private void removeEmployee(Employee employee){
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles.length; j++) {
@@ -129,6 +138,11 @@ public class TileMap extends Group implements TileMovementProvider  {
             }
         }
     }
+
+    /**
+     * Removes the specified object from its current tile
+     * @param object
+     */
     private void removeObject(Entity object){
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles.length; j++) {
@@ -169,6 +183,10 @@ public class TileMap extends Group implements TileMovementProvider  {
         return tiles;
     }
 
+    /**
+     * Returns a tile that currently has no object or employee on it
+     * @return tile
+     */
     public Tile getFreeTile() {
         ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
         for (int i = 0; i < tiles.length; i++) {
