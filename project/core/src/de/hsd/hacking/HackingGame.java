@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 
 public class HackingGame extends Game {
@@ -18,6 +20,8 @@ public class HackingGame extends Game {
 		assets = new Assets();
 		assets.load();
 
+        SaveGameManager.LoadGame();
+
 		ScreenManager.initialize(this);
 		ScreenManager.setMenuScreen();
 	}
@@ -26,4 +30,14 @@ public class HackingGame extends Game {
 		return assets;
 	}
 
+    public void pause () {
+        SaveGameManager.SaveGame();
+    }
+
+    public void resume () {
+        SaveGameManager.LoadGame();
+    }
+
+    public void dispose () {
+    }
 }

@@ -11,7 +11,19 @@ import de.hsd.hacking.Utils.Constants;
  */
 
 public final class SaveGameManager {
-    public boolean SaveObject(Object obj) {
+    public static Object LoadGame() {
+        Object obj = null;
+
+        return obj;
+    }
+
+    public static boolean SaveGame() {
+        boolean success = false;
+
+        return success;
+    }
+
+    private static boolean SaveObject(Object obj) {
         boolean success = false;
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -30,7 +42,7 @@ public final class SaveGameManager {
         return success;
     }
 
-    public Object LoadObject(String className) {
+    private static Object LoadObject(String className) {
         Object obj = null;
 
         Gson gson = new Gson();
@@ -50,7 +62,7 @@ public final class SaveGameManager {
         return obj;
     }
 
-    private Class TryGetClassFromString(String className) {
+    private static Class TryGetClassFromString(String className) {
         Class c = null;
 
         try {
