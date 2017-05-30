@@ -41,6 +41,7 @@ public class Assets {
 
     public void load(){
 
+        //manager.load queued assets zum Laden. Das Laden muss aber noch manuell angestoßen werden. Der String Pfad ist später der Key um die Ressource per "manager.get("path")" zu erhalten
         manager.load("img/Game_Assets.atlas", TextureAtlas.class);
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
         manager.load("img/Character_Assets.atlas", TextureAtlas.class);

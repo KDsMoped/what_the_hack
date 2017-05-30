@@ -39,5 +39,6 @@ public class HackingGame extends Game {
     }
 
     public void dispose () {
+		assets.dispose();
     }
 }
