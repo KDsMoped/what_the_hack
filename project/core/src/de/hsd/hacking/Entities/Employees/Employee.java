@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
-import com.google.gson.*;
 import com.google.gson.annotations.*;
 
 import java.util.ArrayList;
@@ -131,18 +130,6 @@ public class Employee extends Entity {
     }
     public AnimState getAnimationState() {
         return animationState;
-    }
-
-    // We need hair, eye, skin, shirt, trousers, shoes
-    // hair can be replaced completely
-    public String serialize() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
-        Gson gson = gsonBuilder.create();
-
-        String json = gson.toJson(this);
-
-        return json;
     }
 
     public void setAnimationState(AnimState animationState) {
