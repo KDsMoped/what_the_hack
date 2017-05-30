@@ -13,11 +13,14 @@ import com.google.gson.*;
 import com.google.gson.annotations.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.MovementProvider;
+import de.hsd.hacking.Data.TileMovementProvider;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.FromTo;
 import de.hsd.hacking.Utils.RandomIntPool;
 
@@ -25,15 +28,13 @@ import de.hsd.hacking.Utils.RandomIntPool;
  * Created by Cuddl3s on 21.05.2017.
  */
 
-public class Employee extends Entity {
+public class Employee extends Entity implements Comparable<Employee> {
+
     private final int SHADOW = 0;
     private final int LEGS = 1;
     private final int BODY = 2;
     private final int HEAD = 3;
     private final int HAIR = 4;
-
-
-
 
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
@@ -62,22 +63,25 @@ public class Employee extends Entity {
     @Expose private String lastName;
     @Expose private String description; // ? Needed ?
     @Expose private EmployeeSkillLevel skillLevel;
-    @Expose private Vector2 position;
     @Expose private ArrayList<Skill> skillSet;
     private float elapsedTime = 0f;
-    private MovementProvider movementProvider;
+    private TileMovementProvider movementProvider;
     @Expose private HairStyle hairStyle;
     @Expose private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
     @Expose private EmployeeState state;
 
-    public Employee() {}
+
+
+    public Employee() {
+        super(null, false);
+    }
 
     /**
      * Creates a new random employee
      * @param level The desired skill Level
      */
-    public Employee(Assets assets, EmployeeSkillLevel level, MovementProvider movementProvider){
-
+    public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage){
+        super(stage, false);
         this.assets = assets;
 
         //Create random name
@@ -123,7 +127,7 @@ public class Employee extends Entity {
     public Vector2 getPosition() {
         return position;
     }
-    public MovementProvider getMovementProvider() {
+    public TileMovementProvider getMovementProvider() {
         return movementProvider;
     }
     public AnimState getAnimationState() {
@@ -157,8 +161,6 @@ public class Employee extends Entity {
             batch.draw(frame, flipped ? this.position.x + frame.getRegionWidth() : this.position.x, this.position.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
         }
         assets.gold_font_small.draw(batch, getName(), position.x - 30f, position.y + 70f, 92f, Align.center, false);
-
-        super.draw(batch, parentAlpha);
 
     }
 
@@ -211,6 +213,18 @@ public class Employee extends Entity {
         animations[AnimState.IDLE.ordinal()][BODY] = new Animation(.5f, assets.default_character_body.get(2), assets.default_character_body.get(3));
         animations[AnimState.IDLE.ordinal()][HEAD] = new Animation(.5f, assets.default_character_head.get(2), assets.default_character_head.get(3));
         animations[AnimState.IDLE.ordinal()][HAIR] = new Animation(.5f, assets.default_character_hair.get(2), assets.default_character_hair.get(3));
+
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        if (o.getPosition().y > position.y){
+            return 1;
+        }else if(o.getPosition().y == position.y){
+            return 0;
+        }else{
+            return -1;
+        }
 
     }
 

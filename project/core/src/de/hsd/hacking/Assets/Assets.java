@@ -71,11 +71,11 @@ public class Assets {
         default_character_legs = new Array<TextureRegion>(4);
         default_character_hair = new Array<TextureRegion>(4);
         default_character_shadow = new Array<TextureRegion>(4);
-        default_character_body.addAll(atlas.findRegions("character/Body"));
-        default_character_shadow.addAll(atlas.findRegions("character/Shadow"));
-        default_character_legs.addAll(atlas.findRegions("character/Legs"));
-        default_character_hair.addAll(atlas.findRegions("character/Hair"));
-        default_character_head.addAll(atlas.findRegions("character/Head"));
+        default_character_body.addAll(character_atlas.findRegions("Body"));
+        default_character_shadow.addAll(character_atlas.findRegions("Shadow"));
+        default_character_legs.addAll(character_atlas.findRegions("Legs"));
+        default_character_hair.addAll(character_atlas.findRegions("Hair"));
+        default_character_head.addAll(character_atlas.findRegions("Head"));
 
 
     }

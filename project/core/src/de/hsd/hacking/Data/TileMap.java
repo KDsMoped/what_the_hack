@@ -2,6 +2,7 @@ package de.hsd.hacking.Data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 import java.util.ArrayList;
 
@@ -14,68 +15,125 @@ import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomIntPool;
 
 /**
+ * Holds all tiles in game and manages tile-movement through A* Pathfinder
  * Created by Cuddl3s on 24.05.2017.
  */
 
-public class TileMap implements MovementProvider {
+public class TileMap extends Group implements TileMovementProvider  {
 
-    private Tile[][] tilePositions;
+    private TilePathFinder pathFinder;
+    private Tile[][] tiles;
 
 
     public TileMap(){
-        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 50f));
-        tilePositions = manager.generateTiles(20f, 5);
+        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 55f));
+        tiles = manager.generateTiles(Constants.TILE_WIDTH, 5);
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
+                addActor(tiles[i][j]);
+            }
+        }
+        this.pathFinder = new TilePathFinder(this);
     }
 
+
+
     @Override
-    public Vector2 getNextMovetoPoint(Employee employee) {
-        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tilePositions.length * tilePositions.length);
-        for (int i = 0; i < tilePositions.length; i++) {
-            for (int j = 0; j < tilePositions[i].length; j++) {
-                if (tilePositions[i][j].isEmpty()){
-                    possiblePositions.add(tilePositions.length * i + j);
+    public Tile getNextTile() {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].isMovableTo()){
+                    possiblePositions.add(tiles.length * i + j);
                 }
             }
         }
-        Integer[] a = new Integer[1];
-        RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
-        int newTile = pool.getRandomNumber();
-        int x = newTile / tilePositions.length;
-        int y = newTile % tilePositions.length;
-        removeEntity(employee);
-        tilePositions[x][y].setEntity(employee);
-
-
-        Gdx.app.log(Constants.TAG, toString());
-        return tilePositions[x][y].getMiddlePosition();
+        if (possiblePositions.size() > 0) {
+            Integer[] a = new Integer[1];
+            RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
+            int newTile = pool.getRandomNumber();
+            int x = newTile / tiles.length;
+            int y = newTile % tiles.length;
+            return tiles[x][y];
+        }
+        return null;
+    }
+    @Override
+    public Path getPathToTile(Tile startTile, Tile destinationTile){
+        int sTileNumber = startTile.getTileNumber();
+        int dTileNumber = destinationTile.getTileNumber();
+        int sx = sTileNumber / getWidthInTiles();
+        int sy = sTileNumber % getHeightInTiles();
+        int tx = dTileNumber / getWidthInTiles();
+        int ty = dTileNumber % getHeightInTiles();
+        return pathFinder.findPath(sx, sy, tx, ty);
     }
 
-
-
     @Override
-    public Vector2 getStartPosition(Employee employee) {
-        for (int i = 0; i < entityPositions.length; i++) {
-            if(entityPositions[i] == null){
-                entityPositions[i] = employee;
-                return tilePositions[i].cpy();
+    public Tile getTile(Vector2 position) {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if(tiles[i][j].isInTile(position)){
+                    return tiles[i][j];
+                }
             }
         }
         return null;
     }
 
-    public boolean placeEntity(Entity entity, int tile){
-        if (entityPositions[tile] == null){
-            entityPositions[tile] = entity;
+
+    @Override
+    public Vector2 getStartPosition(Employee employee) {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].isMovableTo()){
+                    possiblePositions.add(tiles.length * i + j);
+                }
+            }
+        }
+        if (possiblePositions.size() > 0){
+            Integer[] a = new Integer[1];
+            RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
+            int newTile = pool.getRandomNumber();
+            int x = newTile / tiles.length;
+            int y = newTile % tiles.length;
+            tiles[x][y].setEmployee(employee);
+
+
+            Gdx.app.log(Constants.TAG, toString());
+            return tiles[x][y].getPosition().cpy();
+        }
+        return null;
+
+    }
+
+    public boolean placeObjectEntity(Entity entity, int tileNumber){
+        //TODO Check ob entity auch wirklich object ist
+        int x = tileNumber / tiles.length;
+        int y = tileNumber % tiles.length;
+        if (tiles[x][y].hasNoObject()){
+            tiles[x][y].setObject(entity);
             return true;
         }
         return false;
     }
 
-    private void removeEntity(Entity entity){
-        for (int i = 0; i < tilePositions.length; i++) {
-            for (int j = 0; j < tilePositions.length; j++) {
-                if (tilePositions[i][j].getEntity().equals(entity)){
-                    tilePositions[i][j].setEntity(null);
+    private void removeEmployee(Employee employee){
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
+                if (tiles[i][j].getEmployee().equals(employee)){
+                    tiles[i][j].setEmployee(null);
+                    return;
+                }
+            }
+        }
+    }
+    private void removeObject(Entity object){
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
+                if (tiles[i][j].getObject().equals(object)){
+                    tiles[i][j].setObject(null);
                     return;
                 }
             }
@@ -85,14 +143,80 @@ public class TileMap implements MovementProvider {
     @Override
     public String toString() {
         String string = "TileMap: ";
-        for (int i = 0; i < entityPositions.length; i++) {
-            if (entityPositions[i] != null){
-                string += "Tile " + i + ": [ " + entityPositions[i].getName() + " ]. ";
-            }else{
-                string += "Tile " + i + ": [ ]";
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
+                int tileNumber = i * tiles.length + j;
+                if (!tiles[i][j].isMovableTo()){
+                    string += "Tile " + tileNumber + ": [ " + tiles[i][j].getName() + " ]. ";
+                }else{
+                    string += "Tile " + tileNumber + ": [ ]";
+                }
             }
-
         }
         return string;
+    }
+
+
+    public int getWidthInTiles() {
+        return tiles.length;
+    }
+
+    public int getHeightInTiles() {
+        return tiles[0].length;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
+    public Tile getFreeTile() {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].hasNoObject() && tiles[i][j].isMovableTo()){
+                    possiblePositions.add(tiles.length * i + j);
+                }
+            }
+        }
+        if (possiblePositions.size() > 0) {
+            Integer[] a = new Integer[1];
+            RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
+            int newTile = pool.getRandomNumber();
+            int x = newTile / tiles.length;
+            int y = newTile % tiles.length;
+            return tiles[x][y];
+        }
+        return null;
+    }
+
+
+    /**
+     * Returns a random tile's position (Not needed for current implementation)
+     * @param employee the employee to assign to the
+     * @return
+     */
+    @Override
+    public Vector2 getNextMovetoPoint(Employee employee) {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].isMovableTo()){
+                    possiblePositions.add(tiles.length * i + j);
+                }
+            }
+        }
+        if (possiblePositions.size() > 0) {
+            Integer[] a = new Integer[1];
+            RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
+            int newTile = pool.getRandomNumber();
+            int x = newTile / tiles.length;
+            int y = newTile % tiles.length;
+            removeEmployee(employee);
+            tiles[x][y].setEmployee(employee);
+
+            Gdx.app.log(Constants.TAG, toString());
+            return tiles[x][y].getPosition();
+        }
+        return null;
     }
 }
