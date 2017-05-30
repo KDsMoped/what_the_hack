@@ -42,8 +42,6 @@ public class GameStage extends Stage {
             employees.addActor(e);
             employeeCount--;
         }
-
-
     }
 
 
