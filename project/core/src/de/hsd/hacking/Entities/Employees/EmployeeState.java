@@ -17,8 +17,15 @@ public abstract class EmployeeState{
 
     abstract EmployeeState act(float deltaTime);
 
+    /**
+     * Gets called when an EmployeeState becomes active
+     */
     public void enter(){
         employee.resetElapsedTime();
     }
+
+    /**
+     * Gets called when an EmployeeState stops being active
+     */
     abstract void leave();
 }

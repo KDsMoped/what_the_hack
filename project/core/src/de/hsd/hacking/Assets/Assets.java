@@ -24,6 +24,7 @@ public class Assets {
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
+    public TextureAtlas character_atlas;
 
     public Array<TextureRegion> default_character_shadow;
     public Array<TextureRegion> default_character_legs;
@@ -40,8 +41,10 @@ public class Assets {
 
     public void load(){
 
+        //manager.load queued assets zum Laden. Das Laden muss aber noch manuell angestoßen werden. Der String Pfad ist später der Key um die Ressource per "manager.get("path")" zu erhalten
         manager.load("img/Game_Assets.atlas", TextureAtlas.class);
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
+        manager.load("img/Character_Assets.atlas", TextureAtlas.class);
 
         manager.load("sounds/dummy_button.wav", Sound.class);
 
@@ -56,6 +59,7 @@ public class Assets {
 
         atlas = manager.get("img/Game_Assets.atlas");
         ui_atlas = manager.get("img/UI_Assets.atlas");
+        character_atlas = manager.get("img/Character_Assets.atlas");
 
         buttonSound = manager.get("sounds/dummy_button.wav");
 
@@ -68,11 +72,11 @@ public class Assets {
         default_character_legs = new Array<TextureRegion>(4);
         default_character_hair = new Array<TextureRegion>(4);
         default_character_shadow = new Array<TextureRegion>(4);
-        default_character_body.addAll(atlas.findRegions("character/Body"));
-        default_character_shadow.addAll(atlas.findRegions("character/Shadow"));
-        default_character_legs.addAll(atlas.findRegions("character/Legs"));
-        default_character_hair.addAll(atlas.findRegions("character/Hair"));
-        default_character_head.addAll(atlas.findRegions("character/Head"));
+        default_character_body.addAll(character_atlas.findRegions("Body"));
+        default_character_shadow.addAll(character_atlas.findRegions("Shadow"));
+        default_character_legs.addAll(character_atlas.findRegions("Legs"));
+        default_character_hair.addAll(character_atlas.findRegions("Hair"));
+        default_character_head.addAll(character_atlas.findRegions("Head"));
 
 
     }

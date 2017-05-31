@@ -10,4 +10,6 @@ public class Constants {
 
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 512;
+
+    public static final float TILE_WIDTH = 50f;
 }

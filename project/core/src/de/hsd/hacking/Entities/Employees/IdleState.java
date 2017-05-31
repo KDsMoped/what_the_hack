@@ -2,9 +2,7 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 
-import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -14,7 +12,6 @@ import de.hsd.hacking.Utils.Constants;
 public class IdleState extends EmployeeState {
 
     private float elapsedTime = 0f;
-    private boolean moving;
     private float stayTime;
 
     public IdleState(Employee employee){

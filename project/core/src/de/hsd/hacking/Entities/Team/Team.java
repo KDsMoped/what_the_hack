@@ -3,12 +3,14 @@ package de.hsd.hacking.Entities.Team;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Data.MovementProvider;
+import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Equipment.Equipment;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import de.hsd.hacking.Stages.GameStage;
 
 /**
  * Created by domin on 30.05.2017.
@@ -52,9 +54,9 @@ public class Team {
     /* Creates a new Employee object and adds it to the team.
      * Returns: 0 for success, 1 when employeeCount exceeds maxEmployeeCount
      */
-    public int createAndAddEmployee(Assets assets, Employee.EmployeeSkillLevel skillLevel, MovementProvider movementProvider) {
+    public int createAndAddEmployee(Assets assets, Employee.EmployeeSkillLevel skillLevel, TileMap tileMap) {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
-        Employee e = new Employee(assets, skillLevel, movementProvider);
+        Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)gameStage);
         listOfEmployees.add(e);
         employees.addActor(e);
         return 0;
@@ -73,6 +75,14 @@ public class Team {
     /* Returns the Employee object associated with the given index.
      */
     public Employee getEmployee(int index) { return listOfEmployees.get(index); }
+
+    /* Returns the Group of Employees.
+     */
+    public Group getEmployeeGroup() { return employees; }
+
+    /* Returns the List of Employees.
+     */
+    public ArrayList<Employee> getEmployeeList() { return listOfEmployees; }
 
     /* Removes the associated Employee object from the Team.
      */
