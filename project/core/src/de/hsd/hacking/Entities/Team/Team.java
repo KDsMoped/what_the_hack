@@ -26,7 +26,7 @@ public class Team {
 
     /* Resources */
     private int resource_Money;
-    private int resource_Bandwith;
+    private int resource_Bandwidth;
     private int resource_ComputationPower;
 
     /*
@@ -45,6 +45,7 @@ public class Team {
      */
     public void setTeamName(String newTeamName) { teamName = newTeamName; }
     public String getTeamName() { return teamName; }
+
 
     // Employee Management
 
@@ -105,5 +106,53 @@ public class Team {
 
     // Resources Management
 
+    /* Sets the bandwidth to the given value.
+     */
+    public void setMoney(int value) { resource_Money = value; }
 
+    /* Returns the current money.
+     */
+    public int getMoney() { return resource_Money; }
+
+    /* Raise the money by the given value.
+     */
+    public void addMoney(int value) { resource_Money += value; }
+
+    /* Reduce the money by the given value.
+     */
+    public void reduceMoney(int value) { resource_Money -= value; }
+
+
+    /* Sets the bandwidth to the given value.
+     */
+    public void setBandwith(int value) { resource_Bandwidth = value; }
+
+    /* Returns the current bandwidth.
+     */
+    public int getBandwith() { return resource_Bandwidth; }
+
+    /* Raise the bandwidth by the given value.
+     */
+    public void addBandwidth(int value) { resource_Bandwidth += value; }
+
+    /* Reduce the bandwidth by the given value.
+     */
+    public void reduceBandwith(int value) { resource_Bandwidth -= value; }
+
+    
+    /* Sets the computation power to the given value.
+     */
+    public void setComputationPower(int value) { resource_ComputationPower = value; }
+
+    /* Returns the current computation power
+     */
+    public int getComputationPower() { return resource_ComputationPower; }
+
+    /* Raise the computation power by the given value.
+     */
+    public void addComputationPower(int value) { resource_ComputationPower += value; }
+
+    /* Reduce the computation power by the given value.
+     */
+    public void reduceComputationPower(int value) { resource_ComputationPower -= value; }
 }
