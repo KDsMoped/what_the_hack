@@ -35,7 +35,7 @@ public class HackingGame extends Game {
     }
 
     public void resume () {
-        SaveGameManager.LoadGame();
+        
     }
 
     public void dispose () {

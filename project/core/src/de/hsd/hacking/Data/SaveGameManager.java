@@ -11,12 +11,15 @@ import de.hsd.hacking.Utils.Constants;
  */
 
 public final class SaveGameManager {
+
+    // TBD
     public static Object LoadGame() {
         Object obj = null;
 
         return obj;
     }
 
+    // TBD
     public static boolean SaveGame() {
         boolean success = false;
 
@@ -26,12 +29,14 @@ public final class SaveGameManager {
     private static boolean SaveObject(Object obj) {
         boolean success = false;
 
+        // We only want to serialize exposed members
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         Gson gson = gsonBuilder.create();
 
         String json = gson.toJson(obj);
 
+        // Save file in the apps local storage
         if (json != null && json.equals("")) {
             FileHandle file = Gdx.files.local(obj.getClass().getName());
             file.writeString(json, false);
@@ -46,17 +51,22 @@ public final class SaveGameManager {
         Object obj = null;
 
         Gson gson = new Gson();
-        FileHandle file = Gdx.files.local(className);
 
-        String json = file.readString();
+        // Check weather file exists
+        if (Gdx.files.local(className).exists()) {
+            FileHandle file = Gdx.files.local(className);
 
-        Class c = TryGetClassFromString(className);
+            String json = file.readString();
 
-        if (c != null) {
-            obj = gson.fromJson(json, c);
-        }
-        else {
-            // Error Handling?
+            Class c = TryGetClassFromString(className);
+
+            if (c != null) {
+                // deserialize
+                obj = gson.fromJson(json, c);
+            }
+            else {
+                // TBD: UI Error Handling
+            }
         }
 
         return obj;
@@ -66,6 +76,7 @@ public final class SaveGameManager {
         Class c = null;
 
         try {
+            // Find Class for given class name
             c = Class.forName(className);
         }
         catch (Exception e) {
