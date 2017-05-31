@@ -39,7 +39,7 @@ public class GameStage extends Stage {
         Team team = new Team(this);
 
         while (0 == 0) {
-            int ret = team.addEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider);
+            int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider);
             if (ret != 0) { break; }
         }
     }
