@@ -14,6 +14,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Team.Team;
 
 /**
  * Created by Cuddl3s on 24.05.2017.
@@ -23,7 +24,6 @@ public class GameStage extends Stage {
 
     public static final float VIEWPORT_WIDTH = 512f;
     public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
-    private int employeeCount = 3;
 
     private Assets assets;
     private TileMap tileMovementProvider;
@@ -35,12 +35,12 @@ public class GameStage extends Stage {
         this.assets = assets;
         this.debugBGRenderer = new ShapeRenderer();
         this.tileMovementProvider = new TileMap();
-        Group employees = new Group();
-        addActor(employees);
-        while(employeeCount > 0){
-            Employee e = new Employee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider);
-            employees.addActor(e);
-            employeeCount--;
+
+        Team team = new Team(this);
+
+        while (0 == 0) {
+            int ret = team.addEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMovementProvider);
+            if (ret != 0) { break; }
         }
     }
 
