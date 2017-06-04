@@ -1,11 +1,15 @@
 package de.hsd.hacking.Entities.Employees;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
@@ -15,25 +19,31 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMovementProvider;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.FromTo;
 import de.hsd.hacking.Utils.RandomIntPool;
+import de.hsd.hacking.Utils.Shader;
 
 /**
  * Created by Cuddl3s on 21.05.2017.
  */
 
-public class Employee extends Entity implements Comparable<Employee> {
+public class Employee extends Entity implements Comparable<Employee>, Touchable {
 
-    private final int SHADOW = 0;
-    private final int LEGS = 1;
-    private final int BODY = 2;
-    private final int HEAD = 3;
-    private final int HAIR = 4;
+    private ShapeRenderer debugRenderer;
+
+    private final int BODY = 0;
+    private final int HAIR = 1;
+    private boolean touched;
+    private int touchTintFrames = 0;
+
 
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
@@ -54,6 +64,7 @@ public class Employee extends Entity implements Comparable<Employee> {
     enum AnimState{
         IDLE, MOVING
     }
+    private ShaderProgram shader;
     private AnimState animationState;
     private boolean flipped;
 
@@ -68,6 +79,7 @@ public class Employee extends Entity implements Comparable<Employee> {
     @Expose private HairStyle hairStyle;
     @Expose private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
     @Expose private EmployeeState state;
+    private Rectangle bounds;
 
 
 
@@ -118,6 +130,22 @@ public class Employee extends Entity implements Comparable<Employee> {
         this.state = new IdleState(this);
         //Graphics
         setUpAnimations();
+        setUpShader();
+        this.bounds = new Rectangle(position.x + 5f, position.y + 5f, 22f, 45f); //values measured from sprite
+        debugRenderer = new ShapeRenderer();
+
+    }
+
+    private void setUpShader() {
+        String vertexShader = Shader.vertexShader;
+        String fragmentShader = Shader.getFragmentShader(
+                Color.valueOf(ColorHolder.HairColors.get(MathUtils.random(ColorHolder.HairColors.size() - 1))),
+                Color.valueOf(ColorHolder.SkinColors.get(MathUtils.random(ColorHolder.SkinColors.size() - 1))),
+                Color.valueOf(ColorHolder.ShirtColors.get(MathUtils.random(ColorHolder.ShirtColors.size() - 1))),
+                Color.valueOf(ColorHolder.TrouserColors.get(MathUtils.random(ColorHolder.TrouserColors.size() - 1))),
+                Color.valueOf(ColorHolder.EyesColors.get(MathUtils.random(ColorHolder.EyesColors.size() - 1))),
+                Color.valueOf(ColorHolder.ShoesColors.get(MathUtils.random(ColorHolder.ShoesColors.size() - 1))));
+        this.shader = new ShaderProgram(vertexShader, fragmentShader);
     }
 
 
@@ -143,9 +171,27 @@ public class Employee extends Entity implements Comparable<Employee> {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        for (int i = 0; i < 5; i++) {
+        batch.setShader(shader);
+        if (touchTintFrames > 0){
+            batch.setColor(Color.RED);
+        }
+        for (int i = 0; i < 2; i++) {
             TextureRegion frame = animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
             batch.draw(frame, flipped ? this.position.x + frame.getRegionWidth() : this.position.x, this.position.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+        }
+        batch.setShader(null);
+        if (touchTintFrames > 0){
+            batch.setColor(Color.WHITE);
+        }
+        if (Constants.DEBUG){
+            batch.end();
+            debugRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+            debugRenderer.setTransformMatrix(batch.getTransformMatrix());
+            debugRenderer.setColor(Color.GREEN);
+            debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+            debugRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+            debugRenderer.end();
+            batch.begin();
         }
         assets.gold_font_small.draw(batch, getName(), position.x - 30f, position.y + 70f, 92f, Align.center, false);
 
@@ -155,6 +201,9 @@ public class Employee extends Entity implements Comparable<Employee> {
     public void act(float delta) {
         super.act(delta);
         elapsedTime += delta;
+        if (touchTintFrames > 0){
+            touchTintFrames--;
+        }
         EmployeeState state = this.state.act(delta);
         if (state != null){
             this.state.leave();
@@ -166,6 +215,11 @@ public class Employee extends Entity implements Comparable<Employee> {
     @Override
     public String toString(){
         return "Employee: " + surName + " " + lastName + ". Skilllevel: " + this.skillLevel.name() + ". Skills: " + skillSetToString();
+    }
+
+    public void setPosition(Vector2 position){
+        this.position.set(position);
+        this.bounds.setPosition(position.cpy().add(5f, 5f));
     }
 
     private String skillSetToString(){
@@ -187,21 +241,36 @@ public class Employee extends Entity implements Comparable<Employee> {
     }
 
     private void setUpAnimations() {
-        this.animations = new Animation[AnimState.values().length][5];
+        this.animations = new Animation[AnimState.values().length][2];
+        boolean hair1 = MathUtils.randomBoolean();
+        animations[AnimState.MOVING.ordinal()][BODY] = new Animation(.5f, assets.gray_character_body.get(0), assets.gray_character_body.get(1));
+        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation(.5f, hair1 ? assets.hair_01.get(0) : assets.hair_02.get(0), hair1 ? assets.hair_01.get(1) : assets.hair_02.get(1));
 
-        animations[AnimState.MOVING.ordinal()][SHADOW] = new Animation(.5f, assets.default_character_shadow.get(0), assets.default_character_shadow.get(1));
-        animations[AnimState.MOVING.ordinal()][LEGS] = new Animation(.5f, assets.default_character_legs.get(0), assets.default_character_legs.get(1));
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation(.5f, assets.default_character_body.get(0), assets.default_character_body.get(1));
-        animations[AnimState.MOVING.ordinal()][HEAD] = new Animation(.5f, assets.default_character_head.get(0), assets.default_character_head.get(1));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation(.5f, assets.default_character_hair.get(0), assets.default_character_hair.get(1));
-
-        animations[AnimState.IDLE.ordinal()][SHADOW] = new Animation(.5f, assets.default_character_shadow.get(2), assets.default_character_shadow.get(3));
-        animations[AnimState.IDLE.ordinal()][LEGS] = new Animation(.5f, assets.default_character_legs.get(2), assets.default_character_legs.get(3));
-        animations[AnimState.IDLE.ordinal()][BODY] = new Animation(.5f, assets.default_character_body.get(2), assets.default_character_body.get(3));
-        animations[AnimState.IDLE.ordinal()][HEAD] = new Animation(.5f, assets.default_character_head.get(2), assets.default_character_head.get(3));
-        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation(.5f, assets.default_character_hair.get(2), assets.default_character_hair.get(3));
+        animations[AnimState.IDLE.ordinal()][BODY] = new Animation(.5f, assets.gray_character_body.get(2), assets.gray_character_body.get(3));
+        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation(.5f, hair1 ? assets.hair_01.get(2) : assets.hair_02.get(2), hair1 ? assets.hair_01.get(3) : assets.hair_02.get(3));
 
     }
+
+    @Override
+    public void touchDown(Vector2 position) {
+        if (bounds.contains(position)){
+            touched = true;
+        }
+    }
+
+    @Override
+    public void touchUp(Vector2 position) {
+        if (bounds.contains(position) && touched){
+            touchTintFrames += 30;
+        }
+        touched = false;
+    }
+
+    @Override
+    public void touchDragged(Vector2 position) {
+
+    }
+
 
     @Override
     public int compareTo(Employee o) {

@@ -1,6 +1,8 @@
 package de.hsd.hacking.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by Cuddl3s on 30.05.2017.
@@ -60,19 +63,23 @@ public class Tile extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.end();
-        testRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        testRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        testRenderer.setTransformMatrix(batch.getTransformMatrix());
-        if (isMovableThrough()){
-            testRenderer.setColor(employee == null ? Color.RED : Color.GREEN);
-        }else{
-            testRenderer.setColor(Color.BLUE);
-        }
+        if (Constants.DEBUG){
+            batch.end();
+            testRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            testRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+            testRenderer.setTransformMatrix(batch.getTransformMatrix());
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            if (isMovableThrough()){
+                testRenderer.setColor(employee == null ? Color.RED.cpy().sub(0,0,0, .75f) : Color.GREEN.cpy().sub(0,0,0, .75f));
+            }else{
+                testRenderer.setColor(Color.BLUE.cpy().sub(0,0,0, .75f));
+            }
 
-        testRenderer.rect(position.x , position.y , bounds.width, bounds.height);
-        testRenderer.end();
-        batch.begin();
+            testRenderer.rect(position.x , position.y , bounds.width, bounds.height);
+            testRenderer.end();
+            batch.begin();
+        }
     }
 
     public Vector2 getPosition(){

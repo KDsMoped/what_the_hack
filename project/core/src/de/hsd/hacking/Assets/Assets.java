@@ -2,6 +2,7 @@ package de.hsd.hacking.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,16 +25,16 @@ public class Assets {
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
-    public TextureAtlas character_atlas;
+    private TextureAtlas character_atlas;
 
-    public Array<TextureRegion> default_character_shadow;
-    public Array<TextureRegion> default_character_legs;
-    public Array<TextureRegion> default_character_body;
-    public Array<TextureRegion> default_character_head;
-    public Array<TextureRegion> default_character_hair;
+    public TextureRegion room_bg;
+    public TextureRegion room_fg;
+
+    public Array<TextureRegion> gray_character_body;
+    public Array<TextureRegion> hair_01;
+    public Array<TextureRegion> hair_02;
 
     public Sound buttonSound;
-
 
     public Assets(){
         manager = new AssetManager();
@@ -67,16 +68,16 @@ public class Assets {
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
         header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
         //...//
-        default_character_body = new Array<TextureRegion>(4);
-        default_character_head = new Array<TextureRegion>(4);
-        default_character_legs = new Array<TextureRegion>(4);
-        default_character_hair = new Array<TextureRegion>(4);
-        default_character_shadow = new Array<TextureRegion>(4);
-        default_character_body.addAll(character_atlas.findRegions("Body"));
-        default_character_shadow.addAll(character_atlas.findRegions("Shadow"));
-        default_character_legs.addAll(character_atlas.findRegions("Legs"));
-        default_character_hair.addAll(character_atlas.findRegions("Hair"));
-        default_character_head.addAll(character_atlas.findRegions("Head"));
+
+        room_bg = atlas.findRegion("ambient/Room_Background");
+        room_fg = atlas.findRegion("ambient/Room_FrontWall");
+
+        gray_character_body = new Array<TextureRegion>();
+        hair_01 = new Array<TextureRegion>();
+        hair_02 = new Array<TextureRegion>();
+        gray_character_body.addAll(character_atlas.findRegions("Char"));
+        hair_01.addAll(character_atlas.findRegions("Hair01"));
+        hair_02.addAll(character_atlas.findRegions("Hair02"));
 
 
     }
@@ -87,6 +88,10 @@ public class Assets {
     }
 
     public void dispose(){
+        character_atlas.dispose();
+        ui_atlas.dispose();
+        atlas.dispose();
         manager.clear();
+
     }
 }

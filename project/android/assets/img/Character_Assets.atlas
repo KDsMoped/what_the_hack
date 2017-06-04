@@ -4,171 +4,108 @@ size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-Body
+Char
   rotate: false
   xy: 2, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 1
-Body
-  rotate: false
-  xy: 2, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 2
-Body
+Char
   rotate: false
   xy: 2, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 3
-Body
+Char
   rotate: false
   xy: 36, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
+  index: 2
+Char
+  rotate: false
+  xy: 70, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
   index: 4
-Full
-  rotate: false
-  xy: 70, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 1
-Full
-  rotate: false
-  xy: 70, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
-Full
+Char
   rotate: false
   xy: 104, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
-Full
+  index: 5
+Hair01
+  rotate: false
+  xy: 138, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 1
+Hair01
   rotate: false
   xy: 138, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 4
-Hair
+Hair01
   rotate: false
-  xy: 172, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 1
-Hair
-  rotate: false
-  xy: 172, 2
+  xy: 138, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 3
-Hair
+Hair01
   rotate: false
   xy: 172, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
-Hair
+  index: 2
+Hair01
   rotate: false
   xy: 206, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
-Head
+  index: 5
+Hair02
   rotate: false
   xy: 240, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 1
-Head
-  rotate: false
-  xy: 240, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
-Head
-  rotate: false
-  xy: 240, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 4
-Head
+Hair02
   rotate: false
   xy: 274, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 2
-Legs
-  rotate: false
-  xy: 308, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 1
-Legs
+Hair02
   rotate: false
   xy: 308, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 3
-Legs
+Hair02
   rotate: false
   xy: 308, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 4
-Legs
+Hair02
   rotate: false
   xy: 342, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
-Shadow
-  rotate: false
-  xy: 376, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 1
-Shadow
-  rotate: false
-  xy: 376, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
-Shadow
-  rotate: false
-  xy: 376, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 2
-Shadow
-  rotate: false
-  xy: 376, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 4
+  index: 5
