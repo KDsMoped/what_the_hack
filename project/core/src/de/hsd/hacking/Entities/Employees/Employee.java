@@ -193,7 +193,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.end();
             batch.begin();
         }
-        assets.gold_font_small.draw(batch, getName(), position.x - 30f, position.y + 70f, 92f, Align.center, false);
+        if(touchTintFrames > 0){
+            assets.gold_font_small.draw(batch, getName(), position.x - 30f, position.y + 70f, 92f, Align.center, false);
+        }
 
     }
 
@@ -261,7 +263,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void touchUp(Vector2 position) {
         if (bounds.contains(position) && touched){
-            touchTintFrames += 30;
+            touchTintFrames += 120;
         }
         touched = false;
     }
