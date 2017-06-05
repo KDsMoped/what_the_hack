@@ -18,6 +18,7 @@ import de.hsd.hacking.Entities.Object;
 import de.hsd.hacking.Entities.Team.Team;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -49,6 +50,7 @@ public class GameStage extends Stage {
         this.assets = assets;
         this.tileMap = new TileMap();
         addActor(this.tileMap);
+        addActor(new StatusBar(assets));
 
         team = new Team(this);
         this.touchables = new ArrayList<Touchable>(4);

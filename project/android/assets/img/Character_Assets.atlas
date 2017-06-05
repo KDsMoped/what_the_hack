@@ -87,14 +87,14 @@ Hair01
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3
 Hair01
   rotate: false
   xy: 104, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 3
+  index: 4
 Hair01
   rotate: false
   xy: 138, 68
