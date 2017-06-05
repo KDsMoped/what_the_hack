@@ -33,7 +33,7 @@ public abstract class Entity extends Actor {
     public abstract String getName();
 
     public Vector2 getPosition() {
-        return position;
+        return position.cpy();
     }
 
     public void setPosition(Vector2 position) {

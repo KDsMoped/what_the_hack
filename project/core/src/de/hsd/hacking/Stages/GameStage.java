@@ -44,6 +44,7 @@ public class GameStage extends Stage {
     
     public GameStage(Assets assets){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
+        Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
         this.checkVector = new Vector2();
         this.assets = assets;
         this.tileMap = new TileMap();
@@ -51,14 +52,6 @@ public class GameStage extends Stage {
 
         team = new Team(this);
         this.touchables = new ArrayList<Touchable>(4);
-
-        while (0 == 0) {
-            int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
-            if (ret != 0) { break; }
-        }
-        
-        this.touchables.addAll(team.getEmployeeList());
-        //CREATE WALLS TO TEST A* PATHFINDING
 
         tileMap.getTiles()[0][0].setObject(new Object(this, true));
         tileMap.getTiles()[0][1].setObject(new Object(this, true));
@@ -72,6 +65,16 @@ public class GameStage extends Stage {
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Object(this, true));
+
+        while (true) {
+            int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
+            if (ret != 0) { break; }
+        }
+        
+        this.touchables.addAll(team.getEmployeeList());
+        //CREATE WALLS TO TEST A* PATHFINDING
+
+
     }
 
 

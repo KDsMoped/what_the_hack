@@ -178,9 +178,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         if (touchTintFrames > 0){
             batch.setColor(Color.RED);
         }
+        Vector2 pixelPosition = clampToPixels(getPosition());
         for (int i = 0; i < 2; i++) {
             TextureRegion frame = animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
-            batch.draw(frame, flipped ? getPosition().x + frame.getRegionWidth() : getPosition().x, getPosition().y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+            batch.draw(frame, flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
         }
         batch.setShader(null);
         if (touchTintFrames > 0){
@@ -225,6 +226,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public void setPosition(Vector2 position){
         super.setPosition(position);
         this.bounds.setPosition(position.cpy().add(5f, 5f));
+    }
+
+    private Vector2 clampToPixels(Vector2 position) {
+        return position.set((int)position.x, (int)position.y);
     }
 
     private String skillSetToString(){

@@ -22,7 +22,7 @@ public class Team {
 
     private String teamName;
     private Stage gameStage;
-    private Group employees;
+//    private Group employees;
     ArrayList<Employee> listOfEmployees;
     ArrayList<Equipment> listOfEquipment;
 
@@ -36,8 +36,6 @@ public class Team {
      */
     public Team (Stage stage) {
         gameStage = stage;
-        employees = new Group();
-        gameStage.addActor(employees);
 
         listOfEmployees = new ArrayList<Employee>();
         listOfEquipment = new ArrayList<Equipment>();
@@ -58,7 +56,6 @@ public class Team {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
         Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)gameStage);
         listOfEmployees.add(e);
-        employees.addActor(e);
         return 0;
     }
 
@@ -68,7 +65,6 @@ public class Team {
     public int addEmployee(Employee e) {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
         listOfEmployees.add(e);
-        employees.addActor(e);
         return 0;
     }
 
@@ -78,7 +74,7 @@ public class Team {
 
     /* Returns the Group of Employees.
      */
-    public Group getEmployeeGroup() { return employees; }
+//    public Group getEmployeeGroup() { return employees; }
 
     /* Returns the List of Employees.
      */
@@ -89,14 +85,14 @@ public class Team {
     public void removeEmployeeByIndex(int index) {
         listOfEmployees.remove(index);
         Employee e = getEmployee(index);
-        employees.removeActor(e);
+//        employees.removeActor(e);
     }
 
     /* Removes the given Employee object from the Team.
      */
     public void removeEmployee(Employee e) {
         listOfEmployees.remove(e);
-        employees.removeActor(e);
+//        employees.removeActor(e);
     }
 
     /* Returns the current number of Employees in the Team.
