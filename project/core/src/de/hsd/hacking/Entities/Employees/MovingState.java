@@ -60,7 +60,7 @@ public class MovingState extends EmployeeState {
                 speed = MathUtils.clamp(speed, 10f, MAX_SPEED);
             }
 
-            employee.getPosition().add(destinationPos.cpy().sub(employee.getPosition()).nor().scl(speed).scl(deltaTime));
+            employee.setPosition(employee.getPosition().cpy().add(destinationPos.cpy().sub(employee.getPosition()).nor().scl(speed).scl(deltaTime)));
             return null;
         }else{
             if (path == null || path.isPathFinished()){

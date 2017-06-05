@@ -28,7 +28,7 @@ public class IsometricTileManager {
         Tile[][] tiles = new Tile[tileAmountPerSide][tileAmountPerSide];
         for (int x = 0; x < tileAmountPerSide; x++) {
             for (int y = 0; y < tileAmountPerSide; y++) {
-                Vector2 position = topMiddlePos.cpy().add((x-y) * (tileWidth / 2f), - ((x+y) * (tileWidth / 2f)));
+                Vector2 position = topMiddlePos.cpy().add((x-y) * (tileWidth / 2f), - ((x+y) * (tileWidth / 4f)));
                 tiles[x][y] = new Tile(position, x * tileAmountPerSide + y, tileWidth);
             }
         }

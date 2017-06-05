@@ -8,8 +8,12 @@ public class Constants {
 
     public static final String TAG = "HackingGame";
 
+    public static boolean DEBUG = false;
+
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 512;
 
-    public static final float TILE_WIDTH = 50f;
+    public static final float TILE_WIDTH = 32f;
+    public static final int TILES_PER_SIDE = 13;
+
 }

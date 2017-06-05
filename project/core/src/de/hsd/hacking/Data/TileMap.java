@@ -1,11 +1,13 @@
 package de.hsd.hacking.Data;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import java.util.ArrayList;
 
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.IsometricTileManager;
@@ -25,8 +27,8 @@ public class TileMap extends Group implements TileMovementProvider  {
 
 
     public TileMap(){
-        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 55f));
-        tiles = manager.generateTiles(Constants.TILE_WIDTH, 5);
+        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 75f));
+        tiles = manager.generateTiles(Constants.TILE_WIDTH, Constants.TILES_PER_SIDE);
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles.length; j++) {
                 addActor(tiles[i][j]);
@@ -35,6 +37,10 @@ public class TileMap extends Group implements TileMovementProvider  {
         this.pathFinder = new TilePathFinder(this);
     }
 
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+    }
 
     @Override
     public Tile getNextTile() {
