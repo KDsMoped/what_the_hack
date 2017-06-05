@@ -15,6 +15,8 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Object;
+import de.hsd.hacking.Entities.Team.Team;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Utils.Constants;
 
@@ -36,26 +38,26 @@ public class GameStage extends Stage {
 
     private Vector2 checkVector;
     private TileMap tileMap;
+    private Team team;
 
-    //TODO muss noch woanders hin gepackt werden.
-    private List<Employee> employees;
     private List<Touchable> touchables;
-
+    
     public GameStage(Assets assets){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
-        this.assets = assets;
         this.checkVector = new Vector2();
+        this.assets = assets;
         this.tileMap = new TileMap();
         addActor(this.tileMap);
 
-        this.employees = new ArrayList<Employee>(4);
+        team = new Team(this);
         this.touchables = new ArrayList<Touchable>(4);
 
-        while(employeeCount > 0){
-            employees.add(new Employee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap, this));
-            employeeCount--;
+        while (0 == 0) {
+            int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
+            if (ret != 0) { break; }
         }
-        this.touchables.addAll(employees);
+        
+        this.touchables.addAll(team.getEmployeeList());
         //CREATE WALLS TO TEST A* PATHFINDING
 
         tileMap.getTiles()[0][0].setObject(new Object(this, true));
@@ -70,12 +72,12 @@ public class GameStage extends Stage {
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Object(this, true));
-
     }
 
 
     @Override
     public void draw() {
+        ArrayList<Employee> employees = team.getEmployeeList();
         Collections.sort(employees);
         Batch batch = getBatch();
         batch.begin();
@@ -105,7 +107,7 @@ public class GameStage extends Stage {
         }
         super.act(delta);
         for (Employee em :
-                employees) {
+                team.getEmployeeList()) {
             em.act(delta);
         }
     }
