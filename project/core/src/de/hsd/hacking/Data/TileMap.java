@@ -27,7 +27,7 @@ public class TileMap extends Group implements TileMovementProvider  {
 
 
     public TileMap(){
-        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 75f));
+        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 105f));
         tiles = manager.generateTiles(Constants.TILE_WIDTH, Constants.TILES_PER_SIDE);
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles.length; j++) {

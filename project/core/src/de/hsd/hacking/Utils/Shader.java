@@ -32,7 +32,8 @@ public class Shader {
             "void main()                                  \n" +
             "{                                            \n" +
             "vec4 color = texture2D(u_texture, v_texCoords).rgba; \n" +
-            "vec4 newColor; \n" +
+            "vec4 newColor = color; \n" +
+            "if (color.a > 0.0){ \n" +
             "if (color.r == {{trousersold}} && color.g == {{trousersold}} && color.b == {{trousersold}}){ //trousers \n" +
             "newColor = vec4({{trousers}}, 1.0); \n" +
             "}else if (color.r == {{shirtold}} && color.g == {{shirtold}} && color.b == {{shirtold}}){ \n" +
@@ -50,8 +51,6 @@ public class Shader {
             "else if (color.r == {{eyeold}} && color.g == {{eyeold}} && color.b == {{eyeold}}){ \n" +
             "newColor = vec4({{eye}}, 1.0); \n" +
             "} \n" +
-            "else{ \n" +
-            "newColor = color; \n" +
             "} \n" +
             "  gl_FragColor = newColor * v_color;\n" +
             "}";

@@ -19,13 +19,14 @@ import de.hsd.hacking.Stages.GameStage;
 public abstract class Entity extends Actor {
 
     @Expose
-    protected Vector2 position;
+    private Vector2 position;
     private GameStage gameStage;
     private boolean blocking;
 
     public Entity(GameStage stage, boolean blocking){
         this.gameStage = stage;
         this.blocking = blocking;
+        this.position = new Vector2();
     }
 
     @Override
@@ -36,7 +37,7 @@ public abstract class Entity extends Actor {
     }
 
     public void setPosition(Vector2 position) {
-        this.position = position;
+        this.position.set(position);
     }
 
     public GameStage getGameStage() {

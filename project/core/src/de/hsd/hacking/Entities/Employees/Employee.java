@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.annotations.*;
 
 import java.util.ArrayList;
@@ -125,13 +126,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             }
         }
         this.movementProvider = movementProvider;
-        this.position = movementProvider.getStartPosition(this);
+        Vector2 startPos = movementProvider.getStartPosition(this);
+        this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
+        setPosition(startPos);
         this.animationState = AnimState.IDLE;
         this.state = new IdleState(this);
         //Graphics
         setUpAnimations();
         setUpShader();
-        this.bounds = new Rectangle(position.x + 5f, position.y + 5f, 22f, 45f); //values measured from sprite
+
         debugRenderer = new ShapeRenderer();
 
     }
@@ -146,14 +149,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
                 Color.valueOf(ColorHolder.EyesColors.get(MathUtils.random(ColorHolder.EyesColors.size() - 1))),
                 Color.valueOf(ColorHolder.ShoesColors.get(MathUtils.random(ColorHolder.ShoesColors.size() - 1))));
         this.shader = new ShaderProgram(vertexShader, fragmentShader);
+        if (!shader.isCompiled()){
+            throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
+        }
     }
 
 
     //GETTER & SETTER
 
-    public Vector2 getPosition() {
-        return position;
-    }
     public TileMovementProvider getMovementProvider() {
         return movementProvider;
     }
@@ -177,7 +180,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
         for (int i = 0; i < 2; i++) {
             TextureRegion frame = animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
-            batch.draw(frame, flipped ? this.position.x + frame.getRegionWidth() : this.position.x, this.position.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+            batch.draw(frame, flipped ? getPosition().x + frame.getRegionWidth() : getPosition().x, getPosition().y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
         }
         batch.setShader(null);
         if (touchTintFrames > 0){
@@ -194,7 +197,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             batch.begin();
         }
         if(touchTintFrames > 0){
-            assets.gold_font_small.draw(batch, getName(), position.x - 30f, position.y + 70f, 92f, Align.center, false);
+            assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
         }
 
     }
@@ -220,7 +223,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void setPosition(Vector2 position){
-        this.position.set(position);
+        super.setPosition(position);
         this.bounds.setPosition(position.cpy().add(5f, 5f));
     }
 
@@ -276,9 +279,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public int compareTo(Employee o) {
-        if (o.getPosition().y > position.y){
+        if (o.getPosition().y > getPosition().y){
             return 1;
-        }else if(o.getPosition().y == position.y){
+        }else if(o.getPosition().y == getPosition().y){
             return 0;
         }else{
             return -1;

@@ -27,6 +27,9 @@ public class GameStage extends Stage {
     private Assets assets;
     //Debug parameters
     private int employeeCount = 4;
+    private int frames = 0;
+    private int framesCount;
+    private float elapsedTime = 0f;
 
     public static final float VIEWPORT_WIDTH = 512f;
     public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
@@ -85,11 +88,21 @@ public class GameStage extends Stage {
             em.draw(batch, 1f);
         }
         batch.draw(assets.room_fg, 0, 0);
+        if (Constants.DEBUG){
+            assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
+        }
         batch.end();
     }
 
     @Override
     public void act(float delta) {
+        elapsedTime += delta;
+        framesCount++;
+        if (elapsedTime >= 1f){
+            elapsedTime = 0f;
+            frames = framesCount;
+            framesCount = 0;
+        }
         super.act(delta);
         for (Employee em :
                 employees) {
