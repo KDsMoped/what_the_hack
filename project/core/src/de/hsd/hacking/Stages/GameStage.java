@@ -2,7 +2,6 @@ package de.hsd.hacking.Stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -14,9 +13,11 @@ import java.util.List;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Object;
+import de.hsd.hacking.Entities.Objects.Desk;
+import de.hsd.hacking.Entities.Objects.Lamp;
+import de.hsd.hacking.Entities.Objects.Object;
+import de.hsd.hacking.Entities.Objects.Wall;
 import de.hsd.hacking.Entities.Team.Team;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Utils.Constants;
 
@@ -53,18 +54,20 @@ public class GameStage extends Stage {
         team = new Team(this);
         this.touchables = new ArrayList<Touchable>(4);
 
-        tileMap.getTiles()[0][0].setObject(new Object(this, true));
-        tileMap.getTiles()[0][1].setObject(new Object(this, true));
-        tileMap.getTiles()[0][2].setObject(new Object(this, true));
-        tileMap.getTiles()[1][0].setObject(new Object(this, true));
-        tileMap.getTiles()[2][0].setObject(new Object(this, true));
-        tileMap.getTiles()[1][1].setObject(new Object(this, true));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 2].setObject(new Object(this, true));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 3].setObject(new Object(this, true));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Object(this, true));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Object(this, true));
+        tileMap.getTiles()[0][0].setObject(new Wall());
+        tileMap.getTiles()[0][1].setObject(new Wall());
+        tileMap.getTiles()[0][2].setObject(new Wall());
+        tileMap.getTiles()[1][0].setObject(new Wall());
+        tileMap.getTiles()[2][0].setObject(new Wall());
+        tileMap.getTiles()[1][1].setObject(new Wall());
+        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
+        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
+        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 3].setObject(new Wall());
+        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
+        tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
+        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
+        tileMap.getTiles()[3][0].setObject(new Lamp(assets));
+        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(new Desk(assets, 2));
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);

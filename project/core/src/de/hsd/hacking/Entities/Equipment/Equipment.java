@@ -2,7 +2,7 @@ package de.hsd.hacking.Entities.Equipment;
 
 import com.badlogic.gdx.math.MathUtils;
 
-import de.hsd.hacking.Entities.Object;
+import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Stages.GameStage;
 
 /**
@@ -29,12 +29,11 @@ public abstract class Equipment extends Object {
     private String name;
     private float price;
 
-    public Equipment(GameStage stage,
-                     float price,
+    public Equipment(float price,
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
                      boolean blocking) {
-        super(stage, blocking);
+        super(blocking, true);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);

@@ -31,6 +31,7 @@ public class MenuStage extends Stage {
         this.assets = loadedAssets;
 
         Skin uiSkin = new Skin(assets.ui_atlas);
+        Skin test = new Skin();
 
 
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("Button_9_Patch_normal"), uiSkin.getDrawable("Button_9_Patch_pressed"),

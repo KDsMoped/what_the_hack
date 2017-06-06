@@ -20,11 +20,9 @@ public abstract class Entity extends Actor {
 
     @Expose
     private Vector2 position;
-    private GameStage gameStage;
     private boolean blocking;
 
-    public Entity(GameStage stage, boolean blocking){
-        this.gameStage = stage;
+    public Entity(boolean blocking){
         this.blocking = blocking;
         this.position = new Vector2();
     }
@@ -40,9 +38,6 @@ public abstract class Entity extends Actor {
         this.position.set(position);
     }
 
-    public GameStage getGameStage() {
-        return gameStage;
-    }
 
     public boolean isBlocking() {
         return blocking;

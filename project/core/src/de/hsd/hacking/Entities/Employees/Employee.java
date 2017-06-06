@@ -61,7 +61,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     //Graphics
     private Assets assets;
-    private Animation[][] animations;
+    private Animation<TextureRegion>[][] animations;
     enum AnimState{
         IDLE, MOVING
     }
@@ -85,7 +85,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
 
     public Employee() {
-        super(null, false);
+        super(false);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @param level The desired skill Level
      */
     public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage){
-        super(stage, false);
+        super(false);
         this.assets = assets;
 
         //Create random name
@@ -253,11 +253,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private void setUpAnimations() {
         this.animations = new Animation[AnimState.values().length][2];
         boolean hair1 = MathUtils.randomBoolean();
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation(.5f, assets.gray_character_body.get(0), assets.gray_character_body.get(1));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation(.5f, hair1 ? assets.hair_01.get(0) : assets.hair_02.get(0), hair1 ? assets.hair_01.get(1) : assets.hair_02.get(1));
+        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(0), assets.gray_character_body.get(1));
+        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hair1 ? assets.hair_01.get(0) : assets.hair_02.get(0), hair1 ? assets.hair_01.get(1) : assets.hair_02.get(1));
 
-        animations[AnimState.IDLE.ordinal()][BODY] = new Animation(.5f, assets.gray_character_body.get(2), assets.gray_character_body.get(3));
-        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation(.5f, hair1 ? assets.hair_01.get(2) : assets.hair_02.get(2), hair1 ? assets.hair_01.get(3) : assets.hair_02.get(3));
+        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(2), assets.gray_character_body.get(3));
+        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hair1 ? assets.hair_01.get(2) : assets.hair_02.get(2), hair1 ? assets.hair_01.get(3) : assets.hair_02.get(3));
 
     }
 

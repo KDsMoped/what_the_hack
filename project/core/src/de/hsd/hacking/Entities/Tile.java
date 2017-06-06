@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import java.util.List;
+
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 
@@ -23,6 +25,7 @@ public class Tile extends Actor {
     private int tileNumber;
     private Employee employee;
     private Entity object;
+    private List<Employee> passersBy;
     private Rectangle bounds;
 
     private ShapeRenderer testRenderer;
@@ -63,6 +66,7 @@ public class Tile extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+
         if (Constants.DEBUG){
             batch.end();
             testRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -79,6 +83,9 @@ public class Tile extends Actor {
             testRenderer.rect(position.x , position.y , bounds.width, bounds.height);
             testRenderer.end();
             batch.begin();
+        }
+        if (object != null){
+            object.draw(batch, parentAlpha);
         }
     }
 
@@ -100,5 +107,6 @@ public class Tile extends Actor {
 
     public void setObject(Entity object) {
         this.object = object;
+        this.object.setPosition(this.position.cpy());
     }
 }
