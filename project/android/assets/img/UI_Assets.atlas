@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 Button_9_Patch_normal
   rotate: false
-  xy: 2, 2
+  xy: 2, 30
   size: 48, 32
   split: 5, 5, 5, 9
   pad: -1, -1, 5, 0
@@ -15,9 +15,93 @@ Button_9_Patch_normal
   index: -1
 Button_9_Patch_pressed
   rotate: false
-  xy: 52, 2
+  xy: 52, 30
   size: 48, 32
   split: 5, 5, 9, 5
   orig: 48, 32
+  offset: 0, 0
+  index: -1
+statusbar_bandwidth
+  rotate: false
+  xy: 2, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock
+  rotate: false
+  xy: 2, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 1
+statusbar_clock
+  rotate: false
+  xy: 102, 50
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 2
+statusbar_clock
+  rotate: false
+  xy: 17, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 3
+statusbar_clock
+  rotate: false
+  xy: 17, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 4
+statusbar_clock
+  rotate: false
+  xy: 102, 36
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 5
+statusbar_clock
+  rotate: false
+  xy: 32, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 6
+statusbar_clock
+  rotate: false
+  xy: 32, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 7
+statusbar_clock
+  rotate: false
+  xy: 47, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 8
+statusbar_clock
+  rotate: false
+  xy: 47, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: 9
+statusbar_employees
+  rotate: false
+  xy: 62, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_money
+  rotate: false
+  xy: 62, 2
+  size: 13, 12
+  orig: 13, 12
   offset: 0, 0
   index: -1

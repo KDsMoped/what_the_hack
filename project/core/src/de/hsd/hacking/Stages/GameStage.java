@@ -19,6 +19,7 @@ import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.Wall;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -50,6 +51,7 @@ public class GameStage extends Stage {
         this.assets = assets;
         this.tileMap = new TileMap();
         addActor(this.tileMap);
+        addActor(new StatusBar(assets));
 
         team = new Team(this);
         this.touchables = new ArrayList<Touchable>(4);
