@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.IndexArray;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.Timer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,7 +34,8 @@ import de.hsd.hacking.Utils.Constants;
 
 public class StatusBar extends Actor {
     // Constants
-    private final int STATUS_BAR_HEIGHT = 16;
+    private final int STATUS_BAR_HEIGHT = 18;
+    private final int STATUS_BAR_ANIMATION_TIME = 2;
 
     private Assets assets;
 
@@ -42,8 +45,15 @@ public class StatusBar extends Actor {
     private int bandwidth = 0;
     private int employees = 0;
     private int workplaces = 0;
-
     private int money = 0;
+
+    private int displayedMoney = money;
+    private float elapsedMoney = 0;
+    private int oldMoney = money;
+    private int displayedBandwidth = bandwidth;
+    private float elapsedBandwidth= 0;
+    private int oldBandwidth = bandwidth;
+
     private Image moneyLabel;
     private Image bandwidthLabel;
     private Image employeesLabel;
@@ -58,7 +68,7 @@ public class StatusBar extends Actor {
     private ShapeRenderer backgroundRenderer;
     private Table items;
 
-    private final DateFormat df = new SimpleDateFormat("dd MMMM");
+    private final DateFormat df = new SimpleDateFormat("dd MMM");
 
     public StatusBar(Assets assets) {
         this.assets = assets;
@@ -74,7 +84,7 @@ public class StatusBar extends Actor {
         moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
         bandwidthLabel = new Image(assets.bandwith_icon, Scaling.none, Align.bottom);
         employeesLabel = new Image(assets.employees_icon, Scaling.none, Align.bottom);
-        timeLabel = new Image(assets.clock_icon, Scaling.none, Align.bottom);
+        timeLabel = new Image(assets.clock_icon.first(), Scaling.none, Align.bottom);
 
         moneyText = new Label("", titlebarStyle);
         bandwidthText = new Label("", titlebarStyle);
@@ -82,14 +92,65 @@ public class StatusBar extends Actor {
         employeesText = new Label("", titlebarStyle);
 
 
-        items.add(moneyLabel).padTop(1).padRight(2);
-        items.add(moneyText).padRight(6);
-        items.add(bandwidthLabel).padTop(1).padRight(2);
-        items.add(bandwidthText).padRight(6);
-        items.add(employeesLabel).padTop(1).padRight(2);
-        items.add(employeesText).padRight(15);
-        items.add(dateText).align(Align.right).padRight(15);
-        items.add(timeLabel).padTop(1).align(Align.right);
+        items.add(moneyLabel);
+        items.add(moneyText).padRight(6).padTop(1);
+        items.add(bandwidthLabel).padRight(2);
+        items.add(bandwidthText).padRight(6).padTop(1);
+        items.add(employeesLabel);
+        items.add(employeesText).padRight(70).padTop(1);
+        items.add(dateText).align(Align.right).padRight(15).padTop(1);
+        items.add(timeLabel).align(Align.right);
+
+        if (Constants.DEBUG) {
+            Timer.schedule(new Timer.Task(){
+                               @Override
+                               public void run() {
+                                   simulateBandwidth();
+                                   simulateMoney();
+                               }
+                           }
+                    , 2        //    (delay)
+                    , 5     //    (seconds)
+            );
+        }
+    }
+
+    private void simulateBandwidth() {
+        if (bandwidth < 1) {
+            setBandwith(2000);
+        }
+        else {
+            setBandwith(0);
+        }
+    }
+
+    private void simulateMoney() {
+        if (money < 1) {
+            setMoney(300);
+        }
+        else {
+            setMoney(0);
+        }
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+        if (displayedBandwidth != bandwidth){
+            elapsedBandwidth += delta;
+            displayedBandwidth = AnimateIntChange(bandwidth, oldBandwidth, elapsedBandwidth);
+        }
+
+        if (displayedMoney != money) {
+            elapsedMoney += delta;
+            displayedMoney = AnimateIntChange(money, oldMoney, elapsedMoney);
+        }
+
+        moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
+        bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
+        employeesText.setText(Integer.toString(employees) + "/" + Integer.toString(workplaces));
+        dateText.setText(df.format(ConvertDaysToDate(date)));
     }
 
     @Override
@@ -106,12 +167,18 @@ public class StatusBar extends Actor {
         backgroundRenderer.end();
         batch.begin();
 
-        moneyText.setText(String.format(Locale.GERMAN, "%05d", money));
-        bandwidthText.setText(String.format(Locale.GERMAN, "%04d", bandwidth));
-        employeesText.setText(Integer.toString(employees) + "/" + Integer.toString(workplaces));
-        dateText.setText(df.format(ConvertDaysToDate(date)));
-
         items.draw(batch, parentAlpha);
+    }
+
+    private int AnimateIntChange(int newValue, int oldValue, float elapsed) {
+        int animatedValue;
+
+        float progress = Math.min(1.0f, elapsed / STATUS_BAR_ANIMATION_TIME);
+        float interpol = Interpolation.sineOut.apply(progress);
+
+        animatedValue = (int)((newValue - oldValue) * interpol);
+
+        return animatedValue + oldValue;
     }
 
     private Date ConvertDaysToDate(int days) {
@@ -148,7 +215,9 @@ public class StatusBar extends Actor {
     }
 
     public void setBandwith(int bandwidth) {
+        oldBandwidth = this.bandwidth;
         this.bandwidth = bandwidth;
+        elapsedBandwidth = 0;
     }
 
     public int getEmployees() {
@@ -172,6 +241,8 @@ public class StatusBar extends Actor {
     }
 
     public void setMoney(int money) {
+        oldMoney = this.money;
         this.money = money;
+        elapsedMoney = 0;
     }
 }

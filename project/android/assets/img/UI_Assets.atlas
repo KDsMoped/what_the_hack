@@ -35,16 +35,79 @@ statusbar_clock
   orig: 13, 12
   offset: 0, 0
   index: -1
-statusbar_employees
+statusbar_clock1
   rotate: false
   xy: 102, 50
   size: 13, 12
   orig: 13, 12
   offset: 0, 0
   index: -1
-statusbar_money
+statusbar_clock2
   rotate: false
   xy: 17, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock3
+  rotate: false
+  xy: 17, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock4
+  rotate: false
+  xy: 102, 36
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock5
+  rotate: false
+  xy: 32, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock6
+  rotate: false
+  xy: 32, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock7
+  rotate: false
+  xy: 47, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock8
+  rotate: false
+  xy: 47, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_clock9
+  rotate: false
+  xy: 62, 16
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_employees
+  rotate: false
+  xy: 62, 2
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+statusbar_money
+  rotate: false
+  xy: 77, 16
   size: 13, 12
   orig: 13, 12
   offset: 0, 0

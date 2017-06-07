@@ -39,7 +39,8 @@ public class Assets {
     public Array<TextureRegion> hair_01;
     public Array<TextureRegion> hair_02;
 
-    public TextureRegionDrawable bandwith_icon, money_icon, employees_icon, clock_icon;
+    public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
+    public Array<TextureRegionDrawable> clock_icon;
 
     public Sound buttonSound;
 
@@ -92,10 +93,14 @@ public class Assets {
         hair_01.addAll(character_atlas.findRegions("Hair01"));
         hair_02.addAll(character_atlas.findRegions("Hair02"));
 
+
         bandwith_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_bandwidth"));
         money_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_money"));
         employees_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_employees"));
-        clock_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_clock"));
+        clock_icon = new Array<TextureRegionDrawable>();
+        for (TextureRegion t: ui_atlas.findRegions("statusbar_clock")) {
+            clock_icon.add(new TextureRegionDrawable(t));
+        }
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/
