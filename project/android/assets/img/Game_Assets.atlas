@@ -6,43 +6,99 @@ filter: Nearest,Nearest
 repeat: none
 FloorPlate_Cracks
   rotate: false
-  xy: 516, 518
+  xy: 516, 650
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 1
 FloorPlate_Cracks
   rotate: false
-  xy: 2, 2
+  xy: 2, 134
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 2
 FloorPlate_Cracks
   rotate: false
-  xy: 516, 452
+  xy: 516, 584
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 3
 FloorPlate_flat
   rotate: false
-  xy: 582, 518
+  xy: 582, 650
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 ambient/Room_Background
   rotate: false
-  xy: 2, 326
+  xy: 2, 458
   size: 512, 256
   orig: 512, 256
   offset: 0, 0
   index: -1
 ambient/Room_FrontWall
   rotate: false
-  xy: 2, 68
+  xy: 2, 200
   size: 512, 256
   orig: 512, 256
   offset: 0, 0
   index: -1
+interior/Chair
+  rotate: false
+  xy: 118, 150
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+interior/Computer_Backfaced
+  rotate: false
+  xy: 2, 68
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 1
+interior/Computer_Backfaced
+  rotate: false
+  xy: 68, 134
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 2
+interior/Computer_Backfaced
+  rotate: false
+  xy: 516, 518
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 3
+interior/Computer_Backfaced
+  rotate: false
+  xy: 582, 584
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 4
+interior/Lamp
+  rotate: false
+  xy: 52, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+interior/Table
+  rotate: false
+  xy: 648, 650
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 1
+interior/Table
+  rotate: false
+  xy: 2, 2
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 2

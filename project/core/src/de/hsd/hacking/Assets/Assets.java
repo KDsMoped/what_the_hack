@@ -31,6 +31,9 @@ public class Assets {
 
     public TextureRegion room_bg;
     public TextureRegion room_fg;
+    public TextureRegion lamp;
+    public TextureRegion desk_1;
+    public TextureRegion desk_2;
 
     public Array<TextureRegion> gray_character_body;
     public Array<TextureRegion> hair_01;
@@ -39,6 +42,8 @@ public class Assets {
     public TextureRegionDrawable bandwith_icon, money_icon, employees_icon, clock_icon;
 
     public Sound buttonSound;
+
+
 
     public Assets(){
         manager = new AssetManager();
@@ -76,6 +81,9 @@ public class Assets {
 
         room_bg = atlas.findRegion("ambient/Room_Background");
         room_fg = atlas.findRegion("ambient/Room_FrontWall");
+        lamp = atlas.findRegion("interior/Lamp");
+        desk_1 = atlas.findRegion("interior/Table", 1);
+        desk_2 = atlas.findRegion("interior/Table", 2);
 
         gray_character_body = new Array<TextureRegion>();
         hair_01 = new Array<TextureRegion>();

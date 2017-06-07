@@ -28,7 +28,7 @@ public class TilePathFinder implements PathFinder {
 
     @Override
     public Path findPath(int sx, int sy, int tx, int ty) {
-        int maxSearchDistance = 3 * (Math.max(sx, tileMap.getWidthInTiles() - sx) + Math.max(sy, tileMap.getHeightInTiles() - sy));
+        int maxSearchDistance = 2 * (Math.max(sx, tileMap.getWidthInTiles() - sx) + Math.max(sy, tileMap.getHeightInTiles() - sy));
 
         if (!isValidTargetLocation(sx, sy, tx, ty))return null;
 
