@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -54,26 +56,25 @@ public class StatusBar extends Actor {
     private Label employeesText;
 
     private ShapeRenderer backgroundRenderer;
-    private HorizontalGroup items;
+    private Table items;
 
     private final DateFormat df = new SimpleDateFormat("dd MMMM");
 
     public StatusBar(Assets assets) {
         this.assets = assets;
         backgroundRenderer = new ShapeRenderer();
-        items = new HorizontalGroup();
+        items = new Table();
         items.align(Align.bottomLeft);
         items.setPosition(0, GameStage.VIEWPORT_HEIGHT - STATUS_BAR_HEIGHT);
         items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
-        items.space(8);
 
         titlebarStyle = new Label.LabelStyle();
         titlebarStyle.font = assets.status_bar_font;
 
-        moneyLabel = new Image(assets.money_icon);
-        bandwidthLabel = new Image(assets.bandwith_icon);
-        employeesLabel = new Image(assets.employees_icon);
-        timeLabel = new Image(assets.clock_icon);
+        moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
+        bandwidthLabel = new Image(assets.bandwith_icon, Scaling.none, Align.bottom);
+        employeesLabel = new Image(assets.employees_icon, Scaling.none, Align.bottom);
+        timeLabel = new Image(assets.clock_icon, Scaling.none, Align.bottom);
 
         moneyText = new Label("", titlebarStyle);
         bandwidthText = new Label("", titlebarStyle);
@@ -81,23 +82,25 @@ public class StatusBar extends Actor {
         employeesText = new Label("", titlebarStyle);
 
 
-        items.addActor(moneyLabel);
-        items.addActor(moneyText);
-        items.addActor(bandwidthLabel);
-        items.addActor(bandwidthText);
-        items.addActor(employeesLabel);
-        items.addActor(employeesText);
-        items.addActor(dateText);
-        items.addActor(timeLabel);
+        items.add(moneyLabel).padTop(1).padRight(2);
+        items.add(moneyText).padRight(6);
+        items.add(bandwidthLabel).padTop(1).padRight(2);
+        items.add(bandwidthText).padRight(6);
+        items.add(employeesLabel).padTop(1).padRight(2);
+        items.add(employeesText).padRight(15);
+        items.add(dateText).align(Align.right).padRight(15);
+        items.add(timeLabel).padTop(1).align(Align.right);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+
         // Draw status bar background
         batch.end();
         backgroundRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         backgroundRenderer.setTransformMatrix(batch.getTransformMatrix());
-        backgroundRenderer.setColor(Color.RED);
+        backgroundRenderer.setColor(Color.GRAY);
         backgroundRenderer.begin(ShapeRenderer.ShapeType.Filled);
         backgroundRenderer.rect(0, GameStage.VIEWPORT_HEIGHT - STATUS_BAR_HEIGHT, GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f), STATUS_BAR_HEIGHT);
         backgroundRenderer.end();
