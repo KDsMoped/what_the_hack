@@ -34,7 +34,7 @@ import de.hsd.hacking.Utils.Constants;
 
 public class StatusBar extends Actor {
     // Constants
-    private final int STATUS_BAR_HEIGHT = 18;
+    private final int STATUS_BAR_HEIGHT = 20;
     private final int STATUS_BAR_ANIMATION_TIME = 2;
 
     private Assets assets;
@@ -47,60 +47,89 @@ public class StatusBar extends Actor {
     private int workplaces = 0;
     private int money = 0;
 
+    /**
+     * Value that will be displayed on the next act and draw call. Might be different than the actual available resource.
+     */
     private int displayedMoney = money;
-    private float elapsedMoney = 0;
-    private int oldMoney = money;
     private int displayedBandwidth = bandwidth;
+    /**
+     * Time between 0-STATUS_BAR_ANIMATION_TIME that is elapsed between the old and the new value while an animation is happening.
+     */
+    private float elapsedMoney = 0;
     private float elapsedBandwidth= 0;
+    /**
+     * Previous value of the ressource variable.
+     */
+    private int oldMoney = money;
     private int oldBandwidth = bandwidth;
 
+    // sprite objects that will be added to the table.
     private Image moneyLabel;
     private Image bandwidthLabel;
     private Image employeesLabel;
     private Image timeLabel;
 
+    // Label style with font
     private Label.LabelStyle titlebarStyle;
+
+    // label objects that will be added to the table.
     private Label moneyText;
     private Label bandwidthText;
     private Label dateText;
     private Label employeesText;
 
-    private ShapeRenderer backgroundRenderer;
+    // the actual top bar
     private Table items;
 
+    /**
+     * The date format we want for the top bar.
+     */
     private final DateFormat df = new SimpleDateFormat("dd MMM");
 
+    /**
+     * Initializes a new top bar. Top bar needs assets to get the ui themes and fonts.
+     * @param assets ui assets
+     */
     public StatusBar(Assets assets) {
         this.assets = assets;
-        backgroundRenderer = new ShapeRenderer();
-        items = new Table();
-        items.align(Align.bottomLeft);
-        items.setPosition(0, GameStage.VIEWPORT_HEIGHT - STATUS_BAR_HEIGHT);
-        items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
 
+        // this is the actual parent object
+        items = new Table();
+        // align content in cells
+        items.align(Align.center);
+        items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
+        items.setHeight(STATUS_BAR_HEIGHT + 6);
+        // the green terminal background style
+        items.setBackground(assets.terminal_patch);
+
+        // font style for the text, use monospace!
         titlebarStyle = new Label.LabelStyle();
         titlebarStyle.font = assets.status_bar_font;
+        titlebarStyle.fontColor = new Color(41f/255f, 230f/255f, 41f/255f, 1f);
 
+        // labels with sprites
         moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
         bandwidthLabel = new Image(assets.bandwith_icon, Scaling.none, Align.bottom);
         employeesLabel = new Image(assets.employees_icon, Scaling.none, Align.bottom);
         timeLabel = new Image(assets.clock_icon.first(), Scaling.none, Align.bottom);
 
+        // set font to label objects
         moneyText = new Label("", titlebarStyle);
         bandwidthText = new Label("", titlebarStyle);
         dateText = new Label("", titlebarStyle);
         employeesText = new Label("", titlebarStyle);
 
-
-        items.add(moneyLabel);
-        items.add(moneyText).padRight(6).padTop(1);
-        items.add(bandwidthLabel).padRight(2);
-        items.add(bandwidthText).padRight(6).padTop(1);
+        // horizontal spacing between the items
+        items.add(moneyLabel).padRight(1);
+        items.add(moneyText).padRight(8);
+        items.add(bandwidthLabel).padRight(4);
+        items.add(bandwidthText).padRight(6);
         items.add(employeesLabel);
-        items.add(employeesText).padRight(70).padTop(1);
-        items.add(dateText).align(Align.right).padRight(15).padTop(1);
-        items.add(timeLabel).align(Align.right);
+        items.add(employeesText).padRight(60);
+        items.add(dateText).align(Align.right).padRight(15);
+        items.add(timeLabel).align(Align.right).padRight(2);
 
+        // only to showcase...
         if (Constants.DEBUG) {
             Timer.schedule(new Timer.Task(){
                                @Override
@@ -114,8 +143,16 @@ public class StatusBar extends Actor {
                     , 5     //    (seconds)
             );
         }
+
+        // we want to center the top bar, to calculate the x position can
+        // window_width / 2 - topbar_width / 2
+        // so we have to set position as last because we need the width of the top bar
+        items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight());
     }
 
+    /**
+     * delete soon
+     */
     private void simulateBandwidth() {
         if (bandwidth < 1) {
             setBandwith(2000);
@@ -125,6 +162,9 @@ public class StatusBar extends Actor {
         }
     }
 
+    /**
+     * delete soon
+     */
     private void simulateMoney() {
         if (money < 1) {
             setMoney(300);
@@ -134,6 +174,9 @@ public class StatusBar extends Actor {
         }
     }
 
+    /**
+     * delete soon
+     */
     private void simulateTime() {
         if (time < 1f) {
             setTime(time + 0.1f);
@@ -143,8 +186,13 @@ public class StatusBar extends Actor {
         }
     }
 
+    /**
+     * Refreshes the displayed values
+     * @param delta
+     */
     @Override
     public void act(float delta) {
+        // always call super first!
         super.act(delta);
 
         if (displayedBandwidth != bandwidth){
@@ -157,29 +205,32 @@ public class StatusBar extends Actor {
             displayedMoney = AnimateIntChange(money, oldMoney, elapsedMoney);
         }
 
+        // set the text for money etc. in the label objects
         moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
         bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
         employeesText.setText(Integer.toString(employees) + "/" + Integer.toString(workplaces));
         dateText.setText(df.format(ConvertDaysToDate(date)));
     }
 
+    /**
+     * Draw the top bar.
+     * @param batch
+     * @param parentAlpha
+     */
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
-        // Draw status bar background
-        batch.end();
-        backgroundRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        backgroundRenderer.setTransformMatrix(batch.getTransformMatrix());
-        backgroundRenderer.setColor(Color.GRAY);
-        backgroundRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        backgroundRenderer.rect(0, GameStage.VIEWPORT_HEIGHT - STATUS_BAR_HEIGHT, GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f), STATUS_BAR_HEIGHT);
-        backgroundRenderer.end();
-        batch.begin();
-
         items.draw(batch, parentAlpha);
     }
 
+    /**
+     * Calculates an animation between two values.
+     * @param newValue new value of variable
+     * @param oldValue old value of variable
+     * @param elapsed elapsed time since new value
+     * @return
+     */
     private int AnimateIntChange(int newValue, int oldValue, float elapsed) {
         int animatedValue;
 
@@ -191,6 +242,11 @@ public class StatusBar extends Actor {
         return animatedValue + oldValue;
     }
 
+    /**
+     * converts days starting from 1 to an date object starting 1.1.
+     * @param days number in days starting with 1
+     * @return
+     */
     private Date ConvertDaysToDate(int days) {
         Date date = new Date();
 
@@ -208,6 +264,10 @@ public class StatusBar extends Actor {
         return time;
     }
 
+    /**
+     * set the time an display it as an circle
+     * @param time time between 0-1
+     */
     public void setTime(float time) {
         this.time = time;
 
