@@ -220,14 +220,14 @@ Hair02
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 8
+  index: 7
 Hair02
   rotate: false
   xy: 274, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 7
+  index: 8
 colored/Agent0004_Full
   rotate: false
   xy: 2, 134

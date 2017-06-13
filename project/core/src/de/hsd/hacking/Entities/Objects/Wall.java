@@ -1,5 +1,6 @@
 package de.hsd.hacking.Entities.Objects;
 
+import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Stages.GameStage;
 
 /**
@@ -9,6 +10,6 @@ import de.hsd.hacking.Stages.GameStage;
 public class Wall extends Object {
 
     public Wall() {
-        super(true, false);
+        super(null, true, false, Direction.DOWN, 0);
     }
 }

@@ -17,18 +17,10 @@ public class Desk extends ContainerObject {
 
     private TextureRegion desk;
 
-    public Desk(Assets assets, int variant, Direction direction, int occupyAmount) {
-        super(true, true, direction, occupyAmount);
-        switch (variant){
-            case 0:
-                desk = assets.desk_1;
-                break;
-            case 1:
-                desk = assets.desk_2;
-                break;
-            default:
-                desk = assets.desk_2;
-        }
+    public Desk(Assets assets, Direction direction, int occupyAmount) {
+        super(null, true, true, direction, occupyAmount);
+
+        desk = assets.desk_2;
 
     }
 
