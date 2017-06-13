@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
@@ -22,6 +23,8 @@ public class Assets {
     public BitmapFont header_font;
     public BitmapFont gold_font;
     public static BitmapFont gold_font_small;
+    public BitmapFont gold_font_small;
+    public BitmapFont status_bar_font;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
@@ -36,6 +39,9 @@ public class Assets {
     public Array<TextureRegion> gray_character_body;
     public Array<TextureRegion> hair_01;
     public Array<TextureRegion> hair_02;
+
+    public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
+    public Array<TextureRegionDrawable> clock_icon;
 
     public Sound buttonSound;
 
@@ -72,6 +78,7 @@ public class Assets {
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
         header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
+        status_bar_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         //...//
 
         room_bg = atlas.findRegion("ambient/Room_Background");
@@ -88,6 +95,13 @@ public class Assets {
         hair_02.addAll(character_atlas.findRegions("Hair02"));
 
 
+        bandwith_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_bandwidth"));
+        money_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_money"));
+        employees_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_employees"));
+        clock_icon = new Array<TextureRegionDrawable>();
+        for (TextureRegion t: ui_atlas.findRegions("statusbar_clock")) {
+            clock_icon.add(new TextureRegionDrawable(t));
+        }
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/
