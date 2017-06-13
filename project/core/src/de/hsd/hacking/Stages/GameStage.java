@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -159,7 +160,7 @@ public class GameStage extends Stage {
         super.draw();
         batch.begin();
         if (Constants.DEBUG){
-            assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
+            Assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
         }
         batch.end();
     }
@@ -208,5 +209,21 @@ public class GameStage extends Stage {
             }
         }
         return super.touchUp(screenX, screenY, pointer, button);
+    }
+
+    public boolean addTouchable(Touchable touchable){
+        if (touchables.contains(touchable)){
+            return false;
+        }
+        touchables.add(touchable);
+        return true;
+    }
+
+    public void addTouchables(Collection<Touchable> touchables){
+        this.touchables.addAll(touchables);
+    }
+
+    public boolean removeTouchable(Touchable touchable){
+        return touchables.remove(touchable);
     }
 }
