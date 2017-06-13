@@ -23,7 +23,6 @@ public class Assets {
     public BitmapFont header_font;
     public BitmapFont gold_font;
     public static BitmapFont gold_font_small;
-    public BitmapFont gold_font_small;
     public BitmapFont status_bar_font;
 
     private TextureAtlas atlas;
@@ -36,9 +35,11 @@ public class Assets {
     public TextureRegion desk_1;
     public TextureRegion desk_2;
 
+    public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;
     public Array<TextureRegion> hair_01;
     public Array<TextureRegion> hair_02;
+    public Array<TextureRegion> computer;
 
     public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
     public Array<TextureRegionDrawable> clock_icon;
@@ -87,12 +88,16 @@ public class Assets {
         desk_1 = atlas.findRegion("interior/Table", 1);
         desk_2 = atlas.findRegion("interior/Table", 2);
 
+        floor_tiles = new Array<TextureRegion>();
+        floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
         gray_character_body = new Array<TextureRegion>();
         hair_01 = new Array<TextureRegion>();
         hair_02 = new Array<TextureRegion>();
         gray_character_body.addAll(character_atlas.findRegions("Char"));
         hair_01.addAll(character_atlas.findRegions("Hair01"));
         hair_02.addAll(character_atlas.findRegions("Hair02"));
+        computer = new Array<TextureRegion>(4);
+        computer.addAll(atlas.findRegions("interior/Computer_Backfaced"));
 
 
         bandwith_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_bandwidth"));

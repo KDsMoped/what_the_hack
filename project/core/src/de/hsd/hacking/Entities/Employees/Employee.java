@@ -191,8 +191,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             batch.end();
             debugRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             debugRenderer.setTransformMatrix(batch.getTransformMatrix());
-            debugRenderer.setColor(Color.GREEN);
             debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+            debugRenderer.setColor(touched ? Color.GREEN : Color.RED);
             debugRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
             debugRenderer.end();
             batch.begin();

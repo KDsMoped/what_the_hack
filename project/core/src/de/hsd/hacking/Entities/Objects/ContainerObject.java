@@ -15,8 +15,9 @@ public abstract class ContainerObject extends Object {
     private Object containedObject;
     private Vector2 drawPosition;
 
-    public ContainerObject(boolean blocking, boolean repositionable, Direction occupyDirection, int occupyAmount) {
-        super(blocking, repositionable, occupyDirection, occupyAmount);
+
+    public ContainerObject(TextureRegion drawableRegion, boolean blocking, boolean repositionable, Direction occupyDirection, int occupyAmount) {
+        super(drawableRegion, blocking, repositionable, occupyDirection, occupyAmount);
 
     }
 

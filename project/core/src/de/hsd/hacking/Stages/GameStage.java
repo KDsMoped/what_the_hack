@@ -14,6 +14,8 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Equipment.Computer;
+import de.hsd.hacking.Entities.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Lamp;
 import de.hsd.hacking.Entities.Objects.Object;
@@ -71,7 +73,9 @@ public class GameStage extends Stage {
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
         tileMap.getTiles()[3][0].setObject(new Lamp(assets));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(new Desk(assets, 2, Direction.RIGHT, 1));
+        Desk desk = new Desk(assets, Direction.RIGHT, 1);
+        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(desk);
+        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets));
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);

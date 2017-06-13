@@ -1,16 +1,18 @@
 package de.hsd.hacking.Entities.Equipment;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Objects.Object;
+import de.hsd.hacking.Entities.Objects.TouchableObject;
 import de.hsd.hacking.Stages.GameStage;
 
 /**
  * Created by domin on 31.05.2017.
  */
 
-public abstract class Equipment extends Object {
+public abstract class Equipment extends TouchableObject {
 
     public enum EquipmentAttributeLevel {
         LOW, MID, HIGH;
@@ -30,11 +32,11 @@ public abstract class Equipment extends Object {
     private String name;
     private float price;
 
-    public Equipment(float price,
+    public Equipment(TextureRegion drawableRegion, float price,
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
                      boolean blocking, Direction occupyDirection, int occupyAmount) {
-        super(blocking, true, occupyDirection, occupyAmount);
+        super(drawableRegion, blocking, true, occupyDirection, occupyAmount);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);
