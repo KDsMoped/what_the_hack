@@ -62,7 +62,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     //Graphics
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
-    enum AnimState{
+    public enum AnimState{
         IDLE, MOVING
     }
     private ShaderProgram shader;

@@ -22,9 +22,10 @@ public class Assets {
 
     public AssetManager manager;
 
-    public BitmapFont standard_font;
+    public static BitmapFont standard_font;
     public BitmapFont header_font;
     public BitmapFont gold_font;
+    public static BitmapFont gold_font_small;
     public BitmapFont gold_font_small;
     public BitmapFont status_bar_font;
 

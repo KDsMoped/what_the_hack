@@ -2,6 +2,9 @@ package de.hsd.hacking.Entities.Objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+
+import de.hsd.hacking.Entities.Direction;
 
 /**
  * Created by Cuddl3s on 06.06.2017.
@@ -10,11 +13,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public abstract class ContainerObject extends Object {
 
     private Object containedObject;
-    private TextureRegion container;
+    private Vector2 drawPosition;
 
-    public ContainerObject(TextureRegion container, boolean blocking, boolean repositionable) {
-        super(blocking, repositionable);
-        this.container = container;
+    public ContainerObject(boolean blocking, boolean repositionable, Direction occupyDirection, int occupyAmount) {
+        super(blocking, repositionable, occupyDirection, occupyAmount);
+
     }
 
     public boolean isEmpty(){
@@ -27,6 +30,7 @@ public abstract class ContainerObject extends Object {
 
     public void setContainedObject(Object containedObject) {
         this.containedObject = containedObject;
+        this.containedObject.setPosition(getDrawPosition());
     }
 
     @Override
@@ -42,5 +46,13 @@ public abstract class ContainerObject extends Object {
         if (!isEmpty()){
             containedObject.act(delta);
         }
+    }
+
+    public Vector2 getDrawPosition() {
+        return drawPosition;
+    }
+
+    public void setDrawPosition(Vector2 drawPosition) {
+        this.drawPosition = drawPosition;
     }
 }

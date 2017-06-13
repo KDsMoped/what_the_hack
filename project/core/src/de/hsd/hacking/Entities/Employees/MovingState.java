@@ -50,7 +50,7 @@ public class MovingState extends EmployeeState {
     @Override
     EmployeeState act(float deltaTime) {
         // If destination wasn't reached yet, move further.
-        if (destinationPos.cpy().sub(employee.getPosition()).len() > 0.5f){
+        if (destinationPos.cpy().sub(employee.getPosition()).len2() > 1f){
             //EASE-IN / EASE-OUT
             if (!lastTile){
                 speed += acceleration * deltaTime;
@@ -64,6 +64,7 @@ public class MovingState extends EmployeeState {
             return null;
         }else{
             if (path == null || path.isPathFinished()){
+                employee.setPosition(destinationPos.cpy());
                 return new IdleState(employee);
             }else{
                 setNextDestination();
