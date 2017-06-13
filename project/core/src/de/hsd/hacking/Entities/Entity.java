@@ -38,8 +38,9 @@ public abstract class Entity extends Actor {
         this.position.set(position);
     }
 
-
     public boolean isBlocking() {
         return blocking;
     }
+
+
 }

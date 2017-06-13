@@ -29,26 +29,31 @@ public class TileMap extends Group implements TileMovementProvider  {
     public TileMap(){
         IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 105f));
         tiles = manager.generateTiles(Constants.TILE_WIDTH, Constants.TILES_PER_SIDE);
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles.length; j++) {
-                addActor(tiles[i][j]);
+        /*for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                addActor(tiles[j][i]);
             }
-        }
+        }*/
         this.pathFinder = new TilePathFinder(this);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        //super.draw(batch, parentAlpha);
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                tiles[j][i].draw(batch, parentAlpha);
+            }
+        }
     }
 
     @Override
     public Tile getNextTile() {
-        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(Constants.TILES_PER_SIDE * Constants.TILES_PER_SIDE);
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if (tiles[i][j].isMovableTo()){
-                    possiblePositions.add(tiles.length * i + j);
+                    possiblePositions.add(Constants.TILES_PER_SIDE * j + i);
                 }
             }
         }
@@ -56,8 +61,8 @@ public class TileMap extends Group implements TileMovementProvider  {
             Integer[] a = new Integer[1];
             RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
             int newTile = pool.getRandomNumber();
-            int x = newTile / tiles.length;
-            int y = newTile % tiles.length;
+            int x = newTile % Constants.TILES_PER_SIDE;
+            int y = newTile / Constants.TILES_PER_SIDE;
             return tiles[x][y];
         }
         return null;
@@ -67,17 +72,17 @@ public class TileMap extends Group implements TileMovementProvider  {
     public Path getPathToTile(Tile startTile, Tile destinationTile){
         int sTileNumber = startTile.getTileNumber();
         int dTileNumber = destinationTile.getTileNumber();
-        int sx = sTileNumber / getWidthInTiles();
-        int sy = sTileNumber % getHeightInTiles();
-        int tx = dTileNumber / getWidthInTiles();
-        int ty = dTileNumber % getHeightInTiles();
+        int sx = sTileNumber % getWidthInTiles();
+        int sy = sTileNumber / getHeightInTiles();
+        int tx = dTileNumber % getWidthInTiles();
+        int ty = dTileNumber / getHeightInTiles();
         return pathFinder.findPath(sx, sy, tx, ty);
     }
 
     @Override
     public Tile getTile(Vector2 position) {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if(tiles[i][j].isInTile(position)){
                     return tiles[i][j];
                 }
@@ -89,11 +94,11 @@ public class TileMap extends Group implements TileMovementProvider  {
 
     @Override
     public Vector2 getStartPosition(Employee employee) {
-        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(Constants.TILES_PER_SIDE * Constants.TILES_PER_SIDE);
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if (tiles[i][j].isMovableTo()){
-                    possiblePositions.add(tiles.length * i + j);
+                    possiblePositions.add(Constants.TILES_PER_SIDE * j + i);
                 }
             }
         }
@@ -101,8 +106,8 @@ public class TileMap extends Group implements TileMovementProvider  {
             Integer[] a = new Integer[1];
             RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
             int newTile = pool.getRandomNumber();
-            int x = newTile / tiles.length;
-            int y = newTile % tiles.length;
+            int x = newTile % Constants.TILES_PER_SIDE;
+            int y = newTile / Constants.TILES_PER_SIDE;
             tiles[x][y].setEmployee(employee);
 
 
@@ -116,13 +121,13 @@ public class TileMap extends Group implements TileMovementProvider  {
     /**
      * Places an object at the specified tile
      * @param entity object entity
-     * @param tileNumber number of the tile to place object on (= x * tiles.length + y)
+     * @param tileNumber number of the tile to place object on (= x * Constants.TILES_PER_SIDE + y)
      * @return whether placement was successfull
      */
     public boolean placeObjectEntity(Entity entity, int tileNumber){
         //TODO Check ob entity auch wirklich object ist
-        int x = tileNumber / tiles.length;
-        int y = tileNumber % tiles.length;
+        int x = tileNumber % Constants.TILES_PER_SIDE;
+        int y = tileNumber / Constants.TILES_PER_SIDE;
         if (tiles[x][y].hasNoObject()){
             tiles[x][y].setObject(entity);
             return true;
@@ -135,8 +140,8 @@ public class TileMap extends Group implements TileMovementProvider  {
      * @param employee
      */
     private void removeEmployee(Employee employee){
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles.length; j++) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if (tiles[i][j].getEmployee().equals(employee)){
                     tiles[i][j].setEmployee(null);
                     return;
@@ -150,8 +155,8 @@ public class TileMap extends Group implements TileMovementProvider  {
      * @param object
      */
     private void removeObject(Entity object){
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles.length; j++) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if (tiles[i][j].getObject().equals(object)){
                     tiles[i][j].setObject(null);
                     return;
@@ -163,9 +168,9 @@ public class TileMap extends Group implements TileMovementProvider  {
     @Override
     public String toString() {
         String string = "TileMap: ";
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles.length; j++) {
-                int tileNumber = i * tiles.length + j;
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                int tileNumber = j * Constants.TILES_PER_SIDE + i;
                 if (!tiles[i][j].isMovableTo()){
                     string += "Tile " + tileNumber + ": [ " + tiles[i][j].getName() + " ]. ";
                 }else{
@@ -178,11 +183,11 @@ public class TileMap extends Group implements TileMovementProvider  {
 
 
     public int getWidthInTiles() {
-        return tiles.length;
+        return Constants.TILES_PER_SIDE;
     }
 
     public int getHeightInTiles() {
-        return tiles[0].length;
+        return Constants.TILES_PER_SIDE;
     }
 
     public Tile[][] getTiles() {
@@ -194,11 +199,11 @@ public class TileMap extends Group implements TileMovementProvider  {
      * @return tile
      */
     public Tile getFreeTile() {
-        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(Constants.TILES_PER_SIDE * Constants.TILES_PER_SIDE);
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if (tiles[i][j].hasNoObject() && tiles[i][j].isMovableTo()){
-                    possiblePositions.add(tiles.length * i + j);
+                    possiblePositions.add(Constants.TILES_PER_SIDE * j + i);
                 }
             }
         }
@@ -206,8 +211,8 @@ public class TileMap extends Group implements TileMovementProvider  {
             Integer[] a = new Integer[1];
             RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
             int newTile = pool.getRandomNumber();
-            int x = newTile / tiles.length;
-            int y = newTile % tiles.length;
+            int x = newTile % Constants.TILES_PER_SIDE;
+            int y = newTile / Constants.TILES_PER_SIDE;
             return tiles[x][y];
         }
         return null;
@@ -221,11 +226,11 @@ public class TileMap extends Group implements TileMovementProvider  {
      */
     @Override
     public Vector2 getNextMovetoPoint(Employee employee) {
-        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(tiles.length * tiles.length);
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
+        ArrayList<Integer> possiblePositions = new ArrayList<Integer>(Constants.TILES_PER_SIDE * Constants.TILES_PER_SIDE);
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if (tiles[i][j].isMovableTo()){
-                    possiblePositions.add(tiles.length * i + j);
+                    possiblePositions.add(Constants.TILES_PER_SIDE * j + i);
                 }
             }
         }
@@ -233,8 +238,8 @@ public class TileMap extends Group implements TileMovementProvider  {
             Integer[] a = new Integer[1];
             RandomIntPool pool = new RandomIntPool(possiblePositions.toArray(a));
             int newTile = pool.getRandomNumber();
-            int x = newTile / tiles.length;
-            int y = newTile % tiles.length;
+            int x = newTile % Constants.TILES_PER_SIDE;
+            int y = newTile / Constants.TILES_PER_SIDE;
             removeEmployee(employee);
             tiles[x][y].setEmployee(employee);
 
@@ -242,5 +247,15 @@ public class TileMap extends Group implements TileMovementProvider  {
             return tiles[x][y].getPosition();
         }
         return null;
+    }
+
+    public void clearPassersBy() {
+        for (Tile[] t :
+                tiles) {
+            for (Tile tile: t
+                 ) {
+                tile.clearPassersBy();
+            }
+        }
     }
 }

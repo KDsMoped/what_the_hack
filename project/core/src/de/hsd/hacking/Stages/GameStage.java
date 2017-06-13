@@ -12,12 +12,14 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
+import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Lamp;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.Wall;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Utils.Constants;
 
@@ -29,7 +31,6 @@ public class GameStage extends Stage {
 
     private Assets assets;
     //Debug parameters
-    private int employeeCount = 4;
     private int frames = 0;
     private int framesCount;
     private float elapsedTime = 0f;
@@ -54,6 +55,7 @@ public class GameStage extends Stage {
         team = new Team(this);
         this.touchables = new ArrayList<Touchable>(4);
 
+        //CREATE WALLS TO TEST A* PATHFINDING
         tileMap.getTiles()[0][0].setObject(new Wall());
         tileMap.getTiles()[0][1].setObject(new Wall());
         tileMap.getTiles()[0][2].setObject(new Wall());
@@ -67,7 +69,7 @@ public class GameStage extends Stage {
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
         tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
         tileMap.getTiles()[3][0].setObject(new Lamp(assets));
-        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(new Desk(assets, 2));
+        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(new Desk(assets, 2, Direction.RIGHT, 1));
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
@@ -75,7 +77,7 @@ public class GameStage extends Stage {
         }
         
         this.touchables.addAll(team.getEmployeeList());
-        //CREATE WALLS TO TEST A* PATHFINDING
+
 
 
     }
@@ -84,17 +86,24 @@ public class GameStage extends Stage {
     @Override
     public void draw() {
         ArrayList<Employee> employees = team.getEmployeeList();
-        Collections.sort(employees);
+        tileMap.clearPassersBy();
+        for (Employee employee :
+                employees) {
+            if (employee.getAnimationState() == Employee.AnimState.MOVING){
+                Tile tile = tileMap.getTile(employee.getPosition().cpy().add(16f, 8f)); //TODO tilemap.getTile verbessern
+                tile.addPasserBy(employee);
+            }
+        }
         Batch batch = getBatch();
         batch.begin();
         batch.draw(assets.room_bg, 0, 0);
         batch.end();
         super.draw();
         batch.begin();
-        for (Employee em :
+       /* for (Employee em :
                 employees) {
             em.draw(batch, 1f);
-        }
+        }*/
         batch.draw(assets.room_fg, 0, 0);
         if (Constants.DEBUG){
             assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);

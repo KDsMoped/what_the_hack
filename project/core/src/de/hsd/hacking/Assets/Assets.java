@@ -18,10 +18,10 @@ public class Assets {
 
     public AssetManager manager;
 
-    public BitmapFont standard_font;
+    public static BitmapFont standard_font;
     public BitmapFont header_font;
     public BitmapFont gold_font;
-    public BitmapFont gold_font_small;
+    public static BitmapFont gold_font_small;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
