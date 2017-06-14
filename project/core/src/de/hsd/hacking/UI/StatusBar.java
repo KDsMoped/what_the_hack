@@ -34,7 +34,7 @@ import de.hsd.hacking.Utils.Constants;
 
 public class StatusBar extends Actor {
     // Constants
-    private final int STATUS_BAR_HEIGHT = 20;
+    private final int STATUS_BAR_HEIGHT = 14;
     private final int STATUS_BAR_ANIMATION_TIME = 2;
 
     private Assets assets;
@@ -147,7 +147,7 @@ public class StatusBar extends Actor {
         // we want to center the top bar, to calculate the x position can
         // window_width / 2 - topbar_width / 2
         // so we have to set position as last because we need the width of the top bar
-        items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight());
+        items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight() + 1);
     }
 
     /**
