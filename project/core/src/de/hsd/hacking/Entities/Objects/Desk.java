@@ -19,7 +19,6 @@ public class Desk extends ContainerObject {
 
     public Desk(Assets assets, Direction direction, int occupyAmount) {
         super(null, true, true, direction, occupyAmount);
-
         desk = assets.desk_2;
 
     }

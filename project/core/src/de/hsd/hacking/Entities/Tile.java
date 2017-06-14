@@ -15,6 +15,7 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -27,7 +28,7 @@ public class Tile extends Actor {
     private Vector2 position;
     private int tileNumber;
     private Employee employee;
-    private Entity object;
+    private Object object;
     private List<Employee> passersBy;
     private Rectangle bounds;
 
@@ -94,8 +95,6 @@ public class Tile extends Actor {
             testRenderer.rect(position.x , position.y , bounds.width, bounds.height);
             testRenderer.end();
             batch.begin();
-//            Assets.gold_font_small.draw(batch, "" + tileNumber , position.x + 10f, position.y + 12f);
-
         }
         if (object != null){
             object.draw(batch, parentAlpha);
@@ -107,6 +106,13 @@ public class Tile extends Actor {
             for (Employee empl : passersBy) {
                 empl.draw(batch, parentAlpha);
             }
+        }
+    }
+
+    @Override
+    public void act(float delta) {
+        if (object != null){
+            this.object.act(delta);
         }
     }
 
@@ -122,11 +128,11 @@ public class Tile extends Actor {
         return tileNumber;
     }
 
-    public Entity getObject() {
+    public Object getObject() {
         return object;
     }
 
-    public void setObject(Entity object) {
+    public void setObject(Object object) {
         this.object = object;
         this.object.setPosition(this.position.cpy());
     }

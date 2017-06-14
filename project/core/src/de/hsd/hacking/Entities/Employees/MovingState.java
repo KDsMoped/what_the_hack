@@ -89,7 +89,7 @@ public class MovingState extends EmployeeState {
 
     @Override
     public void enter() {
-        super.enter();
+        employee.resetElapsedTime();
         Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Moving State");
         employee.setAnimationState(Employee.AnimState.MOVING);
     }

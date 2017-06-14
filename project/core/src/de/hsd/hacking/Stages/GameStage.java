@@ -59,13 +59,13 @@ public class GameStage extends Stage {
     private List<Touchable> touchables;
 
     private Group foreground, background, popups;
-    
+
     public GameStage(Assets assets){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
         Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
         this.checkVector = new Vector2();
         this.assets = assets;
-        this.tileMap = new TileMap();
+        this.tileMap = new TileMap(this);
 
         foreground = new Group();
         background = new Group();
@@ -88,22 +88,26 @@ public class GameStage extends Stage {
         this.touchables = new ArrayList<Touchable>(4);
 
         //CREATE WALLS TO TEST A* PATHFINDING
-        tileMap.getTiles()[0][0].setObject(new Wall());
-        tileMap.getTiles()[0][1].setObject(new Wall());
-        tileMap.getTiles()[0][2].setObject(new Wall());
-        tileMap.getTiles()[1][0].setObject(new Wall());
-        tileMap.getTiles()[2][0].setObject(new Wall());
-        tileMap.getTiles()[1][1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 3].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
-        tileMap.getTiles()[3][0].setObject(new Lamp(assets));
+        tileMap.addObject(0,0, new Wall());
+        tileMap.addObject(0,1, new Wall());
+        tileMap.addObject(0,2, new Wall());
+        tileMap.addObject(1,0, new Wall());
+        tileMap.addObject(2,0, new Wall());
+        tileMap.addObject(1,1, new Wall());
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, new Wall());
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, new Wall());
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, new Wall());
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 1, new Wall());
+        tileMap.addObject(Constants.TILES_PER_SIDE - 3,Constants.TILES_PER_SIDE - 1, new Wall());
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 2, new Wall());
+
+        //populate room with objects
+        tileMap.addObject(3,0, new Lamp(assets));
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
-        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(desk);
-        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE / 2, Constants.TILES_PER_SIDE / 2, desk);
+        Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets);
+        addTouchable(computer);
+        desk.setContainedObject(computer);
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
@@ -168,16 +172,19 @@ public class GameStage extends Stage {
     @Override
     public void act(float delta) {
         elapsedTime += delta;
-        framesCount++;
-        if (elapsedTime >= 1f){
-            elapsedTime = 0f;
-            frames = framesCount;
-            framesCount = 0;
-        }
         super.act(delta);
         for (Employee em :
                 team.getEmployeeList()) {
             em.act(delta);
+        }
+
+        if (Constants.DEBUG){
+            framesCount++;
+            if (elapsedTime >= 1f){
+                elapsedTime = 0f;
+                frames = framesCount;
+                framesCount = 0;
+            }
         }
     }
 
