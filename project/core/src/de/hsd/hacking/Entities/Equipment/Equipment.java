@@ -14,6 +14,14 @@ import de.hsd.hacking.Stages.GameStage;
 
 public abstract class Equipment extends TouchableObject {
 
+    public enum EquipmentType {
+        COMPUTER, SWITCH, COFFEEMAKER, MODEM, SERVER;
+    }
+
+    public enum EquipmentAttributeType {
+        MONEY, BANDWIDTH, COMPUTATIONPOWER;
+    }
+
     public enum EquipmentAttributeLevel {
         LOW, MID, HIGH;
 
@@ -21,10 +29,6 @@ public abstract class Equipment extends TouchableObject {
         public static final int SIZE = VALUES.length;
 
         public static EquipmentAttributeLevel getRandomAttributeLevel() { return VALUES[MathUtils.random(SIZE - 1)]; }
-    }
-
-    public enum EquipmentAttributeType {
-        MONEY, BANDWIDTH, COMPUTATIONPOWER;
     }
 
     private EquipmentAttributeLevel attributeLevel;
@@ -54,5 +58,7 @@ public abstract class Equipment extends TouchableObject {
     public String getName()  {
         return "";
     }
+
+    public abstract EquipmentType getType();
 
 }

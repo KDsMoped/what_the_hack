@@ -13,5 +13,5 @@ public interface Upgradable {
 
     int getLevel();
 
-    void setInitialLevel();
+    void setInitialLevel(int level);
 }

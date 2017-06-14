@@ -3,6 +3,7 @@ package de.hsd.hacking.Entities.Equipment;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import de.hsd.hacking.Assets.Assets;
 import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Assets.Assets;
@@ -13,12 +14,15 @@ import de.hsd.hacking.Entities.Touchable;
  * Created by Cuddl3s on 06.06.2017.
  */
 
-public class Computer extends Equipment implements Interactable {
+public class Computer extends Equipment implements Interactable, Upgradable {
 
     private TextureRegion stillRegion;
     private Animation<TextureRegion> animation;
     private boolean on;
     private float elapsedTime = 0f;
+
+    private int level;
+    private Assets assets;
 
 
     public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets) {
@@ -28,6 +32,12 @@ public class Computer extends Equipment implements Interactable {
 
     }
 
+    public EquipmentType getType() { return EquipmentType.COMPUTER; }
+
+    //Upgrade functions
+    public void upgrade() {}
+    public int getLevel() { return level; }
+    public void setInitialLevel(int level) { this.level = level; }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
