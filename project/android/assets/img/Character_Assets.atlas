@@ -13,13 +13,6 @@ Char
   index: 1
 Char
   rotate: false
-  xy: 36, 68
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
-Char
-  rotate: false
   xy: 70, 134
   size: 32, 64
   orig: 32, 64
@@ -31,199 +24,206 @@ Char
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 3
 Char
   rotate: false
   xy: 70, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 5
+  index: 4
 Char
   rotate: false
   xy: 104, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 6
+  index: 5
 Char
   rotate: false
   xy: 70, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 7
+  index: 6
 Char
   rotate: false
   xy: 104, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
+  index: 7
+Char
+  rotate: false
+  xy: 138, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
   index: 8
-Full
-  rotate: false
-  xy: 138, 134
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 1
-Full
-  rotate: false
-  xy: 138, 134
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
 Full
   rotate: false
   xy: 104, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
+  index: 1
 Full
   rotate: false
   xy: 138, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 4
+  index: 2
 Full
   rotate: false
   xy: 172, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 5
+  index: 3
 Full
   rotate: false
   xy: 138, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 6
+  index: 4
 Full
   rotate: false
   xy: 172, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 7
+  index: 5
 Full
   rotate: false
   xy: 206, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 8
-Hair01
+  index: 6
+Full
   rotate: false
   xy: 172, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 1
-Hair01
-  rotate: false
-  xy: 172, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 4
-Hair01
-  rotate: false
-  xy: 172, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
-Hair01
+  index: 7
+Full
   rotate: false
   xy: 206, 68
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
+  index: 8
 Hair01
   rotate: false
   xy: 240, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 5
+  index: 1
+Hair01
+  rotate: false
+  xy: 240, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
+Hair01
+  rotate: false
+  xy: 240, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
 Hair01
   rotate: false
   xy: 206, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+Hair01
+  rotate: false
+  xy: 240, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+Hair01
+  rotate: false
+  xy: 274, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 6
 Hair01
   rotate: false
-  xy: 206, 2
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 7
-Hair01
-  rotate: false
-  xy: 206, 2
+  xy: 274, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 8
-Hair02
-  rotate: false
-  xy: 240, 68
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 1
-Hair02
-  rotate: false
-  xy: 240, 68
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 3
-Hair02
-  rotate: false
-  xy: 240, 68
-  size: 32, 64
-  orig: 32, 64
-  offset: 0, 0
-  index: 4
-Hair02
+Hair01
   rotate: false
   xy: 274, 134
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 2
+  index: 7
 Hair02
   rotate: false
   xy: 240, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
-  index: 5
+  index: 1
+Hair02
+  rotate: false
+  xy: 240, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 4
+Hair02
+  rotate: false
+  xy: 240, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 3
 Hair02
   rotate: false
   xy: 274, 68
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 2
+Hair02
+  rotate: false
+  xy: 308, 134
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: 5
+Hair02
+  rotate: false
+  xy: 274, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 6
 Hair02
   rotate: false
-  xy: 274, 68
+  xy: 274, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 7
 Hair02
   rotate: false
-  xy: 274, 68
+  xy: 274, 2
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
