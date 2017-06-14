@@ -1,5 +1,6 @@
 package de.hsd.hacking.Entities.Equipment;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by Cuddl3s on 06.06.2017.
@@ -39,7 +41,7 @@ public class Computer extends Equipment implements Interactable {
         super.act(delta);
         elapsedTime += delta;
         if (on){
-            setDrawableRegion(animation.getKeyFrame(elapsedTime));
+            setDrawableRegion(animation.getKeyFrame(elapsedTime, true));
         }else{
             setDrawableRegion(stillRegion);
         }
@@ -49,10 +51,12 @@ public class Computer extends Equipment implements Interactable {
     public void interact() {
         elapsedTime = 0f;
         on = !on;
+        Gdx.app.log(Constants.TAG, "Interacted with Computer!");
     }
 
     @Override
     public void onTouch() {
         //TODO show stats etc...
+        interact();
     }
 }

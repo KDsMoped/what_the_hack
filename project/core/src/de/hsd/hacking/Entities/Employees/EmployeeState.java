@@ -20,9 +20,7 @@ public abstract class EmployeeState{
     /**
      * Gets called when an EmployeeState becomes active
      */
-    public void enter(){
-        employee.resetElapsedTime();
-    }
+    abstract void enter();
 
     /**
      * Gets called when an EmployeeState stops being active

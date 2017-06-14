@@ -31,7 +31,7 @@ public class IdleState extends EmployeeState {
 
     @Override
     public void enter() {
-        super.enter();
+        employee.resetElapsedTime();
         Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Idle State");
         employee.setAnimationState(Employee.AnimState.IDLE);
     }

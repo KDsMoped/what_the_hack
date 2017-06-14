@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Entities.Touchable;
 
 /**
  * Created by Cuddl3s on 06.06.2017.
@@ -18,7 +19,6 @@ public abstract class ContainerObject extends Object {
 
     public ContainerObject(TextureRegion drawableRegion, boolean blocking, boolean repositionable, Direction occupyDirection, int occupyAmount) {
         super(drawableRegion, blocking, repositionable, occupyDirection, occupyAmount);
-
     }
 
     public boolean isEmpty(){
