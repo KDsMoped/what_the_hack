@@ -56,7 +56,8 @@ public class GameStage extends Stage {
         addActor(this.tileMap);
         addActor(new StatusBar(assets));
 
-        team = new Team(this);
+        team = Team.getInstance();
+        team.initialize(this);
         this.touchables = new ArrayList<Touchable>(4);
 
         //CREATE WALLS TO TEST A* PATHFINDING

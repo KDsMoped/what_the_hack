@@ -8,6 +8,7 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Equipment.Computer;
 import de.hsd.hacking.Entities.Equipment.Equipment;
+import de.hsd.hacking.Entities.Equipment.EquipmentFactory;
 import de.hsd.hacking.Entities.Team.Workspace;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -23,13 +24,13 @@ public class Team {
     private final int maxEmployeeCount = 4;
 
     private String teamName;
-    private Stage gameStage;
+    private static Stage stage;
 //    private Group employees;
     private Group equipment;
     private Group workspaces;
-    ArrayList<Employee> listOfEmployees;
-    ArrayList<Equipment> listOfEquipment;
-    ArrayList<Workspace> listOfWorkspaces;
+    private static ArrayList<Employee> listOfEmployees;
+    private static ArrayList<Equipment> listOfEquipment;
+    private static ArrayList<Workspace> listOfWorkspaces;
 
     /* Resources */
     private int resource_Money;
@@ -37,9 +38,13 @@ public class Team {
     private int resource_ComputationPower;
 
 
-    public Team (Stage stage) {
-        gameStage = stage;
+    // Instanciation and Initialization of Team as a Singleton /////////////////////////////////////
+    private static final Team instance = new Team();
+    private Team(){}
 
+    public static Team getInstance(){ return instance; }
+    public static void initialize(Stage Stage) {
+        stage = Stage;
         listOfEmployees = new ArrayList<Employee>();
         listOfEquipment = new ArrayList<Equipment>();
         listOfWorkspaces = new ArrayList<Workspace>();
@@ -60,7 +65,7 @@ public class Team {
     public int createAndAddEmployee(Assets assets, Employee.EmployeeSkillLevel skillLevel,
                                     TileMap tileMap) {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
-        Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)gameStage);
+        Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)stage);
         listOfEmployees.add(e);
         return 0;
     }
@@ -110,24 +115,11 @@ public class Team {
 
     /* Create Equipment of the specified type and add it to the Team.
      */
-    public void createAndAddEquipment(Assets assets, Equipment.EquipmentType type, float price,
-                                      Equipment.EquipmentAttributeLevel attributeLevel) {
-        Equipment equipment = null;
-
-        switch(type) {
-            case COMPUTER:
-                equipment = new Computer(price, attributeLevel, assets);
-                break;
-            case SWITCH:
-                break;
-            case COFFEEMAKER:
-                break;
-            case MODEM:
-                break;
-            case SERVER:
-                break;
-        }
-
+    public void createAndAddEquipment(Equipment.EquipmentType type,
+                                      Equipment.EquipmentAttributeLevel attributeLevel,
+                                      float price,
+                                      Assets assets) {
+        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets);
         if(equipment != null) {
             listOfEquipment.add(equipment);
         }
@@ -139,16 +131,18 @@ public class Team {
         listOfEquipment.add(equipment);
     }
 
+    /* Returns the Equipment object associated with the given index.
+     */
     public Equipment getEquipment(int index) { return listOfEquipment.get(index); }
 
-    /*
+    /* Removes the given Equipment from the list.
      */
     public void removeEquipment(Equipment e) {
         listOfEquipment.remove(e);
         //equipment.removeActor(e);
     }
 
-    /*
+    /* Removes the Equipment with the given index from the list.
      */
     public void removeEquipment(int index) {
         listOfEquipment.remove(index);
