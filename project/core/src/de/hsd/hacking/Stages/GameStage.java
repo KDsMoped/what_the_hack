@@ -1,6 +1,7 @@
 package de.hsd.hacking.Stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -116,10 +117,12 @@ public class GameStage extends Stage {
 
 
             Skin uiSkin = new Skin(assets.ui_atlas);
-            TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("Button_9_Patch_normal"), uiSkin.getDrawable("Button_9_Patch_pressed"),
-                    null, assets.gold_font);
-            style.pressedOffsetY = -5f;
-            TextButton button = new TextButton("START", style);
+            TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
+                    null, assets.status_bar_font);
+            style.fontColor = Color.BLACK;
+            style.pressedOffsetY = -1f;
+            style.pressedOffsetX = 1f;
+            TextButton button = new TextButton("Popup", style);
             button.addListener(new ChangeListener() {
                                    @Override
                                    public void changed(ChangeEvent event, Actor actor) {
@@ -133,7 +136,6 @@ public class GameStage extends Stage {
                                }
             );
             button.setBounds(10, 10, 100, 30);
-            button.setText("Popup");
 
             popups.addActor(button);
             popups.addActor(popup);

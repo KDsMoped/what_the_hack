@@ -49,6 +49,7 @@ public class Assets {
 
     public Skin terminal_skin;
     public NinePatchDrawable terminal_patch;
+    public NinePatchDrawable win32_patch;
 
     public Sound buttonSound;
 
@@ -117,6 +118,7 @@ public class Assets {
         terminal_skin = new Skin();
         terminal_skin.addRegions(ui_atlas);
         terminal_patch = new NinePatchDrawable(terminal_skin.getPatch("terminal_9_patch"));
+        win32_patch = new NinePatchDrawable(terminal_skin.getPatch("popup"));
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/

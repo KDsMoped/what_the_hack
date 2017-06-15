@@ -1,6 +1,7 @@
 package de.hsd.hacking.UI;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -44,13 +45,14 @@ public abstract class Popup extends Actor {
 
         // And we want to center the popup on the screen
         content.setPosition(POPUP_MARGIN, POPUP_MARGIN);
-        content.setBackground(assets.terminal_patch);
+        content.setBackground(assets.win32_patch);
 
         // Setup Button Style
         Skin uiSkin = new Skin(assets.ui_atlas);
-        buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("Button_9_Patch_normal"), uiSkin.getDrawable("Button_9_Patch_pressed"),
+        buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
                 null, assets.status_bar_font);
         buttonStyle.pressedOffsetY = -5f;
+        buttonStyle.fontColor = Color.BLACK;
 
         // Setup close button
         closeButton = new TextButton("OK", buttonStyle);
@@ -61,12 +63,12 @@ public abstract class Popup extends Actor {
                                }
                            }
         );
-        closeButton.setWidth(50);
-        closeButton.setHeight(20);
+        closeButton.setWidth(80);
+        closeButton.setHeight(25);
 
         // Table layout
         content.row();
-        content.add(closeButton).padBottom(4f);
+        content.add(closeButton).padBottom(4f).width(50).height(23);
     }
 
     @Override
