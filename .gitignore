@@ -68,3 +68,6 @@ build/
 ## OS Specific
 .DS_Store
 Thumbs.db
+
+# grade generated atlas and image files
+project/android/assets/img/
