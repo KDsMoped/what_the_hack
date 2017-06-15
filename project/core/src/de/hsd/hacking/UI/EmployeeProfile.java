@@ -15,7 +15,7 @@ public class EmployeeProfile extends Popup {
 
     @Override
     public void act(float delta) {
-        if (!getActive()) {
+        if (!isActive()) {
             return;
         }
 
@@ -24,7 +24,7 @@ public class EmployeeProfile extends Popup {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (!getActive()) {
+        if (!isActive()) {
             return;
         }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -26,8 +27,6 @@ public abstract class Popup extends Actor {
     private Assets assets;
     private Table content = new Table();
 
-    private boolean isActive = false;
-
     private TextButton.TextButtonStyle buttonStyle;
     private TextButton closeButton;
 
@@ -46,6 +45,8 @@ public abstract class Popup extends Actor {
         // And we want to center the popup on the screen
         content.setPosition(POPUP_MARGIN, POPUP_MARGIN);
         content.setBackground(assets.win32_patch);
+        content.setTouchable(Touchable.enabled);
+        content.setVisible(false);
 
         // Setup Button Style
         Skin uiSkin = new Skin(assets.ui_atlas);
@@ -63,30 +64,21 @@ public abstract class Popup extends Actor {
                                }
                            }
         );
-        closeButton.setWidth(80);
-        closeButton.setHeight(25);
 
         // Table layout
         content.row();
         content.add(closeButton).padBottom(4f).width(50).height(23);
+        closeButton.setBounds(50, 23, 50, 23);
     }
 
     @Override
     public void act(float delta) {
-        if (!isActive) {
-            return;
-        }
-
         super.act(delta);
     }
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (!isActive) {
-            return;
-        }
-
         super.draw(batch, parentAlpha);
 
         content.draw(batch, parentAlpha);
@@ -96,17 +88,17 @@ public abstract class Popup extends Actor {
      * Enables act and draw for the popup window.
      */
     public void Show() {
-        isActive = true;
+        content.setVisible(true);
     }
 
     /**
      * Disables act and draw for the popup window.
      */
     public void Close() {
-        isActive = false;
+        content.setVisible(false);
     }
 
-    public boolean getActive() {
-        return isActive;
+    public boolean isActive() {
+        return content.isVisible();
     }
 }

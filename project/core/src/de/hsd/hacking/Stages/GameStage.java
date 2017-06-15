@@ -126,7 +126,7 @@ public class GameStage extends Stage {
             button.addListener(new ChangeListener() {
                                    @Override
                                    public void changed(ChangeEvent event, Actor actor) {
-                                       if (popup.getActive()){
+                                       if (popup.isActive()){
                                            popup.Close();
                                        }
                                        else {
