@@ -1,9 +1,17 @@
 package de.hsd.hacking.Stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.ArrayList;
@@ -23,6 +31,8 @@ import de.hsd.hacking.Entities.Objects.Wall;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.Screens.ScreenManager;
+import de.hsd.hacking.UI.EmployeeProfile;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
@@ -46,6 +56,8 @@ public class GameStage extends Stage {
     private Team team;
 
     private List<Touchable> touchables;
+
+    private Group foreground, background, popups;
     
     public GameStage(Assets assets){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
@@ -53,8 +65,22 @@ public class GameStage extends Stage {
         this.checkVector = new Vector2();
         this.assets = assets;
         this.tileMap = new TileMap();
+
+        foreground = new Group();
+        background = new Group();
+        popups = new Group();
+
+        // the order the actors are added is important
+        // it is also the drawing order
+        // meaning the last added item will also be drawn last
+        addActor(background);
         addActor(this.tileMap);
         addActor(new StatusBar(assets));
+        addActor(foreground);
+        addActor(popups);
+
+        foreground.addActor(new Image(assets.room_fg));
+        background.addActor(new Image(assets.room_bg));
 
         team = Team.getInstance();
         team.initialize(this);
@@ -85,8 +111,35 @@ public class GameStage extends Stage {
         
         this.touchables.addAll(team.getEmployeeList());
 
+        // REMOVE THIS AGAIN
+        if (Constants.DEBUG) {
+            final EmployeeProfile popup = new EmployeeProfile(assets);
 
 
+            Skin uiSkin = new Skin(assets.ui_atlas);
+            TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
+                    null, assets.status_bar_font);
+            style.fontColor = Color.BLACK;
+            style.pressedOffsetY = -1f;
+            style.pressedOffsetX = 1f;
+            TextButton button = new TextButton("Popup", style);
+            button.addListener(new ChangeListener() {
+                                   @Override
+                                   public void changed(ChangeEvent event, Actor actor) {
+                                       if (popup.isActive()){
+                                           popup.Close();
+                                       }
+                                       else {
+                                           popup.Show();
+                                       }
+                                   }
+                               }
+            );
+            button.setBounds(10, 10, 100, 30);
+
+            popups.addActor(button);
+            popups.addActor(popup);
+        }
     }
 
 
@@ -101,17 +154,10 @@ public class GameStage extends Stage {
                 tile.addPasserBy(employee);
             }
         }
+
         Batch batch = getBatch();
-        batch.begin();
-        batch.draw(assets.room_bg, 0, 0);
-        batch.end();
         super.draw();
         batch.begin();
-       /* for (Employee em :
-                employees) {
-            em.draw(batch, 1f);
-        }*/
-        batch.draw(assets.room_fg, 0, 0);
         if (Constants.DEBUG){
             assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
         }
