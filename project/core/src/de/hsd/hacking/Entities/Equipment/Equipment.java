@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.TouchableObject;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Stages.GameStage;
 
 /**
@@ -35,15 +36,19 @@ public abstract class Equipment extends TouchableObject {
     private EquipmentAttributeType attributeType;
     private String name;
     private float price;
+    private int attributeValue = 100;
+    public Team team;
 
     public Equipment(TextureRegion drawableRegion, float price,
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
-                     boolean blocking, Direction occupyDirection, int occupyAmount) {
+                     boolean blocking, Direction occupyDirection, int occupyAmount,
+                     Team team) {
         super(drawableRegion, blocking, true, occupyDirection, occupyAmount);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);
+        this.team = team;
     }
 
     public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }
@@ -51,8 +56,12 @@ public abstract class Equipment extends TouchableObject {
     public EquipmentAttributeType getAttributeType() { return attributeType; }
     public EquipmentAttributeLevel getAttributeLevel() { return attributeLevel; }
 
+    public void setAttributeValue(int value) { attributeValue = value; }
+    public int getAttributeValue() { return attributeValue; }
+
     public void setPrice(float price) { this.price = price; }
     public float getPrice() { return price;}
+
 
     @Override
     public String getName()  {

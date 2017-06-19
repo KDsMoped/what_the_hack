@@ -24,6 +24,8 @@ import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Equipment.Computer;
 import de.hsd.hacking.Entities.Equipment.Equipment;
+import de.hsd.hacking.Entities.Equipment.Modem;
+import de.hsd.hacking.Entities.Equipment.Upgradable;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Lamp;
 import de.hsd.hacking.Entities.Objects.Object;
@@ -35,6 +37,8 @@ import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.UI.EmployeeProfile;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
+
+import static de.hsd.hacking.Entities.Equipment.Equipment.EquipmentType.MODEM;
 
 /**
  * Created by Cuddl3s on 24.05.2017.
@@ -54,6 +58,7 @@ public class GameStage extends Stage {
     private Vector2 checkVector;
     private TileMap tileMap;
     private Team team;
+    private StatusBar statusBar;
 
     private List<Touchable> touchables;
 
@@ -78,6 +83,8 @@ public class GameStage extends Stage {
         addActor(new StatusBar(assets));
         addActor(foreground);
         addActor(popups);
+        statusBar = new StatusBar(assets);
+        addActor(statusBar);
 
         foreground.addActor(new Image(assets.room_fg));
         background.addActor(new Image(assets.room_bg));
@@ -102,13 +109,18 @@ public class GameStage extends Stage {
         tileMap.getTiles()[3][0].setObject(new Lamp(assets));
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(desk);
-        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets));
+        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets, team));
+
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
             if (ret != 0) { break; }
         }
-        
+
+        team.createAndAddEquipment(MODEM,
+                                   Equipment.EquipmentAttributeLevel.getRandomAttributeLevel(),
+                                   0, assets);
+
         this.touchables.addAll(team.getEmployeeList());
 
         // REMOVE THIS AGAIN
@@ -139,6 +151,24 @@ public class GameStage extends Stage {
 
             popups.addActor(button);
             popups.addActor(popup);
+
+            TextButton upgradeButton = new TextButton("Upgrade", style);
+            upgradeButton.addListener(new ChangeListener() {
+                                        @Override
+                                        public void changed(ChangeEvent event, Actor actor) {
+                                            ArrayList<Equipment> equipments = team.getEquipmentList();
+                                            for (Equipment equipment :
+                                                    equipments) {
+                                                if(equipment instanceof Upgradable) {
+                                                    ((Upgradable) equipment).upgrade();
+                                                }
+                                            }
+                                        }
+                                    }
+            );
+            upgradeButton.setBounds(10, 40, 100, 30);
+
+            popups.addActor(upgradeButton);
         }
     }
 
@@ -178,6 +208,12 @@ public class GameStage extends Stage {
                 team.getEmployeeList()) {
             em.act(delta);
         }
+        //team.calcRessorces();
+        statusBar.setMoney(team.getMoney());
+        statusBar.setBandwith(team.getBandwith());
+        statusBar.setWorkplaces(team.getWorkspaceCount());
+        statusBar.setEmployees(team.getEmployeeCount());
+
     }
 
     @Override

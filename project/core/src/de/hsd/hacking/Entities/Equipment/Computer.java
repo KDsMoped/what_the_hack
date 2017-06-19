@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Touchable;
 
 /**
@@ -21,21 +22,24 @@ public class Computer extends Equipment implements Interactable, Upgradable {
     private boolean on;
     private float elapsedTime = 0f;
 
-    private int level;
+    private int level = 0;
     private Assets assets;
 
 
-    public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0);
+    public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
+        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, team);
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
-
     }
 
     public EquipmentType getType() { return EquipmentType.COMPUTER; }
 
     //Upgrade functions
-    public void upgrade() {}
+    public void upgrade() {
+        level++;
+        setAttributeValue(getAttributeValue() + 100);
+
+    }
     public int getLevel() { return level; }
     public void setInitialLevel(int level) { this.level = level; }
 

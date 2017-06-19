@@ -11,9 +11,11 @@ import de.hsd.hacking.Entities.Equipment.Equipment;
 import de.hsd.hacking.Entities.Equipment.EquipmentFactory;
 import de.hsd.hacking.Entities.Team.Workspace;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by domin on 30.05.2017.
@@ -33,9 +35,9 @@ public class Team {
     private static ArrayList<Workspace> listOfWorkspaces;
 
     /* Resources */
-    private int resource_Money;
-    private int resource_Bandwidth;
-    private int resource_ComputationPower;
+    private int resource_Money = 500;
+    private int resource_Bandwidth = 0;
+    private int resource_ComputationPower = 0;
 
 
     // Instanciation and Initialization of Team as a Singleton /////////////////////////////////////
@@ -119,7 +121,7 @@ public class Team {
                                       Equipment.EquipmentAttributeLevel attributeLevel,
                                       float price,
                                       Assets assets) {
-        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets);
+        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets, this);
         if(equipment != null) {
             listOfEquipment.add(equipment);
         }
@@ -150,6 +152,8 @@ public class Team {
         //equipment.removeActor(e);
     }
 
+    public ArrayList<Equipment> getEquipmentList() { return listOfEquipment; }
+
 
     // Manage Workspaces ///////////////////////////////////////////////////////////////////////////
 
@@ -160,6 +164,8 @@ public class Team {
         Workspace w = new Workspace();
         listOfWorkspaces.add(w);
     }
+
+    public int getWorkspaceCount() { return listOfWorkspaces.size(); }
 
     public void removeWorkspace(int index) { listOfWorkspaces.remove(index); }
 
@@ -215,5 +221,20 @@ public class Team {
     /* Reduce the computation power by the given value.
      */
     public void reduceComputationPower(int value) { resource_ComputationPower -= value; }
+
+
+    /*
+    public void calcRessorces() {
+        for (int i=0; i < listOfEquipment.size(); i++) {
+            Equipment e = listOfEquipment.get(i);
+            resource_Bandwidth = 0;
+            switch(e.getAttributeType()) {
+                case BANDWIDTH:
+                    addBandwidth(e.getAttributeValue());
+                    Gdx.app.log(Constants.TAG, "Bandwidth added");
+            }
+        }
+    }
+    */
 
 }
