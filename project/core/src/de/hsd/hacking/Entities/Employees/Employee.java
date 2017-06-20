@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.annotations.*;
 
@@ -64,7 +65,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
     public enum AnimState{
-        IDLE, MOVING
+        IDLE, WORKING, WORKING_BACKFACED, MOVING
     }
     private ShaderProgram shader;
     private AnimState animationState;
@@ -204,7 +205,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             batch.begin();
         }
         if(selected){
-            assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
+            Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
         }
 
     }
@@ -255,12 +256,22 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private void setUpAnimations() {
         this.animations = new Animation[AnimState.values().length][2];
-        boolean hair1 = MathUtils.randomBoolean();
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(0), assets.gray_character_body.get(1));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hair1 ? assets.hair_01.get(0) : assets.hair_02.get(0), hair1 ? assets.hair_01.get(1) : assets.hair_02.get(1));
+        int randHair = MathUtils.random(HairStyle.values().length - 1);
+        this.hairStyle = HairStyle.values()[randHair];
+        Array<TextureRegion> hairframes = assets.getHairFrames(this.hairStyle);
 
+        /* [1-3: Body Walkframes ]  */
+        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
+        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(0), hairframes.get(1), hairframes.get(1));
+        /* [1-2: Body Idleframes ]  */
         animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(2), assets.gray_character_body.get(3));
-        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hair1 ? assets.hair_01.get(2) : assets.hair_02.get(2), hair1 ? assets.hair_01.get(3) : assets.hair_02.get(3));
+        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(2), hairframes.get(3));
+        /* [1: Body WorkingFrames  ] */
+        animations[AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(4));
+        animations[AnimState.WORKING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(4));
+
+        animations[AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(6), assets.gray_character_body.get(7));
+        animations[AnimState.WORKING_BACKFACED.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(6), hairframes.get(7));
 
     }
 

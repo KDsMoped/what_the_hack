@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 
+import de.hsd.hacking.Entities.Employees.Employee;
+
 /**
  * Created by Cuddl3s on 21.04.2017.
  */
@@ -133,6 +135,21 @@ public class Assets {
         ui_atlas.dispose();
         atlas.dispose();
         manager.clear();
+
+    }
+
+    public Array<TextureRegion> getHairFrames(Employee.HairStyle hairStyle) {
+        switch (hairStyle){
+            case CRAZY:
+                return hair_01;
+            case NEAT:
+                return hair_02;
+            case NERD:
+                return hair_01;
+            case RASTA:
+                return hair_02;
+        }
+        return hair_01;
 
     }
 }

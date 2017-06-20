@@ -24,7 +24,7 @@ public class Chair extends InteractableObject {
     @Override
     public EmployeeState interact(Employee e) {
         this.setBlocking(true);
-        return new WorkingState(e);
+        return new WorkingState(e, getPosition());
     }
 
     @Override
