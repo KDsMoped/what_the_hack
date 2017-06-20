@@ -21,8 +21,8 @@ public abstract class TouchableObject extends Object implements Touchable {
     private Rectangle bounds;
     private ShapeRenderer debugRenderer;
 
-    public TouchableObject(TextureRegion drawableRegion, boolean blocking, boolean repositionable, Direction occupyDirection, int occupyAmount) {
-        super(drawableRegion, blocking, repositionable, occupyDirection, occupyAmount);
+    public TouchableObject(TextureRegion drawableRegion, boolean blocking, boolean interactable, Direction occupyDirection, int occupyAmount) {
+        super(drawableRegion, blocking, true, interactable, occupyDirection, occupyAmount);
         this.touched = false;
         this.bounds = new Rectangle();
         bounds.setSize(drawableRegion.getRegionWidth(), drawableRegion.getRegionHeight());

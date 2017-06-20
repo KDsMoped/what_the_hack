@@ -1,4 +1,4 @@
-package de.hsd.hacking.Entities.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment;
 
 /**
  * Created by domin on 05.06.2017.

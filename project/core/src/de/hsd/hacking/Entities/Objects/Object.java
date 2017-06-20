@@ -13,15 +13,13 @@ import de.hsd.hacking.Stages.GameStage;
 
 public abstract class Object extends Entity {
 
-    private boolean repositionable;
     private TextureRegion drawableRegion;
     private Direction occupyDirection;
     private int occupyAmount;
 
-    public Object(TextureRegion region, boolean blocking, boolean repositionable, Direction occupyDirection, int occupyAmount) {
-        super(blocking);
+    public Object(TextureRegion region, boolean blocking, boolean touchable, boolean interactable, Direction occupyDirection, int occupyAmount) {
+        super(blocking, touchable, interactable);
         this.drawableRegion = region;
-        this.repositionable = repositionable;
         this.occupyDirection = occupyDirection;
         this.occupyAmount = occupyAmount;
     }
@@ -38,11 +36,15 @@ public abstract class Object extends Entity {
         return "";
     }
 
-    public boolean isRepositionable(){
-        return repositionable;
-    }
-
     public void setDrawableRegion(TextureRegion drawableRegion) {
         this.drawableRegion = drawableRegion;
+    }
+
+    public Direction getOccupyDirection() {
+        return occupyDirection;
+    }
+
+    public int getOccupyAmount() {
+        return occupyAmount;
     }
 }

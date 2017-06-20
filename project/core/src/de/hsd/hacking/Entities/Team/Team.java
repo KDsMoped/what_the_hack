@@ -2,17 +2,18 @@ package de.hsd.hacking.Entities.Team;
 
 import java.util.ArrayList;
 
-import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Equipment.Computer;
 import de.hsd.hacking.Entities.Equipment.Equipment;
 import de.hsd.hacking.Entities.Equipment.EquipmentFactory;
 import de.hsd.hacking.Entities.Team.Workspace;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 import de.hsd.hacking.Stages.GameStage;
 
 /**
@@ -67,6 +68,7 @@ public class Team {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
         Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)stage);
         listOfEmployees.add(e);
+        e.setTouchable(Touchable.enabled);
         return 0;
     }
 

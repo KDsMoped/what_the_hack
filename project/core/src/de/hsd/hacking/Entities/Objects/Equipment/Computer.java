@@ -1,15 +1,13 @@
-package de.hsd.hacking.Entities.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import de.hsd.hacking.Assets.Assets;
-import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Direction;
-import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 
 /**

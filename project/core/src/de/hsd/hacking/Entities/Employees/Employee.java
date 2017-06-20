@@ -85,7 +85,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
 
     public Employee() {
-        super(false);
+        super(false, true, false);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @param level The desired skill Level
      */
     public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage){
-        super(false);
+        super(false, true, false);
         this.assets = assets;
 
         //Create random name
@@ -271,7 +271,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void touchUp(Vector2 position) {
         if (bounds.contains(position) && touched){
-            touchTintFrames += 120;
+            onTouch();
         }
         touched = false;
     }
@@ -292,6 +292,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             return -1;
         }
 
+    }
+
+    private void onTouch(){
+        touchTintFrames += 120;
     }
 
 

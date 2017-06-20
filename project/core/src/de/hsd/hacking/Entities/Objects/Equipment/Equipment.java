@@ -1,12 +1,10 @@
-package de.hsd.hacking.Entities.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Entities.Direction;
-import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.TouchableObject;
-import de.hsd.hacking.Stages.GameStage;
 
 /**
  * Created by domin on 31.05.2017.

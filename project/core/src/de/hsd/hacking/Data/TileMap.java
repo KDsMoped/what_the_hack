@@ -127,23 +127,6 @@ public class TileMap extends Group implements TileMovementProvider  {
     }
 
     /**
-     * Places an object at the specified tile
-     * @param object object entity
-     * @param tileNumber number of the tile to place object on (= x * Constants.TILES_PER_SIDE + y)
-     * @return whether placement was successfull
-     */
-    public boolean placeObjectEntity(Object object, int tileNumber){
-        //TODO Check ob entity auch wirklich object ist
-        int x = tileNumber % Constants.TILES_PER_SIDE;
-        int y = tileNumber / Constants.TILES_PER_SIDE;
-        if (tiles[x][y].hasNoObject()){
-            tiles[x][y].setObject(object);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Removes the specified employee from his current tile
      * @param employee
      */
@@ -205,20 +188,13 @@ public class TileMap extends Group implements TileMovementProvider  {
     public boolean addObject(int tileNumber, Object object){
         int x = tileNumber % Constants.TILES_PER_SIDE;
         int y = tileNumber / Constants.TILES_PER_SIDE;
-        if (tiles[x][y].hasNoObject()){
-            tiles[x][y].setObject(object);
-            if (object instanceof Touchable){
-                stage.addTouchable((Touchable) object);
-            }
-            return true;
-        }
-        return false;
+        return addObject(x, y, object);
     }
 
     public boolean addObject(int x, int y, Object object){
         if (tiles[x][y].hasNoObject()){
             tiles[x][y].setObject(object);
-            if (object instanceof Touchable){
+            if (object.isTouchable()){
                 stage.addTouchable((Touchable) object);
             }
             return true;

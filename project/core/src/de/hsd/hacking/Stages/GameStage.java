@@ -16,18 +16,18 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Equipment.Computer;
-import de.hsd.hacking.Entities.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Lamp;
-import de.hsd.hacking.Entities.Objects.Object;
+import de.hsd.hacking.Entities.Objects.ObjectFactory;
+import de.hsd.hacking.Entities.Objects.ObjectType;
 import de.hsd.hacking.Entities.Objects.Wall;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
@@ -88,21 +88,21 @@ public class GameStage extends Stage {
         this.touchables = new ArrayList<Touchable>(4);
 
         //CREATE WALLS TO TEST A* PATHFINDING
-        tileMap.addObject(0,0, new Wall());
-        tileMap.addObject(0,1, new Wall());
-        tileMap.addObject(0,2, new Wall());
-        tileMap.addObject(1,0, new Wall());
-        tileMap.addObject(2,0, new Wall());
-        tileMap.addObject(1,1, new Wall());
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, new Wall());
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, new Wall());
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, new Wall());
-        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 1, new Wall());
-        tileMap.addObject(Constants.TILES_PER_SIDE - 3,Constants.TILES_PER_SIDE - 1, new Wall());
-        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 2, new Wall());
+        tileMap.addObject(0,0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0,1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0,2, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1,0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(2,0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1,1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 3,Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
 
         //populate room with objects
-        tileMap.addObject(3,0, new Lamp(assets));
+        tileMap.addObject(3,0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.addObject(Constants.TILES_PER_SIDE / 2, Constants.TILES_PER_SIDE / 2, desk);
         Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets);
@@ -192,6 +192,7 @@ public class GameStage extends Stage {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         getViewport().unproject(checkVector.set(screenX, screenY));
         if (pointer == 0){
+
             for (Touchable touchable :
                     touchables) {
                 touchable.touchDown(checkVector);

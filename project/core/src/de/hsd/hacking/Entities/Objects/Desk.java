@@ -18,7 +18,7 @@ public class Desk extends ContainerObject {
     private TextureRegion desk;
 
     public Desk(Assets assets, Direction direction, int occupyAmount) {
-        super(null, true, true, direction, occupyAmount);
+        super(null, true, false, false, direction, occupyAmount);
         desk = assets.desk_2;
 
     }
