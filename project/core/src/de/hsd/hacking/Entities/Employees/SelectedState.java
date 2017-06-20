@@ -13,7 +13,10 @@ public class SelectedState extends EmployeeState {
 
     @Override
     EmployeeState act(float deltaTime) {
-        return null;
+        if (!canceled){
+            return new IdleState(employee);
+        }
+        return new IdleState(employee);
     }
 
     @Override
@@ -24,5 +27,13 @@ public class SelectedState extends EmployeeState {
     @Override
     void leave() {
 
+    }
+
+    @Override
+    void cancel() {
+        employee.setSelected(false);
+        if (employee.equals(employee.getStage().getSelectedEmployee())){
+            employee.getStage().setSelectedEmployee(null);
+        }
     }
 }

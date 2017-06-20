@@ -43,7 +43,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private final int BODY = 0;
     private final int HAIR = 1;
     private boolean touched;
-    private int touchTintFrames = 0;
+
+    private boolean selected;
 
 
     public enum EmployeeSkillLevel {
@@ -84,6 +85,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
 
 
+    private GameStage stage;
+
+
+
     public Employee() {
         super(false, true, false);
     }
@@ -95,6 +100,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage){
         super(false, true, false);
         this.assets = assets;
+        this.stage = stage;
 
         //Create random name
         String[] randomName = DataLoader.getInstance().getNewName();
@@ -175,7 +181,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.setShader(shader);
-        if (touchTintFrames > 0){
+        if (selected){
             batch.setColor(Color.RED);
         }
         Vector2 pixelPosition = clampToPixels(getPosition());
@@ -184,7 +190,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             batch.draw(frame, flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
         }
         batch.setShader(null);
-        if (touchTintFrames > 0){
+        if (selected){
             batch.setColor(Color.WHITE);
         }
         if (Constants.DEBUG){
@@ -197,7 +203,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.end();
             batch.begin();
         }
-        if(touchTintFrames > 0){
+        if(selected){
             assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
         }
 
@@ -207,9 +213,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public void act(float delta) {
         super.act(delta);
         elapsedTime += delta;
-        if (touchTintFrames > 0){
-            touchTintFrames--;
-        }
         EmployeeState state = this.state.act(delta);
         if (state != null){
             this.state.leave();
@@ -295,8 +298,31 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     private void onTouch(){
-        touchTintFrames += 120;
+        if (selected){
+            stage.setSelectedEmployee(null);
+
+        }else{
+            stage.setSelectedEmployee(this);
+            selected = true;
+        }
+        selected = !selected;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    @Override
+    public GameStage getStage() {
+        return stage;
+    }
+
+    public void setStage(GameStage stage) {
+        this.stage = stage;
+    }
 
 }

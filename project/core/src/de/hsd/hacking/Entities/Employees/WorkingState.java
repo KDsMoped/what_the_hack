@@ -17,7 +17,10 @@ public class WorkingState extends EmployeeState {
 
     @Override
     EmployeeState act(float deltaTime) {
-        return null;
+        if (!isCanceled()){
+
+        }
+        return new IdleState(employee);
     }
 
     @Override
@@ -27,6 +30,11 @@ public class WorkingState extends EmployeeState {
 
     @Override
     void leave() {
+
+    }
+
+    @Override
+    void cancel() {
 
     }
 }

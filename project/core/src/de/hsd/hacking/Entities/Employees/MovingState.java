@@ -21,6 +21,7 @@ public class MovingState extends EmployeeState {
 
 
     private Vector2 destinationPos;
+    private Tile endTile;
     private Path path;
 
     private float acceleration;
@@ -40,6 +41,7 @@ public class MovingState extends EmployeeState {
         currentTile.setEmployee(null);
         this.lastTile = false;
         if (destinationTile != null){
+            this.endTile = destinationTile;
             if (destinationTile.hasInteractableObject() && ((Interactable)destinationTile.getObject()).isDelegatingInteraction()){
                 this.delegating = true;
                 this.delegatingInteractable = ((Interactable)destinationTile);
@@ -68,6 +70,7 @@ public class MovingState extends EmployeeState {
         this.lastTile = false;
 
         if (destinationTile != null){
+            this.endTile = destinationTile;
             if (destinationTile.hasInteractableObject() && ((Interactable)destinationTile.getObject()).isDelegatingInteraction()) {
                 this.delegating = true;
                 this.delegatingInteractable = ((Interactable) destinationTile);
@@ -86,40 +89,43 @@ public class MovingState extends EmployeeState {
 
     @Override
     EmployeeState act(float deltaTime) {
-
-        if (delegating){
-            return this.delegatingInteractable.interact(employee);
-        }
-        // If destination wasn't reached yet, move further.
-        if (destinationPos.cpy().sub(employee.getPosition()).len2() > 1f){
-            //EASE-IN / EASE-OUT
-            if (!lastTile){
-                speed += acceleration * deltaTime;
-                speed = MathUtils.clamp(speed, 0 , MAX_SPEED);
-            }else{
-                speed -= acceleration /2f * deltaTime;
-                speed = MathUtils.clamp(speed, 10f, MAX_SPEED);
+        if (!canceled) {
+            if (delegating) {
+                return this.delegatingInteractable.interact(employee);
             }
-
-            employee.setPosition(employee.getPosition().cpy().add(destinationPos.cpy().sub(employee.getPosition()).nor().scl(speed).scl(deltaTime)));
-            return null;
-        }else{
-            if (path == null || path.isPathFinished()){
-                employee.setPosition(destinationPos.cpy());
-
-
-                Tile pos = employee.getMovementProvider().getTile(destinationPos.cpy());
-                //If there's an object, and it can be interacted with ->interact with it
-                Object obj = pos.getObject();
-                if (pos.hasInteractableObject() && !((Interactable)obj).isOccupied()){
-                    return ((Interactable)obj).interact(employee);
+            // If destination wasn't reached yet, move further.
+            if (destinationPos.cpy().sub(employee.getPosition()).len2() > 1f) {
+                //EASE-IN / EASE-OUT
+                if (!lastTile) {
+                    speed += acceleration * deltaTime;
+                    speed = MathUtils.clamp(speed, 0, MAX_SPEED);
+                } else {
+                    speed -= acceleration / 2f * deltaTime;
+                    speed = MathUtils.clamp(speed, 10f, MAX_SPEED);
                 }
 
-                return new IdleState(employee);
-            }else{
-                setNextDestination();
+                employee.setPosition(employee.getPosition().cpy().add(destinationPos.cpy().sub(employee.getPosition()).nor().scl(speed).scl(deltaTime)));
                 return null;
+            } else {
+                if (path == null || path.isPathFinished()) {
+                    employee.setPosition(destinationPos.cpy());
+
+
+                    Tile pos = employee.getMovementProvider().getTile(destinationPos.cpy());
+                    //If there's an object, and it can be interacted with ->interact with it
+                    Object obj = pos.getObject();
+                    if (pos.hasInteractableObject() && !((Interactable) obj).isOccupied()) {
+                        return ((Interactable) obj).interact(employee);
+                    }
+
+                    return new IdleState(employee);
+                } else {
+                    setNextDestination();
+                    return null;
+                }
             }
+        }else{
+            return new IdleState(employee);
         }
     }
 
@@ -146,5 +152,12 @@ public class MovingState extends EmployeeState {
     @Override
     void leave() {
 
+    }
+
+    @Override
+    void cancel() {
+        if (employee.equals(endTile.getEmployee())){
+            endTile.setEmployee(null);
+        }
     }
 }

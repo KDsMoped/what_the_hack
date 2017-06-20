@@ -3,6 +3,7 @@ package de.hsd.hacking.Stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -27,6 +28,7 @@ import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Lamp;
+import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.ObjectFactory;
 import de.hsd.hacking.Entities.Objects.ObjectType;
 import de.hsd.hacking.Entities.Objects.Wall;
@@ -56,6 +58,7 @@ public class GameStage extends Stage {
     private Vector2 checkVector;
     private TileMap tileMap;
     private Team team;
+    private Employee selectedEmployee;
 
     private List<Touchable> touchables;
 
@@ -159,7 +162,7 @@ public class GameStage extends Stage {
         for (Employee employee :
                 employees) {
             if (employee.getAnimationState() == Employee.AnimState.MOVING){
-                Tile tile = tileMap.getTile(employee.getPosition().cpy().add(16f, 8f)); //TODO tilemap.getTile verbessern
+                Tile tile = tileMap.getTile(employee.getPosition().cpy().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTile verbessern
                 tile.addPasserBy(employee);
             }
         }
@@ -175,6 +178,7 @@ public class GameStage extends Stage {
 
     @Override
     public void act(float delta) {
+        MathUtils.clamp(delta, 0f, .2f);
         elapsedTime += delta;
         super.act(delta);
         for (Employee em :
@@ -237,5 +241,13 @@ public class GameStage extends Stage {
 
     public boolean removeTouchable(Touchable touchable){
         return touchables.remove(touchable);
+    }
+
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
+    }
+
+    public void setSelectedEmployee(Employee selectedEmployee) {
+        this.selectedEmployee = selectedEmployee;
     }
 }

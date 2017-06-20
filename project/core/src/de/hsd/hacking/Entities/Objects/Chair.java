@@ -37,10 +37,10 @@ public class Chair extends InteractableObject {
         return false;
     }
 
-    @Override
+    /*@Override
     public void draw(Batch batch, float alpha){
 
-    }
+    }*/
 
     @Override
     public void occupy() {

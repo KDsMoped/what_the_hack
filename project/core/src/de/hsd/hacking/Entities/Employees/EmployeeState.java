@@ -9,6 +9,7 @@ import de.hsd.hacking.Data.MovementProvider;
 public abstract class EmployeeState{
 
     Employee employee;
+    boolean canceled;
 
 
     public EmployeeState(Employee employee){
@@ -26,4 +27,11 @@ public abstract class EmployeeState{
      * Gets called when an EmployeeState stops being active
      */
     abstract void leave();
+
+    void cancel(){
+        canceled = true;
+    }
+    boolean isCanceled(){
+        return canceled;
+    }
 }

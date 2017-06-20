@@ -95,6 +95,7 @@ public class Assets {
         lamp = atlas.findRegion("interior/Lamp");
         desk_1 = atlas.findRegion("interior/Table", 1);
         desk_2 = atlas.findRegion("interior/Table", 2);
+        chair = atlas.findRegion("interior/Chair", 1);
 
         floor_tiles = new Array<TextureRegion>();
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
