@@ -37,6 +37,7 @@ public class Assets {
     public TextureRegion lamp;
     public TextureRegion desk_1;
     public TextureRegion desk_2;
+    public TextureRegion chair;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;

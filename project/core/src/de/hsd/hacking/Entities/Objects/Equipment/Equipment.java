@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 import de.hsd.hacking.Entities.Objects.TouchableObject;
 
 /**
  * Created by domin on 31.05.2017.
  */
 
-public abstract class Equipment extends TouchableObject {
+public abstract class Equipment extends TouchableInteractableObject {
 
     public enum EquipmentType {
         COMPUTER, SWITCH, COFFEEMAKER, MODEM, SERVER;
@@ -38,7 +39,7 @@ public abstract class Equipment extends TouchableObject {
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
                      boolean blocking, Direction occupyDirection, int occupyAmount) {
-        super(drawableRegion, blocking, true, occupyDirection, occupyAmount);
+        super(drawableRegion, blocking, occupyDirection, occupyAmount);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);

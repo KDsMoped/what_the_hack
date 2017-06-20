@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.EmployeeState;
+import de.hsd.hacking.Entities.Employees.IdleState;
+import de.hsd.hacking.Entities.Employees.MovingState;
+import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 
@@ -14,22 +19,20 @@ import de.hsd.hacking.Utils.Constants;
  * Created by Cuddl3s on 06.06.2017.
  */
 
-public class Computer extends Equipment implements Interactable, Upgradable {
+public class Computer extends Equipment implements Upgradable {
 
     private TextureRegion stillRegion;
     private Animation<TextureRegion> animation;
     private boolean on;
     private float elapsedTime = 0f;
-
     private int level;
-    private Assets assets;
+    private Chair workingChair;
 
 
     public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets) {
         super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0);
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
-
     }
 
     public EquipmentType getType() { return EquipmentType.COMPUTER; }
@@ -56,15 +59,42 @@ public class Computer extends Equipment implements Interactable, Upgradable {
     }
 
     @Override
-    public void interact() {
+    public EmployeeState interact(Employee e) {
+        if (isOccupied()){
+            return new IdleState(e);
+        }
+        occupy();
         elapsedTime = 0f;
         on = !on;
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
+        return new MovingState(e, e.getMovementProvider().getTile(workingChair.getPosition().cpy().add(1f,1f)));
+    }
+
+    @Override
+    public void occupy() {
+        setOccupied(true);
+    }
+
+    @Override
+    public void deOccupy() {
+        setOccupied(false);
+    }
+
+    @Override
+    public boolean isDelegatingInteraction() {
+        return true;
     }
 
     @Override
     public void onTouch() {
         //TODO show stats etc...
-        interact();
+    }
+
+    public Chair getWorkingChair() {
+        return workingChair;
+    }
+
+    public void setWorkingChair(Chair workingChair) {
+        this.workingChair = workingChair;
     }
 }

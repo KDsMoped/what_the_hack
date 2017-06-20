@@ -47,4 +47,6 @@ public abstract class Object extends Entity {
     public int getOccupyAmount() {
         return occupyAmount;
     }
+
+
 }

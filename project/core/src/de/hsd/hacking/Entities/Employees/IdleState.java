@@ -3,6 +3,7 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
+import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
 
 /**

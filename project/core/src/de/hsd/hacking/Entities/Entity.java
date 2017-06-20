@@ -49,6 +49,9 @@ public abstract class Entity extends Actor {
         return blocking;
     }
 
+    public void setBlocking(boolean blocking) {
+        this.blocking = blocking;
+    }
 
     @Override
     public boolean isTouchable() {

@@ -22,6 +22,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Desk;
@@ -105,7 +106,10 @@ public class GameStage extends Stage {
         tileMap.addObject(3,0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.addObject(Constants.TILES_PER_SIDE / 2, Constants.TILES_PER_SIDE / 2, desk);
+        Chair chair = new Chair(assets);
+        tileMap.addObject(Constants.TILES_PER_SIDE / 2, Constants.TILES_PER_SIDE / 2 - 1, chair);
         Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets);
+        computer.setWorkingChair(chair);
         addTouchable(computer);
         desk.setContainedObject(computer);
 

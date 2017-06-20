@@ -12,6 +12,7 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.IsometricTileManager;
 import de.hsd.hacking.Entities.Objects.Object;
+import de.hsd.hacking.Entities.Objects.PlaceHolderObject;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
@@ -197,6 +198,25 @@ public class TileMap extends Group implements TileMovementProvider  {
             if (object.isTouchable()){
                 stage.addTouchable((Touchable) object);
             }
+            int currentX = x;
+            int currentY = y;
+            for (int i = object.getOccupyAmount(); i > 0; i--) {
+                switch (object.getOccupyDirection()){
+                    case UP:
+                        tiles[currentX][--currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                    case RIGHT:
+                        tiles[++currentX][currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                    case DOWN:
+                        tiles[currentX][++currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                    case LEFT:
+                        tiles[--currentX][currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                }
+            }
+
             return true;
         }
         return false;

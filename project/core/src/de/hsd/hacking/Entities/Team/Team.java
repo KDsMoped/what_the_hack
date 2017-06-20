@@ -6,11 +6,9 @@ import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.Entities.Equipment.Computer;
-import de.hsd.hacking.Entities.Equipment.Equipment;
-import de.hsd.hacking.Entities.Equipment.EquipmentFactory;
-import de.hsd.hacking.Entities.Team.Workspace;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentFactory;
 
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 

@@ -68,6 +68,10 @@ public class Tile extends Actor {
         return object == null;
     }
 
+    public boolean hasInteractableObject(){
+        return object != null && object.isInteractable();
+    }
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

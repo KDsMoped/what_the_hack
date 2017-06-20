@@ -1,15 +1,19 @@
-package de.hsd.hacking.Entities.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment;
 
 /**
  * Created by domin on 14.06.2017.
  */
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Entities.Objects.Equipment.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentAttributeLevel;
 
 public class EquipmentFactory {
 
-    public static Equipment getEquipment(Equipment.EquipmentType type,
-                                         Equipment.EquipmentAttributeLevel attributeLevel,
+    public static Equipment getEquipment(EquipmentType type,
+                                         EquipmentAttributeLevel attributeLevel,
                                          float price,
                                          Assets assets) {
         switch(type){
