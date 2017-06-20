@@ -130,12 +130,13 @@ public class StatusBar extends Actor {
         items.add(timeLabel).align(Align.right).padRight(2);
 
         // only to showcase...
+
         if (Constants.DEBUG) {
             Timer.schedule(new Timer.Task(){
                                @Override
                                public void run() {
-                                   simulateBandwidth();
-                                   simulateMoney();
+                                   //simulateBandwidth();
+                                   //simulateMoney();
                                    simulateTime();
                                }
                            }
@@ -143,6 +144,7 @@ public class StatusBar extends Actor {
                     , 5     //    (seconds)
             );
         }
+
 
         // we want to center the top bar, to calculate the x position can
         // window_width / 2 - topbar_width / 2

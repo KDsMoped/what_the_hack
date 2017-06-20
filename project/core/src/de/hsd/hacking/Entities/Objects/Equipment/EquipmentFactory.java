@@ -5,6 +5,7 @@ package de.hsd.hacking.Entities.Objects.Equipment;
  */
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
@@ -15,13 +16,15 @@ public class EquipmentFactory {
     public static Equipment getEquipment(EquipmentType type,
                                          EquipmentAttributeLevel attributeLevel,
                                          float price,
-                                         Assets assets) {
+                                         Assets assets,
+                                         Team team) {
         switch(type){
             case COMPUTER:
-                return new Computer(price, attributeLevel, assets);
+                return new Computer(price, attributeLevel, assets, team);
             case SWITCH:
             case COFFEEMAKER:
             case MODEM:
+                return new Modem(price, attributeLevel, assets, team);
             case SERVER:
         }
 

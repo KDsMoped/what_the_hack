@@ -40,6 +40,8 @@ import de.hsd.hacking.UI.EmployeeProfile;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
+import static de.hsd.hacking.Entities.Equipment.Equipment.EquipmentType.MODEM;
+
 /**
  * Created by Cuddl3s on 24.05.2017.
  */
@@ -59,13 +61,14 @@ public class GameStage extends Stage {
     private TileMap tileMap;
     private Team team;
     private Employee selectedEmployee;
+    private StatusBar statusBar;
 
     private List<Touchable> touchables;
 
     private Group foreground, background, popups;
 
-    public GameStage(Assets assets){
-        super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
+    public GameStage(Assets assets) {
+        super(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
         this.checkVector = new Vector2();
         this.assets = assets;
@@ -83,6 +86,8 @@ public class GameStage extends Stage {
         addActor(new StatusBar(assets));
         addActor(foreground);
         addActor(popups);
+        statusBar = new StatusBar(assets);
+        addActor(statusBar);
 
         foreground.addActor(new Image(assets.room_fg));
         background.addActor(new Image(assets.room_bg));
@@ -92,21 +97,21 @@ public class GameStage extends Stage {
         this.touchables = new ArrayList<Touchable>(4);
 
         //CREATE WALLS TO TEST A* PATHFINDING
-        tileMap.addObject(0,0, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(0,1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(0,2, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(1,0, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(2,0, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(1,1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(2, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
         tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1,Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 3,Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 2,Constants.TILES_PER_SIDE - 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 3, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
 
         //populate room with objects
-        tileMap.addObject(3,0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
+        tileMap.addObject(3, 0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.addObject(Constants.TILES_PER_SIDE / 2, Constants.TILES_PER_SIDE / 2, desk);
         Chair chair = new Chair(assets);
@@ -118,9 +123,15 @@ public class GameStage extends Stage {
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
-            if (ret != 0) { break; }
+            if (ret != 0) {
+                break;
+            }
         }
-        
+
+        team.createAndAddEquipment(MODEM,
+                Equipment.EquipmentAttributeLevel.getRandomAttributeLevel(),
+                0, assets);
+
         this.touchables.addAll(team.getEmployeeList());
 
         // REMOVE THIS AGAIN
@@ -138,10 +149,9 @@ public class GameStage extends Stage {
             button.addListener(new ChangeListener() {
                                    @Override
                                    public void changed(ChangeEvent event, Actor actor) {
-                                       if (popup.isActive()){
+                                       if (popup.isActive()) {
                                            popup.Close();
-                                       }
-                                       else {
+                                       } else {
                                            popup.Show();
                                        }
                                    }
@@ -151,6 +161,24 @@ public class GameStage extends Stage {
 
             popups.addActor(button);
             popups.addActor(popup);
+
+            TextButton upgradeButton = new TextButton("Upgrade", style);
+            upgradeButton.addListener(new ChangeListener() {
+                                        @Override
+                                        public void changed(ChangeEvent event, Actor actor) {
+                                            ArrayList<Equipment> equipments = team.getEquipmentList();
+                                            for (Equipment equipment :
+                                                    equipments) {
+                                                if(equipment instanceof Upgradable) {
+                                                    ((Upgradable) equipment).upgrade();
+                                                }
+                                            }
+                                        }
+                                    }
+            );
+            upgradeButton.setBounds(10, 40, 100, 30);
+
+            popups.addActor(upgradeButton);
         }
     }
 
@@ -194,13 +222,18 @@ public class GameStage extends Stage {
                 framesCount = 0;
             }
         }
+        //team.calcRessorces();
+        statusBar.setMoney(team.getMoney());
+        statusBar.setBandwith(team.getBandwith());
+        statusBar.setWorkplaces(team.getWorkspaceCount());
+        statusBar.setEmployees(team.getEmployeeCount());
+
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         getViewport().unproject(checkVector.set(screenX, screenY));
         if (pointer == 0){
-
             for (Touchable touchable :
                     touchables) {
                 touchable.touchDown(checkVector);
