@@ -5,11 +5,10 @@ package de.hsd.hacking.Entities.Objects.Equipment;
  */
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.Entities.Objects.Equipment.Computer;
-import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
+import de.hsd.hacking.Entities.Equipment.Modem;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentAttributeLevel;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
+import de.hsd.hacking.Entities.Team.Team;
 
 public class EquipmentFactory {
 

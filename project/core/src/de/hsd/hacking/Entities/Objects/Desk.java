@@ -19,7 +19,7 @@ public class Desk extends ContainerObject {
 
     public Desk(Assets assets, Direction direction, int occupyAmount) {
         super(null, true, false, false, direction, occupyAmount);
-        desk = assets.desk_2;
+        desk = assets.getRandomDesk();
 
     }
 

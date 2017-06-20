@@ -88,12 +88,28 @@ public class TileMap extends Group implements TileMovementProvider  {
         return pathFinder.findPath(sx, sy, tx, ty);
     }
 
+    /**
+     * DON'T USE FOR GETTING TILE OBJECTS! RETURNED TILE IS NOT ALWAYS CORRECT TILE
+     */
     @Override
-    public Tile getTile(Vector2 position) {
+    public Tile getTileWhileMoving(Vector2 position) {
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if(tiles[i][j].isInTile(position)){
                     return tiles[i][j];
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Tile getDiscreteTile(Vector2 position) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                Tile tile = tiles[i][j];
+                if (tile.getPosition().x == position.x && tile.getPosition().y == position.y) {
+                    return tile;
                 }
             }
         }

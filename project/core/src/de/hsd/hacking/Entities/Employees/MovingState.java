@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Objects.Interactable;
-import de.hsd.hacking.Entities.Objects.InteractableObject;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
@@ -35,7 +34,7 @@ public class MovingState extends EmployeeState {
         super(employee);
         this.speed = 0f;
         this.acceleration = 20f;
-        Tile currentTile = employee.getMovementProvider().getTile(employee.getPosition().cpy().add(1f, 1f));
+        Tile currentTile = employee.getMovementProvider().getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f));
 
         //Remove employee from tile
         currentTile.setEmployee(null);
@@ -63,7 +62,7 @@ public class MovingState extends EmployeeState {
         this.speed = 0f;
         this.acceleration = 20f;
         Tile destinationTile = employee.getMovementProvider().getNextTile();
-        Tile currentTile = employee.getMovementProvider().getTile(employee.getPosition().cpy().add(1f, 1f));
+        Tile currentTile = employee.getMovementProvider().getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f));
 
         //Remove employee from tile
         currentTile.setEmployee(null);
@@ -110,8 +109,7 @@ public class MovingState extends EmployeeState {
                 if (path == null || path.isPathFinished()) {
                     employee.setPosition(destinationPos.cpy());
 
-
-                    Tile pos = employee.getMovementProvider().getTile(destinationPos.cpy());
+                    Tile pos = employee.getMovementProvider().getDiscreteTile(destinationPos.cpy());
                     //If there's an object, and it can be interacted with ->interact with it
                     Object obj = pos.getObject();
                     if (pos.hasInteractableObject() && !((Interactable) obj).isOccupied()) {

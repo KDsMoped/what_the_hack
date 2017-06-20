@@ -8,13 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeState;
 import de.hsd.hacking.Entities.Employees.IdleState;
 import de.hsd.hacking.Entities.Employees.MovingState;
 import de.hsd.hacking.Entities.Objects.Chair;
-import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -34,7 +32,7 @@ public class Computer extends Equipment implements Upgradable {
 
 
     public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, team);
+        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, Direction.DOWN, team);
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
     }
@@ -75,7 +73,8 @@ public class Computer extends Equipment implements Upgradable {
         elapsedTime = 0f;
         on = !on;
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
-        return new MovingState(e, e.getMovementProvider().getTile(workingChair.getPosition().cpy().add(1f,1f)));
+        Gdx.app.log(Constants.TAG, "Sending to chair...");
+        return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
     }
 
     @Override

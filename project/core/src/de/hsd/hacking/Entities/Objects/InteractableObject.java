@@ -11,10 +11,12 @@ import de.hsd.hacking.Entities.Direction;
 public abstract class InteractableObject extends Object implements Interactable {
 
     private boolean occupied;
+    private Direction facingDirection;
 
-    public InteractableObject(TextureRegion region, boolean blocking, boolean touchable, boolean interactable, Direction occupyDirection, int occupyAmount) {
+    public InteractableObject(TextureRegion region, boolean blocking, boolean touchable, boolean interactable, Direction occupyDirection, int occupyAmount, Direction facingDirection) {
         super(region, blocking, touchable, interactable, occupyDirection, occupyAmount);
         occupied = false;
+        this.facingDirection = facingDirection;
     }
 
     public boolean isOccupied(){
@@ -31,5 +33,10 @@ public abstract class InteractableObject extends Object implements Interactable 
     @Override
     public boolean isBlocking() {
         return super.isBlocking() || isOccupied();
+    }
+
+    @Override
+    public Direction getFacingDirection() {
+        return facingDirection;
     }
 }

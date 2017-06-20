@@ -1,5 +1,6 @@
 package de.hsd.hacking.Entities.Objects;
 
+import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeState;
 
@@ -15,4 +16,6 @@ public interface Interactable {
     void deOccupy();
     boolean isOccupied();
     boolean isDelegatingInteraction();
+
+    Direction getFacingDirection();
 }

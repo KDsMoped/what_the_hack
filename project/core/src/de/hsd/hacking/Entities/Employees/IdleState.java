@@ -17,7 +17,8 @@ public class IdleState extends EmployeeState {
 
     public IdleState(Employee employee){
         super(employee);
-        this.stayTime = MathUtils.random(20);
+        this.stayTime = MathUtils.random(5);
+
     }
 
     @Override

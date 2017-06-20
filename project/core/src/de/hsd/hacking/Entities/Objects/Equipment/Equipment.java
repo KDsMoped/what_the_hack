@@ -41,10 +41,8 @@ public abstract class Equipment extends TouchableInteractableObject {
     public Equipment(TextureRegion drawableRegion, float price,
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
-                     boolean blocking, Direction occupyDirection, int occupyAmount) {
-        super(drawableRegion, blocking, occupyDirection, occupyAmount);
-                     boolean blocking, Direction occupyDirection, int occupyAmount,
-                     Team team);
+                     boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection, Team team) {
+        super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);

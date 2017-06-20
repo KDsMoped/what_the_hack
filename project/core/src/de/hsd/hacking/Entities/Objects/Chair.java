@@ -9,6 +9,7 @@ import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeState;
 import de.hsd.hacking.Entities.Employees.WorkingState;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by Cuddl3s on 20.06.2017.
@@ -18,13 +19,13 @@ public class Chair extends InteractableObject {
     private Array<TextureRegion> regions;
 
     public Chair(Assets assets) {
-        super(assets.chair, false, false, true, Direction.DOWN, 0);
+        super(assets.chair, false, false, true, Direction.DOWN, 0, Direction.DOWN);
     }
 
     @Override
     public EmployeeState interact(Employee e) {
         this.setBlocking(true);
-        return new WorkingState(e, getPosition());
+        return new WorkingState(e, getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f));
     }
 
     @Override

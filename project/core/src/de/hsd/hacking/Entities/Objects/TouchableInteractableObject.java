@@ -14,10 +14,12 @@ import de.hsd.hacking.Entities.Touchable;
 public abstract class TouchableInteractableObject extends TouchableObject implements Interactable {
 
     private boolean occupied;
+    private Direction facingDirection;
 
-    public TouchableInteractableObject(TextureRegion region, boolean blocking, Direction occupyDirection, int occupyAmount) {
+    public TouchableInteractableObject(TextureRegion region, boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection) {
         super(region, blocking, true, occupyDirection, occupyAmount);
         this.occupied = false;
+        this.facingDirection = facingDirection;
     }
 
     @Override
@@ -32,5 +34,10 @@ public abstract class TouchableInteractableObject extends TouchableObject implem
     @Override
     public boolean isBlocking() {
         return super.isBlocking() || isOccupied();
+    }
+
+    @Override
+    public Direction getFacingDirection() {
+        return facingDirection;
     }
 }

@@ -57,4 +57,12 @@ public class PlaceHolderObject extends Object implements Interactable {
         }
         return false;
     }
+
+    @Override
+    public Direction getFacingDirection() {
+        if (isInteractable()) {
+            return ((Interactable) placeHolderForObject).getFacingDirection();
+        }
+        return Direction.DOWN;
+    }
 }

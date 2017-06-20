@@ -83,7 +83,7 @@ public class Tile extends Actor {
         if (object != null){
             object.draw(batch, parentAlpha);
         }
-        if(employee != null && employee.getAnimationState() == Employee.AnimState.IDLE){ //TODO Quick fix, der Employee sollte nur gesetzt werden wenn er an Tile drankommt
+        if(employee != null && (employee.getAnimationState() != Employee.AnimState.MOVING)){
             employee.draw(batch, parentAlpha);
         }
         if(passersBy.size() > 0){
