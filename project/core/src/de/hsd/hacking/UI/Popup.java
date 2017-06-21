@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -21,7 +22,7 @@ import de.hsd.hacking.Stages.GameStage;
 /**
  * Abstract class for a general purpose popup window.
  */
-public abstract class Popup extends Actor {
+public abstract class Popup extends Group {
     private final int POPUP_MARGIN = 20;
 
     private Assets assets;
@@ -72,7 +73,7 @@ public abstract class Popup extends Actor {
         // Table layout
         content.row();
         content.add(closeButton).padBottom(4f).width(50).height(23);
-
+        addActor(content);
     }
 
     @Override
@@ -84,8 +85,6 @@ public abstract class Popup extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-
-        content.draw(batch, parentAlpha);
     }
 
     /**
