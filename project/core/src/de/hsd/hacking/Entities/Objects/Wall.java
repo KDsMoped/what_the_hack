@@ -10,6 +10,6 @@ import de.hsd.hacking.Stages.GameStage;
 public class Wall extends Object {
 
     public Wall() {
-        super(null, true, false, Direction.DOWN, 0);
+        super(null, true, false, false, Direction.DOWN, 0);
     }
 }

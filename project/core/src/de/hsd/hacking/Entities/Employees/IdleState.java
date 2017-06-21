@@ -3,6 +3,7 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
+import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -16,7 +17,8 @@ public class IdleState extends EmployeeState {
 
     public IdleState(Employee employee){
         super(employee);
-        this.stayTime = MathUtils.random(20);
+        this.stayTime = MathUtils.random(5);
+
     }
 
     @Override
@@ -31,7 +33,7 @@ public class IdleState extends EmployeeState {
 
     @Override
     public void enter() {
-        super.enter();
+        employee.resetElapsedTime();
         Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Idle State");
         employee.setAnimationState(Employee.AnimState.IDLE);
     }
@@ -39,5 +41,10 @@ public class IdleState extends EmployeeState {
     @Override
     void leave() {
 
+    }
+
+    @Override
+    public void cancel() {
+        //nothing to do here;
     }
 }

@@ -3,11 +3,11 @@ package de.hsd.hacking.Stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -15,30 +15,27 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Equipment.Computer;
-import de.hsd.hacking.Entities.Equipment.Equipment;
-import de.hsd.hacking.Entities.Equipment.Modem;
-import de.hsd.hacking.Entities.Equipment.Upgradable;
+import de.hsd.hacking.Entities.Objects.Chair;
+import de.hsd.hacking.Entities.Objects.Equipment.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
 import de.hsd.hacking.Entities.Objects.Desk;
-import de.hsd.hacking.Entities.Objects.Lamp;
-import de.hsd.hacking.Entities.Objects.Object;
-import de.hsd.hacking.Entities.Objects.Wall;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Entities.Objects.ObjectFactory;
+import de.hsd.hacking.Entities.Objects.ObjectType;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
-import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.UI.EmployeeProfile;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
-
-import static de.hsd.hacking.Entities.Equipment.Equipment.EquipmentType.MODEM;
 
 /**
  * Created by Cuddl3s on 24.05.2017.
@@ -58,18 +55,19 @@ public class GameStage extends Stage {
     private Vector2 checkVector;
     private TileMap tileMap;
     private Team team;
+    private Employee selectedEmployee;
     private StatusBar statusBar;
 
     private List<Touchable> touchables;
 
     private Group foreground, background, popups;
-    
-    public GameStage(Assets assets){
-        super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
+
+    public GameStage(Assets assets) {
+        super(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
         this.checkVector = new Vector2();
         this.assets = assets;
-        this.tileMap = new TileMap();
+        this.tileMap = new TileMap(this);
 
         foreground = new Group();
         background = new Group();
@@ -94,32 +92,39 @@ public class GameStage extends Stage {
         this.touchables = new ArrayList<Touchable>(4);
 
         //CREATE WALLS TO TEST A* PATHFINDING
-        tileMap.getTiles()[0][0].setObject(new Wall());
-        tileMap.getTiles()[0][1].setObject(new Wall());
-        tileMap.getTiles()[0][2].setObject(new Wall());
-        tileMap.getTiles()[1][0].setObject(new Wall());
-        tileMap.getTiles()[2][0].setObject(new Wall());
-        tileMap.getTiles()[1][1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 1][Constants.TILES_PER_SIDE - 3].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 3][Constants.TILES_PER_SIDE - 1].setObject(new Wall());
-        tileMap.getTiles()[Constants.TILES_PER_SIDE - 2][Constants.TILES_PER_SIDE - 2].setObject(new Wall());
-        tileMap.getTiles()[3][0].setObject(new Lamp(assets));
-        Desk desk = new Desk(assets, Direction.RIGHT, 1);
-        tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(desk);
-        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets));
+        tileMap.addObject(0, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(2, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 3, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
 
+        //populate room with objects
+        tileMap.addObject(3, 0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
+        tileMap.addObject(0, 3, ObjectFactory.generateObject(ObjectType.LAMP, assets));
+
+        //Workspaces
+        createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3 , Constants.TILES_PER_SIDE / 3);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) , (Constants.TILES_PER_SIDE / 3) * 2);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
 
         while (true) {
             int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
-            if (ret != 0) { break; }
+            if (ret != 0) {
+                break;
+            }
         }
 
-        team.createAndAddEquipment(MODEM,
-                                   Equipment.EquipmentAttributeLevel.getRandomAttributeLevel(),
-                                   0, assets);
+        team.createAndAddEquipment(EquipmentType.MODEM,
+                Equipment.EquipmentAttributeLevel.getRandomAttributeLevel(),
+                0, assets);
 
         this.touchables.addAll(team.getEmployeeList());
 
@@ -138,10 +143,9 @@ public class GameStage extends Stage {
             button.addListener(new ChangeListener() {
                                    @Override
                                    public void changed(ChangeEvent event, Actor actor) {
-                                       if (popup.isActive()){
+                                       if (popup.isActive()) {
                                            popup.Close();
-                                       }
-                                       else {
+                                       } else {
                                            popup.Show();
                                        }
                                    }
@@ -156,15 +160,15 @@ public class GameStage extends Stage {
             upgradeButton.addListener(new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            ArrayList<Equipment> equipments = team.getEquipmentList();
-                                            for (Equipment equipment :
-                                                    equipments) {
-                                                if(equipment instanceof Upgradable) {
-                                                    ((Upgradable) equipment).upgrade();
-                                                }
-                                            }
-                                        }
-                                    }
+                    ArrayList<Equipment> equipments = team.getEquipmentList();
+                    for (Equipment equipment :
+                            equipments) {
+                        if(equipment instanceof Upgradable) {
+                            ((Upgradable) equipment).upgrade();
+                        }
+                    }
+                }
+            }
             );
             upgradeButton.setBounds(10, 40, 100, 30);
 
@@ -172,47 +176,63 @@ public class GameStage extends Stage {
         }
     }
 
+    private void createWorkSpace(int tileX, int tileY) {
+        Desk desk = new Desk(assets, Direction.RIGHT, 1);
+        tileMap.addObject(tileX, tileY, desk);
+        Chair chair = new Chair(assets);
+        tileMap.addObject(tileX, tileY - 1, chair);
+        Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets, team);
+        computer.setWorkingChair(chair);
+        addTouchable(computer);
+        desk.setContainedObject(computer);
+    }
+
 
     @Override
     public void draw() {
-        ArrayList<Employee> employees = team.getEmployeeList();
-        tileMap.clearPassersBy();
-        for (Employee employee :
-                employees) {
-            if (employee.getAnimationState() == Employee.AnimState.MOVING){
-                Tile tile = tileMap.getTile(employee.getPosition().cpy().add(16f, 8f)); //TODO tilemap.getTile verbessern
-                tile.addPasserBy(employee);
-            }
-        }
 
         Batch batch = getBatch();
         super.draw();
         batch.begin();
         if (Constants.DEBUG){
-            assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
+            Assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
         }
         batch.end();
     }
 
     @Override
     public void act(float delta) {
+        MathUtils.clamp(delta, 0f, .05f);
         elapsedTime += delta;
-        framesCount++;
-        if (elapsedTime >= 1f){
-            elapsedTime = 0f;
-            frames = framesCount;
-            framesCount = 0;
-        }
         super.act(delta);
         for (Employee em :
                 team.getEmployeeList()) {
             em.act(delta);
+        }
+
+        if (Constants.DEBUG){
+            framesCount++;
+            if (elapsedTime >= 1f){
+                elapsedTime = 0f;
+                frames = framesCount;
+                framesCount = 0;
+            }
         }
         //team.calcRessorces();
         statusBar.setMoney(team.getMoney());
         statusBar.setBandwith(team.getBandwith());
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(team.getEmployeeCount());
+
+        /*ArrayList<Employee> employees = team.getEmployeeList();
+        tileMap.clearPassersBy();
+        for (Employee employee :
+                employees) {
+            if (employee.getAnimationState() == Employee.AnimState.MOVING){
+                Tile tile = tileMap.getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTileWhileMoving verbessern
+                tile.addPasserBy(employee);
+            }
+        }*/
 
     }
 
@@ -244,5 +264,29 @@ public class GameStage extends Stage {
             }
         }
         return super.touchUp(screenX, screenY, pointer, button);
+    }
+
+    public boolean addTouchable(Touchable touchable){
+        if (touchables.contains(touchable)){
+            return false;
+        }
+        touchables.add(touchable);
+        return true;
+    }
+
+    public void addTouchables(Collection<Touchable> touchables){
+        this.touchables.addAll(touchables);
+    }
+
+    public boolean removeTouchable(Touchable touchable){
+        return touchables.remove(touchable);
+    }
+
+    public Employee getSelectedEmployee() {
+        return team.getSelectedEmployee();
+    }
+
+    public void setSelectedEmployee(Employee selectedEmployee) {
+        team.setSelectedEmployee(selectedEmployee);
     }
 }
