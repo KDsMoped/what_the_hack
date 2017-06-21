@@ -45,7 +45,7 @@ public abstract class Popup extends Actor {
         // And we want to center the popup on the screen
         content.setPosition(POPUP_MARGIN, POPUP_MARGIN);
         content.setBackground(assets.win32_patch);
-        content.setTouchable(Touchable.enabled);
+        content.setTouchable(Touchable.childrenOnly);
         content.setVisible(false);
 
         // Setup Button Style
@@ -57,18 +57,22 @@ public abstract class Popup extends Actor {
 
         // Setup close button
         closeButton = new TextButton("OK", buttonStyle);
+        closeButton.setTouchable(Touchable.enabled);
         closeButton.addListener(new ChangeListener() {
-                               @Override
-                               public void changed(ChangeEvent event, Actor actor) {
-                                   Close();
-                               }
-                           }
+               @Override
+               public void changed(ChangeEvent event, Actor actor) {
+                   Close();
+               }
+           }
         );
+        /*closeButton.setWidth(50);
+        closeButton.setHeight(23);
+        closeButton.setBounds(50, 23, 50, 23);*/
 
         // Table layout
         content.row();
         content.add(closeButton).padBottom(4f).width(50).height(23);
-        closeButton.setBounds(50, 23, 50, 23);
+
     }
 
     @Override

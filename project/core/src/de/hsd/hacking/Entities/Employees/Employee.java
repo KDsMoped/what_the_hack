@@ -47,6 +47,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private boolean selected;
 
+    public void setState(EmployeeState state) {
+        this.state.cancel();
+        this.state = state;
+        this.state.enter();
+    }
+
 
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
@@ -81,6 +87,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private TileMovementProvider movementProvider;
     @Expose private HairStyle hairStyle;
     @Expose private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
+
+    public EmployeeState getState() {
+        return state;
+    }
+
     @Expose private EmployeeState state;
     private Rectangle bounds;
 
@@ -262,7 +273,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
         /* [1-3: Body Walkframes ]  */
         animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.25f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.25f, hairframes.get(0), hairframes.get(0), hairframes.get(1));
+        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.25f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
         /* [1-2: Body Idleframes ]  */
         animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(2), assets.gray_character_body.get(3));
         animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(2), hairframes.get(3));
@@ -300,7 +311,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public int compareTo(Employee o) {
         if (o.getPosition().y > getPosition().y){
             return 1;
-        }else if(o.getPosition().y == getPosition().y){
+        }else if(o.getPosition().y == getPosition().y && o.getPosition().x > getPosition().x){
+            return 1;
+        }else if(o.getPosition().y == getPosition().y && o.getPosition().x == getPosition().x){
             return 0;
         }else{
             return -1;
@@ -309,6 +322,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     private void onTouch(){
+        toggleSelected();
+
+    }
+
+    public void toggleSelected() {
         if (selected){
             stage.setSelectedEmployee(null);
         }else{

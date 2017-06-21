@@ -29,9 +29,10 @@ public class Team {
 //    private Group employees;
     private Group equipment;
     private Group workspaces;
-    private static ArrayList<Employee> listOfEmployees;
-    private static ArrayList<Equipment> listOfEquipment;
-    private static ArrayList<Workspace> listOfWorkspaces;
+    private ArrayList<Employee> listOfEmployees;
+    private ArrayList<Equipment> listOfEquipment;
+    private ArrayList<Workspace> listOfWorkspaces;
+    private Employee selectedEmployee;
 
     /* Resources */
     private int resource_Money = 500;
@@ -41,14 +42,15 @@ public class Team {
 
     // Instanciation and Initialization of Team as a Singleton /////////////////////////////////////
     private static final Team instance = new Team();
-    private Team(){}
+    private Team(){
+        listOfEmployees = new ArrayList<Employee>();
+        listOfEquipment = new ArrayList<Equipment>();
+        listOfWorkspaces = new ArrayList<Workspace>();
+    }
 
     public static Team getInstance(){ return instance; }
     public static void initialize(Stage Stage) {
         stage = Stage;
-        listOfEmployees = new ArrayList<Employee>();
-        listOfEquipment = new ArrayList<Equipment>();
-        listOfWorkspaces = new ArrayList<Workspace>();
     }
 
 
@@ -221,6 +223,22 @@ public class Team {
     /* Reduce the computation power by the given value.
      */
     public void reduceComputationPower(int value) { resource_ComputationPower -= value; }
+
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
+    }
+
+    public void setSelectedEmployee(Employee selectedEmployee) {
+        this.selectedEmployee = selectedEmployee;
+    }
+
+    public boolean isEmployeeSelected() {
+        return selectedEmployee != null;
+    }
+
+    public void deselectEmployee(){
+        selectedEmployee = null;
+    }
 
 
     /*

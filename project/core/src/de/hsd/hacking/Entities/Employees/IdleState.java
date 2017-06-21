@@ -44,7 +44,7 @@ public class IdleState extends EmployeeState {
     }
 
     @Override
-    void cancel() {
+    public void cancel() {
         //nothing to do here;
     }
 }

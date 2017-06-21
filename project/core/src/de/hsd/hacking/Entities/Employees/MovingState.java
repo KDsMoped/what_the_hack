@@ -21,6 +21,7 @@ public class MovingState extends EmployeeState {
 
     private Vector2 destinationPos;
     private Tile endTile;
+    private Tile nextTile;
     private Path path;
 
     private float acceleration;
@@ -34,7 +35,8 @@ public class MovingState extends EmployeeState {
         super(employee);
         this.speed = 0f;
         this.acceleration = 20f;
-        Tile currentTile = employee.getMovementProvider().getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f));
+        //TODO -> sorgt für Sprünge, System verbessern
+        Tile currentTile = employee.getMovementProvider().getDiscreteTile(employee.getPosition());
 
         //Remove employee from tile
         currentTile.setEmployee(null);
@@ -62,7 +64,8 @@ public class MovingState extends EmployeeState {
         this.speed = 0f;
         this.acceleration = 20f;
         Tile destinationTile = employee.getMovementProvider().getNextTile();
-        Tile currentTile = employee.getMovementProvider().getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f));
+        //TODO -> sorgt für Sprünge, System verbessern
+        Tile currentTile = employee.getMovementProvider().getDiscreteTile(employee.getPosition());
 
         //Remove employee from tile
         currentTile.setEmployee(null);
@@ -131,7 +134,12 @@ public class MovingState extends EmployeeState {
      * Sets the next destination in the given path
      */
     private void setNextDestination(){
-        Tile nextTile = path.getNextStep();
+        if (nextTile != null){
+            nextTile.removePasserBy(employee);
+        }
+
+        nextTile = path.getNextStep();
+        nextTile.addPasserBy(employee);
         this.destinationPos = nextTile.getPosition().cpy();
         employee.flipHorizontal(destinationPos.x > employee.getPosition().x);
         if (path.isPathFinished()){
@@ -149,13 +157,21 @@ public class MovingState extends EmployeeState {
 
     @Override
     void leave() {
-
+        if (nextTile != null){
+            nextTile.removePasserBy(employee);
+        }
     }
 
     @Override
-    void cancel() {
+    public void cancel() {
+        canceled = true;
         if (employee.equals(endTile.getEmployee())){
             endTile.setEmployee(null);
+        }
+        if (nextTile != null){
+            nextTile.removePasserBy(employee);
+            nextTile.setEmployee(employee);
+            employee.setPosition(nextTile.getPosition());
         }
     }
 }

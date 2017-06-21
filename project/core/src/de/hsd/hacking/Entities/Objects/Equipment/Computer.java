@@ -71,7 +71,6 @@ public class Computer extends Equipment implements Upgradable {
         }
         occupy();
         elapsedTime = 0f;
-        on = !on;
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
         Gdx.app.log(Constants.TAG, "Sending to chair...");
         return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
@@ -85,6 +84,7 @@ public class Computer extends Equipment implements Upgradable {
     @Override
     public void deOccupy() {
         setOccupied(false);
+        workingChair.deOccupy();
     }
 
     @Override
@@ -94,6 +94,13 @@ public class Computer extends Equipment implements Upgradable {
 
     @Override
     public void onTouch() {
+        if (team.isEmployeeSelected()){
+            team.getSelectedEmployee().getState().cancel();
+            team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
+            team.getSelectedEmployee().toggleSelected();
+        }
+
+
         //TODO show stats etc...
     }
 
@@ -103,5 +110,13 @@ public class Computer extends Equipment implements Upgradable {
 
     public void setWorkingChair(Chair workingChair) {
         this.workingChair = workingChair;
+        workingChair.setComputer(this);
+    }
+
+    public void setOn(boolean on) {
+        this.on = on;
+    }
+    public boolean isOn() {
+        return on;
     }
 }

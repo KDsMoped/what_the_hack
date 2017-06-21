@@ -190,15 +190,6 @@ public class GameStage extends Stage {
 
     @Override
     public void draw() {
-        ArrayList<Employee> employees = team.getEmployeeList();
-        tileMap.clearPassersBy();
-        for (Employee employee :
-                employees) {
-            if (employee.getAnimationState() == Employee.AnimState.MOVING){
-                Tile tile = tileMap.getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTileWhileMoving verbessern
-                tile.addPasserBy(employee);
-            }
-        }
 
         Batch batch = getBatch();
         super.draw();
@@ -232,6 +223,16 @@ public class GameStage extends Stage {
         statusBar.setBandwith(team.getBandwith());
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(team.getEmployeeCount());
+
+        /*ArrayList<Employee> employees = team.getEmployeeList();
+        tileMap.clearPassersBy();
+        for (Employee employee :
+                employees) {
+            if (employee.getAnimationState() == Employee.AnimState.MOVING){
+                Tile tile = tileMap.getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTileWhileMoving verbessern
+                tile.addPasserBy(employee);
+            }
+        }*/
 
     }
 
@@ -282,10 +283,10 @@ public class GameStage extends Stage {
     }
 
     public Employee getSelectedEmployee() {
-        return selectedEmployee;
+        return team.getSelectedEmployee();
     }
 
     public void setSelectedEmployee(Employee selectedEmployee) {
-        this.selectedEmployee = selectedEmployee;
+        team.setSelectedEmployee(selectedEmployee);
     }
 }

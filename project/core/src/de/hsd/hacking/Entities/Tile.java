@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
@@ -87,6 +88,10 @@ public class Tile extends Actor {
             employee.draw(batch, parentAlpha);
         }
         if(passersBy.size() > 0){
+            if (passersBy.size() > 1){
+                Collections.sort(passersBy);
+            }
+
             for (Employee empl : passersBy) {
                 empl.draw(batch, parentAlpha);
             }
@@ -153,5 +158,9 @@ public class Tile extends Actor {
         testRenderer.rect(position.x , position.y , bounds.width, bounds.height);
         testRenderer.end();
         batch.begin();
+    }
+
+    public boolean removePasserBy(Employee employee) {
+        return passersBy.remove(employee);
     }
 }

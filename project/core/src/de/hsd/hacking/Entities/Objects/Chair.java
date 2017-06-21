@@ -9,6 +9,7 @@ import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeState;
 import de.hsd.hacking.Entities.Employees.WorkingState;
+import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -17,6 +18,7 @@ import de.hsd.hacking.Utils.Constants;
 
 public class Chair extends InteractableObject {
     private Array<TextureRegion> regions;
+    private Computer computer;
 
     public Chair(Assets assets) {
         super(assets.chair, false, false, true, Direction.DOWN, 0, Direction.DOWN);
@@ -25,12 +27,14 @@ public class Chair extends InteractableObject {
     @Override
     public EmployeeState interact(Employee e) {
         this.setBlocking(true);
-        return new WorkingState(e, getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f));
+
+        return new WorkingState(e, getPosition(), this.computer);
     }
 
     @Override
     public void deOccupy() {
         setOccupied(false);
+        this.setBlocking(false);
     }
 
     @Override
@@ -46,5 +50,13 @@ public class Chair extends InteractableObject {
     @Override
     public void occupy() {
         setOccupied(true);
+    }
+
+    public Computer getComputer() {
+        return computer;
+    }
+
+    public void setComputer(Computer computer) {
+        this.computer = computer;
     }
 }

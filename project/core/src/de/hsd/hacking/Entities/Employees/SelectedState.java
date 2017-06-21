@@ -30,7 +30,7 @@ public class SelectedState extends EmployeeState {
     }
 
     @Override
-    void cancel() {
+    public void cancel() {
         employee.setSelected(false);
         if (employee.equals(employee.getStage().getSelectedEmployee())){
             employee.getStage().setSelectedEmployee(null);

@@ -28,7 +28,7 @@ public abstract class EmployeeState{
      */
     abstract void leave();
 
-    void cancel(){
+    public void cancel(){
         canceled = true;
     }
     boolean isCanceled(){
