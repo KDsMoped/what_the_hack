@@ -1,4 +1,4 @@
-package de.hsd.hacking.Entities.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Direction;
@@ -15,14 +15,8 @@ import de.hsd.hacking.Entities.Team.Team;
 public class Modem extends Equipment implements Upgradable {
 
     int level = 0;
-
-<<<<<<< HEAD
-    public Modem(float price, EquipmentAttributeLevel attributeLevel, Assets assets) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.BANDWIDTH, attributeLevel, true, Direction.DOWN, 0);
-=======
     public Modem(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
         super(assets.computer.get(0), price, EquipmentAttributeType.BANDWIDTH, attributeLevel, true, Direction.DOWN, 0, Direction.DOWN, team);
->>>>>>> feature/interacting-employees
     }
 
     public EquipmentType getType() { return EquipmentType.MODEM; }

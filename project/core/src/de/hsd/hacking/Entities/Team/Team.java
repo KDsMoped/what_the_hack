@@ -123,7 +123,7 @@ public class Team {
                                       Equipment.EquipmentAttributeLevel attributeLevel,
                                       float price,
                                       Assets assets) {
-        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets);
+        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets, this);
         if(equipment != null) {
             listOfEquipment.add(equipment);
         }
