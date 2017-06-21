@@ -23,14 +23,23 @@ public class Mission implements EventSender {
     private List<Skill> skill;
     private MissionOutcome outcome;
 
+    /**
+     * Start the mission.
+     */
     public void Start() {
         notifyListeners(EventListener.EventType.MISSION_STARTED);
     }
 
+    /**
+     * Abort the mission.
+     */
     public void Abort() {
         notifyListeners(EventListener.EventType.MISSION_ABORTED);
     }
 
+    /**
+     * Pause the mission.
+     */
     public void Pause() {
 
     }
@@ -48,7 +57,7 @@ public class Mission implements EventSender {
     @Override
     public void notifyListeners(EventListener.EventType type) {
         for (EventListener listener:listeners) {
-            listener.OnEvent(type);
+            listener.OnEvent(type, this);
         }
     }
 

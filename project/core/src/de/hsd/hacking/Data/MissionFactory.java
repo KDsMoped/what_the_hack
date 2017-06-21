@@ -1,5 +1,7 @@
 package de.hsd.hacking.Data;
 
+import com.badlogic.gdx.math.MathUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +16,25 @@ import de.hsd.hacking.Entities.Employees.SkillType;
  * This class contains methods to generate various mission objects.
  */
 public final class MissionFactory {
+    /**
+     * Create a new random mission object. Name and description are read
+     * @return random Mission
+     */
     public static final Mission CreateRandomMission() {
         Mission mission = DataLoader.getInstance().getNewMission();
-
+        mission.setDuration(MathUtils.random(4) + 2);
+        mission.setSkill(RandomSkills());
+        mission.setDifficulty(MathUtils.random(9) + 1);
+        mission.setOutcome(RandomOutcome());
 
         return mission;
     }
 
+    /**
+     * Create a new random mission object but choose the difficulty on your own.
+     * @param difficulty
+     * @return Random mission with defined difficulty.
+     */
     public static final Mission CreateRandomMission(int difficulty) {
         Mission mission = CreateRandomMission();
         mission.setDifficulty(difficulty);
@@ -28,6 +42,11 @@ public final class MissionFactory {
         return mission;
     }
 
+    /**
+     * Create a new random mission object but choose the outcome on your own.
+     * @param outcome
+     * @return Random mission with defined outcome.
+     */
     public static final Mission CreateRandomMission(MissionOutcome outcome) {
         Mission mission = CreateRandomMission();
         mission.setOutcome(outcome);
@@ -35,6 +54,11 @@ public final class MissionFactory {
         return mission;
     }
 
+    /**
+     * Create a new random mission object but choose the skills on your own.
+     * @param skills
+     * @return Random mission with defined skills.
+     */
     public static final Mission CreateRandomMission(List<Skill> skills) {
         Mission mission = CreateRandomMission();
         mission.setSkill(skills);
@@ -42,14 +66,28 @@ public final class MissionFactory {
         return mission;
     }
 
+    /**
+     * Generates a list of 3 random skills with 3 random values.
+     * @return List of 3 random skills
+     */
     private static final List<Skill> RandomSkills() {
         List<Skill> skillz = new ArrayList<Skill>();
 
         for (int i = 0; i < 3; i++) {
-            Skill skill = new Skill(SkillType.getRandomSkill(), 9);
+            Skill skill = new Skill(SkillType.getRandomSkill(), MathUtils.random(9) + 1);
             skillz.add(skill);
         }
 
         return skillz;
+    }
+
+    /**
+     * Creates a new MissionOutcome object with random outcome.
+     * @return Random mission outcome object.
+     */
+    private static final MissionOutcome RandomOutcome() {
+        MissionOutcome outcome = new MissionOutcome();
+
+        return outcome;
     }
 }
