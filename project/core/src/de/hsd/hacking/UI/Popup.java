@@ -46,19 +46,19 @@ public abstract class Popup extends Group {
         // And we want to center the popup on the screen
         content.setPosition(POPUP_MARGIN, POPUP_MARGIN);
         content.setBackground(assets.win32_patch);
-        content.setTouchable(Touchable.childrenOnly);
+        content.setTouchable(Touchable.enabled);
         content.setVisible(false);
 
         // Setup Button Style
         Skin uiSkin = new Skin(assets.ui_atlas);
         buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
                 null, assets.status_bar_font);
-        buttonStyle.pressedOffsetY = -5f;
+        buttonStyle.pressedOffsetY = -1f;
+        buttonStyle.pressedOffsetX = 1f;
         buttonStyle.fontColor = Color.BLACK;
 
         // Setup close button
         closeButton = new TextButton("OK", buttonStyle);
-        closeButton.setTouchable(Touchable.enabled);
         closeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
@@ -66,9 +66,6 @@ public abstract class Popup extends Group {
                }
            }
         );
-        /*closeButton.setWidth(50);
-        closeButton.setHeight(23);
-        closeButton.setBounds(50, 23, 50, 23);*/
 
         // Table layout
         content.row();

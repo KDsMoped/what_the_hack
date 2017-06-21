@@ -153,9 +153,6 @@ public class GameStage extends Stage {
             );
             button.setBounds(10, 10, 100, 30);
 
-            popups.addActor(button);
-            popups.addActor(popup);
-
             TextButton upgradeButton = new TextButton("Upgrade", style);
             upgradeButton.addListener(new ChangeListener() {
                                         @Override
@@ -172,7 +169,10 @@ public class GameStage extends Stage {
             );
             upgradeButton.setBounds(10, 40, 100, 30);
 
+            popups.addActor(button);
             popups.addActor(upgradeButton);
+            // Popup must always be last to appear on top!
+            popups.addActor(popup);
         }
     }
 
