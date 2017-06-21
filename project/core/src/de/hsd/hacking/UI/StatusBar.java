@@ -35,7 +35,7 @@ import de.hsd.hacking.Utils.Constants;
 public class StatusBar extends Actor {
     // Constants
     private final int STATUS_BAR_HEIGHT = 14;
-    private final int STATUS_BAR_ANIMATION_TIME = 2;
+    private final int STATUS_BAR_ANIMATION_TIME = 1;
 
     private Assets assets;
 
@@ -264,6 +264,9 @@ public class StatusBar extends Actor {
     }
 
     public void setBandwith(int bandwidth) {
+        if (bandwidth == this.bandwidth)
+            return;
+
         oldBandwidth = this.bandwidth;
         this.bandwidth = bandwidth;
         elapsedBandwidth = 0;
@@ -274,6 +277,8 @@ public class StatusBar extends Actor {
     }
 
     public void setEmployees(int employees) {
+        if (employees == this.employees)
+            return;
         this.employees = employees;
     }
 
@@ -282,6 +287,8 @@ public class StatusBar extends Actor {
     }
 
     public void setWorkplaces(int workplaces) {
+        if (workplaces == this.workplaces)
+            return;
         this.workplaces = workplaces;
     }
 
@@ -290,6 +297,9 @@ public class StatusBar extends Actor {
     }
 
     public void setMoney(int money) {
+        if (money == this.money)
+            return;
+
         oldMoney = this.money;
         this.money = money;
         elapsedMoney = 0;
