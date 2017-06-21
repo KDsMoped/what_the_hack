@@ -11,10 +11,7 @@ import de.hsd.hacking.Entities.Direction;
 
 public class Lamp extends Object {
 
-    private final Assets assets;
-
     public Lamp(Assets assets) {
-        super(assets.lamp, true, true, Direction.DOWN, 0);
-        this.assets = assets;
+        super(assets.lamp, true, false, false, Direction.DOWN, 0);
     }
 }

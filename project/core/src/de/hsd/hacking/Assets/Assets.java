@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
+
+import de.hsd.hacking.Entities.Employees.Employee;
 
 /**
  * Created by Cuddl3s on 21.04.2017.
@@ -37,6 +40,7 @@ public class Assets {
     public TextureRegion lamp;
     public TextureRegion desk_1;
     public TextureRegion desk_2;
+    public TextureRegion chair;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;
@@ -94,6 +98,7 @@ public class Assets {
         lamp = atlas.findRegion("interior/Lamp");
         desk_1 = atlas.findRegion("interior/Table", 1);
         desk_2 = atlas.findRegion("interior/Table", 2);
+        chair = atlas.findRegion("interior/Chair", 1);
 
         floor_tiles = new Array<TextureRegion>();
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
@@ -132,5 +137,26 @@ public class Assets {
         atlas.dispose();
         manager.clear();
 
+    }
+
+    public Array<TextureRegion> getHairFrames(Employee.HairStyle hairStyle) {
+        switch (hairStyle){
+            case CRAZY:
+                return hair_01;
+            case NEAT:
+                return hair_02;
+            case NERD:
+                return hair_01;
+            case RASTA:
+                return hair_02;
+        }
+        return hair_01;
+
+    }
+
+    public TextureRegion getRandomDesk() {
+        boolean desk1 = MathUtils.randomBoolean();
+        if (desk1) return desk_1;
+        return desk_2;
     }
 }

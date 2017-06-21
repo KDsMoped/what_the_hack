@@ -28,6 +28,8 @@ public interface TileMovementProvider extends MovementProvider {
      * @param position The position to search a tile for
      * @return The found tile
      */
-    Tile getTile(Vector2 position);
+    Tile getTileWhileMoving(Vector2 position);
+
+    Tile getDiscreteTile(Vector2 position);
 
 }

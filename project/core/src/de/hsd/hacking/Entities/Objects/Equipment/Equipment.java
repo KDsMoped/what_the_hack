@@ -1,19 +1,18 @@
-package de.hsd.hacking.Entities.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Entities.Direction;
-import de.hsd.hacking.Entities.Objects.Object;
+import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 import de.hsd.hacking.Entities.Objects.TouchableObject;
 import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.Stages.GameStage;
 
 /**
  * Created by domin on 31.05.2017.
  */
 
-public abstract class Equipment extends TouchableObject {
+public abstract class Equipment extends TouchableInteractableObject {
 
     public enum EquipmentType {
         COMPUTER, SWITCH, COFFEEMAKER, MODEM, SERVER;
@@ -42,12 +41,12 @@ public abstract class Equipment extends TouchableObject {
     public Equipment(TextureRegion drawableRegion, float price,
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
-                     boolean blocking, Direction occupyDirection, int occupyAmount) {
-        super(drawableRegion, blocking, true, occupyDirection, occupyAmount);
+                     boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection, Team team) {
+        super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);
-        this.team = Team.getInstance();
+        this.team = team;
     }
 
     public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }

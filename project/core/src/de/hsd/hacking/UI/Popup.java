@@ -36,10 +36,6 @@ public abstract class Popup extends Actor {
      */
     public Popup(Assets assets) {
         this.assets = assets;
-        this.setPosition(POPUP_MARGIN, POPUP_MARGIN);
-        this.setHeight(GameStage.VIEWPORT_HEIGHT - 2 * POPUP_MARGIN);
-        this.setWidth(GameStage.VIEWPORT_WIDTH - 2 * POPUP_MARGIN);
-        this.setTouchable(Touchable.disabled);
 
         content.align(Align.bottom);
         // We want a margin around the popup window
@@ -49,7 +45,7 @@ public abstract class Popup extends Actor {
         // And we want to center the popup on the screen
         content.setPosition(POPUP_MARGIN, POPUP_MARGIN);
         content.setBackground(assets.win32_patch);
-        content.setTouchable(Touchable.enabled);
+        content.setTouchable(Touchable.childrenOnly);
         content.setVisible(false);
 
         // Setup Button Style
@@ -61,28 +57,27 @@ public abstract class Popup extends Actor {
 
         // Setup close button
         closeButton = new TextButton("OK", buttonStyle);
-        this.setName("debugme");
+        closeButton.setTouchable(Touchable.enabled);
         closeButton.addListener(new ChangeListener() {
-                               @Override
-                               public void changed(ChangeEvent event, Actor actor) {
-                                   Close();
-                               }
-                           }
+               @Override
+               public void changed(ChangeEvent event, Actor actor) {
+                   Close();
+               }
+           }
         );
+        /*closeButton.setWidth(50);
+        closeButton.setHeight(23);
+        closeButton.setBounds(50, 23, 50, 23);*/
 
         // Table layout
         content.row();
         content.add(closeButton).padBottom(4f).width(50).height(23);
-        closeButton.setWidth(50);
-        closeButton.setHeight(23);
+
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-
-        content.act(delta);
-        closeButton.act(delta);
     }
 
 
@@ -98,7 +93,6 @@ public abstract class Popup extends Actor {
      */
     public void Show() {
         content.setVisible(true);
-        this.setTouchable(Touchable.childrenOnly);
     }
 
     /**
@@ -106,7 +100,6 @@ public abstract class Popup extends Actor {
      */
     public void Close() {
         content.setVisible(false);
-        this.setTouchable(Touchable.disabled);
     }
 
     public boolean isActive() {

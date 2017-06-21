@@ -11,7 +11,10 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.IsometricTileManager;
+import de.hsd.hacking.Entities.Objects.Object;
+import de.hsd.hacking.Entities.Objects.PlaceHolderObject;
 import de.hsd.hacking.Entities.Tile;
+import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomIntPool;
@@ -22,27 +25,33 @@ import de.hsd.hacking.Utils.RandomIntPool;
  */
 public class TileMap extends Group implements TileMovementProvider  {
 
+    private final GameStage stage;
     private TilePathFinder pathFinder;
     private Tile[][] tiles;
 
 
-    public TileMap(){
+    public TileMap(GameStage stage){
+        this.stage = stage;
         IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 105f));
         tiles = manager.generateTiles(Constants.TILE_WIDTH, Constants.TILES_PER_SIDE);
-        /*for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
-            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
-                addActor(tiles[j][i]);
-            }
-        }*/
         this.pathFinder = new TilePathFinder(this);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        //super.draw(batch, parentAlpha);
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 tiles[j][i].draw(batch, parentAlpha);
+            }
+        }
+    }
+
+
+    @Override
+    public void act(float delta) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                tiles[j][i].act(delta);
             }
         }
     }
@@ -79,12 +88,28 @@ public class TileMap extends Group implements TileMovementProvider  {
         return pathFinder.findPath(sx, sy, tx, ty);
     }
 
+    /**
+     * DON'T USE FOR GETTING TILE OBJECTS! RETURNED TILE IS NOT ALWAYS CORRECT TILE
+     */
     @Override
-    public Tile getTile(Vector2 position) {
+    public Tile getTileWhileMoving(Vector2 position) {
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
                 if(tiles[i][j].isInTile(position)){
                     return tiles[i][j];
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Tile getDiscreteTile(Vector2 position) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                Tile tile = tiles[i][j];
+                if (tile.getPosition().x == position.x && tile.getPosition().y == position.y) {
+                    return tile;
                 }
             }
         }
@@ -119,23 +144,6 @@ public class TileMap extends Group implements TileMovementProvider  {
     }
 
     /**
-     * Places an object at the specified tile
-     * @param entity object entity
-     * @param tileNumber number of the tile to place object on (= x * Constants.TILES_PER_SIDE + y)
-     * @return whether placement was successfull
-     */
-    public boolean placeObjectEntity(Entity entity, int tileNumber){
-        //TODO Check ob entity auch wirklich object ist
-        int x = tileNumber % Constants.TILES_PER_SIDE;
-        int y = tileNumber / Constants.TILES_PER_SIDE;
-        if (tiles[x][y].hasNoObject()){
-            tiles[x][y].setObject(entity);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Removes the specified employee from his current tile
      * @param employee
      */
@@ -154,10 +162,14 @@ public class TileMap extends Group implements TileMovementProvider  {
      * Removes the specified object from its current tile
      * @param object
      */
-    private void removeObject(Entity object){
+    private void removeObject(Object object){
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
-                if (tiles[i][j].getObject().equals(object)){
+                Object tileObj = tiles[i][j].getObject();
+                if (tileObj.equals(object)){
+                    if (tileObj instanceof Touchable){
+                        stage.removeTouchable((Touchable) object);
+                    }
                     tiles[i][j].setObject(null);
                     return;
                 }
@@ -188,6 +200,42 @@ public class TileMap extends Group implements TileMovementProvider  {
 
     public int getHeightInTiles() {
         return Constants.TILES_PER_SIDE;
+    }
+
+    public boolean addObject(int tileNumber, Object object){
+        int x = tileNumber % Constants.TILES_PER_SIDE;
+        int y = tileNumber / Constants.TILES_PER_SIDE;
+        return addObject(x, y, object);
+    }
+
+    public boolean addObject(int x, int y, Object object){
+        if (tiles[x][y].hasNoObject()){
+            tiles[x][y].setObject(object);
+            if (object.isTouchable()){
+                stage.addTouchable((Touchable) object);
+            }
+            int currentX = x;
+            int currentY = y;
+            for (int i = object.getOccupyAmount(); i > 0; i--) {
+                switch (object.getOccupyDirection()){
+                    case UP:
+                        tiles[currentX][--currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                    case RIGHT:
+                        tiles[++currentX][currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                    case DOWN:
+                        tiles[currentX][++currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                    case LEFT:
+                        tiles[--currentX][currentY].setObject(new PlaceHolderObject(object));
+                        break;
+                }
+            }
+
+            return true;
+        }
+        return false;
     }
 
     public Tile[][] getTiles() {
@@ -258,4 +306,5 @@ public class TileMap extends Group implements TileMovementProvider  {
             }
         }
     }
+
 }

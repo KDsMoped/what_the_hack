@@ -2,18 +2,17 @@ package de.hsd.hacking.Entities.Team;
 
 import java.util.ArrayList;
 
-import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Equipment.Computer;
-import de.hsd.hacking.Entities.Equipment.Equipment;
-import de.hsd.hacking.Entities.Equipment.EquipmentFactory;
-import de.hsd.hacking.Entities.Team.Workspace;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -30,9 +29,10 @@ public class Team {
 //    private Group employees;
     private Group equipment;
     private Group workspaces;
-    private static ArrayList<Employee> listOfEmployees;
-    private static ArrayList<Equipment> listOfEquipment;
-    private static ArrayList<Workspace> listOfWorkspaces;
+    private ArrayList<Employee> listOfEmployees;
+    private ArrayList<Equipment> listOfEquipment;
+    private ArrayList<Workspace> listOfWorkspaces;
+    private Employee selectedEmployee;
 
     /* Resources */
     private int resource_Money = 500;
@@ -42,14 +42,15 @@ public class Team {
 
     // Instanciation and Initialization of Team as a Singleton /////////////////////////////////////
     private static final Team instance = new Team();
-    private Team(){}
+    private Team(){
+        listOfEmployees = new ArrayList<Employee>();
+        listOfEquipment = new ArrayList<Equipment>();
+        listOfWorkspaces = new ArrayList<Workspace>();
+    }
 
     public static Team getInstance(){ return instance; }
     public static void initialize(Stage Stage) {
         stage = Stage;
-        listOfEmployees = new ArrayList<Employee>();
-        listOfEquipment = new ArrayList<Equipment>();
-        listOfWorkspaces = new ArrayList<Workspace>();
     }
 
 
@@ -69,6 +70,7 @@ public class Team {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
         Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)stage);
         listOfEmployees.add(e);
+        e.setTouchable(Touchable.enabled);
         return 0;
     }
 
@@ -221,6 +223,22 @@ public class Team {
     /* Reduce the computation power by the given value.
      */
     public void reduceComputationPower(int value) { resource_ComputationPower -= value; }
+
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
+    }
+
+    public void setSelectedEmployee(Employee selectedEmployee) {
+        this.selectedEmployee = selectedEmployee;
+    }
+
+    public boolean isEmployeeSelected() {
+        return selectedEmployee != null;
+    }
+
+    public void deselectEmployee(){
+        selectedEmployee = null;
+    }
 
 
     /*
