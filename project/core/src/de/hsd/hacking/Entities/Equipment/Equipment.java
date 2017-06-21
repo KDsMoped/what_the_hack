@@ -42,13 +42,12 @@ public abstract class Equipment extends TouchableObject {
     public Equipment(TextureRegion drawableRegion, float price,
                      EquipmentAttributeType attributeType,
                      EquipmentAttributeLevel attributeLevel,
-                     boolean blocking, Direction occupyDirection, int occupyAmount,
-                     Team team) {
+                     boolean blocking, Direction occupyDirection, int occupyAmount) {
         super(drawableRegion, blocking, true, occupyDirection, occupyAmount);
         setAttributeType(attributeType);
         setAttributeLevel(attributeLevel);
         setPrice(price);
-        this.team = team;
+        this.team = Team.getInstance();
     }
 
     public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }

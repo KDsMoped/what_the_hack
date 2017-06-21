@@ -12,8 +12,8 @@ public class Modem extends Equipment implements Upgradable {
 
     int level = 0;
 
-    public Modem(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.BANDWIDTH, attributeLevel, true, Direction.DOWN, 0, team);
+    public Modem(float price, EquipmentAttributeLevel attributeLevel, Assets assets) {
+        super(assets.computer.get(0), price, EquipmentAttributeType.BANDWIDTH, attributeLevel, true, Direction.DOWN, 0);
     }
 
     public EquipmentType getType() { return EquipmentType.MODEM; }

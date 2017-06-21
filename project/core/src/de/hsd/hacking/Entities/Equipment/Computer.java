@@ -26,8 +26,8 @@ public class Computer extends Equipment implements Interactable, Upgradable {
     private Assets assets;
 
 
-    public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, team);
+    public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets) {
+        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0);
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
     }

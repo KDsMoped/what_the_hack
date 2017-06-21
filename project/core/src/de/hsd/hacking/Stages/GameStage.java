@@ -109,7 +109,7 @@ public class GameStage extends Stage {
         tileMap.getTiles()[3][0].setObject(new Lamp(assets));
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.getTiles()[Constants.TILES_PER_SIDE / 2][Constants.TILES_PER_SIDE / 2].setObject(desk);
-        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets, team));
+        desk.setContainedObject(new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets));
 
 
         while (true) {
