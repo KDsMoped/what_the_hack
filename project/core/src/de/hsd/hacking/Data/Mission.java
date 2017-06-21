@@ -18,10 +18,10 @@ import de.hsd.hacking.Entities.Employees.SkillType;
  */
 public class Mission implements EventSender {
     @Expose private String name, description;
-    private int duration;
-    private int difficulty;
-    private List<Skill> skill;
-    private MissionOutcome outcome;
+    @Expose private int duration;
+    @Expose private int difficulty;
+    @Expose private List<Skill> skill;
+    @Expose private MissionOutcome outcome;
 
     /**
      * Start the mission.

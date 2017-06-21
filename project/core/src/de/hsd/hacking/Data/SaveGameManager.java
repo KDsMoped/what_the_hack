@@ -26,7 +26,7 @@ public final class SaveGameManager {
         return success;
     }
 
-    private static boolean SaveObject(Object obj) {
+    public static boolean SaveObject(Object obj) {
         boolean success = false;
 
         // We only want to serialize exposed members
@@ -37,7 +37,7 @@ public final class SaveGameManager {
         String json = gson.toJson(obj);
 
         // Save file in the apps local storage
-        if (json != null && json.equals("")) {
+        if (json != null && !json.equals("")) {
             FileHandle file = Gdx.files.local(obj.getClass().getName());
             file.writeString(json, false);
 
@@ -47,7 +47,7 @@ public final class SaveGameManager {
         return success;
     }
 
-    private static Object LoadObject(String className) {
+    public static Object LoadObject(String className) {
         Object obj = null;
 
         Gson gson = new Gson();

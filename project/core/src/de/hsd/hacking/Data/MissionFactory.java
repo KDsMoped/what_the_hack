@@ -24,20 +24,20 @@ public final class MissionFactory {
         Mission mission = DataLoader.getInstance().getNewMission();
         mission.setDuration(MathUtils.random(4) + 2);
         mission.setSkill(RandomSkills());
-        mission.setDifficulty(MathUtils.random(9) + 1);
+        RandomSkillValues(mission, mission.getDifficulty());
         mission.setOutcome(RandomOutcome());
 
         return mission;
     }
 
     /**
-     * Create a new random mission object but choose the difficulty on your own.
+     * Create a new random mission object with the required skill values based on the given difficulty.
      * @param difficulty
      * @return Random mission with defined difficulty.
      */
     public static final Mission CreateRandomMission(int difficulty) {
         Mission mission = CreateRandomMission();
-        mission.setDifficulty(difficulty);
+        RandomSkillValues(mission, difficulty);
 
         return mission;
     }
@@ -89,5 +89,22 @@ public final class MissionFactory {
         MissionOutcome outcome = new MissionOutcome();
 
         return outcome;
+    }
+
+    /**
+     * Gives the skills required for this mission random values based on the given difficulty.
+     * @param mission The mission that needs new skill values.
+     */
+    private static final void RandomSkillValues(Mission mission, int difficulty) {
+        int min = 1;
+        if (mission.getDifficulty() > 2) {
+            min = difficulty - 1;
+        }
+
+        int max = difficulty + 2;
+
+        for (Skill s:mission.getSkill()) {
+            s.setValue(MathUtils.random(min, max));
+        }
     }
 }

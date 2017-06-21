@@ -1,13 +1,15 @@
 package de.hsd.hacking.Entities.Employees;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by Cuddl3s on 22.05.2017.
  */
 
 public class Skill {
 
-    private SkillType type;
-    private int value;
+    @Expose private SkillType type;
+    @Expose private int value;
 
     public Skill(SkillType type, int value){
         this.type = type;

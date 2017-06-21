@@ -2,10 +2,12 @@ package de.hsd.hacking.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.google.gson.Gson;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Mission;
 import de.hsd.hacking.Data.MissionFactory;
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -17,8 +19,6 @@ public class EmployeeProfile extends Popup {
         super(assets);
 
         Mission m = MissionFactory.CreateRandomMission();
-        Gdx.app.log(Constants.TAG, m.getName());
-        Gdx.app.log(Constants.TAG, m.getDescription());
     }
 
     @Override

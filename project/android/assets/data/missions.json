@@ -1,7 +1,18 @@
 [
 {
   "name": "Hack the mayors car",
-  "description": "The mayor just "
+  "description": "The mayor  just ",
+  "difficulty": 5,
+  "skill": [{
+    "type": "SOCIAL",
+    "value": 0
+  }, {
+    "type": "HARDWARE",
+    "value": 0
+  }, {
+    "type": "CRYPTO",
+    "value": 0
+  }]
 },
 {
   "name": "HelloKitty forum secrets",

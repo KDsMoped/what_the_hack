@@ -11,7 +11,7 @@ public interface EventListener {
     /**
      * These are the different event types we use.
      */
-    public enum EventType {
+    enum EventType {
         MISSION_STARTED, MISSION_FINISHED, MISSION_ABORTED
     }
 
@@ -20,5 +20,5 @@ public interface EventListener {
      * @param type Type of the fired event.
      * @param sender Object that fired the event.
      */
-    public void OnEvent(EventType type, Object sender);
+    void OnEvent(EventType type, Object sender);
 }

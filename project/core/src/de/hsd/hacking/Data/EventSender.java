@@ -17,17 +17,17 @@ public interface EventSender {
      * Add a listener to the list.
      * @param listener
      */
-    public void addListener(EventListener listener);
+    void addListener(EventListener listener);
 
     /**
      * Remove a listener from the list.
      * @param listener
      */
-    public void removeListener(EventListener listener);
+    void removeListener(EventListener listener);
 
     /**
      * Fire an event with an specific type.
      * @param type
      */
-    public void notifyListeners(EventListener.EventType type);
+    void notifyListeners(EventListener.EventType type);
 }
