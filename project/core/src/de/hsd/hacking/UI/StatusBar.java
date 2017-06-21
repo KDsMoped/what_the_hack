@@ -129,63 +129,11 @@ public class StatusBar extends Actor {
         items.add(dateText).align(Align.right).padRight(15);
         items.add(timeLabel).align(Align.right).padRight(2);
 
-        // only to showcase...
-
-        if (Constants.DEBUG) {
-            Timer.schedule(new Timer.Task(){
-                               @Override
-                               public void run() {
-                                   //simulateBandwidth();
-                                   //simulateMoney();
-                                   simulateTime();
-                               }
-                           }
-                    , 2        //    (delay)
-                    , 5     //    (seconds)
-            );
-        }
-
 
         // we want to center the top bar, to calculate the x position can
         // window_width / 2 - topbar_width / 2
         // so we have to set position as last because we need the width of the top bar
         items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight() + 1);
-    }
-
-    /**
-     * delete soon
-     */
-    private void simulateBandwidth() {
-        if (bandwidth < 1) {
-            setBandwith(2000);
-        }
-        else {
-            setBandwith(0);
-        }
-    }
-
-    /**
-     * delete soon
-     */
-    private void simulateMoney() {
-        if (money < 1) {
-            setMoney(300);
-        }
-        else {
-            setMoney(0);
-        }
-    }
-
-    /**
-     * delete soon
-     */
-    private void simulateTime() {
-        if (time < 1f) {
-            setTime(time + 0.1f);
-        }
-        else {
-            setTime(0f);
-        }
     }
 
     /**
