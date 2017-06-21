@@ -1,8 +1,10 @@
 package de.hsd.hacking.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hsd.hacking.Entities.Employees.Skill;
+import de.hsd.hacking.Entities.Employees.SkillType;
 
 /**
  * Created by ju on 15.06.17.
@@ -12,51 +14,42 @@ import de.hsd.hacking.Entities.Employees.Skill;
  * This class contains methods to generate various mission objects.
  */
 public final class MissionFactory {
-    public final Mission CreateRandomMission() {
-        Mission mission = new Mission();
+    public static final Mission CreateRandomMission() {
+        Mission mission = DataLoader.getInstance().getNewMission();
+
 
         return mission;
     }
 
-    public final Mission CreateRandomMission(int difficulty) {
-        Mission mission = new Mission();
+    public static final Mission CreateRandomMission(int difficulty) {
+        Mission mission = CreateRandomMission();
+        mission.setDifficulty(difficulty);
 
         return mission;
     }
 
-    public final Mission CreateRandomMission(MissionOutcome outcome) {
-        Mission mission = new Mission();
+    public static final Mission CreateRandomMission(MissionOutcome outcome) {
+        Mission mission = CreateRandomMission();
+        mission.setOutcome(outcome);
 
         return mission;
     }
 
-    public final Mission CreateRandomMission(List<Skill> skills) {
-        Mission mission = new Mission();
+    public static final Mission CreateRandomMission(List<Skill> skills) {
+        Mission mission = CreateRandomMission();
+        mission.setSkill(skills);
 
         return mission;
     }
 
-    public final Mission CreateRandomMission(String name, String descrition) {
-        Mission mission = new Mission();
+    private static final List<Skill> RandomSkills() {
+        List<Skill> skillz = new ArrayList<Skill>();
 
-        return mission;
-    }
+        for (int i = 0; i < 3; i++) {
+            Skill skill = new Skill(SkillType.getRandomSkill(), 9);
+            skillz.add(skill);
+        }
 
-    /**
-     * Choose a random name from a json list.
-     */
-    private final String RandomName() {
-        String name = "";
-
-        return name;
-    }
-
-    /**
-     * Choose a random description from a json list.
-     */
-    private final String RandomDescription() {
-        String description = "";
-
-        return description;
+        return skillz;
     }
 }

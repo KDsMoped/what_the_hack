@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class DataLoader {
 
     private static DataLoader INSTANCE;
     private static NameHolder names;
+    private static ArrayList<Mission> missions;
 
 
     public static DataLoader getInstance(){
@@ -29,11 +32,21 @@ public class DataLoader {
     private DataLoader(){
 
         FileHandle employeeNames = Gdx.files.internal("data/names.json");
+
         if (!employeeNames.exists()){
             Gdx.app.log(Constants.TAG, "NAMES JSON FILE DOESNT EXIST");
         }else{
             Json json = new Json();
             names = json.fromJson(NameHolder.class, employeeNames);
+        }
+
+        FileHandle m = Gdx.files.internal("data/missions.json");
+
+        if (!m.exists()){
+            Gdx.app.log(Constants.TAG, "MISSIONS JSON FILE DOESNT EXIST");
+        }else{
+            Gson gson = new Gson();
+            this.missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
         }
     }
 
@@ -44,5 +57,9 @@ public class DataLoader {
         String lastName = lastNames.get(MathUtils.random(lastNames.size() -1));
 
         return new String[]{surName, lastName};
+    }
+
+    public Mission getNewMission() {
+        return missions.get(MathUtils.random(missions.size() - 1));
     }
 }
