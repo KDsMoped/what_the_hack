@@ -35,6 +35,7 @@ import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.UI.EmployeeBar;
 import de.hsd.hacking.UI.EmployeeProfile;
+import de.hsd.hacking.UI.MissionBrowser;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
@@ -138,7 +139,7 @@ public class GameStage extends Stage {
 
         // REMOVE THIS AGAIN
         if (Constants.DEBUG) {
-            final EmployeeProfile popup = new EmployeeProfile(assets);
+            final MissionBrowser popup = new MissionBrowser(assets);
 
 
             Skin uiSkin = new Skin(assets.ui_atlas);

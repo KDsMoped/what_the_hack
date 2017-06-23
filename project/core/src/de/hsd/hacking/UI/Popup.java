@@ -1,14 +1,15 @@
 package de.hsd.hacking.UI;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
@@ -26,10 +27,16 @@ public abstract class Popup extends Group {
     private final int POPUP_MARGIN = 20;
 
     private Assets assets;
-    private Table content = new Table();
+    private Table mainTable = new Table();
+
+    private VerticalGroup content = new VerticalGroup();
 
     private TextButton.TextButtonStyle buttonStyle;
+    private Skin uiSkin;
+    private Label.LabelStyle labelStyle;
+
     private TextButton closeButton;
+
 
     /**
      * We need the ui assets to display a beautiful popup window.
@@ -38,24 +45,29 @@ public abstract class Popup extends Group {
     public Popup(Assets assets) {
         this.assets = assets;
 
-        content.align(Align.bottom);
+        mainTable.align(Align.top);
         // We want a margin around the popup window
-        content.setHeight(GameStage.VIEWPORT_HEIGHT - 2 * POPUP_MARGIN);
-        content.setWidth(GameStage.VIEWPORT_WIDTH - 2 * POPUP_MARGIN);
+        mainTable.setHeight(GameStage.VIEWPORT_HEIGHT - 2 * POPUP_MARGIN);
+        mainTable.setWidth(GameStage.VIEWPORT_WIDTH - 2 * POPUP_MARGIN);
 
         // And we want to center the popup on the screen
-        content.setPosition(POPUP_MARGIN, POPUP_MARGIN);
-        content.setBackground(assets.win32_patch);
-        content.setTouchable(Touchable.enabled);
-        content.setVisible(false);
+        mainTable.setPosition(POPUP_MARGIN, POPUP_MARGIN);
+        mainTable.setBackground(assets.win32_patch);
+        mainTable.setTouchable(Touchable.enabled);
+        mainTable.setVisible(false);
 
         // Setup Button Style
-        Skin uiSkin = new Skin(assets.ui_atlas);
+        uiSkin = new Skin(assets.ui_atlas);
         buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
                 null, assets.status_bar_font);
         buttonStyle.pressedOffsetY = -1f;
         buttonStyle.pressedOffsetX = 1f;
         buttonStyle.fontColor = Color.BLACK;
+
+        // Setup label style
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = assets.status_bar_font;
+        labelStyle.fontColor = Color.BLACK;
 
         // Setup close button
         closeButton = new TextButton("OK", buttonStyle);
@@ -67,10 +79,15 @@ public abstract class Popup extends Group {
            }
         );
 
+        // Content container setup
+        content.setTouchable(Touchable.enabled);
+        content.align(Align.top);
+
         // Table layout
-        content.row();
-        content.add(closeButton).padBottom(4f).width(50).height(23);
-        addActor(content);
+        mainTable.add(content).expand().fill();
+        mainTable.row();
+        mainTable.add(closeButton).padBottom(4f).width(50).height(23);
+        addActor(mainTable);
     }
 
     @Override
@@ -88,17 +105,41 @@ public abstract class Popup extends Group {
      * Enables act and draw for the popup window.
      */
     public void Show() {
-        content.setVisible(true);
+        mainTable.setVisible(true);
     }
 
     /**
      * Disables act and draw for the popup window.
      */
     public void Close() {
-        content.setVisible(false);
+        mainTable.setVisible(false);
     }
 
     public boolean isActive() {
-        return content.isVisible();
+        return mainTable.isVisible();
+    }
+
+    public Table getMainTable() {
+        return this.mainTable;
+    }
+
+    public TextButton.TextButtonStyle getButtonStyle() {
+        return buttonStyle;
+    }
+
+    public Skin getUiSkin() {
+        return uiSkin;
+    }
+
+    public Label.LabelStyle getLabelStyle() {
+        return labelStyle;
+    }
+
+    public VerticalGroup getContent() {
+        return content;
+    }
+
+    public Assets getAssets() {
+        return assets;
     }
 }
