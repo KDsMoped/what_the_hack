@@ -1,15 +1,10 @@
 package de.hsd.hacking;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
+import de.hsd.hacking.Utils.Constants;
 
 public class HackingGame extends Game {
 
@@ -19,6 +14,7 @@ public class HackingGame extends Game {
 	public void create () {
 		assets = new Assets();
 		assets.load();
+		Constants.SetAssets(assets);
 
         SaveGameManager.LoadGame();
 

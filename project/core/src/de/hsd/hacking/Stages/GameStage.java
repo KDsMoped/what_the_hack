@@ -33,6 +33,7 @@ import de.hsd.hacking.Entities.Objects.ObjectType;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.UI.EmployeeBar;
 import de.hsd.hacking.UI.EmployeeProfile;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
@@ -50,7 +51,7 @@ public class GameStage extends Stage {
     private float elapsedTime = 0f;
 
     public static final float VIEWPORT_WIDTH = 512f;
-    public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    public static final float VIEWPORT_HEIGHT = (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private Vector2 checkVector;
     private TileMap tileMap;
@@ -60,7 +61,10 @@ public class GameStage extends Stage {
 
     private List<Touchable> touchables;
 
-    private Group foreground, background, popups;
+    private Group foreground, background, ui, popups;
+
+    private boolean paused;
+
 
     public GameStage(Assets assets) {
         super(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
@@ -71,6 +75,7 @@ public class GameStage extends Stage {
 
         foreground = new Group();
         background = new Group();
+        ui = new Group();
         popups = new Group();
 
         // the order the actors are added is important
@@ -80,9 +85,12 @@ public class GameStage extends Stage {
         addActor(this.tileMap);
         addActor(new StatusBar(assets));
         addActor(foreground);
+        addActor(ui);
         addActor(popups);
         statusBar = new StatusBar(assets);
-        addActor(statusBar);
+        ui.addActor(statusBar);
+
+        ui.addActor(new EmployeeBar());
 
         foreground.addActor(new Image(assets.room_fg));
         background.addActor(new Image(assets.room_bg));
@@ -111,8 +119,8 @@ public class GameStage extends Stage {
 
         //Workspaces
         createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3 , Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) , (Constants.TILES_PER_SIDE / 3) * 2);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, Constants.TILES_PER_SIDE / 3);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4), (Constants.TILES_PER_SIDE / 3) * 2);
         createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
 
         while (true) {
@@ -145,32 +153,34 @@ public class GameStage extends Stage {
                                    public void changed(ChangeEvent event, Actor actor) {
                                        if (popup.isActive()) {
                                            popup.Close();
+                                           paused = false;
                                        } else {
                                            popup.Show();
+                                           paused = true;
                                        }
                                    }
                                }
             );
-            button.setBounds(10, 10, 100, 30);
+            button.setBounds(10, 10, 100, 20);
 
             TextButton upgradeButton = new TextButton("Upgrade", style);
             upgradeButton.addListener(new ChangeListener() {
-                                        @Override
-                                        public void changed(ChangeEvent event, Actor actor) {
-                    ArrayList<Equipment> equipments = team.getEquipmentList();
-                    for (Equipment equipment :
-                            equipments) {
-                        if(equipment instanceof Upgradable) {
-                            ((Upgradable) equipment).upgrade();
-                        }
-                    }
-                }
-            }
+                                          @Override
+                                          public void changed(ChangeEvent event, Actor actor) {
+                                              ArrayList<Equipment> equipments = team.getEquipmentList();
+                                              for (Equipment equipment :
+                                                      equipments) {
+                                                  if (equipment instanceof Upgradable) {
+                                                      ((Upgradable) equipment).upgrade();
+                                                  }
+                                              }
+                                          }
+                                      }
             );
-            upgradeButton.setBounds(10, 40, 100, 30);
+            upgradeButton.setBounds(10, 40, 100, 20);
 
-            popups.addActor(button);
-            popups.addActor(upgradeButton);
+            ui.addActor(button);
+            ui.addActor(upgradeButton);
             // Popup must always be last to appear on top!
             popups.addActor(popup);
         }
@@ -194,9 +204,10 @@ public class GameStage extends Stage {
         Batch batch = getBatch();
         super.draw();
         batch.begin();
-        if (Constants.DEBUG){
+        if (Constants.DEBUG) {
             Assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
         }
+        //popups.draw(batch, 1f);
         batch.end();
     }
 
@@ -204,15 +215,17 @@ public class GameStage extends Stage {
     public void act(float delta) {
         MathUtils.clamp(delta, 0f, .05f);
         elapsedTime += delta;
-        super.act(delta);
-        for (Employee em :
-                team.getEmployeeList()) {
-            em.act(delta);
-        }
+        //if (!paused) {
+            super.act(delta);
 
-        if (Constants.DEBUG){
+            for (Employee em :
+                    team.getEmployeeList()) {
+                em.act(delta);
+            }
+        //}
+        if (Constants.DEBUG) {
             framesCount++;
-            if (elapsedTime >= 1f){
+            if (elapsedTime >= 1f) {
                 elapsedTime = 0f;
                 frames = framesCount;
                 framesCount = 0;
@@ -223,6 +236,8 @@ public class GameStage extends Stage {
         statusBar.setBandwith(team.getBandwith());
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(team.getEmployeeCount());
+
+        //popups.act(delta);
 
         /*ArrayList<Employee> employees = team.getEmployeeList();
         tileMap.clearPassersBy();
@@ -239,7 +254,7 @@ public class GameStage extends Stage {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         getViewport().unproject(checkVector.set(screenX, screenY));
-        if (pointer == 0){
+        if (pointer == 0) {
             for (Touchable touchable :
                     touchables) {
                 touchable.touchDown(checkVector);
@@ -266,19 +281,19 @@ public class GameStage extends Stage {
         return super.touchUp(screenX, screenY, pointer, button);
     }
 
-    public boolean addTouchable(Touchable touchable){
-        if (touchables.contains(touchable)){
+    public boolean addTouchable(Touchable touchable) {
+        if (touchables.contains(touchable)) {
             return false;
         }
         touchables.add(touchable);
         return true;
     }
 
-    public void addTouchables(Collection<Touchable> touchables){
+    public void addTouchables(Collection<Touchable> touchables) {
         this.touchables.addAll(touchables);
     }
 
-    public boolean removeTouchable(Touchable touchable){
+    public boolean removeTouchable(Touchable touchable) {
         return touchables.remove(touchable);
     }
 
