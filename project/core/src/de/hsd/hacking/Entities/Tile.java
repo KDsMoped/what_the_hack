@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Utils.Constants;
@@ -28,9 +26,9 @@ public class Tile extends Actor {
 
     private Vector2 position;
     private int tileNumber;
-    private Employee employee;
+    private Employee occupyingEmployee;
     private Object object;
-    private List<Employee> passersBy;
+    private List<Employee> employeesToDraw;
     private Rectangle bounds;
 
     private ShapeRenderer testRenderer;
@@ -46,19 +44,22 @@ public class Tile extends Actor {
         this.position = position;
         testRenderer = new ShapeRenderer();
         this.bounds = new Rectangle(this.position.x, this.position.y, tileWidth, tileWidth / 2f);
-        this.passersBy = new ArrayList<Employee>(4);
+        this.employeesToDraw = new ArrayList<Employee>(4);
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getOccupyingEmployee() {
+        return occupyingEmployee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setOccupyingEmployee(Employee occupyingEmployee) {
+        this.occupyingEmployee = occupyingEmployee;
+        if (occupyingEmployee != null){
+            occupyingEmployee.setOccupiedTileNumber(tileNumber);
+        }
     }
 
     public boolean isMovableTo(){
-        return employee == null && (object == null || !object.isBlocking());
+        return occupyingEmployee == null && (object == null || !object.isBlocking());
     }
 
     public boolean isMovableThrough(){
@@ -84,21 +85,20 @@ public class Tile extends Actor {
         if (object != null){
             object.draw(batch, parentAlpha);
         }
-        if(employee != null && (employee.getAnimationState() != Employee.AnimState.MOVING)){
-            employee.draw(batch, parentAlpha);
-        }
-        if(passersBy.size() > 0){
-            if (passersBy.size() > 1){
-                Collections.sort(passersBy);
+        /*if(occupyingEmployee != null && (occupyingEmployee.getAnimationState() != Employee.AnimState.MOVING)){
+            occupyingEmployee.draw(batch, parentAlpha);
+        }*/
+
+        if(employeesToDraw.size() > 0){
+            if (employeesToDraw.size() > 1){
+                Collections.sort(employeesToDraw);
             }
 
-            for (Employee empl : passersBy) {
+            for (Employee empl : employeesToDraw) {
                 empl.draw(batch, parentAlpha);
             }
         }
     }
-
-
 
     @Override
     public void act(float delta) {
@@ -128,11 +128,14 @@ public class Tile extends Actor {
         this.object.setPosition(this.position.cpy());
     }
 
-    public void addPasserBy(Employee employee) {
-        passersBy.add(employee);
+    public void addEmployeeToDraw(Employee employee) {
+        if (!employeesToDraw.contains(employee)){
+            employeesToDraw.add(employee);
+        }
+        employee.setCurrentTileNumber(tileNumber);
     }
-    public void clearPassersBy(){
-        passersBy.clear();
+    public void clearEmployeesToDraw(){
+        employeesToDraw.clear();
     }
 
     private void drawDebug(Batch batch) {
@@ -143,8 +146,8 @@ public class Tile extends Actor {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         if (isMovableThrough()){
-            if (employee == null){
-                if (passersBy.size() > 0){
+            if (occupyingEmployee == null){
+                if (employeesToDraw.size() > 0){
                     testRenderer.setColor( Color.YELLOW.cpy().sub(0,0,0, .5f));
                 }else{
                     testRenderer.setColor( Color.RED.cpy().sub(0,0,0, .75f));
@@ -160,7 +163,16 @@ public class Tile extends Actor {
         batch.begin();
     }
 
-    public boolean removePasserBy(Employee employee) {
-        return passersBy.remove(employee);
+    public boolean removeEmployeeToDraw(Employee employee) {
+        return employeesToDraw.remove(employee);
+    }
+
+    public int getEmployeesToDrawSize(){
+        return employeesToDraw.size();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object obj) {
+        return obj instanceof Tile && ((Tile) obj).getTileNumber() == tileNumber;
     }
 }

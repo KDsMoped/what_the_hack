@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
+import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -24,7 +25,9 @@ public class WorkingState extends EmployeeState {
         super(employee);
         this.workingPosition = position;
         employee.setPosition(position.cpy());
-        employee.getMovementProvider().getDiscreteTile(position).setEmployee(employee);
+        employee.removeFromOccupyingTile();
+        employee.getMovementProvider().getDiscreteTile(position).setOccupyingEmployee(employee);
+
         this.computer = computer;
         this.timeBeforeIdle = MathUtils.random(10f, 30f);
     }
@@ -36,6 +39,7 @@ public class WorkingState extends EmployeeState {
             //TODO nur zu Debugzwecken, der State soll sich erst ändern wenn zB Mission fertig
             elapsedTime+= deltaTime;
             if (elapsedTime >= timeBeforeIdle){
+                Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " DONE working.");
                 return new IdleState(employee);
             }
             return null;

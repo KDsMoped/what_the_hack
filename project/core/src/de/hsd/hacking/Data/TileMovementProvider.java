@@ -1,6 +1,8 @@
 package de.hsd.hacking.Data;
 
 import com.badlogic.gdx.math.Vector2;
+
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Tile;
 
 /**
@@ -32,4 +34,7 @@ public interface TileMovementProvider extends MovementProvider {
 
     Tile getDiscreteTile(Vector2 position);
 
+    Tile getTile(int tileNumber);
+
+    Tile getStartTile(Employee employee);
 }

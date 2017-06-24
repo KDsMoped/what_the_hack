@@ -26,6 +26,7 @@ import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMovementProvider;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -51,6 +52,22 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.state.cancel();
         this.state = state;
         this.state.enter();
+    }
+
+    public int getCurrentTileNumber() {
+        return currentTileNumber;
+    }
+
+    public void setCurrentTileNumber(int currentTileNumber) {
+        this.currentTileNumber = currentTileNumber;
+    }
+
+    public int getOccupiedTileNumber() {
+        return occupiedTileNumber;
+    }
+
+    public void setOccupiedTileNumber(int occupiedTileNumber) {
+        this.occupiedTileNumber = occupiedTileNumber;
     }
 
 
@@ -95,6 +112,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Expose private EmployeeState state;
     private Rectangle bounds;
 
+    private int currentTileNumber;
+    private int occupiedTileNumber;
 
 
     private GameStage stage;
@@ -144,9 +163,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             }
         }
         this.movementProvider = movementProvider;
-        Vector2 startPos = movementProvider.getStartPosition(this);
+        Tile startTile = movementProvider.getStartTile(this);
+        Vector2 startPos = startTile.getPosition().cpy();
+        this.currentTileNumber = this.occupiedTileNumber =  startTile.getTileNumber();
+        startTile.addEmployeeToDraw(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
+
         this.animationState = AnimState.IDLE;
         this.state = new IdleState(this);
         //Graphics
@@ -327,11 +350,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void toggleSelected() {
-        if (selected){
-            stage.setSelectedEmployee(null);
-        }else{
-            stage.setSelectedEmployee(this);
-        }
+        if (!selected) stage.setSelectedEmployee(this);
+        if (selected) stage.deselectEmployee();
         selected = !selected;
     }
 
@@ -352,4 +372,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.stage = stage;
     }
 
+    public void removeFromDrawingTile(){
+        movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
+    }
+
+    public void removeFromOccupyingTile(){
+        movementProvider.getTile(occupiedTileNumber).setOccupyingEmployee(null);
+    }
 }

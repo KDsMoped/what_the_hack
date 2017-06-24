@@ -203,7 +203,7 @@ public class GameStage extends Stage {
 
     @Override
     public void act(float delta) {
-        MathUtils.clamp(delta, 0f, .05f);
+        delta = MathUtils.clamp(delta, 0f, .05f);
         elapsedTime += delta;
         super.act(delta);
         for (Employee em :
@@ -217,6 +217,7 @@ public class GameStage extends Stage {
                 elapsedTime = 0f;
                 frames = framesCount;
                 framesCount = 0;
+                this.tileMap.debugCheck(team.getEmployeeCount());
             }
         }
         //team.calcRessorces();
@@ -226,12 +227,12 @@ public class GameStage extends Stage {
         statusBar.setEmployees(team.getEmployeeCount());
 
         /*ArrayList<Employee> employees = team.getEmployeeList();
-        tileMap.clearPassersBy();
+        tileMap.clearEmployeesToDraw();
         for (Employee employee :
                 employees) {
             if (employee.getAnimationState() == Employee.AnimState.MOVING){
                 Tile tile = tileMap.getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTileWhileMoving verbessern
-                tile.addPasserBy(employee);
+                tile.addEmployeeToDraw(employee);
             }
         }*/
 
@@ -289,5 +290,9 @@ public class GameStage extends Stage {
 
     public void setSelectedEmployee(Employee selectedEmployee) {
         team.setSelectedEmployee(selectedEmployee);
+    }
+
+    public void deselectEmployee(){
+        team.deselectEmployee();
     }
 }
