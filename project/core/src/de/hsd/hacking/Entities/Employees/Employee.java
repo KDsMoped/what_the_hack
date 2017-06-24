@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import com.badlogic.gdx.utils.Array;
@@ -177,7 +180,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         setUpShader();
 
         debugRenderer = new ShapeRenderer();
-
     }
 
     private void setUpShader() {
@@ -237,6 +239,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
             debugRenderer.end();
             batch.begin();
+
+
+
+
         }
         if(selected){
             Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
@@ -263,6 +269,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public void setPosition(Vector2 position){
         super.setPosition(position);
+
         this.bounds.setPosition(position.cpy().add(5f, 5f));
     }
 
@@ -310,18 +317,23 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     @Override
-    public void touchDown(Vector2 position) {
+    public boolean touchDown(Vector2 position) {
         if (bounds.contains(position)){
             touched = true;
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void touchUp(Vector2 position) {
-        if (bounds.contains(position) && touched){
+    public boolean touchUp(Vector2 position) {
+        boolean t = false;
+        if (touched && bounds.contains(position)){
             onTouch();
+            t = true;
         }
         touched = false;
+        return t;
     }
 
     @Override

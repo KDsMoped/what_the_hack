@@ -8,7 +8,7 @@ public class Constants {
 
     public static final String TAG = "HackingGame";
 
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
 
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 576;

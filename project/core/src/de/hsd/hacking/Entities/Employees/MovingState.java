@@ -64,7 +64,6 @@ public class MovingState extends EmployeeState {
                 this.path = employee.getMovementProvider().getPathToTile(this.currentTile, this.endTile);
 
                 if (path != null && !path.isPathFinished()){
-                    this.employee.removeFromOccupyingTile();
                     this.endTile.setOccupyingEmployee(employee);
                     setNextDestination();
                 }else{
@@ -79,7 +78,6 @@ public class MovingState extends EmployeeState {
 
             //No destination -> Current tile is destination;
             this.endTile = currentTile;
-            this.employee.removeFromOccupyingTile();
             this.endTile.setOccupyingEmployee(employee);
             this.destinationPos = endTile.getPosition().cpy();
         }
@@ -178,21 +176,17 @@ public class MovingState extends EmployeeState {
         }
         canceled = true;
 
-        if (endTile != null && !employee.equals(endTile.getOccupyingEmployee())){
-            this.employee.removeFromOccupyingTile();
+        if (endTile != null){
             endTile.setOccupyingEmployee(employee);
         }
-
         switchCurrentAndNextTiles(this.currentTile, this.nextTile);
 
     }
 
     private void switchCurrentAndNextTiles(Tile currentTile, Tile nextTile){
         if (currentTile != null && nextTile != null) {
-            this.employee.removeFromDrawingTile();
             this.currentTile = nextTile;
             this.currentTile.addEmployeeToDraw(employee);
         }
-
     }
 }

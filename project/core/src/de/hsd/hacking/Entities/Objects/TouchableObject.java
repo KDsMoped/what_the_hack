@@ -32,18 +32,23 @@ public abstract class TouchableObject extends Object implements Touchable {
     }
 
     @Override
-    public void touchDown(Vector2 position) {
+    public boolean touchDown(Vector2 position) {
         if (bounds.contains(position)){
             touched = true;
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void touchUp(Vector2 position) {
+    public boolean touchUp(Vector2 position) {
+        boolean t = false;
         if (touched && bounds.contains(position)){
             onTouch();
+            t = true;
         }
         touched = false;
+        return t;
     }
 
     @Override

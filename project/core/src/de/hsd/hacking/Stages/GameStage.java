@@ -226,46 +226,51 @@ public class GameStage extends Stage {
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(team.getEmployeeCount());
 
-        /*ArrayList<Employee> employees = team.getEmployeeList();
-        tileMap.clearEmployeesToDraw();
-        for (Employee employee :
-                employees) {
-            if (employee.getAnimationState() == Employee.AnimState.MOVING){
-                Tile tile = tileMap.getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTileWhileMoving verbessern
-                tile.addEmployeeToDraw(employee);
-            }
-        }*/
-
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        getViewport().unproject(checkVector.set(screenX, screenY));
-        if (pointer == 0){
-            for (Touchable touchable :
-                    touchables) {
-                touchable.touchDown(checkVector);
+        if (!super.touchDown(screenX, screenY, pointer, button)){
+            getViewport().unproject(checkVector.set(screenX, screenY));
+            boolean touchableTouched = false;
+            if (pointer == 0){
+                for (Touchable touchable :
+                        touchables) {
+                    if (touchable.touchDown(checkVector)){
+                        touchableTouched = true;
+                        break;
+                    }
+                }
             }
+            return touchableTouched;
         }
-        return super.touchDown(screenX, screenY, pointer, button);
+        return true;
+
+
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-
         return super.touchDragged(screenX, screenY, pointer);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        getViewport().unproject(checkVector.set(screenX, screenY));
-        if (pointer == 0) {
-            for (Touchable touchable :
-                    touchables) {
-                touchable.touchUp(checkVector);
+        if (!super.touchUp(screenX, screenY, pointer, button)){
+            getViewport().unproject(checkVector.set(screenX, screenY));
+            boolean touchableTouchedUp = false;
+            if (pointer == 0) {
+                for (Touchable touchable :
+                        touchables) {
+                    if (touchable.touchUp(checkVector)){
+                        touchableTouchedUp = true;
+                        break;
+                    }
+                }
             }
+            return touchableTouchedUp;
         }
-        return super.touchUp(screenX, screenY, pointer, button);
+        return true;
     }
 
     public boolean addTouchable(Touchable touchable){

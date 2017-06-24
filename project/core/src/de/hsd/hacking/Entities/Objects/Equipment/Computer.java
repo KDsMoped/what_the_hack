@@ -65,7 +65,10 @@ public class Computer extends Equipment implements Upgradable {
     public void act(float delta) {
         super.act(delta);
         elapsedTime += delta;
-        tintFrames--;
+        if (tintFrames > 0){
+            tintFrames--;
+        }
+
         if (on){
             setDrawableRegion(animation.getKeyFrame(elapsedTime, true));
         }else{
@@ -113,7 +116,7 @@ public class Computer extends Equipment implements Upgradable {
 
     @Override
     public void onTouch() {
-        tintFrames += 30;
+        tintFrames += 10;
         if (team.isEmployeeSelected()){
             team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
             team.deselectEmployee();

@@ -52,10 +52,11 @@ public class Tile extends Actor {
     }
 
     public void setOccupyingEmployee(Employee occupyingEmployee) {
-        this.occupyingEmployee = occupyingEmployee;
         if (occupyingEmployee != null){
+            occupyingEmployee.removeFromOccupyingTile();
             occupyingEmployee.setOccupiedTileNumber(tileNumber);
         }
+        this.occupyingEmployee = occupyingEmployee;
     }
 
     public boolean isMovableTo(){
@@ -129,6 +130,7 @@ public class Tile extends Actor {
     }
 
     public void addEmployeeToDraw(Employee employee) {
+        employee.removeFromDrawingTile();
         if (!employeesToDraw.contains(employee)){
             employeesToDraw.add(employee);
         }
