@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,10 +21,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.annotations.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
@@ -111,6 +109,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Expose
     private String description; // ? Needed ?
     @Expose
+    private int salary;
+    @Expose
     private EmployeeSkillLevel skillLevel;
     @Expose
     private ArrayList<Skill> skillSet;
@@ -145,9 +145,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      *
      * @param level The desired skill Level
      */
-    public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage) {
+    public Employee(EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage) {
         super(false, true, false);
-        this.assets = assets;
+        this.assets = Assets.instance();
         this.stage = stage;
 
         //Create random name
@@ -165,6 +165,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             skillSet.add(new Skill(type, 5));
             skillPoints -= 5;
         }
+        salary = MathUtils.random(300, 550) * 100;
+
         //RandomIntPool chooses a number randomly from a set of predefined numbers.
         //Used numbers can either be removed or left in the set.
         RandomIntPool pool = new RandomIntPool(new FromTo(0, skillSet.size() - 1));
@@ -417,4 +419,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public Collection<Skill> getSkillset(){
         return Collections.unmodifiableCollection(skillSet);
     }
+
+    public String getSalary(){ return String.format("%03d", salary) + "$";}
 }

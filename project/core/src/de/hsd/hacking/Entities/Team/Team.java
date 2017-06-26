@@ -25,7 +25,7 @@ public class Team {
     private final int maxEmployeeCount = 4;
 
     private String teamName;
-    private static Stage stage;
+    private static GameStage stage;
 //    private Group employees;
     private Group equipment;
     private Group workspaces;
@@ -49,7 +49,7 @@ public class Team {
     }
 
     public static Team getInstance(){ return instance; }
-    public static void initialize(Stage Stage) {
+    public static void initialize(GameStage Stage) {
         stage = Stage;
     }
 
@@ -65,10 +65,10 @@ public class Team {
     /* Creates a new Employee object and adds it to the team.
      * Returns: 0 for success, 1 when employeeCount exceeds maxEmployeeCount
      */
-    public int createAndAddEmployee(Assets assets, Employee.EmployeeSkillLevel skillLevel,
+    public int createAndAddEmployee(Employee.EmployeeSkillLevel skillLevel,
                                     TileMap tileMap) {
         if(listOfEmployees.size() >= maxEmployeeCount) { return 1; }
-        Employee e = new Employee(assets, skillLevel, tileMap, (GameStage)stage);
+        Employee e = new Employee(skillLevel, tileMap, stage);
         listOfEmployees.add(e);
         e.setTouchable(Touchable.enabled);
         return 0;
@@ -101,12 +101,14 @@ public class Team {
         listOfEmployees.remove(index);
         Employee e = getEmployee(index);
 //        employees.removeActor(e);
+        stage.removeTouchable(e);
     }
 
     /* Removes the given Employee object from the Team.
      */
     public void removeEmployee(Employee e) {
         listOfEmployees.remove(e);
+        stage.removeTouchable(e);
 //        employees.removeActor(e);
     }
 

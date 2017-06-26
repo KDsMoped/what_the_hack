@@ -120,7 +120,7 @@ public class GameStage extends Stage {
         createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
 
         while (true) {
-            int ret = team.createAndAddEmployee(assets, Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
+            int ret = team.createAndAddEmployee(Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
             if (ret != 0) {
                 break;
             }
@@ -131,6 +131,7 @@ public class GameStage extends Stage {
                 0, assets);
 
         this.touchables.addAll(team.getEmployeeList());
+        //touchables = (ArrayList<Touchable>)(ArrayList<?>) team.getEmployeeList();
 
         // REMOVE THIS AGAIN
         if (Constants.DEBUG) {

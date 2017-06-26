@@ -54,14 +54,16 @@ public class EmployeeProfile extends Popup {
     private void InitControls(){
 
         leftUILine = (int) contentContainer.getX() + 50;
-        topUILine = (int) contentContainer.getY() + 170;
+        topUILine = (int) contentContainer.getY() + 165;
 
         TextButton dismissButton = new TextButton("Dismiss", Constants.TextButtonStyle());
         dismissButton.addListener(new ChangeListener() {
                                       @Override
                                       public void changed(ChangeEvent event, Actor actor) {
+                                          GetSelected().removeFromDrawingTile();
                                           team.removeEmployee(GetSelected());
                                           team.deselectEmployee();
+                                          Close();
                                       }
                                   }
         );
@@ -88,15 +90,19 @@ public class EmployeeProfile extends Popup {
 
         title = new Label("Employee Sheet", Constants.LabelStyle());
 
-        informationScroller = new ScrollPane(informationContainer);
+
+        ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
+        //scrollPaneStyle.vScrollKnob = new
+
+        informationScroller = new ScrollPane(informationContainer, scrollPaneStyle);
 
         //fillInformationContainer();
 
 
         contentContainer.addActor(content);
-        content.add(title).expandX().fillX().padTop(5).padBottom(15);
+        content.add(title).expandX().fillX().padTop(5).padBottom(15).padLeft(110);
         content.row();
-        content.add(informationScroller).expand().fill().maxHeight(200).width(230);
+        content.add(informationScroller).expand().fill().maxHeight(165).width(300).padLeft(110);
     }
 
     private void fillInformationContainer(){
@@ -116,6 +122,13 @@ public class EmployeeProfile extends Popup {
             }
         }));
 
+        addInformationElement(new DoubleLabelElement("Salary", new DoubleLabelElement.StringProvider() {
+            @Override
+            public String get() {
+                return GetSelected().getSalary();
+            }
+        }));
+
         addInformationElement(new DoubleLabelElement("Skills", ""));
 
         for(final Skill skill : GetSelected().getSkillset() ){
@@ -123,7 +136,7 @@ public class EmployeeProfile extends Popup {
             addInformationElement(new DoubleLabelElement(skill.getType().name(), new DoubleLabelElement.StringProvider() {
                 @Override
                 public String get() {
-                    return skill.getDisplayValue();
+                    return skill.getDisplayValue(true);
                 }
             }));
         }
