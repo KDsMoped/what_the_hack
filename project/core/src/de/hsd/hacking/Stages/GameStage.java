@@ -52,7 +52,7 @@ public class GameStage extends Stage {
     private float elapsedTime = 0f;
 
     public static final float VIEWPORT_WIDTH = 512f;
-    public static final float VIEWPORT_HEIGHT = (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private Vector2 checkVector;
     private TileMap tileMap;
@@ -63,9 +63,6 @@ public class GameStage extends Stage {
     private List<Touchable> touchables;
 
     private Group foreground, background, ui, popups;
-
-    private boolean paused;
-
 
     public GameStage(Assets assets) {
         super(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
@@ -120,8 +117,8 @@ public class GameStage extends Stage {
 
         //Workspaces
         createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4), (Constants.TILES_PER_SIDE / 3) * 2);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3 , Constants.TILES_PER_SIDE / 3);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) , (Constants.TILES_PER_SIDE / 3) * 2);
         createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
 
         while (true) {
@@ -154,15 +151,13 @@ public class GameStage extends Stage {
                                    public void changed(ChangeEvent event, Actor actor) {
                                        if (popup.isActive()) {
                                            popup.Close();
-                                           paused = false;
                                        } else {
                                            popup.Show();
-                                           paused = true;
                                        }
                                    }
                                }
             );
-            button.setBounds(10, 10, 100, 20);
+            button.setBounds(10, 10, 100, 30);
 
             TextButton upgradeButton = new TextButton("Upgrade", style);
             upgradeButton.addListener(new ChangeListener() {
@@ -171,17 +166,17 @@ public class GameStage extends Stage {
                                               ArrayList<Equipment> equipments = team.getEquipmentList();
                                               for (Equipment equipment :
                                                       equipments) {
-                                                  if (equipment instanceof Upgradable) {
+                                                  if(equipment instanceof Upgradable) {
                                                       ((Upgradable) equipment).upgrade();
                                                   }
                                               }
                                           }
                                       }
             );
-            upgradeButton.setBounds(10, 40, 100, 20);
+            upgradeButton.setBounds(10, 40, 100, 30);
 
-            ui.addActor(button);
-            ui.addActor(upgradeButton);
+            popups.addActor(button);
+            popups.addActor(upgradeButton);
             // Popup must always be last to appear on top!
             popups.addActor(popup);
         }
@@ -205,31 +200,29 @@ public class GameStage extends Stage {
         Batch batch = getBatch();
         super.draw();
         batch.begin();
-        if (Constants.DEBUG) {
+        if (Constants.DEBUG){
             Assets.gold_font_small.draw(batch, "" + frames, VIEWPORT_WIDTH - 20f, 20f);
         }
-        //popups.draw(batch, 1f);
         batch.end();
     }
 
     @Override
     public void act(float delta) {
-        MathUtils.clamp(delta, 0f, .05f);
+        delta = MathUtils.clamp(delta, 0f, .05f);
         elapsedTime += delta;
-        //if (!paused) {
-            super.act(delta);
+        super.act(delta);
+        for (Employee em :
+                team.getEmployeeList()) {
+            em.act(delta);
+        }
 
-            for (Employee em :
-                    team.getEmployeeList()) {
-                em.act(delta);
-            }
-        //}
-        if (Constants.DEBUG) {
+        if (Constants.DEBUG){
             framesCount++;
-            if (elapsedTime >= 1f) {
+            if (elapsedTime >= 1f){
                 elapsedTime = 0f;
                 frames = framesCount;
                 framesCount = 0;
+                this.tileMap.debugCheck(team.getEmployeeCount());
             }
         }
         //team.calcRessorces();
@@ -238,63 +231,66 @@ public class GameStage extends Stage {
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(team.getEmployeeCount());
 
-        //popups.act(delta);
-
-        /*ArrayList<Employee> employees = team.getEmployeeList();
-        tileMap.clearPassersBy();
-        for (Employee employee :
-                employees) {
-            if (employee.getAnimationState() == Employee.AnimState.MOVING){
-                Tile tile = tileMap.getTileWhileMoving(employee.getPosition().add(Constants.TILE_WIDTH / 2f, Constants.TILE_WIDTH / 4f)); //TODO tilemap.getTileWhileMoving verbessern
-                tile.addPasserBy(employee);
-            }
-        }*/
-
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        getViewport().unproject(checkVector.set(screenX, screenY));
-        if (pointer == 0) {
-            for (Touchable touchable :
-                    touchables) {
-                touchable.touchDown(checkVector);
+        if (!super.touchDown(screenX, screenY, pointer, button)){
+            getViewport().unproject(checkVector.set(screenX, screenY));
+            boolean touchableTouched = false;
+            if (pointer == 0){
+                for (Touchable touchable :
+                        touchables) {
+                    if (touchable.touchDown(checkVector)){
+                        touchableTouched = true;
+                        break;
+                    }
+                }
             }
+            return touchableTouched;
         }
-        return super.touchDown(screenX, screenY, pointer, button);
+        return true;
+
+
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-
         return super.touchDragged(screenX, screenY, pointer);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        getViewport().unproject(checkVector.set(screenX, screenY));
-        if (pointer == 0) {
-            for (Touchable touchable :
-                    touchables) {
-                touchable.touchUp(checkVector);
+        if (!super.touchUp(screenX, screenY, pointer, button)){
+            getViewport().unproject(checkVector.set(screenX, screenY));
+            boolean touchableTouchedUp = false;
+            if (pointer == 0) {
+                for (Touchable touchable :
+                        touchables) {
+                    if (touchable.touchUp(checkVector)){
+                        touchableTouchedUp = true;
+                        break;
+                    }
+                }
             }
+            return touchableTouchedUp;
         }
-        return super.touchUp(screenX, screenY, pointer, button);
+        return true;
     }
 
-    public boolean addTouchable(Touchable touchable) {
-        if (touchables.contains(touchable)) {
+    public boolean addTouchable(Touchable touchable){
+        if (touchables.contains(touchable)){
             return false;
         }
         touchables.add(touchable);
         return true;
     }
 
-    public void addTouchables(Collection<Touchable> touchables) {
+    public void addTouchables(Collection<Touchable> touchables){
         this.touchables.addAll(touchables);
     }
 
-    public boolean removeTouchable(Touchable touchable) {
+    public boolean removeTouchable(Touchable touchable){
         return touchables.remove(touchable);
     }
 
@@ -304,5 +300,9 @@ public class GameStage extends Stage {
 
     public void setSelectedEmployee(Employee selectedEmployee) {
         team.setSelectedEmployee(selectedEmployee);
+    }
+
+    public void deselectEmployee(){
+        team.deselectEmployee();
     }
 }

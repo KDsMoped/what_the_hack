@@ -74,7 +74,7 @@ public class Team {
         return 0;
     }
 
-    /* Adds the given Employee oject to the team.
+    /* Adds the given Employee object to the team.
      * Returns: 0 for success, 1 when employeeCount exceeds maxEmployeeCount
      */
     public int addEmployee(Employee e) {
