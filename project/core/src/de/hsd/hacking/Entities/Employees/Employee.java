@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.annotations.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 import de.hsd.hacking.Assets.Assets;
@@ -80,7 +82,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         private static final EmployeeSkillLevel[] VALUES = values();
         public static final int SIZE = VALUES.length;
 
-        public static EmployeeSkillLevel getRandomSkillLevel() { return VALUES[MathUtils.random(SIZE - 1)]; }
+        public static EmployeeSkillLevel getRandomSkillLevel() {
+            return VALUES[MathUtils.random(SIZE - 1)];
+        }
     }
 
     public enum HairStyle {
@@ -90,29 +94,39 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     //Graphics
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
-    public enum AnimState{
+
+    public enum AnimState {
         IDLE, WORKING, WORKING_BACKFACED, MOVING
     }
+
     private ShaderProgram shader;
     private AnimState animationState;
     private boolean flipped;
 
     //Data
-    @Expose private String surName;
-    @Expose private String lastName;
-    @Expose private String description; // ? Needed ?
-    @Expose private EmployeeSkillLevel skillLevel;
-    @Expose private ArrayList<Skill> skillSet;
+    @Expose
+    private String surName;
+    @Expose
+    private String lastName;
+    @Expose
+    private String description; // ? Needed ?
+    @Expose
+    private EmployeeSkillLevel skillLevel;
+    @Expose
+    private ArrayList<Skill> skillSet;
     private float elapsedTime = 0f;
     private TileMovementProvider movementProvider;
-    @Expose private HairStyle hairStyle;
-    @Expose private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
+    @Expose
+    private HairStyle hairStyle;
+    @Expose
+    private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
 
     public EmployeeState getState() {
         return state;
     }
 
-    @Expose private EmployeeState state;
+    @Expose
+    private EmployeeState state;
     private Rectangle bounds;
 
     private int currentTileNumber;
@@ -122,16 +136,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private GameStage stage;
 
 
-
     public Employee() {
         super(false, true, false);
     }
 
     /**
      * Creates a new random employee
+     *
      * @param level The desired skill Level
      */
-    public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage){
+    public Employee(Assets assets, EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage) {
         super(false, true, false);
         this.assets = assets;
         this.stage = stage;
@@ -155,20 +169,20 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         //Used numbers can either be removed or left in the set.
         RandomIntPool pool = new RandomIntPool(new FromTo(0, skillSet.size() - 1));
 
-        while (skillPoints > 0){
+        while (skillPoints > 0) {
             int randomInt = pool.getRandomNumberWithoutRemoving();
             Skill incrementSkill = skillSet.get(randomInt);
-            if (incrementSkill.getValue() < 15){
+            if (incrementSkill.getValue() < 15) {
                 incrementSkill.incrementSkill();
                 skillPoints--;
-            }else{ //Skill at max -> Remove skill index from possible random indexes
+            } else { //Skill at max -> Remove skill index from possible random indexes
                 pool.removeNumber(randomInt);
             }
         }
         this.movementProvider = movementProvider;
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
-        this.currentTileNumber = this.occupiedTileNumber =  startTile.getTileNumber();
+        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
@@ -192,7 +206,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
                 Color.valueOf(ColorHolder.EyesColors.get(MathUtils.random(ColorHolder.EyesColors.size() - 1))),
                 Color.valueOf(ColorHolder.ShoesColors.get(MathUtils.random(ColorHolder.ShoesColors.size() - 1))));
         this.shader = new ShaderProgram(vertexShader, fragmentShader);
-        if (!shader.isCompiled()){
+        if (!shader.isCompiled()) {
             throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
         }
     }
@@ -203,6 +217,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public TileMovementProvider getMovementProvider() {
         return movementProvider;
     }
+
     public AnimState getAnimationState() {
         return animationState;
     }
@@ -210,27 +225,18 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public void setAnimationState(AnimState animationState) {
         this.animationState = animationState;
     }
-    public void flipHorizontal(boolean toRight){
+
+    public void flipHorizontal(boolean toRight) {
         this.flipped = toRight;
     }
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.setShader(shader);
-        if (selected){
-            batch.setColor(Color.RED);
-        }
-        Vector2 pixelPosition = clampToPixels(getPosition());
-        for (int i = 0; i < 2; i++) {
-            TextureRegion frame = animations[animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
-            batch.draw(frame, flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
-        }
-        batch.setShader(null);
-        if (selected){
-            batch.setColor(Color.WHITE);
-        }
-        if (Constants.DEBUG){
+
+        drawAt(batch, getPosition(), flipped, false, animationState);
+
+        if (Constants.DEBUG) {
             batch.end();
             debugRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             debugRenderer.setTransformMatrix(batch.getTransformMatrix());
@@ -239,15 +245,31 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
             debugRenderer.end();
             batch.begin();
-
-
-
-
-        }
-        if(selected){
-            Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
         }
 
+//        if (selected) {
+//            Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
+//        }
+    }
+
+    public void drawAt(Batch batch, Vector2 pos) {
+        drawAt(batch, pos, false, true, AnimState.IDLE);
+    }
+
+    private void drawAt(Batch batch, Vector2 pos, boolean _flipped, boolean icon, AnimState _animationState) {
+        batch.setShader(shader);
+        if (selected && !icon) {
+            batch.setColor(Color.RED);
+        }
+        Vector2 pixelPosition = clampToPixels(pos);
+        for (int i = 0; i < 2; i++) {
+            TextureRegion frame = animations[_animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
+            batch.draw(frame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+        }
+        batch.setShader(null);
+        if (selected && !icon) {
+            batch.setColor(Color.WHITE);
+        }
     }
 
     @Override
@@ -255,7 +277,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         super.act(delta);
         elapsedTime += delta;
         EmployeeState state = this.state.act(delta);
-        if (state != null){
+        if (state != null) {
             this.state.leave();
             this.state = state;
             this.state.enter();
@@ -263,21 +285,21 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Employee: " + surName + " " + lastName + ". Skilllevel: " + this.skillLevel.name() + ". Skills: " + skillSetToString();
     }
 
-    public void setPosition(Vector2 position){
+    public void setPosition(Vector2 position) {
         super.setPosition(position);
 
         this.bounds.setPosition(position.cpy().add(5f, 5f));
     }
 
     private Vector2 clampToPixels(Vector2 position) {
-        return position.set((int)position.x, (int)position.y);
+        return position.set((int) position.x, (int) position.y);
     }
 
-    private String skillSetToString(){
+    private String skillSetToString() {
         String skills = "";
         for (Skill skill :
                 skillSet) {
@@ -287,8 +309,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     @Override
-    public String getName(){
-        return surName + " " +lastName;
+    public String getName() {
+        return surName + " " + lastName;
     }
 
     void resetElapsedTime() {
@@ -318,7 +340,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public boolean touchDown(Vector2 position) {
-        if (bounds.contains(position)){
+        if (bounds.contains(position)) {
             touched = true;
             return true;
         }
@@ -328,7 +350,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public boolean touchUp(Vector2 position) {
         boolean t = false;
-        if (touched && bounds.contains(position)){
+        if (touched && bounds.contains(position)) {
             onTouch();
             t = true;
         }
@@ -344,19 +366,19 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public int compareTo(Employee o) {
-        if (o.getPosition().y > getPosition().y){
+        if (o.getPosition().y > getPosition().y) {
             return 1;
-        }else if(o.getPosition().y == getPosition().y && o.getPosition().x > getPosition().x){
+        } else if (o.getPosition().y == getPosition().y && o.getPosition().x > getPosition().x) {
             return 1;
-        }else if(o.getPosition().y == getPosition().y && o.getPosition().x == getPosition().x){
+        } else if (o.getPosition().y == getPosition().y && o.getPosition().x == getPosition().x) {
             return 0;
-        }else{
+        } else {
             return -1;
         }
 
     }
 
-    private void onTouch(){
+    private void onTouch() {
         toggleSelected();
 
     }
@@ -384,11 +406,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.stage = stage;
     }
 
-    public void removeFromDrawingTile(){
+    public void removeFromDrawingTile() {
         movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
     }
 
-    public void removeFromOccupyingTile(){
+    public void removeFromOccupyingTile() {
         movementProvider.getTile(occupiedTileNumber).setOccupyingEmployee(null);
+    }
+
+    public Collection<Skill> getSkillset(){
+        return Collections.unmodifiableCollection(skillSet);
     }
 }

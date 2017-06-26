@@ -24,6 +24,14 @@ public class Skill {
         return value;
     }
 
+    public String getDisplayValue(){
+//        switch (value){
+//            case <3:
+//                return "";
+//        }
+        return String.valueOf(value);
+    }
+
     public void setValue(int value) {
         this.value = value;
     }

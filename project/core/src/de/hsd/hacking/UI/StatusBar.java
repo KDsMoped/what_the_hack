@@ -88,10 +88,9 @@ public class StatusBar extends Actor {
 
     /**
      * Initializes a new top bar. Top bar needs assets to get the ui themes and fonts.
-     * @param assets ui assets
      */
-    public StatusBar(Assets assets) {
-        this.assets = assets;
+    public StatusBar() {
+        this.assets = Assets.instance();
 
         // this is the actual parent object
         items = new Table();

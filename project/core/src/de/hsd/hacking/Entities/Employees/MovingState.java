@@ -189,4 +189,9 @@ public class MovingState extends EmployeeState {
             this.currentTile.addEmployeeToDraw(employee);
         }
     }
+
+    @Override
+    public String getDisplayName() {
+        return "Walking";
+    }
 }

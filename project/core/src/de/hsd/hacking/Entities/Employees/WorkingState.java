@@ -69,4 +69,9 @@ public class WorkingState extends EmployeeState {
     public void cancel() {
         canceled = true;
     }
+
+    @Override
+    public String getDisplayName() {
+        return "Working";
+    }
 }

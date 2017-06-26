@@ -16,12 +16,19 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by Cuddl3s on 21.04.2017.
  */
 
 public class Assets {
+
+    private static Assets instance;
+
+    public static Assets instance() {
+        return instance;
+    }
 
     public AssetManager manager;
 
@@ -30,6 +37,7 @@ public class Assets {
     public BitmapFont gold_font;
     public static BitmapFont gold_font_small;
     public BitmapFont status_bar_font;
+    //public BitmapFont tiny_label_font;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
@@ -58,12 +66,12 @@ public class Assets {
     public Sound buttonSound;
 
 
-
-    public Assets(){
+    public Assets() {
+        instance = this;
         manager = new AssetManager();
     }
 
-    public void load(){
+    public void load() {
 
         //manager.load queued assets zum Laden. Das Laden muss aber noch manuell angestoßen werden. Der String Pfad ist später der Key um die Ressource per "manager.get("path")" zu erhalten
         manager.load("img/Game_Assets.atlas", TextureAtlas.class);
@@ -91,6 +99,7 @@ public class Assets {
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
         header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
         status_bar_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
+        //tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         //...//
 
         room_bg = atlas.findRegion("ambient/Room_Background");
@@ -116,7 +125,7 @@ public class Assets {
         money_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_money"));
         employees_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_employees"));
         clock_icon = new Array<TextureRegionDrawable>();
-        for (TextureRegion t: ui_atlas.findRegions("statusbar_clock")) {
+        for (TextureRegion t : ui_atlas.findRegions("statusbar_clock")) {
             clock_icon.add(new TextureRegionDrawable(t));
         }
 
@@ -127,11 +136,11 @@ public class Assets {
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/
-    public void loadingDone(){
+    public void loadingDone() {
 
     }
 
-    public void dispose(){
+    public void dispose() {
         character_atlas.dispose();
         ui_atlas.dispose();
         atlas.dispose();
@@ -140,7 +149,7 @@ public class Assets {
     }
 
     public Array<TextureRegion> getHairFrames(Employee.HairStyle hairStyle) {
-        switch (hairStyle){
+        switch (hairStyle) {
             case CRAZY:
                 return hair_01;
             case NEAT:

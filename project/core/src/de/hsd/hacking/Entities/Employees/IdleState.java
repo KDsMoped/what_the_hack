@@ -44,6 +44,11 @@ public class IdleState extends EmployeeState {
     }
 
     @Override
+    public String getDisplayName() {
+        return "Unoccupied";
+    }
+
+    @Override
     public void cancel() {
         //nothing to do here;
     }

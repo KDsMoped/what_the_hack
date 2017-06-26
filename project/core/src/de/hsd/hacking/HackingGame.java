@@ -14,7 +14,6 @@ public class HackingGame extends Game {
 	public void create () {
 		assets = new Assets();
 		assets.load();
-		Constants.SetAssets(assets);
 
         SaveGameManager.LoadGame();
 

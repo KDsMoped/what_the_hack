@@ -1,6 +1,5 @@
-package de.hsd.hacking.UI;
+package de.hsd.hacking.UI.Employee;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -18,15 +17,19 @@ public class EmployeeBar extends Group {
     private Label jobLabel;
     private TextButton detailsButton;
 
-    private int width = 80;
+    private EmployeeProfile profilePopup;
+
+    private int width = 160;
     private int originX;
     private int originY;
 
     public EmployeeBar() {
         super();
 
-        originX = (int) GameStage.VIEWPORT_WIDTH - 80;
-        originY = (int) GameStage.VIEWPORT_HEIGHT;
+        originX = (int) GameStage.VIEWPORT_WIDTH - width;
+        originY = (int) GameStage.VIEWPORT_HEIGHT - 20;
+
+        profilePopup = new EmployeeProfile();
 
         nameLabel = new Label("Name of Employee", Constants.LabelStyle());
         nameLabel.setBounds(originX, originY - 20, width, 20);
@@ -40,20 +43,18 @@ public class EmployeeBar extends Group {
         detailsButton.addListener(new ChangeListener() {
                                       @Override
                                       public void changed(ChangeEvent event, Actor actor) {
-//                                   if (popup.isActive()) {
-//                                       popup.Close();
-//                                       paused = false;
-//                                   } else {
-//                                       popup.Show();
-//                                       paused = true;
-//                                   }
-                                          Gdx.app.log(Constants.TAG, "Button clicked!");
+                                          if (profilePopup.isActive()) {
+                                              profilePopup.Close();
+                                          } else {
+                                              profilePopup.Show();
+                                          }
                                       }
                                   }
         );
-        detailsButton.setBounds(originX, GameStage.VIEWPORT_HEIGHT - 60, width, 20);
+        detailsButton.setBounds(originX, originY - 60, width, 20);
 
         addActor(detailsButton);
+        addActor(profilePopup);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class EmployeeBar extends Group {
 
         if (!Team.getInstance().isEmployeeSelected()) return;
 
-        nameLabel.setText("Name: " + GetSelected().getName());
-        jobLabel.setText("Doing: " + GetSelected().getState());
+        nameLabel.setText("" + GetSelected().getName());
+        jobLabel.setText("" + GetSelected().getState().getDisplayName());
 
         super.act(delta);
     }

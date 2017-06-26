@@ -31,10 +31,8 @@ import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Entities.Objects.ObjectFactory;
 import de.hsd.hacking.Entities.Objects.ObjectType;
 import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
-import de.hsd.hacking.UI.EmployeeBar;
-import de.hsd.hacking.UI.EmployeeProfile;
+import de.hsd.hacking.UI.Employee.EmployeeBar;
 import de.hsd.hacking.UI.MissionBrowser;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
@@ -81,11 +79,11 @@ public class GameStage extends Stage {
         // meaning the last added item will also be drawn last
         addActor(background);
         addActor(this.tileMap);
-        addActor(new StatusBar(assets));
+//        addActor(new StatusBar());
         addActor(foreground);
         addActor(ui);
         addActor(popups);
-        statusBar = new StatusBar(assets);
+        statusBar = new StatusBar();
         ui.addActor(statusBar);
 
         ui.addActor(new EmployeeBar());
@@ -136,7 +134,7 @@ public class GameStage extends Stage {
 
         // REMOVE THIS AGAIN
         if (Constants.DEBUG) {
-            final MissionBrowser popup = new MissionBrowser(assets);
+            final MissionBrowser popup = new MissionBrowser();
 
 
             Skin uiSkin = new Skin(assets.ui_atlas);

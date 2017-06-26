@@ -15,7 +15,7 @@ public class Constants {
 
     public static final String TAG = "HackingGame";
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 576;
@@ -25,21 +25,24 @@ public class Constants {
 
     //UI
 
-    private static Assets assets;
+//    private static Assets assets;
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle;
     private static Label.LabelStyle labelStyle;
+//    private static Label.LabelStyle tinyLabelStyle;
 
-    public static void SetAssets(Assets assets) {
-        if (Constants.assets == null) Constants.assets = assets;
-    }
+//    public static void SetAssets(Assets assets) {
+//        if (Constants.assets == null) Constants.assets = assets;
+//    }
+
+//    public static Assets GetAssets(){ return assets;}
 
     public static Skin UiSkin() {
         if (uiSkin == null) {
-            if (assets == null) {
-                Gdx.app.log(Constants.TAG, "assets null!!");
+            if (Assets.instance() == null) {
+                Gdx.app.log(Constants.TAG, "Error: Assets null!");
             }
-            uiSkin = new Skin(assets.ui_atlas);
+            uiSkin = new Skin(Assets.instance().ui_atlas);
         }
 
         return uiSkin;
@@ -48,7 +51,7 @@ public class Constants {
     public static TextButton.TextButtonStyle TextButtonStyle() {
         if (textButtonStyle == null) {
             textButtonStyle = new TextButton.TextButtonStyle(UiSkin().getDrawable("win32_button_9_patch_normal"), UiSkin().getDrawable("win32_button_9_patch_pressed"),
-                    null, assets.status_bar_font);
+                    null, Assets.instance().status_bar_font);
 
             textButtonStyle.fontColor = Color.BLACK;
             textButtonStyle.pressedOffsetY = -1f;
@@ -61,10 +64,20 @@ public class Constants {
     public static Label.LabelStyle LabelStyle() {
         if (labelStyle == null) {
             labelStyle = new Label.LabelStyle();
-            labelStyle.font = assets.status_bar_font;
+            labelStyle.font = Assets.instance().status_bar_font;
             labelStyle.fontColor = Color.BLACK;
         }
 
         return labelStyle;
     }
+
+//    public static Label.LabelStyle TinyLabelStyle() {
+//        if (tinyLabelStyle == null) {
+//            tinyLabelStyle = new Label.LabelStyle();
+//            tinyLabelStyle.font = Assets.instance().status_bar_font;
+//            tinyLabelStyle.fontColor = Color.BLACK;
+//        }
+//
+//        return tinyLabelStyle;
+//    }
 }
