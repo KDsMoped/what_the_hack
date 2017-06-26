@@ -2,6 +2,7 @@ package de.hsd.hacking.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import de.hsd.hacking.Assets.Assets;
@@ -14,7 +15,7 @@ public class Constants {
 
     public static final String TAG = "HackingGame";
 
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
 
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 576;
@@ -25,16 +26,17 @@ public class Constants {
     //UI
 
     private static Assets assets;
+    private static Skin uiSkin;
+    private static TextButton.TextButtonStyle textButtonStyle;
+    private static Label.LabelStyle labelStyle;
 
-    public static void SetAssets(Assets assets){
-        if(Constants.assets == null) Constants.assets = assets;
+    public static void SetAssets(Assets assets) {
+        if (Constants.assets == null) Constants.assets = assets;
     }
 
-    private static Skin uiSkin;
-
-    public static Skin UiSkin(){
-        if(uiSkin == null) {
-            if(assets == null){
+    public static Skin UiSkin() {
+        if (uiSkin == null) {
+            if (assets == null) {
                 Gdx.app.log(Constants.TAG, "assets null!!");
             }
             uiSkin = new Skin(assets.ui_atlas);
@@ -42,8 +44,6 @@ public class Constants {
 
         return uiSkin;
     }
-
-    private static TextButton.TextButtonStyle textButtonStyle;
 
     public static TextButton.TextButtonStyle TextButtonStyle() {
         if (textButtonStyle == null) {
@@ -56,5 +56,15 @@ public class Constants {
         }
 
         return textButtonStyle;
+    }
+
+    public static Label.LabelStyle LabelStyle() {
+        if (labelStyle == null) {
+            labelStyle = new Label.LabelStyle();
+            labelStyle.font = assets.status_bar_font;
+            labelStyle.fontColor = Color.BLACK;
+        }
+
+        return labelStyle;
     }
 }

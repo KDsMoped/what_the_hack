@@ -7,9 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 import java.util.ArrayList;
 
-import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.IsometricTileManager;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.PlaceHolderObject;
@@ -116,9 +114,16 @@ public class TileMap extends Group implements TileMovementProvider  {
         return null;
     }
 
+    @Override
+    public Tile getTile(int tileNumber) {
+        int x = tileNumber % Constants.TILES_PER_SIDE;
+        int y = tileNumber / Constants.TILES_PER_SIDE;
+        return tiles[x][y];
+    }
+
 
     @Override
-    public Vector2 getStartPosition(Employee employee) {
+    public Tile getStartTile(Employee employee) {
         ArrayList<Integer> possiblePositions = new ArrayList<Integer>(Constants.TILES_PER_SIDE * Constants.TILES_PER_SIDE);
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
@@ -133,11 +138,11 @@ public class TileMap extends Group implements TileMovementProvider  {
             int newTile = pool.getRandomNumber();
             int x = newTile % Constants.TILES_PER_SIDE;
             int y = newTile / Constants.TILES_PER_SIDE;
-            tiles[x][y].setEmployee(employee);
+            tiles[x][y].setOccupyingEmployee(employee);
 
 
             Gdx.app.log(Constants.TAG, toString());
-            return tiles[x][y].getPosition().cpy();
+            return tiles[x][y];
         }
         return null;
 
@@ -150,8 +155,8 @@ public class TileMap extends Group implements TileMovementProvider  {
     private void removeEmployee(Employee employee){
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
-                if (tiles[i][j].getEmployee().equals(employee)){
-                    tiles[i][j].setEmployee(null);
+                if (tiles[i][j].getOccupyingEmployee().equals(employee)){
+                    tiles[i][j].setOccupyingEmployee(null);
                     return;
                 }
             }
@@ -289,7 +294,7 @@ public class TileMap extends Group implements TileMovementProvider  {
             int x = newTile % Constants.TILES_PER_SIDE;
             int y = newTile / Constants.TILES_PER_SIDE;
             removeEmployee(employee);
-            tiles[x][y].setEmployee(employee);
+            tiles[x][y].setOccupyingEmployee(employee);
 
             Gdx.app.log(Constants.TAG, toString());
             return tiles[x][y].getPosition();
@@ -297,14 +302,29 @@ public class TileMap extends Group implements TileMovementProvider  {
         return null;
     }
 
-    public void clearPassersBy() {
-        for (Tile[] t :
-                tiles) {
-            for (Tile tile: t
-                 ) {
-                tile.clearPassersBy();
+    @Override
+    public Vector2 getStartPosition(Employee employee) {
+        return getStartTile(employee).getPosition().cpy();
+    }
+
+    public void debugCheck(int maxEmployees){
+        int registeredEmployees = 0;
+        int drawnEmployees = 0;
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                if (tiles[j][i].getOccupyingEmployee() != null){
+                    registeredEmployees++;
+                }
+                drawnEmployees += tiles[j][i].getEmployeesToDrawSize();
             }
         }
+        if (registeredEmployees != maxEmployees){
+            throw new IllegalStateException("Count of registered employees in tileMap is different than actual employees. EmployeeCount: " +maxEmployees + ", registered: "+ registeredEmployees);
+        }
+        if (drawnEmployees != maxEmployees){
+            throw new IllegalStateException("Different amount of employees drawn than there are actual employees. EmployeeCount: " +maxEmployees + ", drawn: "+ drawnEmployees);
+        }
+
     }
 
 }

@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import com.badlogic.gdx.utils.Array;
@@ -26,6 +29,7 @@ import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMovementProvider;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -51,6 +55,22 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.state.cancel();
         this.state = state;
         this.state.enter();
+    }
+
+    public int getCurrentTileNumber() {
+        return currentTileNumber;
+    }
+
+    public void setCurrentTileNumber(int currentTileNumber) {
+        this.currentTileNumber = currentTileNumber;
+    }
+
+    public int getOccupiedTileNumber() {
+        return occupiedTileNumber;
+    }
+
+    public void setOccupiedTileNumber(int occupiedTileNumber) {
+        this.occupiedTileNumber = occupiedTileNumber;
     }
 
 
@@ -95,6 +115,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Expose private EmployeeState state;
     private Rectangle bounds;
 
+    private int currentTileNumber;
+    private int occupiedTileNumber;
 
 
     private GameStage stage;
@@ -144,9 +166,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             }
         }
         this.movementProvider = movementProvider;
-        Vector2 startPos = movementProvider.getStartPosition(this);
+        Tile startTile = movementProvider.getStartTile(this);
+        Vector2 startPos = startTile.getPosition().cpy();
+        this.currentTileNumber = this.occupiedTileNumber =  startTile.getTileNumber();
+        startTile.addEmployeeToDraw(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
+
         this.animationState = AnimState.IDLE;
         this.state = new IdleState(this);
         //Graphics
@@ -154,7 +180,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         setUpShader();
 
         debugRenderer = new ShapeRenderer();
-
     }
 
     private void setUpShader() {
@@ -214,6 +239,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
             debugRenderer.end();
             batch.begin();
+
+
+
+
         }
         if(selected){
             Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
@@ -240,6 +269,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public void setPosition(Vector2 position){
         super.setPosition(position);
+
         this.bounds.setPosition(position.cpy().add(5f, 5f));
     }
 
@@ -287,18 +317,23 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     @Override
-    public void touchDown(Vector2 position) {
+    public boolean touchDown(Vector2 position) {
         if (bounds.contains(position)){
             touched = true;
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void touchUp(Vector2 position) {
-        if (bounds.contains(position) && touched){
+    public boolean touchUp(Vector2 position) {
+        boolean t = false;
+        if (touched && bounds.contains(position)){
             onTouch();
+            t = true;
         }
         touched = false;
+        return t;
     }
 
     @Override
@@ -327,11 +362,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void toggleSelected() {
-        if (selected){
-            stage.setSelectedEmployee(null);
-        }else{
-            stage.setSelectedEmployee(this);
-        }
+        if (!selected) stage.setSelectedEmployee(this);
+        if (selected) stage.deselectEmployee();
         selected = !selected;
     }
 
@@ -352,4 +384,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.stage = stage;
     }
 
+    public void removeFromDrawingTile(){
+        movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
+    }
+
+    public void removeFromOccupyingTile(){
+        movementProvider.getTile(occupiedTileNumber).setOccupyingEmployee(null);
+    }
 }

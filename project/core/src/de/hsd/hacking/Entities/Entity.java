@@ -38,11 +38,13 @@ public abstract class Entity extends Actor {
     public abstract String getName();
 
     public Vector2 getPosition() {
-        return position.cpy();
+        return new Vector2(super.getX(), super.getY());
+//        return position.cpy();
     }
 
     public void setPosition(Vector2 position) {
-        this.position.set(position);
+        super.setPosition(position.x, position.y);
+//        this.position.set(position);
     }
 
     public boolean isBlocking() {

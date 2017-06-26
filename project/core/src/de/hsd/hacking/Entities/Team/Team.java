@@ -229,6 +229,7 @@ public class Team {
     }
 
     public void setSelectedEmployee(Employee selectedEmployee) {
+        deselectEmployee();
         this.selectedEmployee = selectedEmployee;
     }
 
@@ -237,7 +238,11 @@ public class Team {
     }
 
     public void deselectEmployee(){
-        selectedEmployee = null;
+        if (selectedEmployee != null){
+            selectedEmployee.setSelected(false);
+            selectedEmployee = null;
+        }
+
     }
 
 
