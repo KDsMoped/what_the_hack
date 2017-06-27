@@ -14,7 +14,7 @@ import de.hsd.hacking.Entities.Team.Team;
 public abstract class Equipment extends TouchableInteractableObject {
 
     public enum EquipmentType {
-        COMPUTER, SWITCH, COFFEEMAKER, MODEM, SERVER;
+        COMPUTER, SWITCH, COFFEEMACHINE, MODEM, SERVER;
     }
 
     public enum EquipmentAttributeType {
@@ -39,15 +39,17 @@ public abstract class Equipment extends TouchableInteractableObject {
                      TextureRegion drawableRegion,
                      boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection) {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
-        setAttributeType(attributeType);
+        this.name = name;
         setPrice(price);
+        setAttributeType(attributeType);
+        setAttributeValue(attributeValue);
         this.team = team.instance();
     }
 
     public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }
     public EquipmentAttributeType getAttributeType() { return attributeType; }
 
-    public void setAttributeValue(int value) { attributeValue = value; }
+    public void setAttributeValue(int attributeValue) { this.attributeValue = attributeValue; }
     public int getAttributeValue() { return attributeValue; }
 
     public void setPrice(float price) { this.price = price; }
@@ -55,11 +57,9 @@ public abstract class Equipment extends TouchableInteractableObject {
 
     private int getLevel() { return level; }
 
-
     @Override
     public String getName()  {
         return "";
     }
-
 
 }

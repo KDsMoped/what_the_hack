@@ -34,10 +34,7 @@ public class CoffeeMachine extends Equipment implements Upgradable {
         attributeValue += 5;
     }
 
-    public int getLevel() {return level; }
-
     public void setMaxLevel() {maxLevel = 5; }
-
     public void setUpgradePriceMultiplier() { mul = 2; }
 
     @Override

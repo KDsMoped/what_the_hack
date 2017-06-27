@@ -27,7 +27,6 @@ public class Modem extends Equipment implements Upgradable {
         team.addBandwidth(attributeValue);
     }
 
-    public int getLevel() { return level; }
     public void setMaxLevel() { maxLevel = 5; }
     public void setUpgradePriceMultiplier() { mul = 2; }
 

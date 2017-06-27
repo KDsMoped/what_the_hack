@@ -46,7 +46,6 @@ public class Computer extends Equipment implements Upgradable {
         level++;
         attributeValue += 100;
     }
-    public int getLevel() { return level; }
     public void setMaxLevel() { maxLevel = 5; }
     public void setUpgradePriceMultiplier() { mul = 2; }
 
