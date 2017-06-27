@@ -46,16 +46,22 @@ public class Computer extends Equipment implements Upgradable {
         level++;
         attributeValue += 100;
     }
-    public void setMaxLevel() { maxLevel = 5; }
-    public void setUpgradePriceMultiplier() { mul = 2; }
+
+    public void setMaxLevel() {
+        maxLevel = 5;
+    }
+
+    public void setUpgradePriceMultiplier() {
+        mul = 2;
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (tintFrames > 0){
+        if (tintFrames > 0) {
             batch.setColor(Color.RED);
         }
         super.draw(batch, parentAlpha);
-        if (tintFrames > 0){
+        if (tintFrames > 0) {
             batch.setColor(Color.WHITE);
         }
     }
@@ -64,20 +70,20 @@ public class Computer extends Equipment implements Upgradable {
     public void act(float delta) {
         super.act(delta);
         elapsedTime += delta;
-        if (tintFrames > 0){
+        if (tintFrames > 0) {
             tintFrames--;
         }
 
-        if (on){
+        if (on) {
             setDrawableRegion(animation.getKeyFrame(elapsedTime, true));
-        }else{
+        } else {
             setDrawableRegion(stillRegion);
         }
     }
 
     @Override
     public EmployeeState interact(Employee e) {
-        if (isOccupied()){
+        if (isOccupied()) {
             Gdx.app.log(Constants.TAG, "OCCUPIED!!!");
             //TODO EVENT für Ärgernis des Charakters
             return new IdleState(e);
@@ -85,12 +91,12 @@ public class Computer extends Equipment implements Upgradable {
 
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
         Gdx.app.log(Constants.TAG, "Trying to Send to chair...");
-        if (e.getMovementProvider().getDiscreteTile(workingChair.getPosition()).isMovableTo()){
+        if (e.getMovementProvider().getDiscreteTile(workingChair.getPosition()).isMovableTo()) {
             //TODO Event für OK!
             occupy();
             elapsedTime = 0f;
             return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
-        }else{
+        } else {
             //TODO EVENT für Ärgernis des Charakters
             return new IdleState(e);
         }
@@ -116,7 +122,7 @@ public class Computer extends Equipment implements Upgradable {
     @Override
     public void onTouch() {
         tintFrames += 10;
-        if (team.isEmployeeSelected()){
+        if (team.isEmployeeSelected()) {
             team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
             team.deselectEmployee();
         }
@@ -137,6 +143,7 @@ public class Computer extends Equipment implements Upgradable {
     public void setOn(boolean on) {
         this.on = on;
     }
+
     public boolean isOn() {
         return on;
     }

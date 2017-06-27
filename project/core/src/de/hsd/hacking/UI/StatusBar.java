@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.IndexArray;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -32,7 +34,7 @@ import de.hsd.hacking.Utils.Constants;
  * Created by ju on 05.06.17.
  */
 
-public class StatusBar extends Actor {
+public class StatusBar extends Actor implements TimeChangedListener {
     // Constants
     private final int STATUS_BAR_HEIGHT = 20;
     private final int STATUS_BAR_ANIMATION_TIME = 1;
@@ -219,36 +221,13 @@ public class StatusBar extends Actor {
      * @param time time between 0-1
      */
     public void setTime(float time) {
+        if (time > 1f || time < 0){
+            throw new IllegalArgumentException("setTime(time) called with time value: '" + time + "' . Should be between 0 and 1.0 inclusively.");
+        }
+        //map time values (0-1.0) to texture indexes (0-8)
+        int index = MathUtils.floor(time / (1.0f / 8));
         this.time = time;
-
-        if (time < 0.1f) {
-            timeLabel.setDrawable(assets.clock_icon.first());
-        }
-        else if (time < 0.2f) {
-            timeLabel.setDrawable(assets.clock_icon.get(1));
-        }
-        else if (time < 0.3f) {
-            timeLabel.setDrawable(assets.clock_icon.get(2));
-        }
-        else if (time < 0.4f) {
-            timeLabel.setDrawable(assets.clock_icon.get(3));
-        }
-        else if (time < 0.5f) {
-            timeLabel.setDrawable(assets.clock_icon.get(4));
-        }
-        else if (time < 0.6f) {
-            timeLabel.setDrawable(assets.clock_icon.get(5));
-        }
-        else if (time < 0.7f) {
-            timeLabel.setDrawable(assets.clock_icon.get(6));
-        }
-        else if (time < 0.8f) {
-            timeLabel.setDrawable(assets.clock_icon.get(7));
-        }
-        else {
-            timeLabel.setDrawable(assets.clock_icon.get(8));
-        }
-
+        timeLabel.setDrawable(assets.clock_icon.get(index));
     }
 
     public int getDate() {
@@ -303,5 +282,15 @@ public class StatusBar extends Actor {
         oldMoney = this.money;
         this.money = money;
         elapsedMoney = 0;
+    }
+
+    @Override
+    public void timeChanged(float time) {
+        setTime(time);
+    }
+
+    @Override
+    public void dayChanged(int days) {
+        setDate(days);
     }
 }

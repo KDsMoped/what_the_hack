@@ -46,7 +46,7 @@ public class DataLoader {
             Gdx.app.log(Constants.TAG, "MISSIONS JSON FILE DOESNT EXIST");
         }else{
             Gson gson = new Gson();
-            this.missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
+            missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
         }
     }
 

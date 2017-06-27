@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import de.hsd.hacking.Data.Mission;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
@@ -20,6 +21,7 @@ public class WorkingState extends EmployeeState {
     private Computer computer;
     private float timeBeforeIdle;
     private float elapsedTime = 0f;
+    private Mission mission;
 
     public WorkingState(Employee employee, Vector2 position, Computer computer) {
         super(employee);
@@ -35,7 +37,6 @@ public class WorkingState extends EmployeeState {
     @Override
     EmployeeState act(float deltaTime) {
         if (!isCanceled()){
-
             //TODO nur zu Debugzwecken, der State soll sich erst ändern wenn zB Mission fertig
             elapsedTime+= deltaTime;
             if (elapsedTime >= timeBeforeIdle){
@@ -44,6 +45,7 @@ public class WorkingState extends EmployeeState {
             }
             return null;
         }
+        leave();
         return new IdleState(employee);
     }
 
@@ -72,6 +74,6 @@ public class WorkingState extends EmployeeState {
 
     @Override
     public String getDisplayName() {
-        return "Working";
+        return "Working on " + ( mission != null ? mission.getName() : "nothing.");
     }
 }

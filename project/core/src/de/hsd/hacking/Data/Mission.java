@@ -1,11 +1,13 @@
 package de.hsd.hacking.Data;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.google.gson.annotations.Expose;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Employees.SkillType;
 
@@ -22,11 +24,12 @@ public class Mission implements EventSender {
     @Expose private int difficulty;
     @Expose private List<Skill> skill;
     @Expose private MissionOutcome outcome;
-
+    @Expose private boolean running;
     /**
      * Start the mission.
      */
     public void Start() {
+        this.running = true;
         notifyListeners(EventListener.EventType.MISSION_STARTED);
     }
 
@@ -34,6 +37,7 @@ public class Mission implements EventSender {
      * Abort the mission.
      */
     public void Abort() {
+        this.running = false;
         notifyListeners(EventListener.EventType.MISSION_ABORTED);
     }
 
@@ -41,7 +45,7 @@ public class Mission implements EventSender {
      * Pause the mission.
      */
     public void Pause() {
-
+        this.running = false;
     }
 
     @Override
@@ -107,5 +111,9 @@ public class Mission implements EventSender {
 
     public void setOutcome(MissionOutcome outcome) {
         this.outcome = outcome;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

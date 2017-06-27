@@ -26,6 +26,7 @@ import java.util.*;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Data.Mission;
 import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMovementProvider;
 import de.hsd.hacking.Entities.Entity;
@@ -50,29 +51,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private boolean touched;
 
     private boolean selected;
-
-    public void setState(EmployeeState state) {
-        this.state.cancel();
-        this.state = state;
-        this.state.enter();
-    }
-
-    public int getCurrentTileNumber() {
-        return currentTileNumber;
-    }
-
-    public void setCurrentTileNumber(int currentTileNumber) {
-        this.currentTileNumber = currentTileNumber;
-    }
-
-    public int getOccupiedTileNumber() {
-        return occupiedTileNumber;
-    }
-
-    public void setOccupiedTileNumber(int occupiedTileNumber) {
-        this.occupiedTileNumber = occupiedTileNumber;
-    }
-
 
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
@@ -114,8 +92,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private EmployeeSkillLevel skillLevel;
     @Expose
     private ArrayList<Skill> skillSet;
-    private float elapsedTime = 0f;
-    private TileMovementProvider movementProvider;
     @Expose
     private HairStyle hairStyle;
     @Expose
@@ -124,6 +100,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public EmployeeState getState() {
         return state;
     }
+
+    private float elapsedTime = 0f;
+    private TileMovementProvider movementProvider;
+    private Mission currentMission;
 
     @Expose
     private EmployeeState state;
@@ -248,10 +228,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.end();
             batch.begin();
         }
-
-//        if (selected) {
-//            Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
-//        }
     }
 
     public void drawAt(Batch batch, Vector2 pos) {
@@ -362,7 +338,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public void touchDragged(Vector2 position) {
-
+        //stub
     }
 
 
@@ -377,7 +353,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         } else {
             return -1;
         }
-
     }
 
     private void onTouch() {
@@ -420,5 +395,49 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return Collections.unmodifiableCollection(skillSet);
     }
 
+    public int getSkillValue(SkillType type) {
+        int allPurpposeIndex = -1;
+        for (int i = 0; i < skillSet.size(); i++) {
+            Skill skill = skillSet.get(i);
+            if (skill.getType() == type){
+                return skill.getValue();
+            }else if (skill.getType() == SkillType.ALLPURPOSE){
+                allPurpposeIndex = i;
+            }
+        }
+        return skillSet.get(allPurpposeIndex).getValue();
+    }
+
+
     public String getSalary(){ return String.format("%03d", salary) + "$";}
+
+    public int getCurrentTileNumber() {
+        return currentTileNumber;
+    }
+
+    public void setCurrentTileNumber(int currentTileNumber) {
+        this.currentTileNumber = currentTileNumber;
+    }
+
+    public int getOccupiedTileNumber() {
+        return occupiedTileNumber;
+    }
+
+    public void setOccupiedTileNumber(int occupiedTileNumber) {
+        this.occupiedTileNumber = occupiedTileNumber;
+    }
+
+    public void setState(EmployeeState state) {
+        this.state.cancel();
+        this.state = state;
+        this.state.enter();
+    }
+
+    public Mission getCurrentMission() {
+        return currentMission;
+    }
+
+    public void setCurrentMission(Mission currentMission) {
+        this.currentMission = currentMission;
+    }
 }
