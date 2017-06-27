@@ -186,7 +186,7 @@ public class GameStage extends Stage {
         tileMap.addObject(tileX, tileY, desk);
         Chair chair = new Chair(assets);
         tileMap.addObject(tileX, tileY - 1, chair);
-        Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets, team);
+        Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, team);
         computer.setWorkingChair(chair);
         addTouchable(computer);
         desk.setContainedObject(computer);

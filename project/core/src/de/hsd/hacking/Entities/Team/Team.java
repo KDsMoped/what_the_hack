@@ -247,6 +247,15 @@ public class Team {
 
     }
 
+    public float calcGameProgress(){
+        float result = 0;
+
+        result += resource_Money * 0.03f;
+        result += resource_Bandwidth * 0.5f;
+        result += resource_ComputationPower * 0.03f;
+
+        return result;
+    }
 
     /*
     public void calcRessorces() {

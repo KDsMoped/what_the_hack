@@ -17,7 +17,7 @@ public class EquipmentFactory {
                                          Assets assets, Team team) {
         switch(type){
             case COMPUTER:
-                return new Computer(price, attributeLevel, assets, team);
+                return new Computer(price, attributeLevel, team);
             case SWITCH:
             case COFFEEMAKER:
             case MODEM:

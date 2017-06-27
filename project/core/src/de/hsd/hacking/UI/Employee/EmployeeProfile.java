@@ -129,7 +129,9 @@ public class EmployeeProfile extends Popup {
             }
         }));
 
-        addInformationElement(new DoubleLabelElement("Skills", ""));
+        addInformationElement(new Label("Skills", Constants.LabelStyle()));
+
+//        addInformationElement(new DoubleLabelElement("Skills", ""));
 
         for(final Skill skill : GetSelected().getSkillset() ){
 
