@@ -19,7 +19,7 @@ class GameScreen implements Screen {
 
     public GameScreen(HackingGame game) {
         this.game = game;
-        this.stage = new GameStage(game.getAssets());
+        this.stage = new GameStage();
         Gdx.input.setInputProcessor(stage);
     }
 

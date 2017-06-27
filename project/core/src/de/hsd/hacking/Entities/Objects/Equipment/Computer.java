@@ -33,10 +33,10 @@ public class Computer extends Equipment implements Upgradable {
     private int mul;
 
 
-    public Computer(Assets assets) {
+    public Computer() {
         super("Super Computer 3000", 100, EquipmentAttributeType.COMPUTATIONPOWER, 100,
-                assets.computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
-
+                Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
     }

@@ -18,7 +18,7 @@ public class Modem extends Equipment implements Upgradable {
     private int mul;
 
 
-    public Modem(Assets assets) {
+    public Modem() {
         super("Super Modem 2000", 100, EquipmentAttributeType.BANDWIDTH, 100, null, true, Direction.DOWN, 0, Direction.DOWN);
     }
 

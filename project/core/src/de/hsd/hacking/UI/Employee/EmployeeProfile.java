@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.*;
 import de.hsd.hacking.Utils.Constants;
@@ -42,7 +41,7 @@ public class EmployeeProfile extends Popup {
     public EmployeeProfile() {
         super();
 
-        team = Team.getInstance();
+        team = Team.instance();
 
         contentContainer = this.getContent();
 
@@ -129,7 +128,9 @@ public class EmployeeProfile extends Popup {
             }
         }));
 
-        addInformationElement(new DoubleLabelElement("Skills", ""));
+        addInformationElement(new Label("Skills", Constants.LabelStyle()));
+
+//        addInformationElement(new DoubleLabelElement("Skills", ""));
 
         for(final Skill skill : GetSelected().getSkillset() ){
 

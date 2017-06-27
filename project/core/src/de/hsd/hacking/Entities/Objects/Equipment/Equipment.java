@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
-import de.hsd.hacking.Entities.Objects.TouchableObject;
 import de.hsd.hacking.Entities.Team.Team;
 
 /**
@@ -42,7 +41,7 @@ public abstract class Equipment extends TouchableInteractableObject {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
         setAttributeType(attributeType);
         setPrice(price);
-        this.team = team.getInstance();
+        this.team = team.instance();
     }
 
     public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }

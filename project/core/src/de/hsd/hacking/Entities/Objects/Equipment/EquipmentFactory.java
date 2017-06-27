@@ -9,15 +9,14 @@ import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
 
 public class EquipmentFactory {
 
-    public static Equipment getEquipment(EquipmentType type,
-                                         Assets assets) {
+    public static Equipment getEquipment(EquipmentType type) {
         switch(type){
             case COMPUTER:
-                return new Computer(assets);
+                return new Computer();
             case SWITCH:
             case COFFEEMAKER:
             case MODEM:
-                return new Modem(assets);
+                return new Modem();
             case SERVER:
         }
 

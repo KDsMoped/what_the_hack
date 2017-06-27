@@ -23,6 +23,7 @@ import de.hsd.hacking.Data.TileMap;
 import de.hsd.hacking.Entities.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
+import de.hsd.hacking.Entities.Objects.Equipment.CoffeeMachine;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
@@ -55,81 +56,22 @@ public class GameStage extends Stage {
     private Vector2 checkVector;
     private TileMap tileMap;
     private Team team;
-    private Employee selectedEmployee;
     private StatusBar statusBar;
 
     private List<Touchable> touchables;
 
     private Group foreground, background, ui, popups;
 
-    public GameStage(Assets assets) {
+    public GameStage() {
         super(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
         this.checkVector = new Vector2();
-        this.assets = assets;
+        this.assets = Assets.instance();
         this.tileMap = new TileMap(this);
 
-        foreground = new Group();
-        background = new Group();
-        ui = new Group();
-        popups = new Group();
-
-        // the order the actors are added is important
-        // it is also the drawing order
-        // meaning the last added item will also be drawn last
-        addActor(background);
-        addActor(this.tileMap);
-//        addActor(new StatusBar());
-        addActor(foreground);
-        addActor(ui);
-        addActor(popups);
-        statusBar = new StatusBar();
-        ui.addActor(statusBar);
-
-        ui.addActor(new EmployeeBar());
-
-        foreground.addActor(new Image(assets.room_fg));
-        background.addActor(new Image(assets.room_bg));
-
-        team = Team.getInstance();
-        team.initialize(this);
-        this.touchables = new ArrayList<Touchable>(4);
-
-        //CREATE WALLS TO TEST A* PATHFINDING
-        tileMap.addObject(0, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(0, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(0, 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(1, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(2, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(1, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 3, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
-        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
-
-        //populate room with objects
-        tileMap.addObject(3, 0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
-        tileMap.addObject(0, 3, ObjectFactory.generateObject(ObjectType.LAMP, assets));
-
-        //Workspaces
-        createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3 , Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) , (Constants.TILES_PER_SIDE / 3) * 2);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
-
-        while (true) {
-            int ret = team.createAndAddEmployee(Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
-            if (ret != 0) {
-                break;
-            }
-        }
-
-        team.createAndAddEquipment(EquipmentType.MODEM, assets);
-
-        this.touchables.addAll(team.getEmployeeList());
-        //touchables = (ArrayList<Touchable>)(ArrayList<?>) team.getEmployeeList();
+        InitRootObjects();
+        InitTeam();
+        InitInterior();
 
         // REMOVE THIS AGAIN
         if (Constants.DEBUG) {
@@ -179,17 +121,88 @@ public class GameStage extends Stage {
         }
     }
 
+    private void InitRootObjects(){
+        foreground = new Group();
+        background = new Group();
+        ui = new Group();
+        popups = new Group();
+        touchables = new ArrayList<Touchable>();
+
+        // the order the actors are added is important
+        // it is also the drawing order
+        // meaning the last added item will also be drawn last
+        addActor(background);
+        addActor(this.tileMap);
+        addActor(foreground);
+        addActor(ui);
+        addActor(popups);
+        statusBar = new StatusBar();
+        ui.addActor(statusBar);
+        ui.addActor(new EmployeeBar());
+
+        foreground.addActor(new Image(assets.room_fg));
+        background.addActor(new Image(assets.room_bg));
+    }
+
+    private void InitInterior(){
+        //CREATE WALLS TO TEST A* PATHFINDING
+        tileMap.addObject(0, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(0, 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(2, 0, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(1, 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 1, Constants.TILES_PER_SIDE - 3, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 3, Constants.TILES_PER_SIDE - 1, ObjectFactory.generateObject(ObjectType.WALL, assets));
+        tileMap.addObject(Constants.TILES_PER_SIDE - 2, Constants.TILES_PER_SIDE - 2, ObjectFactory.generateObject(ObjectType.WALL, assets));
+
+        //populate room with objects
+        tileMap.addObject(3, 0, ObjectFactory.generateObject(ObjectType.LAMP, assets));
+        tileMap.addObject(0, 3, ObjectFactory.generateObject(ObjectType.LAMP, assets));
+
+        //Workspaces
+        createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3 , Constants.TILES_PER_SIDE / 3);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) , (Constants.TILES_PER_SIDE / 3) * 2);
+        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
+
+        //other interior
+        Desk desk = new Desk(assets, Direction.RIGHT, 1);
+        tileMap.addObject(10, 0, desk);
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        desk.setContainedObject(coffeeMachine);
+        addTouchable(coffeeMachine);
+}
+
     private void createWorkSpace(int tileX, int tileY) {
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.addObject(tileX, tileY, desk);
         Chair chair = new Chair(assets);
         tileMap.addObject(tileX, tileY - 1, chair);
-        Computer computer = new Computer(assets);
+        Computer computer = new Computer();
         computer.setWorkingChair(chair);
         addTouchable(computer);
         desk.setContainedObject(computer);
     }
 
+    private void InitTeam(){
+
+        team = Team.instance();
+        team.initialize(this);
+
+        while (true) {
+            int ret = team.createAndAddEmployee(Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
+            if (ret != 0) {
+                break;
+            }
+        }
+
+        team.createAndAddEquipment(EquipmentType.MODEM);
+        touchables.addAll(team.getEmployeeList());
+    }
 
     @Override
     public void draw() {

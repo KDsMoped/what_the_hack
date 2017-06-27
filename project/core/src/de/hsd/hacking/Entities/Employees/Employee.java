@@ -326,11 +326,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         Array<TextureRegion> hairframes = assets.getHairFrames(this.hairStyle);
 
         /* [1-3: Body Walkframes ]  */
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.25f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.25f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
+        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
+        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.35f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
         /* [1-2: Body Idleframes ]  */
-        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(2), assets.gray_character_body.get(3));
-        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(2), hairframes.get(3));
+        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(3));
+        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.7f, hairframes.get(2), hairframes.get(2), hairframes.get(2), hairframes.get(3));
         /* [1: Body WorkingFrames  ] */
         animations[AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(4));
         animations[AnimState.WORKING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(4));
