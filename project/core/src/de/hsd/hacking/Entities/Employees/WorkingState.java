@@ -49,7 +49,7 @@ public class WorkingState extends EmployeeState {
 
     @Override
     void enter() {
-        Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Working State");
+        if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Working State");
         employee.setAnimationState(Employee.AnimState.WORKING);
         Interactable workPlace = (Interactable) employee.getMovementProvider().getDiscreteTile(workingPosition).getObject();
         boolean left = workPlace.getFacingDirection() == Direction.LEFT || workPlace.getFacingDirection() == Direction.DOWN;

@@ -29,19 +29,18 @@ public class EmployeeProfile extends Popup {
     private Table informationContainer = new Table();
     private ScrollPane informationScroller;
 
-    private Label nameLabel;
-    private Label jobLabel;
-
     private int leftUILine;
     private int topUILine;
 
     //references
     private Team team;
+    private EmployeeProvider employee;
 
-    public EmployeeProfile() {
+    public EmployeeProfile(EmployeeProvider employee) {
         super();
 
         team = Team.instance();
+        this.employee = employee;
 
         contentContainer = this.getContent();
 
@@ -59,8 +58,8 @@ public class EmployeeProfile extends Popup {
         dismissButton.addListener(new ChangeListener() {
                                       @Override
                                       public void changed(ChangeEvent event, Actor actor) {
-                                          GetSelected().removeFromDrawingTile();
-                                          team.removeEmployee(GetSelected());
+                                          employee.get().removeFromDrawingTile();
+                                          team.removeEmployee(employee.get());
                                           team.deselectEmployee();
                                           Close();
                                       }
@@ -107,32 +106,30 @@ public class EmployeeProfile extends Popup {
     private void fillInformationContainer(){
         informationContainer.clearChildren();
 
-        addInformationElement(new DoubleLabelElement("Name", new DoubleLabelElement.StringProvider() {
-            @Override
-            public String get() {
-                return GetSelected().getName();
-            }
-        }));
+//        addInformationElement(new DoubleLabelElement("Name", new DoubleLabelElement.StringProvider() {
+//            @Override
+//            public String get() {
+//                return employee.get().getName();
+//            }
+//        }));
 
         addInformationElement(new DoubleLabelElement("Current Job", new DoubleLabelElement.StringProvider() {
             @Override
             public String get() {
-                return GetSelected().getState().getDisplayName();
+                return employee.get().getState().getDisplayName();
             }
         }));
 
         addInformationElement(new DoubleLabelElement("Salary", new DoubleLabelElement.StringProvider() {
             @Override
             public String get() {
-                return GetSelected().getSalary();
+                return employee.get().getSalary();
             }
         }));
 
         addInformationElement(new Label("Skills", Constants.LabelStyle()));
 
-//        addInformationElement(new DoubleLabelElement("Skills", ""));
-
-        for(final Skill skill : GetSelected().getSkillset() ){
+        for(final Skill skill : employee.get().getSkillset() ){
 
             addInformationElement(new DoubleLabelElement(skill.getType().name(), new DoubleLabelElement.StringProvider() {
                 @Override
@@ -160,6 +157,8 @@ public class EmployeeProfile extends Popup {
             return;
         }
 
+        title.setText(employee.get().getName());
+
         super.act(delta);
     }
 
@@ -169,17 +168,17 @@ public class EmployeeProfile extends Popup {
             return;
         }
 
-        if (GetSelected() == null) {
+        if (employee.get() == null) {
 
             return;
         }
 
         super.draw(batch, parentAlpha);
 
-        GetSelected().drawAt(batch, new Vector2(leftUILine + 25, topUILine));
+        employee.get().drawAt(batch, new Vector2(leftUILine + 25, topUILine));
     }
 
-    private Employee GetSelected() {
-        return team.getSelectedEmployee();
+    public interface EmployeeProvider{
+        Employee get();
     }
 }

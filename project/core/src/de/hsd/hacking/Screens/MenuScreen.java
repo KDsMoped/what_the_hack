@@ -19,10 +19,9 @@ class MenuScreen implements Screen {
 
     public MenuScreen(HackingGame game){
         this.game = game;
-        this.stage = new MenuStage(game.getAssets());
+        this.stage = new MenuStage();
         Gdx.input.setInputProcessor(stage);
     }
-
 
     @Override
     public void show() {

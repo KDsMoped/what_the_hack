@@ -18,6 +18,8 @@ import com.badlogic.gdx.audio.Music;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 
+import java.util.ArrayList;
+
 /**
  * Created by Cuddl3s on 21.04.2017.
  */
@@ -58,6 +60,7 @@ public class Assets {
     public Array<TextureRegion> hair_02;
     public Array<TextureRegion> computer;
     public Array<TextureRegion> coffeemachine;
+    public Array<TextureRegion> mainmenu_bg;
 
     public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
     public Array<TextureRegionDrawable> clock_icon;
@@ -114,6 +117,9 @@ public class Assets {
         desk_bf_2 = atlas.findRegion("interior/Table_bf", 2);
         chair = atlas.findRegion("interior/Chair", 1);
 
+        mainmenu_bg = new Array<TextureRegion>();
+        mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));
+//        mainmenu_bg.addAll(atlas.findRegions("ambient/MainMenuBackground"));
         coffeemachine = new Array<TextureRegion>();
         coffeemachine.addAll(atlas.findRegions("interior/CoffeeMachine"));
         floor_tiles = new Array<TextureRegion>();

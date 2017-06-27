@@ -29,7 +29,12 @@ public class EmployeeBar extends Group {
         originX = (int) GameStage.VIEWPORT_WIDTH - width;
         originY = (int) GameStage.VIEWPORT_HEIGHT - 20;
 
-        profilePopup = new EmployeeProfile();
+        profilePopup = new EmployeeProfile(new EmployeeProfile.EmployeeProvider() {
+            @Override
+            public Employee get() {
+                return GetSelected();
+            }
+        });
 
         nameLabel = new Label("Name of Employee", Constants.LabelStyle());
         nameLabel.setBounds(originX, originY - 20, width, 20);

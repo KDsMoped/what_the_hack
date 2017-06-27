@@ -38,8 +38,7 @@ public class MovingState extends EmployeeState {
     }
 
 
-
-    public MovingState(Employee employee){
+    public MovingState(Employee employee) {
         super(employee);
         Tile destinationTile = employee.getMovementProvider().getNextTile();
         init(destinationTile);
@@ -53,26 +52,26 @@ public class MovingState extends EmployeeState {
 
         this.lastTile = false;
 
-        if (destinationTile != null){
+        if (destinationTile != null) {
             this.endTile = destinationTile;
 
             //If object at the end of path delegates to another object, walk there instead
-            if (endTile.hasInteractableObject() && ((Interactable)endTile.getObject()).isDelegatingInteraction()){
+            if (endTile.hasInteractableObject() && ((Interactable) endTile.getObject()).isDelegatingInteraction()) {
                 this.delegating = true;
-                this.delegatingInteractable = ((Interactable)endTile);
-            }else{
+                this.delegatingInteractable = ((Interactable) endTile);
+            } else {
                 this.path = employee.getMovementProvider().getPathToTile(this.currentTile, this.endTile);
 
-                if (path != null && !path.isPathFinished()){
+                if (path != null && !path.isPathFinished()) {
                     this.endTile.setOccupyingEmployee(employee);
                     setNextDestination();
-                }else{
+                } else {
 //                    currentTile.setOccupyingEmployee(employee);
                     this.destinationPos = currentTile.getPosition().cpy();
                 }
             }
-        }else{
-            if (Constants.DEBUG){
+        } else {
+            if (Constants.DEBUG) {
                 Gdx.app.log(Constants.TAG, "No destination tile for employee" + employee.getName() + "found");
             }
 
@@ -87,7 +86,7 @@ public class MovingState extends EmployeeState {
     EmployeeState act(float deltaTime) {
         if (!canceled) {
             if (delegating) {
-                if (Constants.DEBUG){
+                if (Constants.DEBUG) {
                     Gdx.app.log(Constants.TAG, employee.getName() + "Delegated by interactable object");
                 }
                 return this.delegatingInteractable.interact(employee);
@@ -114,7 +113,7 @@ public class MovingState extends EmployeeState {
                     return null;
                 }
             }
-        }else{
+        } else {
             return new IdleState(employee);
         }
     }
@@ -127,12 +126,12 @@ public class MovingState extends EmployeeState {
         //If there's an object, and it can be interacted with ->interact with it
         Object obj = this.endTile.getObject();
         if (this.endTile.hasInteractableObject() && !((Interactable) obj).isOccupied()) {
-            if (Constants.DEBUG){
+            if (Constants.DEBUG) {
                 Gdx.app.log(Constants.TAG, "MovingState ended at interactable object for employee" + employee.getName());
             }
             return ((Interactable) obj).interact(employee);
         }
-        if (Constants.DEBUG){
+        if (Constants.DEBUG) {
             Gdx.app.log(Constants.TAG, "MovingState FINISHED for employee" + employee.getName());
         }
         return new IdleState(employee);
@@ -141,14 +140,14 @@ public class MovingState extends EmployeeState {
     /**
      * Sets the next destination in the given path
      */
-    private void setNextDestination(){
+    private void setNextDestination() {
 
         switchCurrentAndNextTiles(currentTile, nextTile);
 
         this.nextTile = path.getNextStep();
         this.destinationPos = nextTile.getPosition().cpy();
         employee.flipHorizontal(destinationPos.x > employee.getPosition().x);
-        if (path.isPathFinished()){
+        if (path.isPathFinished()) {
             lastTile = true;
         }
 
@@ -157,33 +156,33 @@ public class MovingState extends EmployeeState {
     @Override
     public void enter() {
         employee.resetElapsedTime();
-        Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Moving State");
+        if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Moving State");
         employee.setAnimationState(Employee.AnimState.MOVING);
     }
 
     @Override
     void leave() {
 
-        if (!employee.equals(employee.getMovementProvider().getTile(employee.getOccupiedTileNumber()).getOccupyingEmployee())){
+        if (!employee.equals(employee.getMovementProvider().getTile(employee.getOccupiedTileNumber()).getOccupyingEmployee())) {
             throw new IllegalStateException("Employee not registered on tile he is standing on after leaving MovingState. Employee: " + employee.toString());
         }
     }
 
     @Override
     public void cancel() {
-        if (Constants.DEBUG){
+        if (Constants.DEBUG) {
             Gdx.app.log(Constants.TAG, "MovingState was cancelled for employee " + employee.getName());
         }
         canceled = true;
 
-        if (endTile != null){
+        if (endTile != null) {
             endTile.setOccupyingEmployee(employee);
         }
         switchCurrentAndNextTiles(this.currentTile, this.nextTile);
 
     }
 
-    private void switchCurrentAndNextTiles(Tile currentTile, Tile nextTile){
+    private void switchCurrentAndNextTiles(Tile currentTile, Tile nextTile) {
         if (currentTile != null && nextTile != null) {
             this.currentTile = nextTile;
             this.currentTile.addEmployeeToDraw(employee);

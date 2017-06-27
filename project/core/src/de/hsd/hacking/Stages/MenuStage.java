@@ -1,13 +1,13 @@
 package de.hsd.hacking.Stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import de.hsd.hacking.Assets.Assets;
@@ -26,18 +26,18 @@ public class MenuStage extends Stage {
 
     private Assets assets;
 
-    public MenuStage(Assets loadedAssets){
+    private Animation<TextureRegion> background_anim;
+    private TextureRegion background_current;
+    private float elapsedTime = 0f;
+
+    public MenuStage(){
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
-        this.assets = loadedAssets;
+        this.assets = Assets.instance();
 
-        Skin uiSkin = new Skin(assets.ui_atlas);
-        Skin test = new Skin();
+        background_anim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);
 
 
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("Button_9_Patch_normal"), uiSkin.getDrawable("Button_9_Patch_pressed"),
-                null, assets.gold_font);
-        style.pressedOffsetY = -5f;
-        TextButton button = new TextButton("START", style);
+        TextButton button = new TextButton("what_the_hack.exe", Constants.TextButtonStyle());
         button.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
@@ -46,24 +46,34 @@ public class MenuStage extends Stage {
                }
            }
         );
-        button.setBounds(VIEWPORT_WIDTH * 0.3f, VIEWPORT_HEIGHT * 0.1f, VIEWPORT_WIDTH * 0.4f, VIEWPORT_HEIGHT * 0.3f);
+
+        button.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 220, 194, 40);
         addActor(button);
     }
 
     @Override
-    public void act(float deltaTime){
-        super.act(deltaTime);
+    public void act(float delta){
+        super.act(delta);
+        elapsedTime += delta;
+        background_current = background_anim.getKeyFrame(elapsedTime, true);
     }
 
     @Override
     public void draw(){
-        super.draw();
         Batch batch = getBatch();
+
+        if (background_current != null){
+            batch.begin();
+            batch.draw(background_current, 0, VIEWPORT_HEIGHT - 400);
+            batch.end();
+        }
+
+        super.draw();
         //Wenn ein batch außerhalb der draw-Methode eines Actors benutzt wird, muss dieser mit begin() und end() gestartet und beendet werden.
         //Wenn in einer draw Methode ein anderer Renderer (zB ShapeRenderer) verwendet werden soll,
         // muss batch auch erst beendet werden, dann der andere renderer gestartet/beendet, und am Ende muss der batch wieder gestartet werden.
         batch.begin();
-        assets.header_font.draw(getBatch(), "HACKINGGAME", 0, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, Align.center, false);
+        //assets.header_font.draw(getBatch(), "WHAT THE HACK", 0, VIEWPORT_HEIGHT, VIEWPORT_WIDTH, Align.center, false);
         batch.end();
     }
 
