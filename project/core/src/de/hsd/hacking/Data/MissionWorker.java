@@ -36,8 +36,9 @@ public class MissionWorker implements TimeChangedListener {
         }
     }
 
+
     @Override
-    public void timeChanged(float time) {
+    public void timeChanged(final float time) {
         //time [0-1.0) -> 0-8
         int step = MathUtils.floor(time / (1f / 8));
         if (lastStep == 8) lastStep = -1;
@@ -67,14 +68,14 @@ public class MissionWorker implements TimeChangedListener {
         if (dice == 1){
             //criticalFailure
             req.incrementCurrentValue(0);
-        }else if (dice == 20){
+        } else if (dice == 20){
             //criticalSuccess
         }
     }
 
 
     @Override
-    public void dayChanged(int days) {
+    public void dayChanged(final int days) {
         if (mission.isRunning()){
 
             if(--remainingMissionDays == 0){

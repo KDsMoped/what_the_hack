@@ -26,7 +26,7 @@ public class MenuStage extends Stage {
 
     private Assets assets;
 
-    private Animation<TextureRegion> background_anim;
+    private Animation<TextureRegion> backgroundAnim;
     private TextureRegion background_current;
     private float elapsedTime = 0f;
 
@@ -34,7 +34,7 @@ public class MenuStage extends Stage {
         super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
         this.assets = Assets.instance();
 
-        background_anim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);
+        backgroundAnim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);
 
 
         TextButton button = new TextButton("what_the_hack.exe", Constants.TextButtonStyle());
@@ -55,7 +55,7 @@ public class MenuStage extends Stage {
     public void act(float delta){
         super.act(delta);
         elapsedTime += delta;
-        background_current = background_anim.getKeyFrame(elapsedTime, true);
+        background_current = backgroundAnim.getKeyFrame(elapsedTime, true);
     }
 
     @Override
