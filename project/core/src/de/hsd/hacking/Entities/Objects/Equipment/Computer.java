@@ -29,26 +29,26 @@ public class Computer extends Equipment implements Upgradable {
     private int tintFrames = 0;
     private Chair workingChair;
 
-    private int level = 0;
-    private Assets assets;
+    private int maxLevel;
+    private int mul;
 
 
-    public Computer(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, Direction.DOWN, team);
+    public Computer(Assets assets) {
+        super("Super Computer 3000", 100, EquipmentAttributeType.COMPUTATIONPOWER, 100,
+                assets.computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
     }
 
-    public EquipmentType getType() { return EquipmentType.COMPUTER; }
-
     //Upgrade functions
     public void upgrade() {
         level++;
-        setAttributeValue(getAttributeValue() + 100);
-
+        attributeValue += 100;
     }
     public int getLevel() { return level; }
-    public void setInitialLevel(int level) { this.level = level; }
+    public void setMaxLevel() { maxLevel = 5; }
+    public void setUpgradePriceMultiplier() { mul = 2; }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

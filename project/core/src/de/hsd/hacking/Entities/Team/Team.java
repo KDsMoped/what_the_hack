@@ -122,10 +122,8 @@ public class Team {
     /* Create Equipment of the specified type and add it to the Team.
      */
     public void createAndAddEquipment(Equipment.EquipmentType type,
-                                      Equipment.EquipmentAttributeLevel attributeLevel,
-                                      float price,
                                       Assets assets) {
-        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets, this);
+        Equipment equipment = EquipmentFactory.getEquipment(type, assets);
         if(equipment != null) {
             listOfEquipment.add(equipment);
         }

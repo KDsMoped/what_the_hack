@@ -14,23 +14,22 @@ import de.hsd.hacking.Entities.Team.Team;
 
 public class Modem extends Equipment implements Upgradable {
 
-    int level = 0;
-    public Modem(float price, EquipmentAttributeLevel attributeLevel, Assets assets, Team team) {
-        super(assets.computer.get(0), price, EquipmentAttributeType.BANDWIDTH, attributeLevel, true, Direction.DOWN, 0, Direction.DOWN, team);
-    }
+    private int maxLevel;
+    private int mul;
 
-    public EquipmentType getType() { return EquipmentType.MODEM; }
+
+    public Modem(Assets assets) {
+        super("Super Modem 2000", 100, EquipmentAttributeType.BANDWIDTH, 100, null, true, Direction.DOWN, 0, Direction.DOWN);
+    }
 
     public void upgrade() {
         level++;
-        team.addBandwidth(100);
+        team.addBandwidth(attributeValue);
     }
 
     public int getLevel() { return level; }
-
-    public void setInitialLevel(int level) {
-        this.level = level;
-    }
+    public void setMaxLevel() { maxLevel = 5; }
+    public void setUpgradePriceMultiplier() { mul = 2; }
 
     public void onTouch() {};
 

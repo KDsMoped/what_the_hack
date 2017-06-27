@@ -126,9 +126,7 @@ public class GameStage extends Stage {
             }
         }
 
-        team.createAndAddEquipment(EquipmentType.MODEM,
-                Equipment.EquipmentAttributeLevel.getRandomAttributeLevel(),
-                0, assets);
+        team.createAndAddEquipment(EquipmentType.MODEM, assets);
 
         this.touchables.addAll(team.getEmployeeList());
         //touchables = (ArrayList<Touchable>)(ArrayList<?>) team.getEmployeeList();
@@ -186,7 +184,7 @@ public class GameStage extends Stage {
         tileMap.addObject(tileX, tileY, desk);
         Chair chair = new Chair(assets);
         tileMap.addObject(tileX, tileY - 1, chair);
-        Computer computer = new Computer(0f, Equipment.EquipmentAttributeLevel.LOW, assets, team);
+        Computer computer = new Computer(assets);
         computer.setWorkingChair(chair);
         addTouchable(computer);
         desk.setContainedObject(computer);
