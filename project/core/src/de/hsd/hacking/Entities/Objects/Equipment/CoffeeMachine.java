@@ -17,15 +17,25 @@ public class CoffeeMachine extends Equipment implements Upgradable {
 
     private int state = 1;
 
+    int maxLevel;
+    float mul;
 
-    public CoffeeMachine() {
-        super(Assets.instance().coffeemachine.get(0), 0, EquipmentAttributeType.COMPUTATIONPOWER, EquipmentAttributeLevel.HIGH, false, Direction.DOWN, 0, Direction.DOWN);
+    public CoffeeMachine(){
+        super("Coffee Maker 5000", 100, EquipmentAttributeType.SKILL_ALLPURPOSE, 5, Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
 
         Assets assets = Assets.instance();
         this.stillRegion = assets.coffeemachine.get(0);
         this.cooking = new Animation<TextureRegion>(.2f, assets.coffeemachine.get(1), assets.coffeemachine.get(2));
         this.coffeeDone = assets.coffeemachine.get(3);
     }
+
+    public void upgrade() {
+        level++;
+        attributeValue += 5;
+    }
+
+    public void setMaxLevel() {maxLevel = 5; }
+    public void setUpgradePriceMultiplier() { mul = 2; }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -54,18 +64,9 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     }
 
     @Override
-    public void upgrade() {
-
-    }
-
-    @Override
-    public int getLevel() {
-        return 0;
-    }
-
-    @Override
-    public void setInitialLevel(int level) {
-
+    public void onTouch() {
+        state++;
+        if(state > 2) state = 0;
     }
 
     @Override
@@ -88,14 +89,4 @@ public class CoffeeMachine extends Equipment implements Upgradable {
         return false;
     }
 
-    @Override
-    public void onTouch() {
-        state++;
-        if(state > 2) state = 0;
-    }
-
-    @Override
-    public EquipmentType getType() {
-        return null;
-    }
 }

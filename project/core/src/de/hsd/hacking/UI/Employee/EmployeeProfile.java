@@ -106,24 +106,17 @@ public class EmployeeProfile extends Popup {
     private void fillInformationContainer(){
         informationContainer.clearChildren();
 
-//        addInformationElement(new DoubleLabelElement("Name", new DoubleLabelElement.StringProvider() {
-//            @Override
-//            public String get() {
-//                return employee.get().getName();
-//            }
-//        }));
+        addInformationElement(new DoubleLabelElement("Salary", new DoubleLabelElement.StringProvider() {
+            @Override
+            public String get() {
+                return employee.get().getSalary();
+            }
+        }));
 
         addInformationElement(new DoubleLabelElement("Current Job", new DoubleLabelElement.StringProvider() {
             @Override
             public String get() {
                 return employee.get().getState().getDisplayName();
-            }
-        }));
-
-        addInformationElement(new DoubleLabelElement("Salary", new DoubleLabelElement.StringProvider() {
-            @Override
-            public String get() {
-                return employee.get().getSalary();
             }
         }));
 

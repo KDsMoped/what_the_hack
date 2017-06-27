@@ -14,57 +14,52 @@ import de.hsd.hacking.Entities.Team.Team;
 public abstract class Equipment extends TouchableInteractableObject {
 
     public enum EquipmentType {
-        COMPUTER, SWITCH, COFFEEMAKER, MODEM, SERVER;
+        COMPUTER, SWITCH, COFFEEMACHINE, MODEM, SERVER;
     }
 
     public enum EquipmentAttributeType {
-        MONEY, BANDWIDTH, COMPUTATIONPOWER;
+        MONEY, BANDWIDTH, COMPUTATIONPOWER,
+        SKILL_SOCIAL, SKILL_HARDWARE, SKILL_SOFTWARE, SKILL_NETWORK,
+        SKILL_CRYPTO, SKILL_SEARCH, SKILL_ALLPURPOSE;
+        //Unfortunately there doesn't seem to be an elegant way to mirror Employee.SkillType here.
     }
 
-    public enum EquipmentAttributeLevel {
-        LOW, MID, HIGH;
+    protected String name;
+    protected float price;
+    protected EquipmentAttributeType attributeType;
+    protected int attributeValue = 100;
 
-        private static final EquipmentAttributeLevel[] VALUES = values();
-        public static final int SIZE = VALUES.length;
+    protected int level = 1;
+    protected Team team;
 
-        public static EquipmentAttributeLevel getRandomAttributeLevel() { return VALUES[MathUtils.random(SIZE - 1)]; }
-    }
-
-    private EquipmentAttributeLevel attributeLevel;
-    private EquipmentAttributeType attributeType;
-    private String name;
-    private float price;
-    private int attributeValue = 100;
-    public Team team;
-
-    public Equipment(TextureRegion drawableRegion, float price,
+    public Equipment(String name,
+                     float price,
                      EquipmentAttributeType attributeType,
-                     EquipmentAttributeLevel attributeLevel,
+                     int attributeValue,
+                     TextureRegion drawableRegion,
                      boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection) {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
-        setAttributeType(attributeType);
-        setAttributeLevel(attributeLevel);
+        this.name = name;
         setPrice(price);
-        this.team = Team.instance();
+        setAttributeType(attributeType);
+        setAttributeValue(attributeValue);
+        this.team = team.instance();
     }
 
     public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }
-    public void setAttributeLevel(EquipmentAttributeLevel attributeLevel) { this.attributeLevel = attributeLevel; }
     public EquipmentAttributeType getAttributeType() { return attributeType; }
-    public EquipmentAttributeLevel getAttributeLevel() { return attributeLevel; }
 
-    public void setAttributeValue(int value) { attributeValue = value; }
+    public void setAttributeValue(int attributeValue) { this.attributeValue = attributeValue; }
     public int getAttributeValue() { return attributeValue; }
 
     public void setPrice(float price) { this.price = price; }
     public float getPrice() { return price;}
 
+    private int getLevel() { return level; }
 
     @Override
     public String getName()  {
         return "";
     }
-
-    public abstract EquipmentType getType();
 
 }

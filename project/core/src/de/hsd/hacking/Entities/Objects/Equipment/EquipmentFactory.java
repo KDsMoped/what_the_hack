@@ -1,26 +1,22 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
+
 /**
  * Created by domin on 14.06.2017.
  */
 
-import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentAttributeLevel;
-import de.hsd.hacking.Entities.Objects.Equipment.Equipment.EquipmentType;
-import de.hsd.hacking.Entities.Team.Team;
-
 public class EquipmentFactory {
 
-    public static Equipment getEquipment(EquipmentType type,
-                                         EquipmentAttributeLevel attributeLevel,
-                                         float price) {
+    public static Equipment getEquipment(EquipmentType type) {
         switch(type){
             case COMPUTER:
-                return new Computer(price, attributeLevel);
+                return new Computer();
             case SWITCH:
-            case COFFEEMAKER:
+            case COFFEEMACHINE:
+                return new CoffeeMachine();
             case MODEM:
-                return new Modem(price, attributeLevel);
+                return new Modem();
             case SERVER:
         }
 

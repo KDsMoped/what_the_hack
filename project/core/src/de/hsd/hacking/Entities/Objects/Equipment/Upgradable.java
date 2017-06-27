@@ -5,13 +5,7 @@ package de.hsd.hacking.Entities.Objects.Equipment;
  */
 
 public interface Upgradable {
-    enum UpgradeLevel {
-        ONE, TWO, THREE, FOUR, FIVE;
-    }
-
     void upgrade();
-
-    int getLevel();
-
-    void setInitialLevel(int level);
+    void setMaxLevel();
+    void setUpgradePriceMultiplier();
 }
