@@ -60,7 +60,7 @@ public class EmployeeBar extends Group {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (!Team.getInstance().isEmployeeSelected()) return;
+        if (!Team.instance().isEmployeeSelected()) return;
 
         super.draw(batch, parentAlpha);
     }
@@ -68,7 +68,7 @@ public class EmployeeBar extends Group {
     @Override
     public void act(float delta) {
 
-        if (!Team.getInstance().isEmployeeSelected()) return;
+        if (!Team.instance().isEmployeeSelected()) return;
 
         nameLabel.setText("" + GetSelected().getName());
         jobLabel.setText("" + GetSelected().getState().getDisplayName());
@@ -77,6 +77,6 @@ public class EmployeeBar extends Group {
     }
 
     private Employee GetSelected() {
-        return Team.getInstance().getSelectedEmployee();
+        return Team.instance().getSelectedEmployee();
     }
 }

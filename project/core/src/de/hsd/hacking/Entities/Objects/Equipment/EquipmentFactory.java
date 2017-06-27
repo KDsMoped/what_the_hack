@@ -13,15 +13,14 @@ public class EquipmentFactory {
 
     public static Equipment getEquipment(EquipmentType type,
                                          EquipmentAttributeLevel attributeLevel,
-                                         float price,
-                                         Assets assets, Team team) {
+                                         float price) {
         switch(type){
             case COMPUTER:
-                return new Computer(price, attributeLevel, team);
+                return new Computer(price, attributeLevel);
             case SWITCH:
             case COFFEEMAKER:
             case MODEM:
-                return new Modem(price, attributeLevel, assets, team);
+                return new Modem(price, attributeLevel);
             case SERVER:
         }
 

@@ -42,7 +42,8 @@ public class Skill {
 
         if(includeText) return getDisplayText() + " " + getDisplayValue(false) + "";
 
-        return String.valueOf(value);
+        if(value < 10) return " " + String.valueOf(value);
+        else return String.valueOf(value);
     }
 
     public void setValue(int value) {

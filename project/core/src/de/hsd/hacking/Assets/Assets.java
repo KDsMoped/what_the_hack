@@ -48,6 +48,8 @@ public class Assets {
     public TextureRegion lamp;
     public TextureRegion desk_1;
     public TextureRegion desk_2;
+    public TextureRegion desk_bf_1;
+    public TextureRegion desk_bf_2;
     public TextureRegion chair;
 
     public Array<TextureRegion> floor_tiles;
@@ -55,6 +57,7 @@ public class Assets {
     public Array<TextureRegion> hair_01;
     public Array<TextureRegion> hair_02;
     public Array<TextureRegion> computer;
+    public Array<TextureRegion> coffeemachine;
 
     public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
     public Array<TextureRegionDrawable> clock_icon;
@@ -107,8 +110,12 @@ public class Assets {
         lamp = atlas.findRegion("interior/Lamp");
         desk_1 = atlas.findRegion("interior/Table", 1);
         desk_2 = atlas.findRegion("interior/Table", 2);
+        desk_bf_1 = atlas.findRegion("interior/Table_bf", 1);
+        desk_bf_2 = atlas.findRegion("interior/Table_bf", 2);
         chair = atlas.findRegion("interior/Chair", 1);
 
+        coffeemachine = new Array<TextureRegion>();
+        coffeemachine.addAll(atlas.findRegions("interior/CoffeeMachine"));
         floor_tiles = new Array<TextureRegion>();
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
         gray_character_body = new Array<TextureRegion>();

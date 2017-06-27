@@ -48,7 +48,7 @@ public class Team {
         listOfWorkspaces = new ArrayList<Workspace>();
     }
 
-    public static Team getInstance(){ return instance; }
+    public static Team instance(){ return instance; }
     public static void initialize(GameStage Stage) {
         stage = Stage;
     }
@@ -123,9 +123,8 @@ public class Team {
      */
     public void createAndAddEquipment(Equipment.EquipmentType type,
                                       Equipment.EquipmentAttributeLevel attributeLevel,
-                                      float price,
-                                      Assets assets) {
-        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price, assets, this);
+                                      float price) {
+        Equipment equipment = EquipmentFactory.getEquipment(type, attributeLevel, price);
         if(equipment != null) {
             listOfEquipment.add(equipment);
         }
@@ -247,14 +246,14 @@ public class Team {
 
     }
 
-    public float calcGameProgress(){
+    public int calcGameProgress(){
         float result = 0;
 
         result += resource_Money * 0.03f;
         result += resource_Bandwidth * 0.5f;
         result += resource_ComputationPower * 0.03f;
 
-        return result;
+        return (int) result;
     }
 
     /*

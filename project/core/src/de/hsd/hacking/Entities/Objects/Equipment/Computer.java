@@ -32,9 +32,9 @@ public class Computer extends Equipment implements Upgradable {
     private int level = 0;
 
 
-    public Computer(float price, EquipmentAttributeLevel attributeLevel, Team team) {
+    public Computer(float price, EquipmentAttributeLevel attributeLevel) {
 
-        super(Assets.instance().computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, Direction.DOWN, team);
+        super(Assets.instance().computer.get(0), price, EquipmentAttributeType.COMPUTATIONPOWER, attributeLevel, true, Direction.DOWN, 0, Direction.DOWN);
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
