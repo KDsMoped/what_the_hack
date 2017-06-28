@@ -59,14 +59,15 @@ public class MissionBrowser extends Popup {
         content = new Table();
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
-        content.setDebug(true);
 
         title = new Label("Missions", Constants.LabelStyle());
+        title.setFontScale(1.4f);
 
         missionScroller = new ScrollPane(missionContainer);
 
         for (int i = 0; i < 5; i++) {
-            missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission())).height(50).expandX().fillX();
+            missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission()))
+                    .expandX().fillX().padBottom(15);
             missionContainer.row();
         }
 
