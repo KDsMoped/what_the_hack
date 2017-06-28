@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.MissionFactory;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by ju on 22.06.17.
@@ -56,7 +57,7 @@ public class MissionBrowser extends Popup {
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
 
-        title = new Label("Missions", this.getLabelStyle());
+        title = new Label("Missions", Constants.LabelStyle());
         title.setFontScale(1.2f);
 
         missionScroller = new ScrollPane(missionContainer);

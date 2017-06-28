@@ -1,12 +1,9 @@
 package de.hsd.hacking.UI;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
@@ -15,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by ju on 14.06.17.
@@ -31,9 +29,8 @@ public abstract class Popup extends Group {
 
     private VerticalGroup content = new VerticalGroup();
 
-    private TextButton.TextButtonStyle buttonStyle;
-    private Skin uiSkin;
-    private Label.LabelStyle labelStyle;
+    //private TextButton.TextButtonStyle buttonStyle;
+    //private Label.LabelStyle labelStyle;
 
     private TextButton closeButton;
 
@@ -56,20 +53,20 @@ public abstract class Popup extends Group {
         mainTable.setVisible(false);
 
         // Setup Button Style
-        uiSkin = new Skin(assets.ui_atlas);
-        buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
-                null, assets.status_bar_font);
-        buttonStyle.pressedOffsetY = -1f;
-        buttonStyle.pressedOffsetX = 1f;
-        buttonStyle.fontColor = Color.BLACK;
+//        uiSkin = new Skin(assets.ui_atlas);
+//        buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
+//                null, assets.status_bar_font);
+//        buttonStyle.pressedOffsetY = -1f;
+//        buttonStyle.pressedOffsetX = 1f;
+//        buttonStyle.fontColor = Color.BLACK;
 
         // Setup label style
-        labelStyle = new Label.LabelStyle();
-        labelStyle.font = assets.status_bar_font;
-        labelStyle.fontColor = Color.BLACK;
+//        labelStyle = new Label.LabelStyle();
+//        labelStyle.font = assets.status_bar_font;
+//        labelStyle.fontColor = Color.BLACK;
 
         // Setup close button
-        closeButton = new TextButton("OK", buttonStyle);
+        closeButton = new TextButton("OK", Constants.TextButtonStyle());
         closeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
@@ -122,17 +119,17 @@ public abstract class Popup extends Group {
         return this.mainTable;
     }
 
-    public TextButton.TextButtonStyle getButtonStyle() {
-        return buttonStyle;
-    }
-
-    public Skin getUiSkin() {
-        return uiSkin;
-    }
-
-    public Label.LabelStyle getLabelStyle() {
-        return labelStyle;
-    }
+//    public TextButton.TextButtonStyle getButtonStyle() {
+//        return buttonStyle;
+//    }
+//
+//    public Skin getUiSkin() {
+//        return uiSkin;
+//    }
+//
+//    public Label.LabelStyle getLabelStyle() {
+//        return labelStyle;
+//    }
 
     public VerticalGroup getContent() {
         return content;

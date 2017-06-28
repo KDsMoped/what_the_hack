@@ -1,18 +1,28 @@
-package de.hsd.hacking.UI.Employee;
+package de.hsd.hacking.UI;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Utils.Constants;
+import de.hsd.hacking.Utils.Provider.StringProvider;
 
+/**
+ * A DoubleLabel displays two strings where the first on is aligned to the left and the second is aligned to the right.
+ */
 public class DoubleLabelElement extends Table {
 
-    Label valueLabel;
-    StringProvider value;
+    private Label valueLabel;
+    private StringProvider value;
 
     private boolean modifiable;
 
+    /**
+     * Creates a DoubleLabel that displays a fixed string and the dynamic value given by the StringProvider object.
+     *
+     * @param category
+     * @param value
+     */
     public DoubleLabelElement(String category, StringProvider value) {
 
         modifiable = true;
@@ -25,6 +35,12 @@ public class DoubleLabelElement extends Table {
         add(valueLabel).right().padLeft(10);
     }
 
+    /**
+     * Creates a DoubleLabel that displays two fixed strings.
+     *
+     * @param category
+     * @param value
+     */
     public DoubleLabelElement(String category, String value) {
 
         modifiable = false;
@@ -51,9 +67,5 @@ public class DoubleLabelElement extends Table {
         if(modifiable) valueLabel.setText(value.get());
 
         super.act(delta);
-    }
-
-    public interface StringProvider {
-        String get();
     }
 }

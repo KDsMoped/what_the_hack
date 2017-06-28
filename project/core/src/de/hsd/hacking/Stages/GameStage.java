@@ -160,7 +160,8 @@ public class GameStage extends Stage {
     }
 
     private void InitUI() {
-        int ButtonHeight = 20;
+        int buttonHeight = 20;
+        int buttonSpacing = 5;
 
         //Init Mission Window
         popups.addActor(missionBrowser);
@@ -173,7 +174,7 @@ public class GameStage extends Stage {
 
             }
         });
-        shopButton.setBounds(0, VIEWPORT_HEIGHT - ButtonHeight, 100, ButtonHeight);
+        shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
         ui.addActor(shopButton);
 
         //Init Missions button
@@ -188,7 +189,7 @@ public class GameStage extends Stage {
                 }
             }
         });
-        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * ButtonHeight, 100, ButtonHeight);
+        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight, 100, buttonHeight);
         ui.addActor(jobsButton);
 
         //Init Recruitment button
@@ -199,7 +200,7 @@ public class GameStage extends Stage {
                 //
             }
         });
-        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * ButtonHeight, 100, ButtonHeight);
+        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight, 100, buttonHeight);
         ui.addActor(recruitmentButton);
 
         //Init Exit button
@@ -210,7 +211,7 @@ public class GameStage extends Stage {
                 ScreenManager.setMenuScreen();
             }
         });
-        exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - ButtonHeight, 100, ButtonHeight);
+        exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
         ui.addActor(exitButton);
 
         //Init status bar & employee details
