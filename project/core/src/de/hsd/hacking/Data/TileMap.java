@@ -141,7 +141,7 @@ public class TileMap extends Group implements TileMovementProvider  {
             tiles[x][y].setOccupyingEmployee(employee);
 
 
-            Gdx.app.log(Constants.TAG, toString());
+            if (Constants.DEBUG) Gdx.app.log(Constants.TAG, toString());
             return tiles[x][y];
         }
         return null;
@@ -296,7 +296,7 @@ public class TileMap extends Group implements TileMovementProvider  {
             removeEmployee(employee);
             tiles[x][y].setOccupyingEmployee(employee);
 
-            Gdx.app.log(Constants.TAG, toString());
+            if (Constants.DEBUG) Gdx.app.log(Constants.TAG, toString());
             return tiles[x][y].getPosition();
         }
         return null;

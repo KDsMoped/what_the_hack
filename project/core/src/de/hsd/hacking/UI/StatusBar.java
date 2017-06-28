@@ -34,7 +34,7 @@ import de.hsd.hacking.Utils.Constants;
 
 public class StatusBar extends Actor {
     // Constants
-    private final int STATUS_BAR_HEIGHT = 14;
+    private final int STATUS_BAR_HEIGHT = 20;
     private final int STATUS_BAR_ANIMATION_TIME = 1;
 
     private Assets assets;
@@ -88,17 +88,17 @@ public class StatusBar extends Actor {
 
     /**
      * Initializes a new top bar. Top bar needs assets to get the ui themes and fonts.
-     * @param assets ui assets
      */
-    public StatusBar(Assets assets) {
-        this.assets = assets;
+    public StatusBar() {
+        this.assets = Assets.instance();
 
         // this is the actual parent object
         items = new Table();
         // align content in cells
         items.align(Align.center);
-        items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
-        items.setHeight(STATUS_BAR_HEIGHT + 6);
+//        items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
+        items.setWidth(312);
+        items.setHeight(STATUS_BAR_HEIGHT);
         // the green terminal background style
         items.setBackground(assets.terminal_patch);
 
@@ -120,6 +120,7 @@ public class StatusBar extends Actor {
         employeesText = new Label("", titlebarStyle);
 
         // horizontal spacing between the items
+        items.add(moneyLabel).padLeft(0);
         items.add(moneyLabel).padRight(1);
         items.add(moneyText).padRight(8);
         items.add(bandwidthLabel).padRight(4);
@@ -127,13 +128,13 @@ public class StatusBar extends Actor {
         items.add(employeesLabel);
         items.add(employeesText).padRight(60);
         items.add(dateText).align(Align.right).padRight(15);
-        items.add(timeLabel).align(Align.right).padRight(2);
+        items.add(timeLabel).align(Align.right).padRight(6);
 
 
         // we want to center the top bar, to calculate the x position can
         // window_width / 2 - topbar_width / 2
         // so we have to set position as last because we need the width of the top bar
-        items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight() + 1);
+        items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight() + 0);
     }
 
     /**
@@ -142,7 +143,6 @@ public class StatusBar extends Actor {
      */
     @Override
     public void act(float delta) {
-        // always call super first!
         super.act(delta);
 
         if (displayedBandwidth != bandwidth){

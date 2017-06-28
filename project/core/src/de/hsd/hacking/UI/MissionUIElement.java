@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Mission;
+import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Entities.Employees.Skill;
 
 /**
@@ -16,18 +17,14 @@ import de.hsd.hacking.Entities.Employees.Skill;
  */
 
 public class MissionUIElement extends Table {
-    private Assets assets;
     private Mission mission;
-
-    private Label.LabelStyle labelStyle;
 
     private Label name;
     private Label time;
     private Label description, skills;
     private Label money;
 
-    public MissionUIElement(Assets assets, Mission mission) {
-        this.assets = assets;
+    public MissionUIElement(Mission mission) {
         this.mission = mission;
 
         InitTable();
@@ -37,16 +34,12 @@ public class MissionUIElement extends Table {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
 
-        labelStyle = new Label.LabelStyle();
-        labelStyle.font = assets.status_bar_font;
-        labelStyle.fontColor = Color.BLACK;
-
-        name = new Label(mission.getName(), labelStyle);
-        time = new Label(Integer.toString(mission.getDuration()), labelStyle);
-        description = new Label(mission.getDescription(), labelStyle);
+        name = new Label(mission.getName(), Constants.LabelStyle());
+        time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
+        description = new Label(mission.getDescription(), Constants.LabelStyle());
         description.setWrap(true);
-        money = new Label("$$", labelStyle);
-        skills = new Label("", labelStyle);
+        money = new Label("$$", Constants.LabelStyle());
+        skills = new Label("", Constants.LabelStyle());
 
         for (Skill s:mission.getSkill()) {
             skills.setText(skills.getText() + s.getType().toString() + ": " + s.getValue() + " ");

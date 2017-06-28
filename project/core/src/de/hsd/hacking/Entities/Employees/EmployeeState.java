@@ -28,6 +28,12 @@ public abstract class EmployeeState{
      */
     abstract void leave();
 
+    /**
+     * Gets the name of the state for UI displaying.
+     * @return
+     */
+    public abstract String getDisplayName();
+
     public void cancel(){
         canceled = true;
     }

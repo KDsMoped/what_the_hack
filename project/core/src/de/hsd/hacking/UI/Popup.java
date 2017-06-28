@@ -40,10 +40,9 @@ public abstract class Popup extends Group {
 
     /**
      * We need the ui assets to display a beautiful popup window.
-     * @param assets Assets that contain the ui style.
      */
-    public Popup(Assets assets) {
-        this.assets = assets;
+    public Popup() {
+        this.assets = Assets.instance();
 
         mainTable.align(Align.top);
         // We want a margin around the popup window
@@ -137,9 +136,5 @@ public abstract class Popup extends Group {
 
     public VerticalGroup getContent() {
         return content;
-    }
-
-    public Assets getAssets() {
-        return assets;
     }
 }

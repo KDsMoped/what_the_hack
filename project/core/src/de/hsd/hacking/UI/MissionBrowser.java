@@ -27,11 +27,9 @@ public class MissionBrowser extends Popup {
 
     /**
      * We need the ui assets to display a beautiful popup window.
-     *
-     * @param assets Assets that contain the ui style.
      */
-    public MissionBrowser(Assets assets) {
-        super(assets);
+    public MissionBrowser() {
+        super();
 
         InitTable();
     }
@@ -67,7 +65,7 @@ public class MissionBrowser extends Popup {
         missionScroller = new ScrollPane(missionContainer);
 
         for (int i = 0; i < 5; i++) {
-            missionContainer.add(new MissionUIElement(this.getAssets(), MissionFactory.CreateRandomMission()))
+            missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission()))
                     .expandX().fillX().padBottom(15);
             missionContainer.row();
         }

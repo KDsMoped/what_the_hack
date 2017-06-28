@@ -36,4 +36,9 @@ public class SelectedState extends EmployeeState {
             employee.getStage().setSelectedEmployee(null);
         }
     }
+
+    @Override
+    public String getDisplayName() {
+        return "Selected";
+    }
 }

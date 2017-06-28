@@ -24,6 +24,28 @@ public class Skill {
         return value;
     }
 
+    public String getDisplayText(){
+
+        if(value < 4 ) return "Newbie";
+        if(value <  6) return "Greenhorn";
+        if(value <  8) return "Beginner";
+        if(value < 10) return "Intermediate";
+        if(value < 12) return "Experienced";
+        if(value < 14) return "Professional";
+        if(value < 16) return "Master";
+        if(value < 18) return "Grand Master";
+        if(value < 20) return "Wizard";
+        return "God";
+    }
+
+    public String getDisplayValue(boolean includeText){
+
+        if(includeText) return getDisplayText() + " " + getDisplayValue(false) + "";
+
+        if(value < 10) return " " + String.valueOf(value);
+        else return String.valueOf(value);
+    }
+
     public void setValue(int value) {
         this.value = value;
     }
