@@ -45,6 +45,25 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private boolean selected;
 
+    /**
+     * Returns the chance for the employee to have a critical failure
+     * Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
+     * @return criticalFailureValue in the range 0-20. 0 represents no chance to have a critical failure, 20 means the employee always has a critical failure
+     */
+    public int getCriticalFailureChance() {
+        //TODO abhängig von anderen Faktoren machen
+        return 1;
+    }
+
+    /**
+     * Returns the chance for the employee to have a critical success
+     * Critical success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
+     * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical success, 20 means the employee always has a critical success
+     */
+    public int getCriticalSuccessChance() {
+        return 1;
+    }
+
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
 
@@ -209,7 +228,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        drawAt(batch, getPosition(), flipped, false, animationState);
+        if (animationState == AnimState.WORKING){
+            drawAt(batch, getPosition().sub(0, Constants.TILE_WIDTH / 4f), flipped, false, animationState);
+        }else{
+            drawAt(batch, getPosition(), flipped, false, animationState);
+        }
+
 
         if (Constants.DEBUG) {
             batch.end();

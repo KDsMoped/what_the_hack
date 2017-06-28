@@ -16,7 +16,7 @@ public class MissionSkillRequirement {
         this.currentValue = currentValue;
     }
 
-    public SkillType getSkill() {
+    public SkillType getSkillType() {
         return skill;
     }
 
@@ -30,5 +30,9 @@ public class MissionSkillRequirement {
 
     public void incrementCurrentValue(float inc) {
         this.currentValue += inc;
+    }
+
+    public boolean isSuccessfull(){
+        return currentValue >= valueRequired;
     }
 }
