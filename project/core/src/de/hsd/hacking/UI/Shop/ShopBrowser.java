@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Shop;
 import de.hsd.hacking.UI.Popup;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by domin on 28.06.2017.
@@ -66,7 +67,7 @@ public class ShopBrowser extends Popup {
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
 
-        title = new Label("Shop", this.getLabelStyle());
+        title = new Label("Shop", Constants.LabelStyle());
         title.setFontScale(1.3f);
 
         itemScroller = new ScrollPane(itemContainer);

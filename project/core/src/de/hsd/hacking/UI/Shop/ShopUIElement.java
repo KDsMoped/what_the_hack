@@ -56,7 +56,7 @@ public class ShopUIElement extends Table {
         content = new Table();
 
         name = new Label(equipment.getName(), Constants.LabelStyle());
-        price = new Label(Float.toString(equipment.getPrice()), Constants.LabelStyle());
+        price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
         //description = new Label(mission.getDescription(), Constants.LabelStyle());
         //description.setWrap(true);
         attributeType = new Label(equipment.getAttributeType().toString(), Constants.LabelStyle());
