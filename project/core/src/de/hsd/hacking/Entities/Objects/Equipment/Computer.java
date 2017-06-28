@@ -34,7 +34,7 @@ public class Computer extends Equipment implements Upgradable {
 
 
     public Computer() {
-        super("Super Computer 3000", 100, EquipmentAttributeType.COMPUTATIONPOWER, 100,
+        super("Super Computer 3000", 400, EquipmentAttributeType.COMPUTATIONPOWER, 100,
                 Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);

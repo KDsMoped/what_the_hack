@@ -59,7 +59,7 @@ public abstract class Equipment extends TouchableInteractableObject {
 
     @Override
     public String getName()  {
-        return "";
+        return name;
     }
 
 }

@@ -36,6 +36,7 @@ import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.UI.Employee.EmployeeBar;
 import de.hsd.hacking.UI.MissionBrowser;
+import de.hsd.hacking.UI.Shop.ShopBrowser;
 import de.hsd.hacking.UI.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
@@ -180,15 +181,21 @@ public class GameStage extends Stage {
         int ButtonHeight = 20;
 
         //Init Shop button
+        final ShopBrowser shopBrowser = new ShopBrowser();
         TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
+                if (shopBrowser.isActive()) {
+                    shopBrowser.Close();
+                } else {
+                    shopBrowser.Show();
+                }
             }
         });
         shopButton.setBounds(0, VIEWPORT_HEIGHT - ButtonHeight, 100, ButtonHeight);
         ui.addActor(shopButton);
+        ui.addActor(shopBrowser);
 
         //Init Missions button
         TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());
