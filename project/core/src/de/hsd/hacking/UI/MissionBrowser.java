@@ -25,9 +25,6 @@ public class MissionBrowser extends Popup {
     private ScrollPane missionScroller;
 
 
-    /**
-     * We need the ui assets to display a beautiful popup window.
-     */
     public MissionBrowser() {
         super();
 
@@ -60,18 +57,18 @@ public class MissionBrowser extends Popup {
         content.setTouchable(Touchable.enabled);
 
         title = new Label("Missions", this.getLabelStyle());
-        title.setFontScale(1.4f);
+        title.setFontScale(1.2f);
 
         missionScroller = new ScrollPane(missionContainer);
 
         for (int i = 0; i < 5; i++) {
             missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission()))
-                    .expandX().fillX().padBottom(15);
+                    .expandX().fillX().padTop(5).padBottom(5);
             missionContainer.row();
         }
 
         contentContainer.addActor(content);
-        content.add(title).expandX().fillX().padTop(5);
+        content.add(title).expandX().fillX().padTop(5).center();
         content.row();
         content.add(missionScroller).expand().fill().maxHeight(185);
     }

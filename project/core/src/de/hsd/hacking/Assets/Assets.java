@@ -65,9 +65,12 @@ public class Assets {
     public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
     public Array<TextureRegionDrawable> clock_icon;
 
+    public TextureRegionDrawable ui_calendar;
+
     public Skin terminal_skin;
     public NinePatchDrawable terminal_patch;
     public NinePatchDrawable win32_patch;
+    public NinePatchDrawable table_border_patch;
 
     public Sound buttonSound;
 
@@ -142,10 +145,13 @@ public class Assets {
             clock_icon.add(new TextureRegionDrawable(t));
         }
 
+        ui_calendar = new TextureRegionDrawable(ui_atlas.findRegion("calendar"));
+
         terminal_skin = new Skin();
         terminal_skin.addRegions(ui_atlas);
         terminal_patch = new NinePatchDrawable(terminal_skin.getPatch("terminal_9_patch"));
         win32_patch = new NinePatchDrawable(terminal_skin.getPatch("popup"));
+        table_border_patch = new NinePatchDrawable(terminal_skin.getPatch("table_border"));
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/
