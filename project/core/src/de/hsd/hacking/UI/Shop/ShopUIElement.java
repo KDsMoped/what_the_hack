@@ -40,7 +40,7 @@ public class ShopUIElement extends Table {
     }
 
     public void InitControls() {
-        buyButton = new TextButton("Buy", Constants.TextButtonStyle());
+        buyButton = new TextButton("Buy Item", Constants.TextButtonStyle());
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -57,18 +57,11 @@ public class ShopUIElement extends Table {
 
         name = new Label(equipment.getName(), Constants.LabelStyle());
         price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
-        //description = new Label(mission.getDescription(), Constants.LabelStyle());
-        //description.setWrap(true);
         attributeType = new Label(equipment.getAttributeType().toString(), Constants.LabelStyle());
         attributeValue = new Label("+" + Integer.toString(equipment.getAttributeValue()), Constants.LabelStyle());
 
-        //for (Skill s:mission.getSkill()) {
-        //    skills.setText(skills.getText() + s.getType().toString() + ": " + s.getValue() + " ");
-        //}
-
         content.add(name).expandX().fillX().left();
         content.add(price).right().padLeft(10);
-        //this.add(buyButton).right().padBottom(0);
         content.row();
         content.add(attributeType).left().expand().fill();
         content.add(attributeValue).right().padLeft(5);
