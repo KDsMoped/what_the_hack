@@ -61,6 +61,8 @@ public class GameStage extends Stage {
 
     private List<Touchable> touchables;
 
+    private final MissionBrowser missionBrowser = new MissionBrowser();
+
     private Group foreground, background, ui, popups;
 
     public GameStage() {
@@ -77,28 +79,12 @@ public class GameStage extends Stage {
 
         // REMOVE THIS AGAIN
         if (Constants.DEBUG) {
-            final MissionBrowser popup = new MissionBrowser();
-
-
             Skin uiSkin = new Skin(assets.ui_atlas);
             TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
                     null, assets.status_bar_font);
             style.fontColor = Color.BLACK;
             style.pressedOffsetY = -1f;
             style.pressedOffsetX = 1f;
-            TextButton button = new TextButton("Popup", style);
-            button.addListener(new ChangeListener() {
-                                   @Override
-                                   public void changed(ChangeEvent event, Actor actor) {
-                                       if (popup.isActive()) {
-                                           popup.Close();
-                                       } else {
-                                           popup.Show();
-                                       }
-                                   }
-                               }
-            );
-            button.setBounds(10, 10, 100, 30);
 
             TextButton upgradeButton = new TextButton("Upgrade", style);
             upgradeButton.addListener(new ChangeListener() {
@@ -116,10 +102,7 @@ public class GameStage extends Stage {
             );
             upgradeButton.setBounds(10, 40, 100, 30);
 
-            popups.addActor(button);
             popups.addActor(upgradeButton);
-            // Popup must always be last to appear on top!
-            popups.addActor(popup);
         }
     }
 
@@ -179,6 +162,9 @@ public class GameStage extends Stage {
     private void InitUI() {
         int ButtonHeight = 20;
 
+        //Init Mission Window
+        popups.addActor(missionBrowser);
+
         //Init Shop button
         TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
         shopButton.addListener(new ChangeListener() {
@@ -195,7 +181,11 @@ public class GameStage extends Stage {
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                //
+                if (missionBrowser.isActive()) {
+                    missionBrowser.Close();
+                } else {
+                    missionBrowser.Show();
+                }
             }
         });
         jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * ButtonHeight, 100, ButtonHeight);
