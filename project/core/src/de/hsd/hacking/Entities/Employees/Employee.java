@@ -138,6 +138,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public Employee() {
         super(false, true, false);
+
+        Init();
     }
 
     /**
@@ -145,15 +147,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      *
      * @param level The desired skill Level
      */
-    public Employee(EmployeeSkillLevel level, TileMovementProvider movementProvider, GameStage stage) {
+    public Employee(EmployeeSkillLevel level) {
         super(false, true, false);
-        this.assets = Assets.instance();
-        this.stage = stage;
 
         //Create random name
-        String[] randomName = DataLoader.getInstance().getNewName();
-        this.surName = randomName[0];
-        this.lastName = randomName[1];
+        setName(DataLoader.getInstance().getNewName());
         this.skillLevel = level;
 
         //Skill points to spend. NOOB = 55, INTERMEDIATE = 65, PRO = 75, WIZARD = 85
@@ -181,7 +179,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
                 pool.removeNumber(randomInt);
             }
         }
-        this.movementProvider = movementProvider;
+
+        Init();
+    }
+
+    private void Init() {
+        this.stage = GameStage.instance();
+        this.assets = Assets.instance();
+        movementProvider = stage.getTileMap();
+
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
         this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
@@ -198,6 +204,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         debugRenderer = new ShapeRenderer();
     }
 
+
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;
         String fragmentShader = Shader.getFragmentShader(
@@ -213,25 +220,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
-
-    //GETTER & SETTER
-
-    public TileMovementProvider getMovementProvider() {
-        return movementProvider;
-    }
-
-    public AnimState getAnimationState() {
-        return animationState;
-    }
-
-    public void setAnimationState(AnimState animationState) {
-        this.animationState = animationState;
-    }
-
     public void flipHorizontal(boolean toRight) {
         this.flipped = toRight;
     }
-
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -286,15 +277,18 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
+
+    public void removeFromDrawingTile() {
+        movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
+    }
+
+    public void removeFromOccupyingTile() {
+        movementProvider.getTile(occupiedTileNumber).setOccupyingEmployee(null);
+    }
+
     @Override
     public String toString() {
         return "Employee: " + surName + " " + lastName + ". Skilllevel: " + this.skillLevel.name() + ". Skills: " + skillSetToString();
-    }
-
-    public void setPosition(Vector2 position) {
-        super.setPosition(position);
-
-        this.bounds.setPosition(position.cpy().add(5f, 5f));
     }
 
     private Vector2 clampToPixels(Vector2 position) {
@@ -362,9 +356,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public void touchDragged(Vector2 position) {
-
     }
-
 
     @Override
     public int compareTo(Employee o) {
@@ -377,12 +369,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         } else {
             return -1;
         }
-
     }
 
     private void onTouch() {
         toggleSelected();
-
     }
 
     public void toggleSelected() {
@@ -395,6 +385,36 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return selected;
     }
 
+    //GETTER & SETTER
+
+    public void setPosition(Vector2 position) {
+        super.setPosition(position);
+
+        this.bounds.setPosition(position.cpy().add(5f, 5f));
+    }
+
+    void setName(String first, String last) {
+        this.surName = first;
+        this.lastName = last;
+    }
+
+    void setName(String[] name) {
+        this.surName = name[0];
+        this.lastName = name[1];
+    }
+
+    public TileMovementProvider getMovementProvider() {
+        return movementProvider;
+    }
+
+    public AnimState getAnimationState() {
+        return animationState;
+    }
+
+    public void setAnimationState(AnimState animationState) {
+        this.animationState = animationState;
+    }
+
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
@@ -404,21 +424,28 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return stage;
     }
 
-    public void setStage(GameStage stage) {
-        this.stage = stage;
-    }
+//
+//    public void setStage(GameStage stage) {
+//        this.stage = stage;
+//    }
 
-    public void removeFromDrawingTile() {
-        movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
-    }
-
-    public void removeFromOccupyingTile() {
-        movementProvider.getTile(occupiedTileNumber).setOccupyingEmployee(null);
-    }
-
-    public Collection<Skill> getSkillset(){
+    public Collection<Skill> getSkillset() {
         return Collections.unmodifiableCollection(skillSet);
     }
 
-    public String getSalary(){ return String.format("%03d", salary) + "$";}
+    void setSkillSet(ArrayList<Skill> skillset){
+        this.skillSet = skillset;
+    }
+
+    void setSalary(int salary){
+        this.salary = salary;
+    }
+
+    public int getSalary(){
+        return salary;
+    }
+
+    public String getSalaryText() {
+        return String.format("%03d", salary) + "$";
+    }
 }

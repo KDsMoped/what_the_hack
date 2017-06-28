@@ -8,10 +8,33 @@ import com.badlogic.gdx.math.MathUtils;
 
 public enum SkillType {
 
-    SOCIAL, HARDWARE, SOFTWARE, NETWORK, CRYPTO, SEARCH, ALLPURPOSE;
+    Social, Hardware, Software, Network, Crypto, Search, All_Purpose;
 
     private static final SkillType[] VALUES = values();
     public static final int SIZE = VALUES.length;
 
-    public static SkillType getRandomSkill() { return VALUES[MathUtils.random(SIZE - 1)]; }
+    public static SkillType getRandomSkill() {
+        return VALUES[MathUtils.random(SIZE - 1)];
+    }
+
+    public String displayName() {
+        switch (this) {
+            case Crypto:
+                return "Crypto";
+            case Search:
+                return "Search";
+            case Social:
+                return "Social";
+            case Network:
+                return "Network";
+            case Hardware:
+                return "Hardware";
+            case Software:
+                return "Software";
+            case All_Purpose:
+                return "Allrounder";
+            default:
+                return name();
+        }
+    }
 }

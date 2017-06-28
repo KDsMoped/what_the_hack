@@ -66,16 +66,23 @@ public class GameStage extends Stage {
 
     private Group foreground, background, ui, popups;
 
+    private static GameStage instance;
+
+    public static GameStage instance() {
+        return instance;
+    }
+
     public GameStage() {
         super(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
+        instance = this;
         this.checkVector = new Vector2();
         this.assets = Assets.instance();
         this.tileMap = new TileMap(this);
 
         InitRootObjects();
-        InitTeam();
         InitInterior();
+        InitTeam();
         InitUI();
 
         // REMOVE THIS AGAIN
@@ -160,67 +167,67 @@ public class GameStage extends Stage {
         addTouchable(coffeeMachine);
     }
 
-    private void InitUI() {
-        int buttonHeight = 20;
-        int buttonSpacing = 5;
+        private void InitUI() {
+            int buttonHeight = 20;
+            int buttonSpacing = 5;
 
-        //Init Mission Window
-        popups.addActor(missionBrowser);
+            //Init Mission Window
+            popups.addActor(missionBrowser);
 
-        //Init Shop button
-        final ShopBrowser shopBrowser = new ShopBrowser();
-        TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
-        shopButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (shopBrowser.isActive()) {
-                    shopBrowser.Close();
-                } else {
-                    shopBrowser.Show();
+            //Init Shop button
+            final ShopBrowser shopBrowser = new ShopBrowser();
+            TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
+            shopButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (shopBrowser.isActive()) {
+                        shopBrowser.Close();
+                    } else {
+                        shopBrowser.Show();
+                    }
                 }
-            }
-        });
-        shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
-        ui.addActor(shopButton);
-        ui.addActor(shopBrowser);
+            });
+            shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
+            ui.addActor(shopButton);
+            ui.addActor(shopBrowser);
 
-        //Init Missions button
-        TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());
-        jobsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                missionBrowser.ToggleView();
-            }
-        });
-        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight, 100, buttonHeight);
-        ui.addActor(jobsButton);
+            //Init Missions button
+            TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());
+            jobsButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    missionBrowser.ToggleView();
+                }
+            });
+            jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight, 100, buttonHeight);
+            ui.addActor(jobsButton);
 
-        //Init Recruitment button
-        TextButton recruitmentButton = new TextButton("Recruit", Constants.TextButtonStyle());
-        recruitmentButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                //
-            }
-        });
-        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight, 100, buttonHeight);
-        ui.addActor(recruitmentButton);
+            //Init Recruitment button
+            TextButton recruitmentButton = new TextButton("Recruit", Constants.TextButtonStyle());
+            recruitmentButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    //
+                }
+            });
+            recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight, 100, buttonHeight);
+            ui.addActor(recruitmentButton);
 
-        //Init Exit button
-        TextButton exitButton = new TextButton("Exit", Constants.TextButtonStyle());
-        exitButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ScreenManager.setMenuScreen();
-            }
-        });
-        exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
-        ui.addActor(exitButton);
+            //Init Exit button
+            TextButton exitButton = new TextButton("Exit", Constants.TextButtonStyle());
+            exitButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    ScreenManager.setMenuScreen();
+                }
+            });
+            exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
+            ui.addActor(exitButton);
 
-        //Init status bar & employee details
-        ui.addActor(statusBar = new StatusBar());
-        ui.addActor(new EmployeeBar());
-    }
+            //Init status bar & employee details
+            ui.addActor(statusBar = new StatusBar());
+            ui.addActor(new EmployeeBar());
+        }
 
     private void createWorkSpace(int tileX, int tileY) {
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
@@ -238,12 +245,12 @@ public class GameStage extends Stage {
         team = Team.instance();
         team.initialize(this);
 
-        while (true) {
-            int ret = team.createAndAddEmployee(Employee.EmployeeSkillLevel.getRandomSkillLevel(), this.tileMap);
-            if (ret != 0) {
-                break;
-            }
-        }
+//        while (true) {
+//            int ret = team.createAndAddEmployee(Employee.EmployeeSkillLevel.getRandomSkillLevel());
+//            if (ret != 0) {
+//                break;
+//            }
+//        }
 
         team.createAndAddEquipment(EquipmentType.MODEM);
         touchables.addAll(team.getEmployeeList());
@@ -358,8 +365,12 @@ public class GameStage extends Stage {
         team.deselectEmployee();
     }
 
+    public TileMap getTileMap() {
+        return tileMap;
+    }
+
     @Override
-    public void dispose(){
-//        super.dispose();
+    public void dispose() {
+        super.dispose();
     }
 }

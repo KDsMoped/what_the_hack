@@ -15,7 +15,7 @@ public class Constants {
 
     public static final String TAG = "HackingGame";
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 576;
@@ -23,19 +23,14 @@ public class Constants {
     public static final int TILE_WIDTH = 32;
     public static final int TILES_PER_SIDE = 13;
 
+    public static final int MAX_EMPLOYEE_COUNT = 4;
+    public static final int STARTING_TEAM_SIZE = 4;
+
     //UI
 
-//    private static Assets assets;
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
     private static Label.LabelStyle labelStyle;
-//    private static Label.LabelStyle tinyLabelStyle;
-
-//    public static void SetAssets(Assets assets) {
-//        if (Constants.assets == null) Constants.assets = assets;
-//    }
-
-//    public static Assets GetAssets(){ return assets;}
 
     public static Skin UiSkin() {
         if (uiSkin == null) {
@@ -82,14 +77,4 @@ public class Constants {
 
         return labelStyle;
     }
-
-//    public static Label.LabelStyle TinyLabelStyle() {
-//        if (tinyLabelStyle == null) {
-//            tinyLabelStyle = new Label.LabelStyle();
-//            tinyLabelStyle.font = Assets.instance().status_bar_font;
-//            tinyLabelStyle.fontColor = Color.BLACK;
-//        }
-//
-//        return tinyLabelStyle;
-//    }
 }

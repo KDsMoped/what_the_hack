@@ -90,7 +90,7 @@ public class EmployeeProfile extends Popup {
         addInformationElement(new de.hsd.hacking.UI.DoubleLabelElement("Salary", new StringProvider() {
             @Override
             public String get() {
-                return employee.get().getSalary();
+                return employee.get().getSalaryText();
             }
         }));
 
@@ -102,13 +102,12 @@ public class EmployeeProfile extends Popup {
             }
         }));
 
-
         //Skills
         addInformationElement(new Label("Skills", Constants.LabelStyle()));
 
         for(final Skill skill : employee.get().getSkillset() ){
 
-            addInformationElement(new DoubleLabelElement(skill.getType().name(), new StringProvider() {
+            addInformationElement(new DoubleLabelElement(skill.getType().displayName(), new StringProvider() {
                 @Override
                 public String get() {
                     return skill.getDisplayValue(true);
@@ -131,9 +130,10 @@ public class EmployeeProfile extends Popup {
             return;
         }
 
-        empl.removeFromDrawingTile();
+//        empl.removeFromDrawingTile();
+//        empl.removeFromOccupyingTile();
+//        team.deselectEmployee();
         team.removeEmployee(empl);
-        team.deselectEmployee();
         Close();
     }
 
