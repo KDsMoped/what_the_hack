@@ -71,6 +71,7 @@ public final class MissionFactory {
      * @return List of 3 random skills
      */
     private static final List<Skill> RandomSkills() {
+        //TODO dont use the general skill
         List<Skill> skillz = new ArrayList<Skill>();
 
         for (int i = 0; i < 3; i++) {

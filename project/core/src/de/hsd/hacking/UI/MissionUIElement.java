@@ -3,6 +3,7 @@ package de.hsd.hacking.UI;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -33,8 +34,11 @@ public class MissionUIElement extends Table {
     private void InitTable() {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
+        this.setBackground(Assets.instance().table_border_patch);
+        this.pad(4f);
 
         name = new Label(mission.getName(), Constants.LabelStyle());
+        name.setFontScale(1.05f);
         time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
         description = new Label(mission.getDescription(), Constants.LabelStyle());
         description.setWrap(true);
@@ -45,9 +49,12 @@ public class MissionUIElement extends Table {
             skills.setText(skills.getText() + s.getType().toString() + ": " + s.getValue() + " ");
         }
 
+        Image calendar = new Image(Assets.instance().ui_calendar);
+
         this.add(name).expandX().fillX().left();
-        this.add(time).right().padLeft(10);
-        this.row();
+        this.add(calendar).right().padLeft(10).padTop(-2);
+        this.add(time).right().padLeft(3);
+        this.row().padTop(10f);
         this.add(description).left().expand().fill();
         this.add(money).right().padLeft(5);
         this.row();
