@@ -51,8 +51,6 @@ public class MissionBrowser extends Popup {
     }
 
     private void InitTable() {
-        contentContainer = this.getContent();
-
         content = new Table();
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
@@ -68,7 +66,7 @@ public class MissionBrowser extends Popup {
             missionContainer.row();
         }
 
-        contentContainer.addActor(content);
+        this.AddMainContent(content);
         content.add(title).expandX().fillX().padTop(5).center();
         content.row();
         content.add(missionScroller).expand().fill().maxHeight(185);

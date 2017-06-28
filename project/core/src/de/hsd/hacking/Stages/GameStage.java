@@ -189,11 +189,7 @@ public class GameStage extends Stage {
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (missionBrowser.isActive()) {
-                    missionBrowser.Close();
-                } else {
-                    missionBrowser.Show();
-                }
+                missionBrowser.ToggleView();
             }
         });
         jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight, 100, buttonHeight);

@@ -21,6 +21,8 @@ import de.hsd.hacking.Utils.Constants;
 /**
  * Abstract class for a general purpose popup window.
  */
+// TODO Transparent unclickable background
+// TODO Constructor with custom margin
 public abstract class Popup extends Group {
     private final int POPUP_MARGIN = 20;
 
@@ -51,19 +53,6 @@ public abstract class Popup extends Group {
         mainTable.setBackground(assets.win32_patch);
         mainTable.setTouchable(Touchable.enabled);
         mainTable.setVisible(false);
-
-        // Setup Button Style
-//        uiSkin = new Skin(assets.ui_atlas);
-//        buttonStyle = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
-//                null, assets.status_bar_font);
-//        buttonStyle.pressedOffsetY = -1f;
-//        buttonStyle.pressedOffsetX = 1f;
-//        buttonStyle.fontColor = Color.BLACK;
-
-        // Setup label style
-//        labelStyle = new Label.LabelStyle();
-//        labelStyle.font = assets.status_bar_font;
-//        labelStyle.fontColor = Color.BLACK;
 
         // Setup close button
         closeButton = new TextButton("OK", Constants.TextButtonStyle());
@@ -109,6 +98,17 @@ public abstract class Popup extends Group {
      */
     public void Close() {
         mainTable.setVisible(false);
+    }
+
+    public void ToggleView() {
+        if (mainTable.isVisible() == true)
+            mainTable.setVisible(false);
+        else
+            mainTable.setVisible(true);
+    }
+
+    public void AddMainContent(Actor content) {
+        this.content.addActor(content);
     }
 
     public boolean isActive() {

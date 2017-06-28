@@ -16,6 +16,8 @@ import de.hsd.hacking.Entities.Employees.SkillType;
 /**
  * This class represents a mission.
  */
+// TODO add risk
+// TODO Platzhalter
 public class Mission implements EventSender {
     @Expose private String name, description;
     @Expose private int duration;

@@ -27,7 +27,7 @@ public class Constants {
 
 //    private static Assets assets;
     private static Skin uiSkin;
-    private static TextButton.TextButtonStyle textButtonStyle;
+    private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
     private static Label.LabelStyle labelStyle;
 //    private static Label.LabelStyle tinyLabelStyle;
 
@@ -59,6 +59,18 @@ public class Constants {
         }
 
         return textButtonStyle;
+    }
+
+    public static TextButton.TextButtonStyle TabButtonStyle() {
+        if (tabButtonStyle == null) {
+            tabButtonStyle = new TextButton.TextButtonStyle(UiSkin().getDrawable("win32_tabs_normal")
+                    , null, UiSkin().getDrawable("win32_tabs_checked"), Assets.instance().status_bar_font);
+
+            tabButtonStyle.fontColor = Color.BLACK;
+            textButtonStyle.checkedOffsetY = 2f;
+        }
+
+        return tabButtonStyle;
     }
 
     public static Label.LabelStyle LabelStyle() {

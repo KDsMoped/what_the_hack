@@ -16,7 +16,7 @@ import de.hsd.hacking.Entities.Employees.Skill;
 /**
  * Created by ju on 22.06.17.
  */
-
+// TODO Employee icons
 public class MissionUIElement extends Table {
     private Mission mission;
 
@@ -57,7 +57,7 @@ public class MissionUIElement extends Table {
         this.row().padTop(10f);
         this.add(description).left().expand().fill();
         this.add(money).right().padLeft(5);
-        this.row();
+        this.row().padTop(10f);
         this.add(skills).expandX().fillX();
     }
 }
