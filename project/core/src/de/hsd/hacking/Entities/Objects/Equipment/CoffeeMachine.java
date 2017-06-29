@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
 public class CoffeeMachine extends Equipment implements Upgradable {
 

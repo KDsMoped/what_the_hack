@@ -2,7 +2,7 @@ package de.hsd.hacking.Entities.Objects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 
 /**
  * Created by Cuddl3s on 18.06.2017.

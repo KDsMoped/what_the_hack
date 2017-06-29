@@ -9,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.UI.*;
-import de.hsd.hacking.UI.DoubleLabelElement;
+import de.hsd.hacking.UI.General.DoubleLabelElement;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 import de.hsd.hacking.Utils.Provider.StringProvider;
@@ -21,7 +21,7 @@ import de.hsd.hacking.Utils.Provider.StringProvider;
 /**
  * A popup that displays the values of an employee.
  */
-public class EmployeeProfile extends Popup {
+public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
 
     private static final int TABLE_SPACING = 20;
 
@@ -58,14 +58,16 @@ public class EmployeeProfile extends Popup {
 
         title = new Label("Name of Employee", Constants.LabelStyle());
 
-        ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
+        Table viewport = new Table();
+        viewport.setBackground(Assets.instance().table_border_patch);
 
-        ScrollPane informationScroller = new ScrollPane(informationContainer, scrollPaneStyle);
+        ScrollPane informationScroller = new ScrollPane(informationContainer, new ScrollPane.ScrollPaneStyle());
 
         contentContainer.addActor(content);
         content.add(title).expandX().fillX().padTop(5).padBottom(15).padLeft(110);
         content.row();
-        content.add(informationScroller).expand().fill().maxHeight(165).width(300).padLeft(110);
+        content.add(viewport).expand().fill().maxHeight(165).width(300).padLeft(110);
+        viewport.add(informationScroller).expand().fill();
     }
 
     private void InitControls(){
@@ -87,7 +89,7 @@ public class EmployeeProfile extends Popup {
         informationContainer.clearChildren();
 
         //Salary
-        addInformationElement(new de.hsd.hacking.UI.DoubleLabelElement("Salary", new StringProvider() {
+        addInformationElement(new DoubleLabelElement("Salary", new StringProvider() {
             @Override
             public String get() {
                 return employee.get().getSalaryText();
@@ -95,7 +97,7 @@ public class EmployeeProfile extends Popup {
         }));
 
         //Current Job
-        addInformationElement(new de.hsd.hacking.UI.DoubleLabelElement("Current Job", new StringProvider() {
+        addInformationElement(new DoubleLabelElement("Current Job", new StringProvider() {
             @Override
             public String get() {
                 return employee.get().getState().getDisplayName();

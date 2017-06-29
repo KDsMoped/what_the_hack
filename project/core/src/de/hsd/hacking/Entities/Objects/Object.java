@@ -3,9 +3,8 @@ package de.hsd.hacking.Entities.Objects;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Entity;
-import de.hsd.hacking.Stages.GameStage;
 
 /**
  * Created by Cuddl3s on 30.05.2017.

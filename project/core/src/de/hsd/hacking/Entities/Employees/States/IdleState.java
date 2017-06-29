@@ -1,9 +1,9 @@
-package de.hsd.hacking.Entities.Employees;
+package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
-import de.hsd.hacking.Entities.Tile;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -22,7 +22,7 @@ public class IdleState extends EmployeeState {
     }
 
     @Override
-    EmployeeState act(float deltaTime) {
+    public EmployeeState act(float deltaTime) {
         elapsedTime += deltaTime;
         if (elapsedTime >= stayTime){
             return new MovingState(employee);
@@ -39,7 +39,7 @@ public class IdleState extends EmployeeState {
     }
 
     @Override
-    void leave() {
+    public void leave() {
 
     }
 

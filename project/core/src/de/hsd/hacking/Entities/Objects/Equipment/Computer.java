@@ -7,12 +7,17 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Direction;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Data.Mission;
+import de.hsd.hacking.Entities.Employees.States.WaitingState;
+import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;
+import de.hsd.hacking.Utils.Callback.Callback;
+import de.hsd.hacking.Utils.Callback.MissionCallback;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeState;
-import de.hsd.hacking.Entities.Employees.IdleState;
-import de.hsd.hacking.Entities.Employees.MovingState;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.IdleState;
+import de.hsd.hacking.Entities.Employees.States.MovingState;
 import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Utils.Constants;
 
@@ -46,16 +51,22 @@ public class Computer extends Equipment implements Upgradable {
         level++;
         attributeValue += 100;
     }
-    public void setMaxLevel() { maxLevel = 5; }
-    public void setUpgradePriceMultiplier() { mul = 2; }
+
+    public void setMaxLevel() {
+        maxLevel = 5;
+    }
+
+    public void setUpgradePriceMultiplier() {
+        mul = 2;
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (tintFrames > 0){
+        if (tintFrames > 0) {
             batch.setColor(Color.RED);
         }
         super.draw(batch, parentAlpha);
-        if (tintFrames > 0){
+        if (tintFrames > 0) {
             batch.setColor(Color.WHITE);
         }
     }
@@ -64,20 +75,20 @@ public class Computer extends Equipment implements Upgradable {
     public void act(float delta) {
         super.act(delta);
         elapsedTime += delta;
-        if (tintFrames > 0){
+        if (tintFrames > 0) {
             tintFrames--;
         }
 
-        if (on){
+        if (on) {
             setDrawableRegion(animation.getKeyFrame(elapsedTime, true));
-        }else{
+        } else {
             setDrawableRegion(stillRegion);
         }
     }
 
     @Override
     public EmployeeState interact(Employee e) {
-        if (isOccupied()){
+        if (isOccupied()) {
             Gdx.app.log(Constants.TAG, "OCCUPIED!!!");
             //TODO EVENT für Ärgernis des Charakters
             return new IdleState(e);
@@ -85,15 +96,45 @@ public class Computer extends Equipment implements Upgradable {
 
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
         Gdx.app.log(Constants.TAG, "Trying to Send to chair...");
-        if (e.getMovementProvider().getDiscreteTile(workingChair.getPosition()).isMovableTo()){
+        if (e.getMovementProvider().getDiscreteTile(workingChair.getPosition()).isMovableTo()) {
             //TODO Event für OK!
-            occupy();
-            elapsedTime = 0f;
-            return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
-        }else{
+            return AskForMission(e);
+//            return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
+        } else {
             //TODO EVENT für Ärgernis des Charakters
             return new IdleState(e);
         }
+    }
+
+    private WaitingState AskForMission(final Employee e) {
+        occupy();
+        elapsedTime = 0f;
+
+        final WaitingState waitingState = new WaitingState(e);
+
+        GameStage.instance().addPopup(new MissionAllocatorPopup(new MissionCallback() {
+            @Override
+            public void callback(Mission mission) {
+                //a mission was chosen
+                waitingState.setFollowingState(new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition())));
+            }
+        }, new Callback() {
+            @Override
+            public void callback() {
+                //dialogue was cancelled
+                deOccupy();
+                waitingState.setFollowingState(new IdleState(e));
+            }
+        }));
+
+        return waitingState;
+    }
+
+    private void OnCancelJob(Employee e) {
+
+    }
+
+    private void OnSelectMission(Employee e, Mission mission) {
 
     }
 
@@ -116,7 +157,7 @@ public class Computer extends Equipment implements Upgradable {
     @Override
     public void onTouch() {
         tintFrames += 10;
-        if (team.isEmployeeSelected()){
+        if (team.isEmployeeSelected()) {
             team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
             team.deselectEmployee();
         }
@@ -137,6 +178,7 @@ public class Computer extends Equipment implements Upgradable {
     public void setOn(boolean on) {
         this.on = on;
     }
+
     public boolean isOn() {
         return on;
     }

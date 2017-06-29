@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Utils.Constants;
 

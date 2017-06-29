@@ -1,4 +1,4 @@
-package de.hsd.hacking.UI;
+package de.hsd.hacking.UI.General;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

@@ -1,4 +1,4 @@
-package de.hsd.hacking.UI;
+package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
-import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.MissionFactory;
+import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 
 /**

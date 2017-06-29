@@ -1,6 +1,6 @@
-package de.hsd.hacking.Entities.Employees;
+package de.hsd.hacking.Entities.Employees.States;
 
-import de.hsd.hacking.Data.MovementProvider;
+import de.hsd.hacking.Entities.Employees.Employee;
 
 /**
  * Created by Cuddl3s on 23.05.2017.
@@ -16,17 +16,17 @@ public abstract class EmployeeState{
         this.employee = employee;
     }
 
-    abstract EmployeeState act(float deltaTime);
+    public abstract EmployeeState act(float deltaTime);
 
     /**
      * Gets called when an EmployeeState becomes active
      */
-    abstract void enter();
+    public abstract void enter();
 
     /**
      * Gets called when an EmployeeState stops being active
      */
-    abstract void leave();
+    public abstract void leave();
 
     /**
      * Gets the name of the state for UI displaying.

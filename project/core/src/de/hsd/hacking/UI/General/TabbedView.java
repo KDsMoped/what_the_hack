@@ -1,4 +1,4 @@
-package de.hsd.hacking.UI;
+package de.hsd.hacking.UI.General;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;

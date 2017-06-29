@@ -1,4 +1,4 @@
-package de.hsd.hacking.Entities;
+package de.hsd.hacking.Utils;
 
 /**
  * Created by Florian Kaulfersch on 07.06.2017.

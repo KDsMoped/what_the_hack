@@ -1,7 +1,6 @@
 package de.hsd.hacking.Entities.Objects;
 
-import de.hsd.hacking.Entities.Direction;
-import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Direction;
 
 /**
  * Created by Cuddl3s on 06.06.2017.

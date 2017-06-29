@@ -1,9 +1,8 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 import de.hsd.hacking.Entities.Team.Team;
 

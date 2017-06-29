@@ -1,7 +1,7 @@
 package de.hsd.hacking.Entities.Objects;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 
 /**
  * Created by Cuddl3s on 15.06.2017.

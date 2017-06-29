@@ -1,12 +1,8 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
-import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeState;
-import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
 /**
  * Created by domin on 14.06.2017.

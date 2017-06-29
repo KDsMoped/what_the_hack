@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Shop;
-import de.hsd.hacking.UI.Popup;
+import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 
 /**

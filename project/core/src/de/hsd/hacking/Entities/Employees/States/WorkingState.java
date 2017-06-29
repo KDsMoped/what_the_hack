@@ -1,13 +1,13 @@
-package de.hsd.hacking.Entities.Employees;
+package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
-import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -33,7 +33,7 @@ public class WorkingState extends EmployeeState {
     }
 
     @Override
-    EmployeeState act(float deltaTime) {
+    public EmployeeState act(float deltaTime) {
         if (!isCanceled()){
 
             //TODO nur zu Debugzwecken, der State soll sich erst ändern wenn zB Mission fertig
@@ -48,7 +48,7 @@ public class WorkingState extends EmployeeState {
     }
 
     @Override
-    void enter() {
+    public void enter() {
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Working State");
         employee.setAnimationState(Employee.AnimState.WORKING);
         Interactable workPlace = (Interactable) employee.getMovementProvider().getDiscreteTile(workingPosition).getObject();
@@ -59,7 +59,7 @@ public class WorkingState extends EmployeeState {
     }
 
     @Override
-    void leave() {
+    public void leave() {
         employee.setAnimationState(Employee.AnimState.IDLE);
         computer.setOn(false);
         computer.deOccupy();

@@ -1,4 +1,4 @@
-package de.hsd.hacking.UI;
+package de.hsd.hacking.UI.General;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;

@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.TileMap;
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Utils.Constants;
 
 /**

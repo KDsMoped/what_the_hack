@@ -1,21 +1,14 @@
 package de.hsd.hacking.Entities.Employees;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -26,8 +19,8 @@ import java.util.*;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
-import de.hsd.hacking.Data.MovementProvider;
 import de.hsd.hacking.Data.TileMovementProvider;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
@@ -51,7 +44,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private boolean selected;
 
-    public void setState(EmployeeState state) {
+    public void setState(de.hsd.hacking.Entities.Employees.States.EmployeeState state) {
         this.state.cancel();
         this.state = state;
         this.state.enter();
@@ -121,12 +114,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Expose
     private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
 
-    public EmployeeState getState() {
+    public de.hsd.hacking.Entities.Employees.States.EmployeeState getState() {
         return state;
     }
 
     @Expose
-    private EmployeeState state;
+    private de.hsd.hacking.Entities.Employees.States.EmployeeState state;
     private Rectangle bounds;
 
     private int currentTileNumber;
@@ -196,7 +189,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         setPosition(startPos);
 
         this.animationState = AnimState.IDLE;
-        this.state = new IdleState(this);
+        this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
         setUpAnimations();
         setUpShader();
@@ -309,7 +302,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return surName + " " + lastName;
     }
 
-    void resetElapsedTime() {
+    public void resetElapsedTime() {
         this.elapsedTime = 0f;
     }
 

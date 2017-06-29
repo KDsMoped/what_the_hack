@@ -1,8 +1,8 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
 /**
  * Created by domin on 28.06.2017.

@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import de.hsd.hacking.Entities.Direction;
-import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.Utils.Direction;
 
 /**
  * Created by Cuddl3s on 06.06.2017.

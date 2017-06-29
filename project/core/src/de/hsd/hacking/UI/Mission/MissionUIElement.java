@@ -1,4 +1,4 @@
-package de.hsd.hacking.UI;
+package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -59,5 +59,9 @@ public class MissionUIElement extends Table {
         this.add(money).right().padLeft(5);
         this.row().padTop(10f);
         this.add(skills).expandX().fillX();
+    }
+
+    public Mission getMission(){
+        return mission;
     }
 }

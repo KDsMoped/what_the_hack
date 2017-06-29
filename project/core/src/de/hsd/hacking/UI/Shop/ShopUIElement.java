@@ -2,7 +2,6 @@ package de.hsd.hacking.UI.Shop;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -10,9 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
 
-import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.UI.Button;
 import de.hsd.hacking.Utils.Constants;
 
 /**

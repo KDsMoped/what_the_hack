@@ -1,8 +1,8 @@
 package de.hsd.hacking.Entities.Objects;
 
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
 /**
  * Created by Cuddl3s on 20.06.2017.

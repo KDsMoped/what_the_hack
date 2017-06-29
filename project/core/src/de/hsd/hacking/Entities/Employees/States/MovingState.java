@@ -1,10 +1,11 @@
-package de.hsd.hacking.Entities.Employees;
+package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Data.Path;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Tile;
@@ -83,7 +84,7 @@ public class MovingState extends EmployeeState {
     }
 
     @Override
-    EmployeeState act(float deltaTime) {
+    public EmployeeState act(float deltaTime) {
         if (!canceled) {
             if (delegating) {
                 if (Constants.DEBUG) {
@@ -161,7 +162,7 @@ public class MovingState extends EmployeeState {
     }
 
     @Override
-    void leave() {
+    public void leave() {
 
         if (!employee.equals(employee.getMovementProvider().getTile(employee.getOccupiedTileNumber()).getOccupyingEmployee())) {
             throw new IllegalStateException("Employee not registered on tile he is standing on after leaving MovingState. Employee: " + employee.toString());

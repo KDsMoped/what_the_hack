@@ -1,16 +1,14 @@
 package de.hsd.hacking.Entities.Objects;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeState;
-import de.hsd.hacking.Entities.Employees.WorkingState;
+import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Objects.Equipment.Computer;
-import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by Cuddl3s on 20.06.2017.

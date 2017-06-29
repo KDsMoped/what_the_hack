@@ -20,7 +20,7 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TileMap;
-import de.hsd.hacking.Entities.Direction;
+import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Entities.Objects.Equipment.CoffeeMachine;
@@ -35,9 +35,9 @@ import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.UI.Employee.EmployeeBar;
-import de.hsd.hacking.UI.MissionBrowser;
+import de.hsd.hacking.UI.Mission.MissionBrowser;
 import de.hsd.hacking.UI.Shop.ShopBrowser;
-import de.hsd.hacking.UI.StatusBar;
+import de.hsd.hacking.UI.General.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -372,5 +372,9 @@ public class GameStage extends Stage {
     @Override
     public void dispose() {
         super.dispose();
+    }
+
+    public void addPopup(Actor actor){
+        popups.addActor(actor);
     }
 }
