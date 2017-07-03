@@ -86,11 +86,7 @@ public class EmployeeBar extends Group {
     }
 
     private void onDetailsClick(){
-        if (profilePopup.isActive()) {
-            profilePopup.Close();
-        } else {
-            profilePopup.Show();
-        }
+        profilePopup.toggleView();
     }
 
     private void onDeselectClick(){

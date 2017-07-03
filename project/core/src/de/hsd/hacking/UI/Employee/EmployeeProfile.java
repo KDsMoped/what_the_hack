@@ -2,7 +2,6 @@ package de.hsd.hacking.UI.Employee;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -15,6 +14,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.General.DoubleLabelElement;
+import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 import de.hsd.hacking.Utils.Provider.StringProvider;
@@ -22,7 +22,7 @@ import de.hsd.hacking.Utils.Provider.StringProvider;
 /**
  * A popup that displays the values of an employee.
  */
-public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
+public class EmployeeProfile extends Popup {
 
     private static final int TABLE_SPACING = 20;
 
@@ -31,26 +31,21 @@ public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
     private Label title;
     private Table informationContainer = new Table();
 
-    private int leftUILine;
-    private int topUILine;
-
-    //references
-    private Team team;
     private EmployeeProvider employee;
 
     public EmployeeProfile(EmployeeProvider employee) {
-        super();
+        super(40);
 
-        team = Team.instance();
+        Team team = Team.instance();
         this.employee = employee;
 
         contentContainer = this.getContent();
 
-        InitSheet();
-        InitControls();
+        initControls();
+        initSheet();
     }
 
-    private void InitSheet() {
+    private void initSheet() {
 
         Table content = new Table();
         content.align(Align.top);
@@ -58,6 +53,7 @@ public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
 //        content.setDebug(true);
 
         title = new Label("Name of Employee", Constants.LabelStyle());
+        title.setFontScale(1.0f);
 
         Table viewport = new Table();
         viewport.setBackground(Assets.instance().table_border_patch);
@@ -65,28 +61,50 @@ public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
         ScrollPane informationScroller = new ScrollPane(informationContainer, new ScrollPane.ScrollPaneStyle());
 
         contentContainer.addActor(content);
-        content.add(title).expandX().fillX().padTop(5).padBottom(15).padLeft(110);
+        content.add(title).expandX().fillX().padTop(5).padBottom(10).padLeft(100);
         content.row();
-        content.add(viewport).expand().fill().maxHeight(165).width(300).padLeft(110);
+        content.add(viewport).maxHeight(130).width(300).padLeft(100).expand().fill();
         viewport.add(informationScroller).expand().fill();
     }
 
-    private void InitControls(){
+    private void initControls() {
 
-        leftUILine = (int) contentContainer.getX() + 50;
-        topUILine = (int) contentContainer.getY() + 165;
+//        leftUILine = (int) contentContainer.getX() + 40;
+//        topUILine = (int) contentContainer.getY() + 165;
+
+        VerticalGroup controls = new VerticalGroup();
+        addActor(controls);
+
+//        controls.align(Align.topLeft);
+//        controls.setPosition(0, 0);
+        controls.setPosition(contentContainer.getX() + 40, contentContainer.getY() + 106);
+        controls.setWidth(120);
+        controls.setHeight(100);
+        controls.space(10);
+//        controls.setDebug(true);
+
+
+        EmployeeIcon icon = new EmployeeIcon(employee);
+//        icon.setPosition(leftUILine, topUILine);
+//        icon.pad(10);
+//        icon.padBottom(10);
+        controls.addActor(icon);
 
         TextButton dismissButton = new TextButton("Dismiss", Constants.TextButtonStyle());
         dismissButton.addListener(new ChangeListener() {
-                                      @Override
-                                      public void changed(ChangeEvent event, Actor actor) {  OnDismissButton();     }
-                                  });
-        dismissButton.setBounds(leftUILine, topUILine - 40, 80, 20);
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onDismissButton();
+            }
+        });
+//        dismissButton.setBounds(leftUILine, topUILine - 40, 80, 20);
+        dismissButton.setSize(120, 20);
+//        dismissButton.padTop(15);
 
-        addActor(dismissButton);
+        controls.addActor(dismissButton);
     }
 
-    private void fillInformationContainer(){
+    private void fillInformationContainer() {
         informationContainer.clearChildren();
 
         //Salary
@@ -108,38 +126,40 @@ public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
         //Skills
         addInformationElement(new Label("Skills", Constants.LabelStyle()));
 
-        for(final Skill skill : employee.get().getSkillset() ){
+        for (final Skill skill : employee.get().getSkillset()) {
 
-            addInformationElement(new DoubleLabelElement(skill.getType().displayName(), new StringProvider() {
+            addInformationElement(new DoubleLabelElement(skill.getType().getDisplayName(), new StringProvider() {
                 @Override
                 public String get() {
                     return skill.getDisplayValue(true);
                 }
             }));
         }
+
+        informationContainer.hit(0, 0, false);
     }
 
-    private void addInformationElement(Actor element){
+    private void addInformationElement(Actor element) {
 
         informationContainer.add(element).height(TABLE_SPACING).expandX().fillX().row();
     }
 
-    private void OnDismissButton(){
+    private void onDismissButton() {
 
         Employee empl = employee.get();
 
-        if(empl == null){
-            Gdx.app.error(Constants.TAG, "Error: Dismiss button clicked, but employe is null!");
+        if (empl == null) {
+            Gdx.app.error(Constants.TAG, "Error: Dismiss button clicked, but employee is null!");
             return;
         }
 
-//        team.removeEmployee(empl);
         EmployeeManager.instance().dismiss(empl);
-        Close();
+        close();
     }
 
-    @Override public void Show(){
-        super.Show();
+    @Override
+    public void show() {
+        super.show();
 
         fillInformationContainer();
     }
@@ -166,7 +186,5 @@ public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
         }
 
         super.draw(batch, parentAlpha);
-
-        employee.get().drawAt(batch, new Vector2(leftUILine + 25, topUILine));
     }
 }

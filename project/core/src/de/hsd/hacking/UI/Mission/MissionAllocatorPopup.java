@@ -28,7 +28,9 @@ public class MissionAllocatorPopup extends Popup {
         this.onCancel = onCancel;
 
         closeButton.setText("Cancel");
-        closeButton.setWidth(120);
+//        closeButton.setWidth(120);
+        mainTable.removeActor(closeButton);
+        mainTable.add(closeButton).padBottom(4f).width(100).height(23).center();
         mainTable.setVisible(true);
 
         InitMissionTable();
@@ -84,7 +86,7 @@ public class MissionAllocatorPopup extends Popup {
 
 //        }
 
-        this.AddMainContent(content);
+        this.addMainContent(content);
         content.add(title).expandX().fillX().padTop(5).center();
         content.row();
         content.add(missionScroller).expand().fill().maxHeight(100);
@@ -97,9 +99,9 @@ public class MissionAllocatorPopup extends Popup {
     }
 
     @Override
-    public void Close() {
+    public void close() {
         onCancel.callback();
-        super.Close();
+        super.close();
         remove();
     }
 

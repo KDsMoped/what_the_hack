@@ -3,7 +3,10 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Utils.MathUtilities;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This creates Employees based on the players progress.
@@ -12,27 +15,30 @@ public class EmployeeFactory {
 
     private static final int MAX_SKILL_NUMBER = 4;
     private static final int COST_NEW_SKILL = 14;
-    private static final int COST_INCREMENT_SKILL = 4;
+    private static final int COST_INCREMENT_SKILL = 6;
     private static final int COST_INCREMENT_ALLPURPOSE = 14;
     private static final float SALARY_VARIANCE = 0.1f;
+    private static final int PROGRESS_VARIANCE = 4;
 
     /**
      * Defines the correlation between game progress and employee competence.
+     *
      * @param gameProgress
      * @return
      */
     private static float calcScore(int gameProgress) {
-        return 50 + gameProgress * 5;
+        return 40 + gameProgress * 5;
     }
 
     /**
      * Defines the Employees salary based on game progress and score.
+     *
      * @param gameProgress
      * @param score
      * @return
      */
     private static int calcSalary(int gameProgress, float score) {
-        return (int) ((10 + score * 5) * MathUtils.random(1 - SALARY_VARIANCE, 1 + SALARY_VARIANCE) * 10);
+        return ((int) ((10 + score * 5) * MathUtilities.mult_var(SALARY_VARIANCE)) * 10);
     }
 
     /**
@@ -53,8 +59,11 @@ public class EmployeeFactory {
      */
     public static Employee CreateEmployee(int gameProgress) {
 
+        int progress = Math.max(0, gameProgress + MathUtilities.var(PROGRESS_VARIANCE));
+
+
         Employee freshman = new Employee();
-        final float score = calcScore(gameProgress);
+        final float score = calcScore(progress);
         float remainingScore = score;
 
         freshman.setName(DataLoader.getInstance().getNewName());
@@ -69,14 +78,16 @@ public class EmployeeFactory {
             remainingScore -= EducateEmployee(freshman, skillSet);
         }
 
+        Collections.sort(skillSet);
         freshman.setSkillSet(skillSet);
-        freshman.setSalary(calcSalary(gameProgress, score - remainingScore));
+        freshman.setSalary(calcSalary(progress, score - remainingScore));
 
         return freshman;
     }
 
     /**
      * Creates the given amount of Employees based on the players progress and returns them.
+     *
      * @param amount
      * @return
      */
@@ -86,6 +97,7 @@ public class EmployeeFactory {
 
     /**
      * Creates the given amount of Employees based on the given progress and returns them.
+     *
      * @param amount
      * @param gameProgress
      * @return
@@ -103,6 +115,7 @@ public class EmployeeFactory {
 
     /**
      * Rolls for a random feature for the Employee, adds it, and returns its score cost.
+     *
      * @param employee
      * @param skillSet
      * @return
@@ -140,6 +153,7 @@ public class EmployeeFactory {
 
     /**
      * Learns a random skill and returns its cost.
+     *
      * @param skillSet
      * @return
      */
@@ -158,6 +172,7 @@ public class EmployeeFactory {
 
     /**
      * Returns true if the SkillType is not already in this list.
+     *
      * @param skillSet
      * @param type
      * @return
@@ -171,6 +186,7 @@ public class EmployeeFactory {
 
     /**
      * Increments allpurpose skill and returns its score cost.
+     *
      * @param skillSet
      * @return
      */

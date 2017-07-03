@@ -2,11 +2,13 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.Comparator;
+
 /**
  * Created by Cuddl3s on 22.05.2017.
  */
 
-public class Skill {
+public class Skill implements Comparable<Skill>{
 
     @Expose private SkillType type;
     @Expose private int value;
@@ -22,6 +24,10 @@ public class Skill {
 
     public int getValue() {
         return value;
+    }
+
+    public String getDisplayType(){
+        return type.getDisplayName();
     }
 
     public String getDisplayText(){
@@ -52,5 +58,10 @@ public class Skill {
 
     public void incrementSkill() {
         value++;
+    }
+
+    @Override
+    public int compareTo(Skill o) {
+        return ((Integer) o.getValue()).compareTo(value);
     }
 }

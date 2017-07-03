@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Data.Missions.Mission;
@@ -18,7 +17,7 @@ import de.hsd.hacking.Utils.Constants;
  */
 
 public class MissionBrowser extends Popup {
-    private VerticalGroup contentContainer;
+
     private Table content;
 
     private Label title;
@@ -30,7 +29,7 @@ public class MissionBrowser extends Popup {
     public MissionBrowser() {
         super();
 
-        InitTable();
+        initTable();
     }
 
     @Override
@@ -51,7 +50,7 @@ public class MissionBrowser extends Popup {
         super.draw(batch, parentAlpha);
     }
 
-    private void InitTable() {
+    private void initTable() {
         content = new Table();
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
@@ -72,9 +71,9 @@ public class MissionBrowser extends Popup {
 //            missionContainer.row();
 //        }
 
-        this.AddMainContent(content);
-        content.add(title).expandX().fillX().padTop(5).center();
+        this.addMainContent(content);
+        content.add(title).expandX().fillX().padTop(5).padBottom(5).center();
         content.row();
-        content.add(missionScroller).expand().fill().maxHeight(185);
+        content.add(missionScroller).expand().fill().maxHeight(175).prefWidth(400).maxWidth(400);
     }
 }

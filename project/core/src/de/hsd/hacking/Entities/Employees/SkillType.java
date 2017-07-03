@@ -17,7 +17,7 @@ public enum SkillType {
         return VALUES[MathUtils.random(SIZE - 1)];
     }
 
-    public String displayName() {
+    public String getDisplayName() {
         switch (this) {
             case Crypto:
                 return "Crypto";

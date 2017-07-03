@@ -22,6 +22,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
+import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
@@ -183,11 +184,7 @@ public class GameStage extends Stage {
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (shopBrowser.isActive()) {
-                    shopBrowser.Close();
-                } else {
-                    shopBrowser.Show();
-                }
+                shopBrowser.toggleView();
             }
         });
         shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
@@ -199,22 +196,24 @@ public class GameStage extends Stage {
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                missionBrowser.ToggleView();
+                missionBrowser.toggleView();
             }
         });
-        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight, 100, buttonHeight);
+        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight - buttonSpacing, 100, buttonHeight);
         ui.addActor(jobsButton);
 
         //Init Recruitment button
+        final EmployeeBrowser employeeBrowser = new EmployeeBrowser();
         TextButton recruitmentButton = new TextButton("Recruit", Constants.TextButtonStyle());
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                //
+                employeeBrowser.toggleView();
             }
         });
-        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight, 100, buttonHeight);
+        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
         ui.addActor(recruitmentButton);
+        popups.addActor(employeeBrowser);
 
         //Init Exit button
         TextButton exitButton = new TextButton("Exit", Constants.TextButtonStyle());
@@ -248,11 +247,11 @@ public class GameStage extends Stage {
         employeeManager = EmployeeManager.instance();
         team = Team.instance();
 
+        employeeManager.dismissAll();
         employeeManager.employ(EmployeeFactory.CreateEmployees(Constants.STARTING_TEAM_SIZE));
 
 
         team.createAndAddEquipment(EquipmentType.MODEM);
-//        touchables.addAll(team.getEmployeeList());
     }
 
     @Override

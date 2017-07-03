@@ -25,10 +25,7 @@ import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
-import de.hsd.hacking.Utils.Constants;
-import de.hsd.hacking.Utils.FromTo;
-import de.hsd.hacking.Utils.RandomIntPool;
-import de.hsd.hacking.Utils.Shader;
+import de.hsd.hacking.Utils.*;
 
 /**
  * Created by Cuddl3s on 21.05.2017.
@@ -107,7 +104,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private EmployeeSkillLevel skillLevel;
     @Expose
     private ArrayList<Skill> skillSet;
-    private float elapsedTime = 0f;
+    private float elapsedTime = MathUtils.random(3);
     private TileMovementProvider movementProvider;
     @Expose
     private HairStyle hairStyle;
@@ -181,12 +178,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.assets = Assets.instance();
         movementProvider = stage.getTileMap();
 
-        Tile startTile = movementProvider.getStartTile(this);
-        Vector2 startPos = startTile.getPosition().cpy();
-        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
-        startTile.addEmployeeToDraw(this);
-        this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
-        setPosition(startPos);
+
 
         this.animationState = AnimState.IDLE;
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
@@ -195,6 +187,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         setUpShader();
 
         debugRenderer = new ShapeRenderer();
+    }
+
+    public void employ(){
+        Tile startTile = movementProvider.getStartTile(this);
+        Vector2 startPos = startTile.getPosition().cpy();
+        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
+        startTile.addEmployeeToDraw(this);
+        this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
+        setPosition(startPos);
     }
 
 
@@ -261,13 +262,17 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void act(float delta) {
         super.act(delta);
-        elapsedTime += delta;
+        animAct(delta);
         EmployeeState state = this.state.act(delta);
         if (state != null) {
             this.state.leave();
             this.state = state;
             this.state.enter();
         }
+    }
+
+    public void animAct(float delta){
+        elapsedTime += delta;
     }
 
 

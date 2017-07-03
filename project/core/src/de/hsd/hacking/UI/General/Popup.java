@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
-import com.sun.org.apache.bcel.internal.generic.POP;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -23,7 +22,6 @@ import de.hsd.hacking.Utils.Constants;
  * Abstract class for a general purpose popup window.
  */
 // TODO Transparent unclickable background
-// TODO Constructor with custom margin
 public abstract class Popup extends Group {
     private final int POPUP_MARGIN_DEFAULT = 20;
 
@@ -35,18 +33,18 @@ public abstract class Popup extends Group {
     //private TextButton.TextButtonStyle buttonStyle;
     //private Label.LabelStyle labelStyle;
 
-    public Popup(int popupMargin){
-        Init(popupMargin);
+    public Popup(int popupMargin) {
+        init(popupMargin);
     }
 
     /**
      * We need the ui assets to display a beautiful popup window.
      */
     public Popup() {
-        Init(POPUP_MARGIN_DEFAULT);
+        init(POPUP_MARGIN_DEFAULT);
     }
 
-    private void Init(int popupMargin){
+    private void init(int popupMargin) {
         Assets assets = Assets.instance();
 
         mainTable.align(Align.top);
@@ -63,9 +61,11 @@ public abstract class Popup extends Group {
         // Setup close button
         closeButton = new TextButton("OK", Constants.TextButtonStyle());
         closeButton.addListener(new ChangeListener() {
-                                    @Override
-                                    public void changed(ChangeEvent event, Actor actor) {Close();    }
-                                });
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                close();
+            }
+        });
 
         // Content container setup
         content.setTouchable(Touchable.enabled);
@@ -92,25 +92,23 @@ public abstract class Popup extends Group {
     /**
      * Enables act and draw for the popup window.
      */
-    public void Show() {
+    protected void show() {
         mainTable.setVisible(true);
     }
 
     /**
      * Disables act and draw for the popup window.
      */
-    public void Close() {
+    protected void close() {
         mainTable.setVisible(false);
     }
 
-    public void ToggleView() {
-        if (mainTable.isVisible() == true)
-            mainTable.setVisible(false);
-        else
-            mainTable.setVisible(true);
+    public void toggleView() {
+        if (mainTable.isVisible()) close();
+        else show();
     }
 
-    public void AddMainContent(Actor content) {
+    public void addMainContent(Actor content) {
         this.content.addActor(content);
     }
 
@@ -118,21 +116,10 @@ public abstract class Popup extends Group {
         return mainTable.isVisible();
     }
 
-    public Table getMainTable() {
+    protected Table getMainTable() {
         return this.mainTable;
     }
 
-//    public TextButton.TextButtonStyle getButtonStyle() {
-//        return buttonStyle;
-//    }
-//
-//    public Skin getUiSkin() {
-//        return uiSkin;
-//    }
-//
-//    public Label.LabelStyle getLabelStyle() {
-//        return labelStyle;
-//    }
 
     public VerticalGroup getContent() {
         return content;

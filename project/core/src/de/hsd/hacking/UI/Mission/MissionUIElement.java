@@ -26,10 +26,10 @@ public class MissionUIElement extends Table {
     public MissionUIElement(Mission mission) {
         this.mission = mission;
 
-        InitTable();
+        initTable();
     }
 
-    private void InitTable() {
+    private void initTable() {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
         this.setBackground(Assets.instance().table_border_patch);
@@ -44,8 +44,9 @@ public class MissionUIElement extends Table {
         skills = new Label("", Constants.LabelStyle());
 
         for (Skill s:mission.getSkill()) {
-            skills.setText(skills.getText() + s.getType().toString() + ": " + s.getValue() + " ");
+            skills.setText(skills.getText() + s.getType().name() + ": " + s.getDisplayValue(false) + " \n");
         }
+        skills.setWrap(true);
 
         Image calendar = new Image(Assets.instance().ui_calendar);
 

@@ -158,7 +158,7 @@ public class StatusBar extends Actor {
         // set the text for money etc. in the label objects
         moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
         bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
-        employeesText.setText(Integer.toString(employees) + "/" + Integer.toString(workplaces));
+        employeesText.setText(Integer.toString(employees) + "/" + Constants.MAX_EMPLOYEE_COUNT);
         dateText.setText(df.format(ConvertDaysToDate(date)));
     }
 
