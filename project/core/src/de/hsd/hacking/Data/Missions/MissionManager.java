@@ -1,7 +1,9 @@
 package de.hsd.hacking.Data.Missions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,8 +16,7 @@ public class MissionManager {
     private static final float REFRESH_RATE = 0.3f;
 
     private static MissionManager instance;
-
-    public static MissionManager getInstance() {
+    public static MissionManager instance() {
 
         if(instance == null) return new MissionManager();
         return instance;
@@ -32,26 +33,16 @@ public class MissionManager {
         openMissions = new ArrayList<Mission>();
         completedMissions = new ArrayList<Mission>();
 
-        FillOpenMissions();
+        fillOpenMissions();
     }
 
-    public Collection<Mission> getActiveMissions() {
-        return Collections.unmodifiableCollection(activeMissions);
-    }
-    public Collection<Mission> getOpenMissions() {
-        return Collections.unmodifiableCollection(openMissions);
-    }
-    public Collection<Mission> getCompletedMissions() {
-        return Collections.unmodifiableCollection(completedMissions);
+    private void refreshOpenMissions(){
+
+        removeMissions(REFRESH_RATE);
+        fillOpenMissions();
     }
 
-    public void RefreshOpenMissions(){
-
-        RemoveMissions(REFRESH_RATE);
-        FillOpenMissions();
-    }
-
-    private void RemoveMissions(float fraction){
+    private void removeMissions(float fraction){
 
         int removeAmount = MathUtils.clamp((int) (fraction * MAX_OPEN_MISSIONS), 0, openMissions.size());
 
@@ -60,7 +51,7 @@ public class MissionManager {
         }
     }
 
-    public void FillOpenMissions(){
+    private void fillOpenMissions(){
         int gameProgress = Team.instance().calcGameProgress();
 
         for (int i = 0; i < MAX_OPEN_MISSIONS; i++){
@@ -73,7 +64,7 @@ public class MissionManager {
      * @param mission
      * @param outcome
      */
-    public void CompleteMission(Mission mission, MissionOutcome outcome){
+    public void completeMission(Mission mission, MissionOutcome outcome){
         activeMissions.remove(mission);
         completedMissions.add(mission);
         mission.setOutcome(outcome);
@@ -83,10 +74,29 @@ public class MissionManager {
      * Starts the given mission.
      * @param mission
      */
-    public void StartMission(Mission mission){
+    public void startMission(Mission mission){
+
+        if (activeMissions.contains(mission)) {
+            Gdx.app.error(Constants.TAG, "Error: This mission is already active!");
+            return;
+        }
+        if (activeMissions.size() >= MAX_ACTIVE_MISSIONS) {
+            Gdx.app.error(Constants.TAG, "Error: Exceeding max number of active missions!");
+            return;
+        }
 
         openMissions.remove(mission);
         activeMissions.add(mission);
         mission.Start();
+    }
+
+    public Collection<Mission> getActiveMissions() {
+        return Collections.unmodifiableCollection(activeMissions);
+    }
+    public Collection<Mission> getOpenMissions() {
+        return Collections.unmodifiableCollection(openMissions);
+    }
+    public Collection<Mission> getCompletedMissions() {
+        return Collections.unmodifiableCollection(completedMissions);
     }
 }

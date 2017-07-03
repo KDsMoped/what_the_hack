@@ -10,13 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Data.Missions.Mission;
-import de.hsd.hacking.Data.Missions.MissionFactory;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Callback.MissionCallback;
 import de.hsd.hacking.Utils.Constants;
-import de.hsd.hacking.Utils.Provider.MissionProvider;
 
 public class MissionAllocatorPopup extends Popup {
 
@@ -47,7 +45,7 @@ public class MissionAllocatorPopup extends Popup {
         Table missionContainer = new Table();
         ScrollPane missionScroller = new ScrollPane(missionContainer);
 
-        for (final Mission mission : MissionManager.getInstance().getActiveMissions()) {
+        for (final Mission mission : MissionManager.instance().getActiveMissions()) {
 //            MissionUIElement mission = new MissionUIElement(MissionFactory.CreateRandomMission());
 //            mission.addListener(new ChangeListener() {
 //                @Override

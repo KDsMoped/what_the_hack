@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.General.DoubleLabelElement;
@@ -132,10 +133,8 @@ public class EmployeeProfile extends de.hsd.hacking.UI.General.Popup {
             return;
         }
 
-//        empl.removeFromDrawingTile();
-//        empl.removeFromOccupyingTile();
-//        team.deselectEmployee();
-        team.removeEmployee(empl);
+//        team.removeEmployee(empl);
+        EmployeeManager.instance().dismiss(empl);
         Close();
     }
 
