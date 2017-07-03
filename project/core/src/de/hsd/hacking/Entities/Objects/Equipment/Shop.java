@@ -30,22 +30,29 @@ public class Shop {
         if (instance == null) {
             instance = new Shop();
         }
-        return instance; }
+        return instance;
+    }
 
-    public void buyItem(int index) {
+    public int buyItem(int index) {
         Equipment e = shopItems.get(index);
         Team team = Team.instance();
         int price = (int)e.getPrice();
-        team.addMoney(-price);
+        if (team.getMoney() < price)
+            return 1;
+        team.reduceMoney(price);
         team.addEquipment(e);
+        return 0;
     }
 
-    public void buyItem(Equipment equipment) {
+    public int buyItem(Equipment equipment) {
         int index = shopItems.indexOf(equipment);
         Team team = Team.instance();
         int price = (int)equipment.getPrice();
+        if (team.getMoney() < price)
+            return 1;
         team.reduceMoney(price);
         team.addEquipment(equipment);
+        return 0;
     }
 
 
