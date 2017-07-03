@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align;
 
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Shop;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -41,7 +42,7 @@ public class ShopUIElement extends Table {
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
+                Shop.instance().buyItem(equipment);
             }
         });
     }
