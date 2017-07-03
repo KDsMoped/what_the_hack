@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.TileMap;
+import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
@@ -189,7 +189,7 @@ public class GameStage extends Stage {
             });
             shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
             ui.addActor(shopButton);
-            ui.addActor(shopBrowser);
+            popups.addActor(shopBrowser);
 
             //Init Missions button
             TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());

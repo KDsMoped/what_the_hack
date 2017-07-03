@@ -19,7 +19,7 @@ public class DataLoader {
 
     private static DataLoader INSTANCE;
     private static NameHolder names;
-    private static ArrayList<Mission> missions;
+    private static ArrayList<de.hsd.hacking.Data.Missions.Mission> missions;
 
 
     public static DataLoader getInstance(){
@@ -46,7 +46,7 @@ public class DataLoader {
             Gdx.app.log(Constants.TAG, "MISSIONS JSON FILE DOESNT EXIST");
         }else{
             Gson gson = new Gson();
-            this.missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
+            this.missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<de.hsd.hacking.Data.Missions.Mission>>(){}.getType());
         }
     }
 
@@ -59,7 +59,7 @@ public class DataLoader {
         return new String[]{surName, lastName};
     }
 
-    public Mission getNewMission() {
+    public de.hsd.hacking.Data.Missions.Mission getNewMission() {
         return missions.get(MathUtils.random(missions.size() - 1));
     }
 }

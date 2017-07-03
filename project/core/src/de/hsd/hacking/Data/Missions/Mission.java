@@ -1,13 +1,12 @@
-package de.hsd.hacking.Data;
+package de.hsd.hacking.Data.Missions;
 
 import com.google.gson.annotations.Expose;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Data.EventListener;
+import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
 
 /**
  * Created by ju on 15.06.17.

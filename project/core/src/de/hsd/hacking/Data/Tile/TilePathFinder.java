@@ -1,4 +1,7 @@
-package de.hsd.hacking.Data;
+package de.hsd.hacking.Data.Tile;
+
+import de.hsd.hacking.Data.Path;
+import de.hsd.hacking.Data.PathFinder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,15 +12,15 @@ import java.util.Collections;
 
 public class TilePathFinder implements PathFinder {
 
-    private TileMap tileMap;
-    private TileMapHeuristics heuristics;
+    private de.hsd.hacking.Data.Tile.TileMap tileMap;
+    private de.hsd.hacking.Data.Tile.TileMapHeuristics heuristics;
     private ArrayList closed = new ArrayList();
     private SortedList open = new SortedList();
     private Node[][] nodes;
 
-    public TilePathFinder(TileMap tileMap){
+    public TilePathFinder(de.hsd.hacking.Data.Tile.TileMap tileMap){
         this.tileMap = tileMap;
-        this.heuristics = new TileMapHeuristics();
+        this.heuristics = new de.hsd.hacking.Data.Tile.TileMapHeuristics();
         nodes = new Node[tileMap.getWidthInTiles()][tileMap.getHeightInTiles()];
         for (int x=0;x<tileMap.getWidthInTiles();x++) {
             for (int y=0;y<tileMap.getHeightInTiles();y++) {

@@ -1,4 +1,4 @@
-package de.hsd.hacking.Data;
+package de.hsd.hacking.Data.Tile;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 import java.util.ArrayList;
 
+import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.IsometricTileManager;
 import de.hsd.hacking.Entities.Objects.Object;
@@ -21,7 +22,7 @@ import de.hsd.hacking.Utils.RandomIntPool;
  * Holds all tiles in game and manages tile-movement through A* Pathfinder
  * Created by Cuddl3s on 24.05.2017.
  */
-public class TileMap extends Group implements TileMovementProvider  {
+public class TileMap extends Group implements TileMovementProvider {
 
     private final GameStage stage;
     private TilePathFinder pathFinder;

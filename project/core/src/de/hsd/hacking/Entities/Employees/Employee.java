@@ -19,7 +19,7 @@ import java.util.*;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
-import de.hsd.hacking.Data.TileMovementProvider;
+import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Tile;

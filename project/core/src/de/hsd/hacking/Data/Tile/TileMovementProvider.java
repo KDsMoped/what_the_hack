@@ -1,7 +1,9 @@
-package de.hsd.hacking.Data;
+package de.hsd.hacking.Data.Tile;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.hsd.hacking.Data.MovementProvider;
+import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Tile;
 

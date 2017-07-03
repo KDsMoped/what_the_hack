@@ -1,7 +1,5 @@
 package de.hsd.hacking.UI.Mission;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -9,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.Mission;
+import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Entities.Employees.Skill;
 

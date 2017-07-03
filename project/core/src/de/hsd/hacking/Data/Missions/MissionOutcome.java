@@ -1,4 +1,4 @@
-package de.hsd.hacking.Data;
+package de.hsd.hacking.Data.Missions;
 
 /**
  * Created by ju on 15.06.17.

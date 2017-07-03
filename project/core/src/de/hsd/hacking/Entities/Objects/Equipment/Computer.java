@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.Mission;
+import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.States.WaitingState;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;

@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
-import de.hsd.hacking.Data.MissionFactory;
+import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionFactory;
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 
@@ -60,11 +62,16 @@ public class MissionBrowser extends Popup {
 
         missionScroller = new ScrollPane(missionContainer);
 
-        for (int i = 0; i < 5; i++) {
-            missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission()))
-                    .expandX().fillX().padTop(5).padBottom(5);
-            missionContainer.row();
+        for (final Mission mission : MissionManager.getInstance().getOpenMissions()) {
+
+            missionContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(5).padBottom(5).row();
         }
+
+//        for (int i = 0; i < 5; i++) {
+//            missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission()))
+//                    .expandX().fillX().padTop(5).padBottom(5);
+//            missionContainer.row();
+//        }
 
         this.AddMainContent(content);
         content.add(title).expandX().fillX().padTop(5).center();

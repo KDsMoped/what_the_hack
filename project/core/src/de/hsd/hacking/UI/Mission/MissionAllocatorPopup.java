@@ -2,7 +2,6 @@ package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -10,12 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
-import de.hsd.hacking.Data.Mission;
-import de.hsd.hacking.Data.MissionFactory;
+import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionFactory;
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Callback.MissionCallback;
 import de.hsd.hacking.Utils.Constants;
+import de.hsd.hacking.Utils.Provider.MissionProvider;
 
 public class MissionAllocatorPopup extends Popup {
 
@@ -46,30 +47,44 @@ public class MissionAllocatorPopup extends Popup {
         Table missionContainer = new Table();
         ScrollPane missionScroller = new ScrollPane(missionContainer);
 
-        for (int i = 0; i < 6; i++) {
-
-            final Mission mission = MissionFactory.CreateRandomMission();
+        for (final Mission mission : MissionManager.getInstance().getActiveMissions()) {
+//            MissionUIElement mission = new MissionUIElement(MissionFactory.CreateRandomMission());
+//            mission.addListener(new ChangeListener() {
+//                @Override
+//                public void changed(ChangeEvent event, Actor actor) {
+//                    selectMission(mission);
+//                }
+//            });
+//
+//            missionContainer.add(mission).expandX().fillX().padTop(5).padBottom(5).row();
 
             TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    SelectMission(mission);
+                    selectMission(mission);
                 }
             });
             missionContainer.add(button).expandX().fillX().padBottom(3).row();
+        }
 
 
-//            final MissionUIElement mission = new MissionUIElement(MissionFactory.CreateRandomMission());
-//            mission.addListener(new ChangeListener() {
+//        for (int i = 0; i < 6; i++) {
+//
+//            final Mission mission = MissionFactory.CreateRandomMission();
+//
+//            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
+//            button.addListener(new ChangeListener() {
 //                @Override
 //                public void changed(ChangeEvent event, Actor actor) {
-//                    SelectMission(((MissionUIElement) actor).getMission());
+//                    selectMission(mission);
 //                }
 //            });
-//
-//            missionContainer.add(mission).expandX().fillX().padTop(5).padBottom(5).row();
-        }
+//            missionContainer.add(button).expandX().fillX().padBottom(3).row();
+//        }
+
+
+//        }
 
         this.AddMainContent(content);
         content.add(title).expandX().fillX().padTop(5).center();
@@ -77,7 +92,7 @@ public class MissionAllocatorPopup extends Popup {
         content.add(missionScroller).expand().fill().maxHeight(100);
     }
 
-    public void SelectMission(Mission mission) {
+    public void selectMission(Mission mission) {
         Gdx.app.log(Constants.TAG, "selected mission: " + mission.getName() + ": " + mission.getDescription());
         onSelectMission.callback(mission);
         remove();
