@@ -70,7 +70,7 @@ public class EmployeeManager {
 
         int missing = MAX_AVAILABLE_EMPLOYEES - availableEmployees.size() + MathUtils.random(-AVAILABLE_EMPLOYEES_VARIANCE, AVAILABLE_EMPLOYEES_VARIANCE);
 
-        if (missing > 0) availableEmployees.addAll(EmployeeFactory.CreateEmployees(missing, team.calcGameProgress()));
+        if (missing > 0) availableEmployees.addAll(EmployeeFactory.createEmployees(missing, team.calcGameProgress()));
     }
 
     /**
@@ -95,11 +95,17 @@ public class EmployeeManager {
             Gdx.app.error(Constants.TAG, "Error: This employees is already hired!");
             return 0;
         }
-        if (hiredEmployees.size() >= Constants.MAX_EMPLOYEE_COUNT) {
-            Gdx.app.debug(Constants.TAG, "Warning: Exceeding max number of employees!");
+        if (isTeamFull()) {
+            Gdx.app.log(Constants.TAG, "Warning: Exceeding max number of employees!");
+            return 0;
+        }
+        if (team.getMoney() < employee.getHiringCost()) {
+            Gdx.app.log(Constants.TAG, "You have no money to hire this employee!");
+            //TODO: Tell user about this.
             return 0;
         }
 
+        team.reduceMoney(employee.getHiringCost());
         availableEmployees.remove(employee);
         hiredEmployees.add(employee);
         employee.setTouchable(Touchable.enabled);

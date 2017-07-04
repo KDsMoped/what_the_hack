@@ -188,6 +188,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         debugRenderer = new ShapeRenderer();
     }
 
+    /**
+     * This is called as soon as the employee joins the team.
+     */
     public void employ(){
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
@@ -438,7 +441,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             Skill skill = skillSet.get(i);
             if (skill.getType() == type){
                 return skill.getValue();
-            }else if (skill.getType() == SkillType.ALLPURPOSE){
+            }else if (skill.getType() == SkillType.All_Purpose){
                 allPurpposeIndex = i;
             }
         }
@@ -476,5 +479,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public void setCurrentMission(Mission currentMission) {
         this.currentMission = currentMission;
+    }
+
+    public int getHiringCost(){
+        return (int) (salary * 1.5f /* * fraction of rest of week*/ );
+    }
+
+    public String getHiringCostText(){
+        return String.format("%03d", getHiringCost()) + "$";
     }
 }

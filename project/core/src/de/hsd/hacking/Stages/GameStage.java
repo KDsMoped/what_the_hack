@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
@@ -69,7 +70,7 @@ public class GameStage extends Stage {
 
     private final MissionBrowser missionBrowser = new MissionBrowser();
 
-    private Group foreground, background, ui, popups;
+    private Group foreground, background, ui, popups, overlay;
 
     private static GameStage instance;
 
@@ -128,6 +129,7 @@ public class GameStage extends Stage {
         background = new Group();
         ui = new Group();
         popups = new Group();
+        overlay = new Group();
         touchables = new ArrayList<Touchable>();
 
         // the order the actors are added is important
@@ -138,6 +140,7 @@ public class GameStage extends Stage {
         addActor(foreground);
         addActor(ui);
         addActor(popups);
+        addActor(overlay);
 
         foreground.addActor(new Image(assets.room_fg));
         background.addActor(new Image(assets.room_bg));
@@ -232,8 +235,7 @@ public class GameStage extends Stage {
         ui.addActor(exitButton);
 
         //Init status bar & employee details
-        ui.addActor(statusBar = new StatusBar());
-        this.gameTime.addTimeChangedListener(statusBar);
+        overlay.addActor(statusBar = new StatusBar());
         ui.addActor(new EmployeeBar());
     }
 
@@ -254,7 +256,7 @@ public class GameStage extends Stage {
         team = Team.instance();
 
         employeeManager.dismissAll();
-        employeeManager.employ(EmployeeFactory.CreateEmployees(Constants.STARTING_TEAM_SIZE));
+        employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
 
 
         team.createAndAddEquipment(EquipmentType.MODEM);
