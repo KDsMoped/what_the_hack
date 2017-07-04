@@ -189,6 +189,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         debugRenderer = new ShapeRenderer();
     }
 
+    /**
+     * This is called as soon as the employee joins the team.
+     */
     public void employ(){
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
@@ -445,5 +448,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public String getSalaryText() {
         return String.format("%03d", salary) + "$";
+    }
+
+    public int getHiringCost(){
+        return (int) (salary * 1.5f /* * fraction of rest of week*/ );
+    }
+
+    public String getHiringCostText(){
+        return String.format("%03d", getHiringCost()) + "$";
     }
 }

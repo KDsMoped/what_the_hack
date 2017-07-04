@@ -59,6 +59,7 @@ public class EmployeeProfile extends Popup {
         viewport.setBackground(Assets.instance().table_border_patch);
 
         ScrollPane informationScroller = new ScrollPane(informationContainer, new ScrollPane.ScrollPaneStyle());
+        informationContainer.pad(2);
 
         contentContainer.addActor(content);
         content.add(title).expandX().fillX().padTop(5).padBottom(10).padLeft(100);
@@ -111,7 +112,7 @@ public class EmployeeProfile extends Popup {
         addInformationElement(new DoubleLabelElement("Salary", new StringProvider() {
             @Override
             public String get() {
-                return employee.get().getSalaryText();
+                return employee.get().getSalaryText() + " per week";
             }
         }));
 
