@@ -26,8 +26,8 @@ public class ShopUIElement extends Table {
 
     private Label name;
     private Label price;
-    private Label attributeType;
-    private Label attributeValue;
+    private Label attribute;
+    private Label level;
 
     TextButton buyButton;
 
@@ -41,8 +41,6 @@ public class ShopUIElement extends Table {
 
     public void InitControls() {
         buyButton = new TextButton("Buy Item", Constants.TextButtonStyle());
-
-
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -56,6 +54,7 @@ public class ShopUIElement extends Table {
                     if(equipment instanceof Upgradable) {
                         if (Shop.instance().upgradeItem(equipment) == 1) {
                         }
+                        updateTable();
                     }
                 }
 
@@ -72,18 +71,37 @@ public class ShopUIElement extends Table {
 
         name = new Label(equipment.getName(), Constants.LabelStyle());
         price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
-        attributeType = new Label(equipment.getAttributeType().toString(), Constants.LabelStyle());
-        attributeValue = new Label("+" + Integer.toString(equipment.getAttributeValue()), Constants.LabelStyle());
+        attribute = new Label(equipment.getAttributeType().toString() + " +" + Integer.toString(equipment.getAttributeValue()), Constants.LabelStyle());
+        level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
 
         content.add(name).expandX().fillX().left();
         content.add(price).right().padLeft(10);
         content.row();
-        content.add(attributeType).left().expand().fill();
-        content.add(attributeValue).right().padLeft(5);
+        content.add(attribute).left().expand().fill();
+        content.add(level).right().padLeft(5);
         content.row();
 
         this.add(content).expandX().fillX().left();
         this.add(buyButton).right().padLeft(10);
+    }
 
+    public void updateTable() {
+        content.clear();
+
+        name = new Label(equipment.getName(), Constants.LabelStyle());
+        price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
+        attribute = new Label(equipment.getAttributeType().toString() + " +" + Integer.toString(equipment.getAttributeValue()), Constants.LabelStyle());
+        level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
+
+        content.add(name).expandX().fillX().left();
+        content.add(price).right().padLeft(10);
+        content.row();
+        content.add(attribute).left().expand().fill();
+        content.add(level).right().padLeft(5);
+        content.row();
+
+        this.clear();
+        this.add(content).expandX().fillX().left();
+        this.add(buyButton).right().padLeft(10);
     }
 }
