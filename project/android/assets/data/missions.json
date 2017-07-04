@@ -2,24 +2,43 @@
 {
   "name": "Hack the %COMPANY% mayors car",
   "description": "The %COMPANY% mayor just ",
-  "difficulty": 5,
   "skill": [{
-    "type": "SOCIAL",
+    "type": "Social",
     "value": 0
   }, {
-    "type": "HARDWARE",
+    "type": "Hardware",
     "value": 0
   }, {
-    "type": "CRYPTO",
+    "type": "Crypto",
     "value": 0
   }]
 },
 {
   "name": "HelloKitty forum secrets",
-  "description": "Somebody found and send you the database of a very popular HelloKitty forum. Apparently the forum uses old technology to save passwords, so it should be easy to crack with some password power. Maybe the HelloKitty passwords also work in Amazon to order some HelloKitty merch..."
+  "description": "Somebody found and send you the database of a very popular HelloKitty forum. Apparently the forum uses old technology to save passwords, so it should be easy to crack with some password power. Maybe the HelloKitty passwords also work in Amazon to order some HelloKitty merch...",
+  "skill": [{
+    "type": "Software",
+    "value": 0
+  }, {
+    "type": "Search",
+    "value": 0
+  }, {
+    "type": "Network",
+    "value": 0
+  }]
 },
 {
   "name": "Get your money back",
-  "description": "Another hacker stole all your money! Steal it back as fast as you can before its gone..."
+  "description": "Another hacker stole all your money! Steal it back as fast as you can before its gone...",
+  "skill": [{
+    "type": "Crypto",
+    "value": 0
+  }, {
+    "type": "Hardware",
+    "value": 0
+  }, {
+    "type": "Software",
+    "value": 0
+  }]
 }
 ]
