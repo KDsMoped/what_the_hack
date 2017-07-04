@@ -1,7 +1,7 @@
 [
 {
-  "name": "Hack the mayors car",
-  "description": "The mayor  just ",
+  "name": "Hack the %COMPANY% mayors car",
+  "description": "The %COMPANY% mayor just ",
   "difficulty": 5,
   "skill": [{
     "type": "SOCIAL",

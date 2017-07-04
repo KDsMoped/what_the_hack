@@ -15,7 +15,6 @@ import de.hsd.hacking.Entities.Employees.Skill;
 /**
  * This class represents a mission.
  */
-// TODO Platzhalter Firmennamen etc...
 public class Mission implements EventSender {
     @Expose private String name, description;
     @Expose private int duration;

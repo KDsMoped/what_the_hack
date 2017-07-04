@@ -1,13 +1,17 @@
 package de.hsd.hacking.Data.Missions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Data.CompanyNamesHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Employees.SkillType;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by ju on 15.06.17.
@@ -27,6 +31,7 @@ public final class MissionFactory {
         mission.setSkill(RandomSkills());
         RandomSkillValues(mission, mission.getDifficulty());
         mission.setOutcome(RandomOutcome());
+        ReplacePlaceholders(mission);
 
         return mission;
     }
@@ -107,5 +112,15 @@ public final class MissionFactory {
         for (Skill s:mission.getSkill()) {
             s.setValue(MathUtils.random(min, max));
         }
+    }
+
+    /**
+     * Replaces the %COMPANY% tag in mission data with random company names.
+     * @param mission
+     */
+    private static final void ReplacePlaceholders(Mission mission) {
+        String company = DataLoader.getInstance().getNewCompanyName();
+        mission.setName(mission.getName().replaceAll("%COMPANY%", company));
+        mission.setDescription(mission.getDescription().replaceAll("%COMPANY%", company));
     }
 }
