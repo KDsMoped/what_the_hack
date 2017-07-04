@@ -84,7 +84,6 @@ public class MissionWorker implements TimeChangedListener {
     @Override
     public void dayChanged(final int days) {
         if (mission.isRunning()){
-
             if(--remainingMissionDays == 0){
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
                 for (MissionSkillRequirement skillReq :
