@@ -71,7 +71,7 @@ public abstract class Popup extends Group {
         // Table layout
         mainTable.add(content).expand().fill();
         mainTable.row();
-        mainTable.add(closeButton).padBottom(4f).width(50).height(23);
+        mainTable.add(closeButton).padTop(3f).padBottom(3f).width(50).height(23);
 
         // No Background Click
         noBackgroundClick.setVisible(false);
