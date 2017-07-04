@@ -43,7 +43,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
 
     // StatusBar items
     private int date = 1;
-    private float time = 0.0f;
+//    private float time = 0.0f;
     private int bandwidth = 0;
     private int employees = 0;
     private int workplaces = 0;
@@ -212,22 +212,19 @@ public class StatusBar extends Actor implements TimeChangedListener {
         return date;
     }
 
-    public float getTime() {
-        return time;
-    }
+//    public float getTime() {
+//        return time;
+//    }
 
     /**
      * set the time an display it as an circle
-     * @param time time between 0-1
+     * @param step time between 0-8
      */
-    public void setTime(float time) {
-        if (time > 1f || time < 0){
-            throw new IllegalArgumentException("setTime(time) called with time value: '" + time + "' . Should be between 0 and 1.0 inclusively.");
+    public void setTime(int step) {
+        if (step < 0 || step > 8){
+            throw new IllegalArgumentException("setTime(step) called with step value: '" + step + "' . Should be between 0 and 8 inclusively.");
         }
-        //map time values (0-1.0) to texture indexes (0-8)
-        int index = MathUtils.floor(time / (1.0f / 8));
-        this.time = time;
-        timeLabel.setDrawable(assets.clock_icon.get(index));
+        timeLabel.setDrawable(assets.clock_icon.get(step));
     }
 
     public int getDate() {
@@ -286,11 +283,22 @@ public class StatusBar extends Actor implements TimeChangedListener {
 
     @Override
     public void timeChanged(float time) {
-        setTime(time);
+        //stub
+
+    }
+
+    @Override
+    public void timeStepChanged(int step) {
+        setTime(step);
     }
 
     @Override
     public void dayChanged(int days) {
         setDate(days);
+    }
+
+    @Override
+    public void weekChanged(int week) {
+
     }
 }

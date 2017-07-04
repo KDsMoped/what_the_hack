@@ -28,23 +28,19 @@ public class MissionWorker implements TimeChangedListener {
         this.remainingMissionDays = mission.getDuration();
         skillRequirements = new ArrayList<MissionSkillRequirement>(4);
         workers = employees;
-        for (Skill skill:
-                mission.getSkill()) {
+        for (Skill skill
+                : mission.getSkill()) {
             skillRequirements.add(new MissionSkillRequirement(skill.getType(), skill.getValue() * mission.getDuration(), 0f));
         }
     }
 
 
+
+
     @Override
-    public void timeChanged(final float time) {
-        if (mission.isRunning()){
-            //time [0-1.0) -> 0-8
-            int step = MathUtils.floor(time / (1f / 8));
-            if (lastStep == 8) lastStep = -1;
-            if (step > lastStep){
-                lastStep = step;
-                calculateMissionStep();
-            }
+    public void timeStepChanged(int step) {
+        if (mission.isRunning()) {
+            calculateMissionStep();
         }
     }
 
@@ -52,8 +48,8 @@ public class MissionWorker implements TimeChangedListener {
      * Gets called every clock step (every ~5s)
      */
     private void calculateMissionStep() {
-        for (Employee em :
-                workers) {
+        for (Employee em
+                : workers) {
             for (MissionSkillRequirement req :
                     skillRequirements) {
                 int value = em.getSkillValue(req.getSkillType());
@@ -83,8 +79,8 @@ public class MissionWorker implements TimeChangedListener {
 
     @Override
     public void dayChanged(final int days) {
-        if (mission.isRunning()){
-            if(--remainingMissionDays == 0){
+        if (mission.isRunning()) {
+            if (--remainingMissionDays == 0) {
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
                 for (MissionSkillRequirement skillReq :
                         skillRequirements) {
@@ -99,5 +95,15 @@ public class MissionWorker implements TimeChangedListener {
 
             }
         }
+    }
+
+    @Override
+    public void weekChanged(final int week) {
+        //Don't care
+    }
+
+    @Override
+    public void timeChanged(final float time) {
+        //Don't care
     }
 }
