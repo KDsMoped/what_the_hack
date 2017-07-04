@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Shop;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -35,16 +36,30 @@ public class ShopUIElement extends Table {
 
         InitControls();
         InitTable();
+
     }
 
     public void InitControls() {
         buyButton = new TextButton("Buy Item", Constants.TextButtonStyle());
+
+
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(Shop.instance().buyItem(equipment) == 1) {
-
+                if(equipment.isBought() == false) {
+                    if(Shop.instance().buyItem(equipment) == 1) {}
+                    if(equipment instanceof Upgradable) {
+                        buyButton.setText("Upgrade");
+                    }
                 }
+                else {
+                    if(equipment instanceof Upgradable) {
+                        if (Shop.instance().upgradeItem(equipment) == 1) {
+                        }
+                    }
+                }
+
+
             }
         });
     }

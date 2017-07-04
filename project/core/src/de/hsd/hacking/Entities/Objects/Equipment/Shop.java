@@ -52,6 +52,17 @@ public class Shop {
             return 1;
         team.reduceMoney(price);
         team.addEquipment(equipment);
+        equipment.setBought(true);
+        return 0;
+    }
+
+    public int upgradeItem(Equipment equipment) {
+        Team team = Team.instance();
+        int price = (int)equipment.getPrice();
+        if (team.getMoney() < price)
+            return 1;
+        team.reduceMoney(price);
+        ((Upgradable) equipment).upgrade();
         return 0;
     }
 
