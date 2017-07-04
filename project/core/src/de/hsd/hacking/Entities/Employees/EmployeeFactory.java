@@ -217,7 +217,7 @@ public class EmployeeFactory {
     }
 
     private static float rollSpecial(Employee padawan){
-        int roll = MathUtils.random(1, 2);
+        int roll = MathUtils.random(1, 3);
 
         switch (roll) {
             case 1:

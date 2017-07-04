@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.General.DoubleLabelElement;
@@ -18,6 +19,8 @@ import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 import de.hsd.hacking.Utils.Provider.StringProvider;
+
+import java.util.Collection;
 
 /**
  * A popup that displays the values of an employee.
@@ -125,7 +128,7 @@ public class EmployeeProfile extends Popup {
         }));
 
         //Skills
-        addInformationElement(new Label("Skills", Constants.LabelStyle()));
+//        addInformationElement(new Label("Skills:", Constants.LabelStyle()), 2);
 
         for (final Skill skill : employee.get().getSkillset()) {
 
@@ -137,12 +140,32 @@ public class EmployeeProfile extends Popup {
             }));
         }
 
-        informationContainer.hit(0, 0, false);
+        //Specials
+
+        Collection<EmployeeSpecial> specials = employee.get().getSpecials();
+
+        if (specials.size() > 0) {
+
+//            addInformationElement(new Label("Special:", Constants.LabelStyle()), 2);
+            addInformationElement(new Label("", Constants.LabelStyle()), 0);
+
+            for (final EmployeeSpecial special : specials) {
+
+                if (!special.isHidden())
+                    addInformationElement(new Label(special.getDisplayName(), Constants.LabelStyle()));
+            }
+        }
+//        informationContainer.hit(0, 0, false);
     }
 
     private void addInformationElement(Actor element) {
 
-        informationContainer.add(element).height(TABLE_SPACING).expandX().fillX().row();
+        addInformationElement(element, 0);
+    }
+
+    private void addInformationElement(Actor element, float padTop) {
+
+        informationContainer.add(element).height(TABLE_SPACING).padTop(padTop).expandX().fillX().row();
     }
 
     private void onDismissButton() {

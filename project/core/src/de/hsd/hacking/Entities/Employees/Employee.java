@@ -548,6 +548,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return special.getScoreCost();
     }
 
+    /**
+     * Returns a readonly List of all employee specials.
+     *
+     * @return
+     */
+    public Collection<EmployeeSpecial> getSpecials() {
+        return Collections.unmodifiableCollection(employeeSpecials);
+    }
+
 //    public void addEmployListener(Callback callback) {
 //        if (!employListener.contains(callback)) return;
 //
