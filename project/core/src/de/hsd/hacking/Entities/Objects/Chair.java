@@ -1,9 +1,12 @@
 package de.hsd.hacking.Entities.Objects;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
@@ -25,7 +28,6 @@ public class Chair extends InteractableObject {
     @Override
     public EmployeeState interact(Employee e) {
         this.setBlocking(true);
-
         return new WorkingState(e, getPosition(), this.computer);
     }
 
@@ -40,10 +42,11 @@ public class Chair extends InteractableObject {
         return false;
     }
 
-    /*@Override
+    @Override
     public void draw(Batch batch, float alpha){
-
-    }*/
+        Vector2 drawPos = getPosition().sub(0, Constants.TILE_WIDTH / 4f);
+        batch.draw(drawableRegion, drawPos.x, drawPos.y);
+    }
 
     @Override
     public void occupy() {

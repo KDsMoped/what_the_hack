@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
@@ -63,12 +64,13 @@ public class GameStage extends Stage {
     private Team team;
     private EmployeeManager employeeManager;
     private StatusBar statusBar;
+    private GameTime gameTime;
 
     private List<Touchable> touchables;
 
     private final MissionBrowser missionBrowser = new MissionBrowser();
 
-    private Group foreground, background, ui, popups;
+    private Group foreground, background, ui, popups, overlay;
 
     private static GameStage instance;
 
@@ -83,6 +85,10 @@ public class GameStage extends Stage {
         this.checkVector = new Vector2();
         this.assets = Assets.instance();
         this.tileMap = new TileMap(this);
+
+        //TODO mit gespeicherten Werten aufrufen
+        this.gameTime = new GameTime();
+        addActor(gameTime);
 
         InitRootObjects();
         InitInterior();
@@ -123,16 +129,18 @@ public class GameStage extends Stage {
         background = new Group();
         ui = new Group();
         popups = new Group();
+        overlay = new Group();
         touchables = new ArrayList<Touchable>();
 
         // the order the actors are added is important
         // it is also the drawing order
         // meaning the last added item will also be drawn last
         addActor(background);
-        addActor(this.tileMap);
+        addActor(tileMap);
         addActor(foreground);
         addActor(ui);
         addActor(popups);
+        addActor(overlay);
 
         foreground.addActor(new Image(assets.room_fg));
         background.addActor(new Image(assets.room_bg));
@@ -227,7 +235,7 @@ public class GameStage extends Stage {
         ui.addActor(exitButton);
 
         //Init status bar & employee details
-        ui.addActor(statusBar = new StatusBar());
+        overlay.addActor(statusBar = new StatusBar());
         ui.addActor(new EmployeeBar());
     }
 
@@ -248,7 +256,7 @@ public class GameStage extends Stage {
         team = Team.instance();
 
         employeeManager.dismissAll();
-        employeeManager.employ(EmployeeFactory.CreateEmployees(Constants.STARTING_TEAM_SIZE));
+        employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
 
 
         team.createAndAddEquipment(EquipmentType.MODEM);

@@ -12,7 +12,7 @@ import de.hsd.hacking.Entities.Entity;
 
 public abstract class Object extends Entity {
 
-    private TextureRegion drawableRegion;
+    protected TextureRegion drawableRegion;
     private Direction occupyDirection;
     private int occupyAmount;
 

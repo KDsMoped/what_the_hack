@@ -165,7 +165,7 @@ public class MovingState extends EmployeeState {
     public void leave() {
 
         if (!employee.equals(employee.getMovementProvider().getTile(employee.getOccupiedTileNumber()).getOccupyingEmployee())) {
-            throw new IllegalStateException("Employee not registered on tile he is standing on after leaving MovingState. Employee: " + employee.toString());
+            throw new IllegalStateException("Employee not registered on tile he references in occupiedTileNumber when leaving MovingState. Employee: " + employee.toString());
         }
     }
 

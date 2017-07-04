@@ -26,6 +26,8 @@ public class MissionManager {
     private ArrayList<Mission> openMissions;
     private ArrayList<Mission> completedMissions;
 
+//    private int numSuccessfulMissions;
+
     public MissionManager() {
         instance = this;
 
@@ -34,6 +36,13 @@ public class MissionManager {
         completedMissions = new ArrayList<Mission>();
 
         fillOpenMissions();
+
+        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
+        startMission(openMissions.get(0));
+        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
+        startMission(openMissions.get(0));
+        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
+        startMission(openMissions.get(0));
     }
 
     private void refreshOpenMissions(){
@@ -98,5 +107,9 @@ public class MissionManager {
     }
     public Collection<Mission> getCompletedMissions() {
         return Collections.unmodifiableCollection(completedMissions);
+    }
+
+    public int getNumberCompletedMissions(){
+        return completedMissions.size();
     }
 }

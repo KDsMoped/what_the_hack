@@ -27,6 +27,7 @@ public abstract class Equipment extends TouchableInteractableObject {
     protected float price;
     protected EquipmentAttributeType attributeType;
     protected int attributeValue = 100;
+    protected boolean isBought = false;
 
     protected int level = 1;
     protected Team team;
@@ -54,7 +55,12 @@ public abstract class Equipment extends TouchableInteractableObject {
     public void setPrice(float price) { this.price = price; }
     public float getPrice() { return price;}
 
-    private int getLevel() { return level; }
+    public int getLevel() { return level; }
+
+    public boolean isBought() { return isBought; }
+    public void setBought(boolean isBought) {
+        this.isBought = isBought;
+    }
 
     @Override
     public String getName()  {

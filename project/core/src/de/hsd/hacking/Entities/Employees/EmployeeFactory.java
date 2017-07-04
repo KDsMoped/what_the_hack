@@ -16,7 +16,7 @@ public class EmployeeFactory {
     private static final int MAX_SKILL_NUMBER = 4;
     private static final int COST_NEW_SKILL = 14;
     private static final int COST_INCREMENT_SKILL = 6;
-    private static final int COST_INCREMENT_ALLPURPOSE = 14;
+    private static final int COST_INCREMENT_ALLPURPOSE = 12;
     private static final float SALARY_VARIANCE = 0.1f;
     private static final int PROGRESS_VARIANCE = 4;
 
@@ -38,7 +38,7 @@ public class EmployeeFactory {
      * @return
      */
     private static int calcSalary(int gameProgress, float score) {
-        return ((int) ((10 + score * 5) * MathUtilities.mult_var(SALARY_VARIANCE)) * 10);
+        return ((int) ((5 + score * 2) * MathUtilities.mult_var(SALARY_VARIANCE)) * 10);
     }
 
     /**
@@ -46,9 +46,9 @@ public class EmployeeFactory {
      *
      * @return
      */
-    public static Employee CreateEmployee() {
+    public static Employee createEmployee() {
 
-        return CreateEmployee(Team.instance().calcGameProgress());
+        return createEmployee(Team.instance().calcGameProgress());
     }
 
     /**
@@ -57,7 +57,7 @@ public class EmployeeFactory {
      * @param gameProgress
      * @return
      */
-    public static Employee CreateEmployee(int gameProgress) {
+    public static Employee createEmployee(int gameProgress) {
 
         int progress = Math.max(0, gameProgress + MathUtilities.var(PROGRESS_VARIANCE));
 
@@ -72,10 +72,10 @@ public class EmployeeFactory {
         skillSet.add(new Skill(SkillType.All_Purpose, 0));
 
         //sending freshman to university
-        remainingScore -= LearnSkill(skillSet);
+        remainingScore -= learnSkill(skillSet);
 
         while (remainingScore > 0) {
-            remainingScore -= EducateEmployee(freshman, skillSet);
+            remainingScore -= educateEmployee(freshman, skillSet);
         }
 
         Collections.sort(skillSet);
@@ -91,8 +91,8 @@ public class EmployeeFactory {
      * @param amount
      * @return
      */
-    public static ArrayList<Employee> CreateEmployees(int amount) {
-        return CreateEmployees(amount, Team.instance().calcGameProgress());
+    public static ArrayList<Employee> createEmployees(int amount) {
+        return createEmployees(amount, Team.instance().calcGameProgress());
     }
 
     /**
@@ -102,12 +102,12 @@ public class EmployeeFactory {
      * @param gameProgress
      * @return
      */
-    public static ArrayList<Employee> CreateEmployees(int amount, int gameProgress) {
+    public static ArrayList<Employee> createEmployees(int amount, int gameProgress) {
 
         ArrayList<Employee> result = new ArrayList<Employee>();
 
         for (int i = 0; i < amount; i++) {
-            result.add(CreateEmployee(gameProgress));
+            result.add(createEmployee(gameProgress));
         }
 
         return result;
@@ -120,15 +120,15 @@ public class EmployeeFactory {
      * @param skillSet
      * @return
      */
-    private static float EducateEmployee(Employee employee, ArrayList<Skill> skillSet) {
+    private static float educateEmployee(Employee employee, ArrayList<Skill> skillSet) {
 
         int roll = MathUtils.random(1, 8);
 
         switch (roll) {
             case 1:
-                return IncrementAllpurpose(skillSet);
+                return incrementAllpurpose(skillSet);
             case 2:
-                return LearnSkill(skillSet);
+                return learnSkill(skillSet);
             case 3:
             case 4:
             case 5:
@@ -137,7 +137,7 @@ public class EmployeeFactory {
             case 8:
             case 9:
             case 10:
-                return IncrementSkill(skillSet);
+                return incrementSkill(skillSet);
             case 11:
             case 12:
             case 13:
@@ -157,14 +157,14 @@ public class EmployeeFactory {
      * @param skillSet
      * @return
      */
-    private static float LearnSkill(ArrayList<Skill> skillSet) {
+    private static float learnSkill(ArrayList<Skill> skillSet) {
         if (skillSet.size() >= MAX_SKILL_NUMBER) return 0;
 
         SkillType skillType;
 
         do {
             skillType = SkillType.getRandomSkill(true);
-        } while (!IsUniqueSkill(skillSet, skillType));
+        } while (!isUniqueSkill(skillSet, skillType));
 
         skillSet.add(new Skill(skillType, 1));
         return COST_NEW_SKILL;
@@ -177,7 +177,7 @@ public class EmployeeFactory {
      * @param type
      * @return
      */
-    private static boolean IsUniqueSkill(ArrayList<Skill> skillSet, SkillType type) {
+    private static boolean isUniqueSkill(ArrayList<Skill> skillSet, SkillType type) {
         for (Skill skill : skillSet) {
             if (skill.getType() == type) return false;
         }
@@ -190,7 +190,7 @@ public class EmployeeFactory {
      * @param skillSet
      * @return
      */
-    private static float IncrementAllpurpose(ArrayList<Skill> skillSet) {
+    private static float incrementAllpurpose(ArrayList<Skill> skillSet) {
         skillSet.get(0).incrementSkill();
 
         return COST_INCREMENT_ALLPURPOSE;
@@ -202,7 +202,7 @@ public class EmployeeFactory {
      * @param skillSet
      * @return Returns the score cost of this skill.
      */
-    private static float IncrementSkill(ArrayList<Skill> skillSet) {
+    private static float incrementSkill(ArrayList<Skill> skillSet) {
 
         if (skillSet.size() < 2) return 0;
 

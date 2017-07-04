@@ -25,8 +25,8 @@ public final class MissionFactory {
      * Create a new random mission object. Name and description are read
      * @return random Mission
      */
-    public static final de.hsd.hacking.Data.Missions.Mission CreateRandomMission() {
-        de.hsd.hacking.Data.Missions.Mission mission = DataLoader.getInstance().getNewMission();
+    public static final Mission CreateRandomMission() {
+        Mission mission = DataLoader.getInstance().getNewMission();
         mission.setDuration(MathUtils.random(4) + 2);
         RandomSkillValues(mission, mission.getDifficulty());
         mission.setOutcome(RandomOutcome());
@@ -40,7 +40,7 @@ public final class MissionFactory {
      * @param difficulty
      * @return Random mission with defined difficulty.
      */
-    public static final de.hsd.hacking.Data.Missions.Mission CreateRandomMission(int difficulty) {
+    public static final Mission CreateRandomMission(int difficulty) {
         de.hsd.hacking.Data.Missions.Mission mission = CreateRandomMission();
         RandomSkillValues(mission, difficulty);
 
@@ -52,7 +52,7 @@ public final class MissionFactory {
      * @param outcome
      * @return Random mission with defined outcome.
      */
-    public static final de.hsd.hacking.Data.Missions.Mission CreateRandomMission(MissionOutcome outcome) {
+    public static final Mission CreateRandomMission(MissionOutcome outcome) {
         de.hsd.hacking.Data.Missions.Mission mission = CreateRandomMission();
         mission.setOutcome(outcome);
 
@@ -64,7 +64,7 @@ public final class MissionFactory {
      * @param skills
      * @return Random mission with defined skills.
      */
-    public static final de.hsd.hacking.Data.Missions.Mission CreateRandomMission(List<Skill> skills) {
+    public static final Mission CreateRandomMission(List<Skill> skills) {
         de.hsd.hacking.Data.Missions.Mission mission = CreateRandomMission();
         mission.setSkill(skills);
 
@@ -100,7 +100,7 @@ public final class MissionFactory {
      * Gives the skills required for this mission random values based on the given difficulty.
      * @param mission The mission that needs new skill values.
      */
-    private static final void RandomSkillValues(de.hsd.hacking.Data.Missions.Mission mission, int difficulty) {
+    private static final void RandomSkillValues(Mission mission, int difficulty) {
         int min = 1;
         if (mission.getDifficulty() > 2) {
             min = difficulty - 1;

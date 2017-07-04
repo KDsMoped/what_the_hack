@@ -86,7 +86,7 @@ public class EmployeeBrowser extends Popup {
                 public void callback(Employee employee) {
                     onEmploy(employee);
                 }
-            })).expandX().fillX().padBottom(5).row();
+            })).expandX().fillX().padBottom(5).maxWidth(400).row();
         }
     }
 }
