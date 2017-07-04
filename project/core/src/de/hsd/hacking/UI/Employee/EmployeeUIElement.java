@@ -99,14 +99,14 @@ public class EmployeeUIElement extends Table {
                         employee.getHiringCostText() + "\n" +
                         "now");
 
-        if (Team.instance().getMoney() < employee.getHiringCost()) {
-            money.setColor(Color.RED);
-            employButton.setDisabled(true);
-
-        } else {
-            money.setColor(Color.WHITE);
-            employButton.setDisabled(false);
-        }
+//        if (Team.instance().getMoney() < employee.getHiringCost()) {
+//            money.setColor(Color.RED);
+//            employButton.setDisabled(true);
+//
+//        } else {
+//            money.setColor(Color.WHITE);
+//            employButton.setDisabled(false);
+//        }
 
         super.act(delta);
     }

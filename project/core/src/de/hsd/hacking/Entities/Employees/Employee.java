@@ -21,9 +21,9 @@ import java.util.Collections;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
-import de.hsd.hacking.Data.Mission;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
@@ -448,9 +448,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return skillSet.get(allPurpposeIndex).getValue();
     }
 
-
-    public String getSalary(){ return String.format("%03d", salary) + "$";}
-
     public int getCurrentTileNumber() {
         return currentTileNumber;
     }
@@ -479,6 +476,20 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public void setCurrentMission(Mission currentMission) {
         this.currentMission = currentMission;
+    }
+
+    void setSkillSet(ArrayList<Skill> skillset){
+        this.skillSet = skillset;
+    }
+
+    void setSalary(int salary){
+        this.salary = salary;
+    }
+
+    public String getSalary(){ return String.format("%03d", salary) + "$";}
+
+    public String getSalaryText() {
+        return String.format("%03d", salary) + "$";
     }
 
     public int getHiringCost(){

@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -20,7 +21,7 @@ public class DataLoader {
     private static DataLoader INSTANCE;
     private static NameHolder names;
     private static ArrayList<Mission> missions;
-
+    private static CompanyNamesHolder companyNames;
 
     public static DataLoader getInstance(){
         if (INSTANCE == null){
@@ -48,6 +49,15 @@ public class DataLoader {
             Gson gson = new Gson();
             missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
         }
+
+        FileHandle compNames = Gdx.files.internal("data/companies.json");
+
+        if (!compNames.exists()){
+            Gdx.app.log(Constants.TAG, "COMPANY NAMES JSON FILE DOESNT EXIST");
+        }else{
+            Json json = new Json();
+            companyNames = json.fromJson(CompanyNamesHolder.class, compNames);
+        }
     }
 
     public String[] getNewName(){
@@ -61,5 +71,10 @@ public class DataLoader {
 
     public Mission getNewMission() {
         return missions.get(MathUtils.random(missions.size() - 1));
+    }
+
+
+    public String getNewCompanyName() {
+        return companyNames.getRandom();
     }
 }

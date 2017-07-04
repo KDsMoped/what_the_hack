@@ -136,7 +136,7 @@ public class GameStage extends Stage {
         // it is also the drawing order
         // meaning the last added item will also be drawn last
         addActor(background);
-        addActor(this.tileMap);
+        addActor(tileMap);
         addActor(foreground);
         addActor(ui);
         addActor(popups);
