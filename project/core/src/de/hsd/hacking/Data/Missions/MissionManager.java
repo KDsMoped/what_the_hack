@@ -2,7 +2,9 @@ package de.hsd.hacking.Data.Missions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class MissionManager {
         activeMissions = new ArrayList<Mission>();
         openMissions = new ArrayList<Mission>();
         completedMissions = new ArrayList<Mission>();
+
 
         fillOpenMissions();
 
