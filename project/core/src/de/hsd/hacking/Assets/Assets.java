@@ -72,6 +72,8 @@ public class Assets {
     public NinePatchDrawable win32_patch;
     public NinePatchDrawable table_border_patch;
 
+    public NinePatchDrawable table_dimm_patch;
+
     public Sound buttonSound;
 
 
@@ -152,6 +154,7 @@ public class Assets {
         terminal_patch = new NinePatchDrawable(terminal_skin.getPatch("terminal_9_patch"));
         win32_patch = new NinePatchDrawable(terminal_skin.getPatch("popup"));
         table_border_patch = new NinePatchDrawable(terminal_skin.getPatch("table_border"));
+        table_dimm_patch = new NinePatchDrawable(terminal_skin.getPatch("dimm"));
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/

@@ -163,7 +163,7 @@ public class EmployeeFactory {
         SkillType skillType;
 
         do {
-            skillType = SkillType.getRandomSkill();
+            skillType = SkillType.getRandomSkill(true);
         } while (!IsUniqueSkill(skillSet, skillType));
 
         skillSet.add(new Skill(skillType, 1));

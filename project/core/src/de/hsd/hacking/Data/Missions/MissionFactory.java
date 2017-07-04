@@ -72,11 +72,10 @@ public final class MissionFactory {
      * @return List of 3 random skills
      */
     private static final List<Skill> RandomSkills() {
-        //TODO dont use the general skill
         List<Skill> skillz = new ArrayList<Skill>();
 
         for (int i = 0; i < 3; i++) {
-            Skill skill = new Skill(SkillType.getRandomSkill(), MathUtils.random(9) + 1);
+            Skill skill = new Skill(SkillType.getRandomSkill(false), MathUtils.random(9) + 1);
             skillz.add(skill);
         }
 

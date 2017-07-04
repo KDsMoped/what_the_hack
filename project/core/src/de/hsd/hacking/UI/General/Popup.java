@@ -21,17 +21,14 @@ import de.hsd.hacking.Utils.Constants;
 /**
  * Abstract class for a general purpose popup window.
  */
-// TODO Transparent unclickable background
 public abstract class Popup extends Group {
     private final int POPUP_MARGIN_DEFAULT = 20;
 
     protected Table mainTable = new Table();
+    protected Table noBackgroundClick = new Table();
     protected TextButton closeButton;
 
     private VerticalGroup content = new VerticalGroup();
-
-    //private TextButton.TextButtonStyle buttonStyle;
-    //private Label.LabelStyle labelStyle;
 
     public Popup(int popupMargin) {
         init(popupMargin);
@@ -75,6 +72,16 @@ public abstract class Popup extends Group {
         mainTable.add(content).expand().fill();
         mainTable.row();
         mainTable.add(closeButton).padBottom(4f).width(50).height(23);
+
+        // No Background Click
+        noBackgroundClick.setVisible(false);
+        noBackgroundClick.setHeight(GameStage.VIEWPORT_HEIGHT);
+        noBackgroundClick.setWidth(GameStage.VIEWPORT_WIDTH);
+        noBackgroundClick.setPosition(0, 0);
+        noBackgroundClick.setTouchable(Touchable.enabled);
+        noBackgroundClick.setBackground(assets.table_dimm_patch);
+
+        addActor(noBackgroundClick);
         addActor(mainTable);
     }
 
@@ -94,6 +101,7 @@ public abstract class Popup extends Group {
      */
     protected void show() {
         mainTable.setVisible(true);
+        noBackgroundClick.setVisible(true);
     }
 
     /**
@@ -101,6 +109,7 @@ public abstract class Popup extends Group {
      */
     protected void close() {
         mainTable.setVisible(false);
+        noBackgroundClick.setVisible(false);
     }
 
     public void toggleView() {

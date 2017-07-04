@@ -15,14 +15,14 @@ import de.hsd.hacking.Entities.Employees.Skill;
 /**
  * This class represents a mission.
  */
-// TODO add risk
-// TODO Platzhalter
+// TODO Platzhalter Firmennamen etc...
 public class Mission implements EventSender {
     @Expose private String name, description;
     @Expose private int duration;
     @Expose private int difficulty;
     @Expose private List<Skill> skill;
     @Expose private MissionOutcome outcome;
+    @Expose private float risk;
 
     /**
      * Start the mission.
@@ -108,5 +108,13 @@ public class Mission implements EventSender {
 
     public void setOutcome(MissionOutcome outcome) {
         this.outcome = outcome;
+    }
+
+    public float getRisk() {
+        return risk;
+    }
+
+    public void setRisk(float risk) {
+        this.risk = risk;
     }
 }

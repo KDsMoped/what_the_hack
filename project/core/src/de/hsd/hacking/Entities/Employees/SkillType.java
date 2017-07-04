@@ -13,8 +13,14 @@ public enum SkillType {
     private static final SkillType[] VALUES = values();
     public static final int SIZE = VALUES.length;
 
-    public static SkillType getRandomSkill() {
-        return VALUES[MathUtils.random(SIZE - 1)];
+    public static SkillType getRandomSkill(Boolean allPurpose) {
+        if (allPurpose) {
+            return VALUES[MathUtils.random(SIZE - 1)];
+        }
+        else {
+            return VALUES[MathUtils.random(SIZE - 2)];
+        }
+
     }
 
     public String getDisplayName() {
