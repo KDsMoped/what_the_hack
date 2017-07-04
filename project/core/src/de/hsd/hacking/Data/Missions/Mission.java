@@ -1,5 +1,6 @@
 package de.hsd.hacking.Data.Missions;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.google.gson.annotations.Expose;
 
 import java.util.List;
@@ -23,10 +24,12 @@ public class Mission implements EventSender {
     @Expose private MissionOutcome outcome;
     @Expose private float risk;
 
+    @Expose private boolean running;
     /**
      * Start the mission.
      */
     public void Start() {
+        this.running = true;
         notifyListeners(EventListener.EventType.MISSION_STARTED);
     }
 
@@ -34,6 +37,7 @@ public class Mission implements EventSender {
      * Abort the mission.
      */
     public void Abort() {
+        this.running = false;
         notifyListeners(EventListener.EventType.MISSION_ABORTED);
     }
 
@@ -41,7 +45,7 @@ public class Mission implements EventSender {
      * Pause the mission.
      */
     public void Pause() {
-
+        this.running = false;
     }
 
     @Override
@@ -115,5 +119,9 @@ public class Mission implements EventSender {
 
     public void setRisk(float risk) {
         this.risk = risk;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

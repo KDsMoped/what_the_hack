@@ -35,7 +35,6 @@ public class WorkingState extends EmployeeState {
     @Override
     public EmployeeState act(float deltaTime) {
         if (!isCanceled()){
-
             //TODO nur zu Debugzwecken, der State soll sich erst ändern wenn zB Mission fertig
             elapsedTime+= deltaTime;
             if (elapsedTime >= timeBeforeIdle){
@@ -44,6 +43,7 @@ public class WorkingState extends EmployeeState {
             }
             return null;
         }
+        leave();
         return new IdleState(employee);
     }
 

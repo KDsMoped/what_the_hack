@@ -12,15 +12,18 @@ import com.badlogic.gdx.math.Vector2;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.google.gson.annotations.*;
+import com.google.gson.annotations.Expose;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+import de.hsd.hacking.Data.Mission;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
@@ -41,28 +44,23 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private boolean selected;
 
-    public void setState(de.hsd.hacking.Entities.Employees.States.EmployeeState state) {
-        this.state.cancel();
-        this.state = state;
-        this.state.enter();
+    /**
+     * Returns the chance for the employee to have a critical failure
+     * Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
+     * @return criticalFailureValue in the range 0-20. 0 represents no chance to have a critical failure, 20 means the employee always has a critical failure
+     */
+    public int getCriticalFailureChance() {
+        //TODO abhängig von anderen Faktoren machen
+        return 1;
     }
-
-    public int getCurrentTileNumber() {
-        return currentTileNumber;
+    /**
+     * Returns the chance for the employee to have a critical success
+     * Critical success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
+     * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical success, 20 means the employee always has a critical success
+     */
+    public int getCriticalSuccessChance() {
+        return 1;
     }
-
-    public void setCurrentTileNumber(int currentTileNumber) {
-        this.currentTileNumber = currentTileNumber;
-    }
-
-    public int getOccupiedTileNumber() {
-        return occupiedTileNumber;
-    }
-
-    public void setOccupiedTileNumber(int occupiedTileNumber) {
-        this.occupiedTileNumber = occupiedTileNumber;
-    }
-
 
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
@@ -114,6 +112,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public de.hsd.hacking.Entities.Employees.States.EmployeeState getState() {
         return state;
     }
+    private Mission currentMission;
 
     @Expose
     private de.hsd.hacking.Entities.Employees.States.EmployeeState state;
@@ -221,7 +220,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        drawAt(batch, getPosition(), flipped, false, animationState);
+        if (animationState == AnimState.WORKING){
+            drawAt(batch, getPosition().sub(0, Constants.TILE_WIDTH / 4f), flipped, false, animationState);
+        }else{
+            drawAt(batch, getPosition(), flipped, false, animationState);
+        }
+
 
         if (Constants.DEBUG) {
             batch.end();
@@ -233,10 +237,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             debugRenderer.end();
             batch.begin();
         }
-
-//        if (selected) {
-//            Assets.gold_font_small.draw(batch, getName(), getPosition().x - 30f, getPosition().y + 70f, 92f, Align.center, false);
-//        }
     }
 
     public void drawAt(Batch batch, Vector2 pos) {
@@ -354,6 +354,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public void touchDragged(Vector2 position) {
+        //stub
     }
 
     @Override
@@ -431,19 +432,49 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return Collections.unmodifiableCollection(skillSet);
     }
 
-    void setSkillSet(ArrayList<Skill> skillset){
-        this.skillSet = skillset;
+    public int getSkillValue(SkillType type) {
+        int allPurpposeIndex = -1;
+        for (int i = 0; i < skillSet.size(); i++) {
+            Skill skill = skillSet.get(i);
+            if (skill.getType() == type){
+                return skill.getValue();
+            }else if (skill.getType() == SkillType.ALLPURPOSE){
+                allPurpposeIndex = i;
+            }
+        }
+        return skillSet.get(allPurpposeIndex).getValue();
     }
 
-    void setSalary(int salary){
-        this.salary = salary;
+
+    public String getSalary(){ return String.format("%03d", salary) + "$";}
+
+    public int getCurrentTileNumber() {
+        return currentTileNumber;
     }
 
-    public int getSalary(){
-        return salary;
+    public void setCurrentTileNumber(int currentTileNumber) {
+        this.currentTileNumber = currentTileNumber;
     }
 
-    public String getSalaryText() {
-        return String.format("%03d", salary) + "$";
+    public int getOccupiedTileNumber() {
+        return occupiedTileNumber;
+    }
+
+    public void setOccupiedTileNumber(int occupiedTileNumber) {
+        this.occupiedTileNumber = occupiedTileNumber;
+    }
+
+    public void setState(EmployeeState state) {
+        this.state.cancel();
+        this.state = state;
+        this.state.enter();
+    }
+
+    public Mission getCurrentMission() {
+        return currentMission;
+    }
+
+    public void setCurrentMission(Mission currentMission) {
+        this.currentMission = currentMission;
     }
 }

@@ -63,6 +63,7 @@ public class GameStage extends Stage {
     private Team team;
     private EmployeeManager employeeManager;
     private StatusBar statusBar;
+    private GameTime gameTime;
 
     private List<Touchable> touchables;
 
@@ -83,6 +84,10 @@ public class GameStage extends Stage {
         this.checkVector = new Vector2();
         this.assets = Assets.instance();
         this.tileMap = new TileMap(this);
+
+        //TODO mit gespeicherten Werten aufrufen
+        this.gameTime = new GameTime();
+        addActor(gameTime);
 
         InitRootObjects();
         InitInterior();
@@ -228,6 +233,7 @@ public class GameStage extends Stage {
 
         //Init status bar & employee details
         ui.addActor(statusBar = new StatusBar());
+        this.gameTime.addTimeChangedListener(statusBar);
         ui.addActor(new EmployeeBar());
     }
 

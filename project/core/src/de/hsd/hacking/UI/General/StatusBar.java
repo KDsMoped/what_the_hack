@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.IndexArray;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -32,7 +34,7 @@ import de.hsd.hacking.Utils.Constants;
  * Created by ju on 05.06.17.
  */
 
-public class StatusBar extends Actor {
+public class StatusBar extends Actor implements TimeChangedListener {
     // Constants
     private final int STATUS_BAR_HEIGHT = 20;
     private final int STATUS_BAR_ANIMATION_TIME = 1;
@@ -41,7 +43,7 @@ public class StatusBar extends Actor {
 
     // StatusBar items
     private int date = 1;
-    private float time = 0.0f;
+//    private float time = 0.0f;
     private int bandwidth = 0;
     private int employees = 0;
     private int workplaces = 0;
@@ -210,45 +212,19 @@ public class StatusBar extends Actor {
         return date;
     }
 
-    public float getTime() {
-        return time;
-    }
+//    public float getTime() {
+//        return time;
+//    }
 
     /**
      * set the time an display it as an circle
-     * @param time time between 0-1
+     * @param step time between 0-8
      */
-    public void setTime(float time) {
-        this.time = time;
-
-        if (time < 0.1f) {
-            timeLabel.setDrawable(assets.clock_icon.first());
+    public void setTime(int step) {
+        if (step < 0 || step > 8){
+            throw new IllegalArgumentException("setTime(step) called with step value: '" + step + "' . Should be between 0 and 8 inclusively.");
         }
-        else if (time < 0.2f) {
-            timeLabel.setDrawable(assets.clock_icon.get(1));
-        }
-        else if (time < 0.3f) {
-            timeLabel.setDrawable(assets.clock_icon.get(2));
-        }
-        else if (time < 0.4f) {
-            timeLabel.setDrawable(assets.clock_icon.get(3));
-        }
-        else if (time < 0.5f) {
-            timeLabel.setDrawable(assets.clock_icon.get(4));
-        }
-        else if (time < 0.6f) {
-            timeLabel.setDrawable(assets.clock_icon.get(5));
-        }
-        else if (time < 0.7f) {
-            timeLabel.setDrawable(assets.clock_icon.get(6));
-        }
-        else if (time < 0.8f) {
-            timeLabel.setDrawable(assets.clock_icon.get(7));
-        }
-        else {
-            timeLabel.setDrawable(assets.clock_icon.get(8));
-        }
-
+        timeLabel.setDrawable(assets.clock_icon.get(step));
     }
 
     public int getDate() {
@@ -303,5 +279,26 @@ public class StatusBar extends Actor {
         oldMoney = this.money;
         this.money = money;
         elapsedMoney = 0;
+    }
+
+    @Override
+    public void timeChanged(float time) {
+        //stub
+
+    }
+
+    @Override
+    public void timeStepChanged(int step) {
+        setTime(step);
+    }
+
+    @Override
+    public void dayChanged(int days) {
+        setDate(days);
+    }
+
+    @Override
+    public void weekChanged(int week) {
+
     }
 }

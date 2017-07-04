@@ -1,19 +1,9 @@
 package de.hsd.hacking.Entities;
 
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.annotations.Expose;
-
-import java.util.Comparator;
-
-import de.hsd.hacking.Data.Path;
-import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Stages.GameStage;
 
 /**
  * Created by Cuddl3s on 24.05.2017.
