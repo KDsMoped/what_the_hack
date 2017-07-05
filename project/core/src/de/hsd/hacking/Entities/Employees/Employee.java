@@ -52,11 +52,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @return criticalFailureValue in the range 0-20. 0 represents no chance to have a critical failure, 20 means the employee always has a critical failure
      */
     public int getCriticalFailureChance() {
-        //TODO abhängig von anderen Faktoren machen
 
         int result = 0;
 
-        for (EmployeeSpecial special : employeeSpecials) {
+        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             result += special.getCriticalFailureBonus();
         }
 
@@ -222,7 +221,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
 
-        for (EmployeeSpecial special : employeeSpecials) {
+        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onEmploy();
         }
     }
@@ -231,7 +230,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * This is called as soon as the employee leaves the team.
      */
     public void onDismiss(){
-
+        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
+            special.onDismiss();
+        }
     }
 
     private void setUpShader() {
@@ -529,8 +530,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.salary = salary;
     }
 
-    public String getSalary() {
-        return String.format("%03d", salary) + "$";
+    public int getSalary() {
+        return salary;
     }
 
     public String getSalaryText() {
