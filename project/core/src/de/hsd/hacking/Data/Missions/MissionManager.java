@@ -5,16 +5,19 @@ import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.MissionWorker;
+import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class MissionManager {
+public class MissionManager implements TimeChangedListener {
 
     private static final int MAX_ACTIVE_MISSIONS = 4;
     private static final int MAX_OPEN_MISSIONS = 12;
@@ -25,7 +28,7 @@ public class MissionManager {
 
     public static MissionManager instance() {
 
-        if(instance == null) return new MissionManager();
+        if (instance == null) return new MissionManager();
         return instance;
     }
 
@@ -35,7 +38,7 @@ public class MissionManager {
 
     private ArrayList<MissionWorker> runningMissions;
 
-//    private int numSuccessfulMissions;
+    private ArrayList<Callback> refreshMissionListener = new ArrayList<Callback>();
 
     private MissionManager() {
         instance = this;
@@ -46,46 +49,52 @@ public class MissionManager {
         completedMissions = new ArrayList<Mission>();
         runningMissions = new ArrayList<MissionWorker>(MAX_ACTIVE_MISSIONS);
 
+        GameTime.instance.addTimeChangedListener(this);
 
         fillOpenMissions();
 
-        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
+//        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
         startMission(openMissions.get(0));
-        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
+//        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
         startMission(openMissions.get(0));
-        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
+//        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
         startMission(openMissions.get(0));
     }
 
-    private void refreshOpenMissions(){
+    private void refreshOpenMissions() {
 
         removeMissions(REFRESH_RATE);
         fillOpenMissions();
+
+        for (Callback c : refreshMissionListener.toArray(new Callback[refreshMissionListener.size()])) {
+            c.callback();
+        }
     }
 
-    private void removeMissions(float fraction){
+    private void removeMissions(float fraction) {
 
         int removeAmount = MathUtils.clamp((int) (fraction * MAX_OPEN_MISSIONS), 0, openMissions.size());
 
-        for(int i = 0; i < removeAmount; i++){
+        for (int i = 0; i < removeAmount; i++) {
             openMissions.remove(0);
         }
     }
 
-    private void fillOpenMissions(){
+    private void fillOpenMissions() {
         int gameProgress = Team.instance().calcGameProgress();
 
-        for (int i = 0; i < MAX_OPEN_MISSIONS; i++){
+        for (int i = 0; i < MAX_OPEN_MISSIONS; i++) {
             openMissions.add(MissionFactory.CreateRandomMission(gameProgress));
         }
     }
 
     /**
      * Completes this mission
+     *
      * @param mission
      * @param outcome
      */
-    public void completeMission(Mission mission, MissionOutcome outcome){
+    public void completeMission(Mission mission, MissionOutcome outcome) {
         activeMissions.remove(mission);
         completedMissions.add(mission);
         mission.setOutcome(outcome);
@@ -93,9 +102,10 @@ public class MissionManager {
 
     /**
      * Starts the given mission.
+     *
      * @param mission
      */
-    public void startMission(Mission mission){
+    public void startMission(Mission mission) {
 
         if (activeMissions.contains(mission)) {
             Gdx.app.error(Constants.TAG, "Error: This mission is already active!");
@@ -113,6 +123,7 @@ public class MissionManager {
 
     /**
      * Adds the employee to an existing {@link MissionWorker} or creates a new one.
+     *
      * @param employee The employee to add to the MissionWorker
      * @return the MissionWorker for that mission
      */
@@ -139,6 +150,7 @@ public class MissionManager {
 
     /**
      * Removes the employee from the corresponding {@link MissionWorker}
+     *
      * @param employee Employee to remove
      */
     public void stopWorking(Employee employee) {
@@ -165,23 +177,49 @@ public class MissionManager {
     public Collection<Mission> getActiveMissions() {
         return Collections.unmodifiableCollection(activeMissions);
     }
+
     public Collection<Mission> getOpenMissions() {
         return Collections.unmodifiableCollection(openMissions);
     }
+
     public Collection<Mission> getCompletedMissions() {
         return Collections.unmodifiableCollection(completedMissions);
     }
 
-    private int isMissionRunning(Mission mission){
+    private int isMissionRunning(Mission mission) {
         for (int i = 0; i < runningMissions.size(); i++) {
-            if (runningMissions.get(i).getMission().getMissionNumber() == mission.getMissionNumber()){
+            if (runningMissions.get(i).getMission().getMissionNumber() == mission.getMissionNumber()) {
                 return i;
             }
         }
         return -1;
     }
 
-    public int getNumberCompletedMissions(){
+    public int getNumberCompletedMissions() {
         return completedMissions.size();
+    }
+
+    @Override
+    public void timeChanged(float time) {
+
+    }
+
+    @Override
+    public void timeStepChanged(int step) {
+
+    }
+
+    @Override
+    public void dayChanged(int days) {
+        refreshOpenMissions();
+    }
+
+    @Override
+    public void weekChanged(int week) {
+
+    }
+
+    public void addRefreshMissionListener(Callback callback) {
+        if (!refreshMissionListener.contains(callback)) refreshMissionListener.add(callback);
     }
 }

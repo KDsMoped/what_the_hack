@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.UI.General.Popup;
+import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Callback.EmployeeCallback;
 import de.hsd.hacking.Utils.Constants;
 
@@ -26,6 +27,13 @@ public class EmployeeBrowser extends Popup {
         super();
 
         InitTable();
+
+        EmployeeManager.instance().addRefreshEmployeeListener(new Callback() {
+            @Override
+            public void callback() {
+                refreshList();
+            }
+        });
     }
 
     @Override

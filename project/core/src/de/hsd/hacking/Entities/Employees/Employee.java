@@ -214,7 +214,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * This is called as soon as the employee joins the team.
      */
-    public void employ() {
+    public void onEmploy() {
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
         this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
@@ -227,6 +227,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
+    /**
+     * This is called as soon as the employee leaves the team.
+     */
+    public void onDismiss(){
+
+    }
 
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;

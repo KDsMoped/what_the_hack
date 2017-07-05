@@ -3,15 +3,18 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class EmployeeManager {
+public class EmployeeManager implements TimeChangedListener {
 
     private static final int MAX_AVAILABLE_EMPLOYEES = 16;
     private static final int AVAILABLE_EMPLOYEES_VARIANCE = 3;
@@ -28,6 +31,8 @@ public class EmployeeManager {
     private ArrayList<Employee> availableEmployees;
     private ArrayList<Employee> hiredEmployees;
 
+    private ArrayList<Callback> refreshEmployeeListener = new ArrayList<Callback>();
+
     private Team team;
 
     public EmployeeManager() {
@@ -37,6 +42,8 @@ public class EmployeeManager {
         hiredEmployees = new ArrayList<Employee>();
 
         team = Team.instance();
+        GameTime.instance.addTimeChangedListener(this);
+
         populateAvailableEmployees();
     }
 
@@ -47,6 +54,10 @@ public class EmployeeManager {
 
         removeAvailableEmployees(REFRESH_RATE);
         populateAvailableEmployees();
+
+        for (Callback c : refreshEmployeeListener.toArray(new Callback[refreshEmployeeListener.size()])) {
+            c.callback();
+        }
     }
 
     /**
@@ -110,7 +121,7 @@ public class EmployeeManager {
         hiredEmployees.add(employee);
         employee.setTouchable(Touchable.enabled);
         GameStage.instance().addTouchable(employee);
-        employee.employ();
+        employee.onEmploy();
         return 1;
     }
 
@@ -135,6 +146,7 @@ public class EmployeeManager {
         employee.removeFromOccupyingTile();
         hiredEmployees.remove(employee);
         GameStage.instance().removeTouchable(employee);
+        employee.onDismiss();
     }
 
     /**
@@ -159,7 +171,28 @@ public class EmployeeManager {
         return hiredEmployees.size();
     }
 
-    public boolean isTeamFull(){
+    public boolean isTeamFull() {
         return hiredEmployees.size() >= Constants.MAX_EMPLOYEE_COUNT;
+    }
+
+    @Override
+    public void timeChanged(float time) {
+    }
+
+    @Override
+    public void timeStepChanged(int step) {
+    }
+
+    @Override
+    public void dayChanged(int days) {
+        refreshAvailableEmployees();
+    }
+
+    @Override
+    public void weekChanged(int week) {
+    }
+
+    public void addRefreshEmployeeListener(Callback callback) {
+        if (!refreshEmployeeListener.contains(callback)) refreshEmployeeListener.add(callback);
     }
 }

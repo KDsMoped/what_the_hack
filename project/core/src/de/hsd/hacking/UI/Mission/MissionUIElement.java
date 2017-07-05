@@ -4,7 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Missions.Mission;
@@ -23,13 +25,15 @@ public class MissionUIElement extends Table {
     private Label description, skills;
     private Label money;
 
-    public MissionUIElement(Mission mission) {
+    private TextButton acceptButton;
+
+    public MissionUIElement(Mission mission, Boolean compactView) {
         this.mission = mission;
 
-        initTable();
+        initTable(compactView);
     }
 
-    private void initTable() {
+    private void initTable(Boolean compactView) {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
         this.setBackground(Assets.instance().table_border_patch);
@@ -38,9 +42,9 @@ public class MissionUIElement extends Table {
         name = new Label(mission.getName(), Constants.LabelStyle());
         name.setFontScale(1.05f);
         time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
-        description = new Label(mission.getDescription(), Constants.LabelStyle());
-        description.setWrap(true);
-        money = new Label("$$", Constants.LabelStyle());
+
+        money = new Label("1.322", Constants.LabelStyle());
+        Label dollar = new Label("$", Constants.LabelStyle());
         skills = new Label("", Constants.LabelStyle());
 
         for (Skill s:mission.getSkill()) {
@@ -48,16 +52,36 @@ public class MissionUIElement extends Table {
         }
         skills.setWrap(true);
 
+        acceptButton = new TextButton("Accept", Constants.TextButtonStyle());
         Image calendar = new Image(Assets.instance().ui_calendar);
 
         this.add(name).expandX().fillX().left();
-        this.add(calendar).right().padLeft(10).padTop(-2);
-        this.add(time).right().padLeft(3);
+
+        if (!compactView) {
+            description = new Label(mission.getDescription(), Constants.LabelStyle());
+            description.setWrap(true);
+            this.row().padTop(10f);
+            this.add(description).left().expand().fill();
+        }
+
+        // setup helper table
+        Table infoTable = new Table();
+        Table moneyTimeTable = new Table();
+        infoTable.align(Align.left);
+        moneyTimeTable.align(Align.topRight);
         this.row().padTop(10f);
-        this.add(description).left().expand().fill();
-        this.add(money).right().padLeft(5);
-        this.row().padTop(10f);
-        this.add(skills).expandX().fillX();
+        this.add(infoTable).expand().fill();
+
+        infoTable.add(skills).left().expand().fill();
+        infoTable.add(moneyTimeTable).expandY().fillY().padTop(1f);
+
+        moneyTimeTable.add(calendar).right().padTop(-2);
+        moneyTimeTable.add(time).right().padLeft(3).padTop(1f);
+        moneyTimeTable.row().padTop(2f);
+        moneyTimeTable.add(money).right();
+        moneyTimeTable.add(dollar).right();
+        moneyTimeTable.row().padTop(2f);
+        moneyTimeTable.add(acceptButton);
     }
 
     public Mission getMission(){

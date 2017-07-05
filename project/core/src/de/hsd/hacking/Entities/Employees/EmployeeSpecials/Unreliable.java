@@ -31,7 +31,7 @@ public class Unreliable extends EmployeeSpecial {
         if(MathUtils.random() > chance) return;
 
         //TODO: Implement user feedback
-        Gdx.app.log(Constants.TAG, "An unreliable employee has left the team.");
+        Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
         EmployeeManager.instance().dismiss(employee);
     }
 

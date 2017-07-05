@@ -78,7 +78,7 @@ public class MissionBrowser extends Popup {
         openMissionScroller = new ScrollPane(openMissionContainer);
 
         for (final Mission mission : MissionManager.instance().getOpenMissions()) {
-            openMissionContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
+            openMissionContainer.add(new MissionUIElement(mission, false)).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
         }
 
         openMissions.add(openMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
@@ -87,7 +87,7 @@ public class MissionBrowser extends Popup {
         activeMissionScroller = new ScrollPane(activeMissionsContainer);
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-            activeMissionsContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
+            activeMissionsContainer.add(new MissionUIElement(mission, false)).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
         }
 
         activeMissions.add(activeMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
