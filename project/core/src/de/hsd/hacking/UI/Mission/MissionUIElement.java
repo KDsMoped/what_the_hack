@@ -17,7 +17,11 @@ import de.hsd.hacking.Entities.Employees.Skill;
  * Created by ju on 22.06.17.
  */
 // TODO Employee icons
-public class MissionUIElement extends Table {
+
+/**
+ * UI element to display a mission.
+ */
+    public class MissionUIElement extends Table {
     private Mission mission;
 
     private Label name;
@@ -27,6 +31,11 @@ public class MissionUIElement extends Table {
 
     private TextButton acceptButton;
 
+    /**
+     * Constructor.
+     * @param mission Mission that shall be displayed.
+     * @param compactView compactView hides the mission description.
+     */
     public MissionUIElement(Mission mission, Boolean compactView) {
         this.mission = mission;
 
@@ -34,27 +43,31 @@ public class MissionUIElement extends Table {
     }
 
     private void initTable(Boolean compactView) {
+        // setup own table
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
         this.setBackground(Assets.instance().table_border_patch);
         this.pad(4f);
 
+        // create and setup all ui elements
         name = new Label(mission.getName(), Constants.LabelStyle());
         name.setFontScale(1.05f);
         time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
 
         money = new Label("1.322", Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
-        skills = new Label("", Constants.LabelStyle());
 
+        skills = new Label("", Constants.LabelStyle());
         for (Skill s:mission.getSkill()) {
             skills.setText(skills.getText() + s.getType().name() + ": " + s.getDisplayValue(false) + " \n");
         }
         skills.setWrap(true);
 
         acceptButton = new TextButton("Accept", Constants.TextButtonStyle());
+
         Image calendar = new Image(Assets.instance().ui_calendar);
 
+        // Add mission name to main table
         this.add(name).expandX().fillX().left();
 
         if (!compactView) {
@@ -64,17 +77,24 @@ public class MissionUIElement extends Table {
             this.add(description).left().expand().fill();
         }
 
-        // setup helper table
+        // setup helper tables
+        // this table contains all information except name and description because of formatting
         Table infoTable = new Table();
-        Table moneyTimeTable = new Table();
         infoTable.align(Align.left);
+
+        // this table contains everything that is not description, name or skills
+        Table moneyTimeTable = new Table();
         moneyTimeTable.align(Align.topRight);
+
+        // add the helper table to the main table
         this.row().padTop(10f);
         this.add(infoTable).expand().fill();
 
+        // add all the infos to the info table
         infoTable.add(skills).left().expand().fill();
         infoTable.add(moneyTimeTable).expandY().fillY().padTop(1f);
 
+        // setup moneyTimeTable
         moneyTimeTable.add(calendar).right().padTop(-2);
         moneyTimeTable.add(time).right().padLeft(3).padTop(1f);
         moneyTimeTable.row().padTop(2f);
@@ -84,6 +104,10 @@ public class MissionUIElement extends Table {
         moneyTimeTable.add(acceptButton);
     }
 
+    /**
+     * Get the mission object this object represents.
+     * @return represented mission object.
+     */
     public Mission getMission(){
         return mission;
     }
