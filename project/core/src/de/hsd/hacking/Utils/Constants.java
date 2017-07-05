@@ -64,7 +64,6 @@ public class Constants {
                     , null, UiSkin().getDrawable("win32_tabs_checked"), Assets.instance().status_bar_font);
 
             tabButtonStyle.fontColor = Color.BLACK;
-            textButtonStyle.checkedOffsetY = 2f;
         }
 
         return tabButtonStyle;
