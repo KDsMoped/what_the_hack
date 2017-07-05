@@ -49,26 +49,19 @@ public class GameTime extends Actor {
             currentTime = 0f;
             currentDay++;
             Gdx.app.log(Constants.TAG, "Day changed. Now day: " + currentDay);
-            for (TimeChangedListener t
-                    :
-                    timeChangedListeners) {
+            for (TimeChangedListener t:timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
                 t.dayChanged(currentDay);
             }
             if (currentDay % 7 == 0) {
-                for (TimeChangedListener t:
-                     timeChangedListeners) {
-                    t.weekChanged((currentDay / 7) + 1);
+                for (TimeChangedListener t: timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {t.weekChanged((currentDay / 7) + 1);
                 }
             }
             currentStep = 0;
-            for (TimeChangedListener t
-                    : timeChangedListeners) {
-                t.timeStepChanged(currentStep);
+            for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {t.timeStepChanged(currentStep);
             }
         }
         //Time [0;1]
-        for (TimeChangedListener t :
-                timeChangedListeners) {
+        for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
             t.timeChanged(currentTime);
         }
         //Timesteps [0;8]
