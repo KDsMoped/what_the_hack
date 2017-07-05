@@ -36,7 +36,6 @@ public class ShopUIElement extends Table {
 
         InitControls();
         InitTable();
-
     }
 
     public void InitControls() {
@@ -57,8 +56,6 @@ public class ShopUIElement extends Table {
                         updateTable();
                     }
                 }
-
-
             }
         });
     }
@@ -82,7 +79,7 @@ public class ShopUIElement extends Table {
         content.row();
 
         this.add(content).expandX().fillX().left();
-        this.add(buyButton).right().padLeft(10);
+        this.add(buyButton).right().padLeft(10).size(100, 30);
     }
 
     public void updateTable() {
@@ -102,6 +99,6 @@ public class ShopUIElement extends Table {
 
         this.clear();
         this.add(content).expandX().fillX().left();
-        this.add(buyButton).right().padLeft(10);
+        this.add(buyButton).right().padLeft(10).size(100, 30);
     }
 }

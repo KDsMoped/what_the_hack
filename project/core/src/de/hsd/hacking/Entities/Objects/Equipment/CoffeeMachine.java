@@ -32,10 +32,12 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     public void upgrade() {
         level++;
         attributeValue += 5;
+        updatePrice();
+        team.updateResources();
     }
 
     public void setMaxLevel() {maxLevel = 5; }
-    public void setUpgradePriceMultiplier() { mul = 2; }
+    public void updatePrice() { price *= 2; }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

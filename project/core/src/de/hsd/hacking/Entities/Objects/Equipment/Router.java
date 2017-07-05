@@ -20,11 +20,13 @@ public class Router extends Equipment implements Upgradable {
 
     public void upgrade() {
         level++;
-        team.addBandwidth(attributeValue);
+        attributeValue += 50;
+        updatePrice();
+        team.updateResources();
     }
 
     public void setMaxLevel() { maxLevel = 5; }
-    public void setUpgradePriceMultiplier() { mul = 2; }
+    public void updatePrice() { price *= 2; }
 
     public void onTouch() {};
 
