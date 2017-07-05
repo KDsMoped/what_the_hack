@@ -24,12 +24,22 @@ public class Mission implements EventSender {
     @Expose private MissionOutcome outcome;
     @Expose private float risk;
 
-    @Expose private boolean running;
+
+    /**
+     * //Number that gets set when mission is started. To check if mission == mission.
+     */
+    @Expose private int missionNumber;
+    @Expose private boolean finished;
+    private boolean completed;
+
+    public Mission(){
+        this.missionNumber = -1;
+    }
+
     /**
      * Start the mission.
      */
     public void Start() {
-        this.running = true;
         notifyListeners(EventListener.EventType.MISSION_STARTED);
     }
 
@@ -37,7 +47,7 @@ public class Mission implements EventSender {
      * Abort the mission.
      */
     public void Abort() {
-        this.running = false;
+        finished = true;
         notifyListeners(EventListener.EventType.MISSION_ABORTED);
     }
 
@@ -45,7 +55,7 @@ public class Mission implements EventSender {
      * Pause the mission.
      */
     public void Pause() {
-        this.running = false;
+
     }
 
     @Override
@@ -60,6 +70,7 @@ public class Mission implements EventSender {
 
     @Override
     public void notifyListeners(EventListener.EventType type) {
+
         for (EventListener listener:listeners) {
             listener.OnEvent(type, this);
         }
@@ -121,7 +132,27 @@ public class Mission implements EventSender {
         this.risk = risk;
     }
 
-    public boolean isRunning() {
-        return running;
+
+    public void setMissionNumber(int missionNumber1) {
+        this.missionNumber = missionNumber1;
+    }
+
+    public int getMissionNumber(){
+        return this.missionNumber;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+    public void setFinished(final boolean finished1) {
+        finished = finished1;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed1) {
+        this.completed = completed1;
     }
 }

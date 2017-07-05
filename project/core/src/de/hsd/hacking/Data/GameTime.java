@@ -1,10 +1,13 @@
 package de.hsd.hacking.Data;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by Cuddl3s on 27.06.2017.
@@ -12,7 +15,10 @@ import java.util.List;
 
 public class GameTime extends Actor {
 
-    private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .025f;
+    public static final GameTime instance = new GameTime();
+
+    private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .05f;
+    private static final int CLOCK_STEPS = 9;
 
     private float currentTime;
     private int currentDay;
@@ -20,14 +26,15 @@ public class GameTime extends Actor {
     private int currentStep;
 
 
-    public GameTime(int startingDay, float startingTime){
+    //for de-serializing?
+    /*public GameTime(int startingDay, float startingTime){
         this.currentDay = startingDay;
         this.currentTime = startingTime;
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
-    }
+    }*/
 
-    public GameTime(){
-        this.currentDay = 0;
+    private GameTime(){
+        this.currentDay = 1;
         this.currentTime = 0f;
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
         this.currentStep = 0;
@@ -36,20 +43,27 @@ public class GameTime extends Actor {
     @Override
     public void act(float delta) {
         currentTime += delta * SECONDS_TO_GAME_TIME_DAY_FACTOR;
+
         //Day is over
-        if (currentTime >= 1f){
+        if (currentTime >= 1f) {
             currentTime = 0f;
             currentDay++;
+            Gdx.app.log(Constants.TAG, "Day changed. Now day: " + currentDay);
             for (TimeChangedListener t
                     :
                     timeChangedListeners) {
                 t.dayChanged(currentDay);
             }
-            if (currentDay % 7 == 0){
+            if (currentDay % 7 == 0) {
                 for (TimeChangedListener t:
                      timeChangedListeners) {
                     t.weekChanged((currentDay / 7) + 1);
                 }
+            }
+            currentStep = 0;
+            for (TimeChangedListener t
+                    : timeChangedListeners) {
+                t.timeStepChanged(currentStep);
             }
         }
         //Time [0;1]
@@ -58,19 +72,18 @@ public class GameTime extends Actor {
             t.timeChanged(currentTime);
         }
         //Timesteps [0;8]
-        int step = MathUtils.floor(currentTime * 9f);
+        int step = MathUtils.floor(currentTime * (CLOCK_STEPS));
         if (currentStep < step) {
             currentStep = step;
             for (TimeChangedListener t
                     : timeChangedListeners) {
                 t.timeStepChanged(currentStep);
             }
-            if (currentStep == 8) currentStep = 0;
         }
     }
 
-    public void addTimeChangedListener(TimeChangedListener listener) {
-        if (!timeChangedListeners.contains(listener)){
+    public void addTimeChangedListener(final TimeChangedListener listener) {
+        if (!timeChangedListeners.contains(listener)) {
             timeChangedListeners.add(listener);
         }
     }
@@ -97,5 +110,9 @@ public class GameTime extends Actor {
 
     public void setTimeChangedListeners(List<TimeChangedListener> timeChangedListeners) {
         this.timeChangedListeners = timeChangedListeners;
+    }
+
+    public boolean removeTimeChangedListener(TimeChangedListener timeChangedListener) {
+        return timeChangedListeners.remove(timeChangedListener);
     }
 }

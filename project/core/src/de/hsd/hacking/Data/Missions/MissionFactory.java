@@ -12,6 +12,7 @@ import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Utils.Constants;
+import de.hsd.hacking.Utils.RandomUtils;
 
 /**
  * Created by ju on 15.06.17.
@@ -27,7 +28,7 @@ public final class MissionFactory {
      */
     public static final Mission CreateRandomMission() {
         Mission mission = DataLoader.getInstance().getNewMission();
-        mission.setDuration(MathUtils.random(4) + 2);
+        mission.setDuration(2 + RandomUtils.randomInt(5));
         mission.setSkill(RandomSkills());
         RandomSkillValues(mission, mission.getDifficulty());
         mission.setOutcome(RandomOutcome());
@@ -80,7 +81,7 @@ public final class MissionFactory {
         List<Skill> skillz = new ArrayList<Skill>();
 
         for (int i = 0; i < 3; i++) {
-            Skill skill = new Skill(SkillType.getRandomSkill(false), MathUtils.random(9) + 1);
+            Skill skill = new Skill(SkillType.getRandomSkill(false), RandomUtils.randomInt(10) + 1);
             skillz.add(skill);
         }
 
@@ -110,7 +111,7 @@ public final class MissionFactory {
         int max = difficulty + 2;
 
         for (Skill s:mission.getSkill()) {
-            s.setValue(MathUtils.random(min, max));
+            s.setValue(min + RandomUtils.randomInt(max + 1));
         }
     }
 

@@ -18,8 +18,8 @@ import de.hsd.hacking.Utils.Constants;
 
 public class MissionAllocatorPopup extends Popup {
 
-    MissionCallback onSelectMission;
-    Callback onCancel;
+    private MissionCallback onSelectMission;
+    private Callback onCancel;
 
     public MissionAllocatorPopup(MissionCallback onSelectMission, Callback onCancel) {
         super(60);

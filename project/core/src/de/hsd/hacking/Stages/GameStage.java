@@ -64,7 +64,6 @@ public class GameStage extends Stage {
     private Team team;
     private EmployeeManager employeeManager;
     private StatusBar statusBar;
-    private GameTime gameTime;
 
     private List<Touchable> touchables;
 
@@ -87,8 +86,8 @@ public class GameStage extends Stage {
         this.tileMap = new TileMap(this);
 
         //TODO mit gespeicherten Werten aufrufen
-        this.gameTime = new GameTime();
-        addActor(gameTime);
+
+        addActor(GameTime.instance);
 
         InitRootObjects();
         InitInterior();
@@ -236,6 +235,7 @@ public class GameStage extends Stage {
 
         //Init status bar & employee details
         overlay.addActor(statusBar = new StatusBar());
+        GameTime.instance.addTimeChangedListener(statusBar);
         ui.addActor(new EmployeeBar());
     }
 

@@ -152,7 +152,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             skillSet.add(new Skill(type, 5));
             skillPoints -= 5;
         }
-        salary = MathUtils.random(300, 550) * 100;
+        salary = (300 + RandomUtils.randomInt(251)) * 100;
+//                ls.random(300, 550) * 100;
 
         //RandomIntPool chooses a number randomly from a set of predefined numbers.
         //Used numbers can either be removed or left in the set.
@@ -204,12 +205,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;
         String fragmentShader = Shader.getFragmentShader(
-                Color.valueOf(ColorHolder.HairColors.get(MathUtils.random(ColorHolder.HairColors.size() - 1))),
-                Color.valueOf(ColorHolder.SkinColors.get(MathUtils.random(ColorHolder.SkinColors.size() - 1))),
-                Color.valueOf(ColorHolder.ShirtColors.get(MathUtils.random(ColorHolder.ShirtColors.size() - 1))),
-                Color.valueOf(ColorHolder.TrouserColors.get(MathUtils.random(ColorHolder.TrouserColors.size() - 1))),
-                Color.valueOf(ColorHolder.EyesColors.get(MathUtils.random(ColorHolder.EyesColors.size() - 1))),
-                Color.valueOf(ColorHolder.ShoesColors.get(MathUtils.random(ColorHolder.ShoesColors.size() - 1))));
+                Color.valueOf(ColorHolder.HairColors.get(RandomUtils.randomInt(ColorHolder.HairColors.size()))),
+                Color.valueOf(ColorHolder.SkinColors.get(RandomUtils.randomInt(ColorHolder.SkinColors.size()))),
+                Color.valueOf(ColorHolder.ShirtColors.get(RandomUtils.randomInt(ColorHolder.ShirtColors.size()))),
+                Color.valueOf(ColorHolder.TrouserColors.get(RandomUtils.randomInt(ColorHolder.TrouserColors.size()))),
+                Color.valueOf(ColorHolder.EyesColors.get(RandomUtils.randomInt(ColorHolder.EyesColors.size()))),
+                Color.valueOf(ColorHolder.ShoesColors.get(RandomUtils.randomInt(ColorHolder.ShoesColors.size()))));
         this.shader = new ShaderProgram(vertexShader, fragmentShader);
         if (!shader.isCompiled()) {
             throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
@@ -316,7 +317,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private void setUpAnimations() {
         this.animations = new Animation[AnimState.values().length][2];
-        int randHair = MathUtils.random(HairStyle.values().length - 1);
+        int randHair = RandomUtils.randomInt(HairStyle.values().length);
         this.hairStyle = HairStyle.values()[randHair];
         Array<TextureRegion> hairframes = assets.getHairFrames(this.hairStyle);
 

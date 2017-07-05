@@ -116,6 +116,7 @@ public class Computer extends Equipment implements Upgradable {
             @Override
             public void callback(Mission mission) {
                 //a mission was chosen
+                e.setCurrentMission(mission);
                 waitingState.setFollowingState(new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition())));
             }
         }, new Callback() {

@@ -69,7 +69,7 @@ public class EmployeeFactory {
         freshman.setName(DataLoader.getInstance().getNewName());
 
         ArrayList<Skill> skillSet = new ArrayList<Skill>();
-        skillSet.add(new Skill(SkillType.All_Purpose, 0));
+        skillSet.add(new Skill(SkillType.All_Purpose, 1));
 
         //sending freshman to university
         remainingScore -= learnSkill(skillSet);

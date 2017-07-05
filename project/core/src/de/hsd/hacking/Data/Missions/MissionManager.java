@@ -2,6 +2,10 @@ package de.hsd.hacking.Data.Missions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+
+import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.MissionWorker;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.Constants;
 
@@ -16,6 +20,8 @@ public class MissionManager {
     private static final float REFRESH_RATE = 0.3f;
 
     private static MissionManager instance;
+    private int currentMissionNumber;
+
     public static MissionManager instance() {
 
         if(instance == null) return new MissionManager();
@@ -26,14 +32,18 @@ public class MissionManager {
     private ArrayList<Mission> openMissions;
     private ArrayList<Mission> completedMissions;
 
+    private ArrayList<MissionWorker> runningMissions;
+
 //    private int numSuccessfulMissions;
 
-    public MissionManager() {
+    private MissionManager() {
         instance = this;
 
-        activeMissions = new ArrayList<Mission>();
-        openMissions = new ArrayList<Mission>();
+        currentMissionNumber = 0;
+        activeMissions = new ArrayList<Mission>(MAX_ACTIVE_MISSIONS);
+        openMissions = new ArrayList<Mission>(MAX_OPEN_MISSIONS);
         completedMissions = new ArrayList<Mission>();
+        runningMissions = new ArrayList<MissionWorker>(MAX_ACTIVE_MISSIONS);
 
         fillOpenMissions();
 
@@ -93,10 +103,61 @@ public class MissionManager {
             Gdx.app.error(Constants.TAG, "Error: Exceeding max number of active missions!");
             return;
         }
-
+        mission.setMissionNumber(currentMissionNumber++);
         openMissions.remove(mission);
         activeMissions.add(mission);
         mission.Start();
+    }
+
+    /**
+     * Adds the employee to an existing {@link MissionWorker} or creates a new one.
+     * @param employee The employee to add to the MissionWorker
+     * @return the MissionWorker for that mission
+     */
+    public MissionWorker startWorking(final Employee employee) {
+        if (employee.getCurrentMission() == null) return null;
+        int workerNumber = isMissionRunning(employee.getCurrentMission());
+        if (workerNumber > -1) {
+            MissionWorker worker = runningMissions.get(workerNumber);
+            worker.addEmployee(employee);
+            return worker;
+        } else {
+            if (activeMissions.contains(employee.getCurrentMission())) {
+                MissionWorker worker = new MissionWorker(employee.getCurrentMission());
+                worker.addEmployee(employee);
+                runningMissions.add(worker);
+                GameTime.instance.addTimeChangedListener(worker);
+                return worker;
+            } else {
+                Gdx.app.error(Constants.TAG, "Mission that was not active was chosen to be worked on.");
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Removes the employee from the corresponding {@link MissionWorker}
+     * @param employee Employee to remove
+     */
+    public void stopWorking(Employee employee) {
+        if (employee.getCurrentMission() != null) {
+            int workerNumber = isMissionRunning(employee.getCurrentMission());
+            if (workerNumber > -1) {
+                MissionWorker worker = runningMissions.get(workerNumber);
+                if (worker.removeEmployee(employee)) {
+                    employee.setCurrentMission(null);
+                }
+                //Remove MissionWorker instance if no longer needed, and add to completed missions;
+                if (worker.hasNoWorkers() && worker.getMission().isFinished()) {
+                    runningMissions.remove(worker);
+                    GameTime.instance.removeTimeChangedListener(worker);
+                    activeMissions.remove(worker.getMission());
+                    if (worker.getMission().isCompleted()) {
+                        completedMissions.add(worker.getMission());
+                    }
+                }
+            }
+        }
     }
 
     public Collection<Mission> getActiveMissions() {
@@ -107,6 +168,15 @@ public class MissionManager {
     }
     public Collection<Mission> getCompletedMissions() {
         return Collections.unmodifiableCollection(completedMissions);
+    }
+
+    private int isMissionRunning(Mission mission){
+        for (int i = 0; i < runningMissions.size(); i++) {
+            if (runningMissions.get(i).getMission().getMissionNumber() == mission.getMissionNumber()){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public int getNumberCompletedMissions(){
