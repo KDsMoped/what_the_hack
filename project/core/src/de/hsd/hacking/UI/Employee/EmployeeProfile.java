@@ -13,7 +13,6 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.General.DoubleLabelElement;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
@@ -29,70 +28,52 @@ public class EmployeeProfile extends Popup {
 
     private static final int TABLE_SPACING = 20;
 
-    private VerticalGroup contentContainer;
+    Table contentTable;
+
 
     private Label title;
     private Table informationContainer = new Table();
+
+
+
 
     private EmployeeProvider employee;
 
     public EmployeeProfile(EmployeeProvider employee) {
         super(40);
 
-        Team team = Team.instance();
         this.employee = employee;
 
-        contentContainer = this.getContent();
-
-        initControls();
-        initSheet();
+        initTable();
     }
 
-    private void initSheet() {
+    private void initTable() {
 
-        Table content = new Table();
-        content.align(Align.top);
-        content.setTouchable(Touchable.enabled);
-//        content.setDebug(true);
 
-        title = new Label("Name of Employee", Constants.LabelStyle());
-        title.setFontScale(1.0f);
+        contentTable = new Table();
+        contentTable.align(Align.top);
+        contentTable.setTouchable(Touchable.enabled);
+//        contentTable.setDebug(true);
 
-        Table viewport = new Table();
-        viewport.setBackground(Assets.instance().table_border_patch);
+        contentTable.add(initLeftColumn()).left().padLeft(40);
+        contentTable.add(initRightColumn()).right().padRight(40);
 
-        ScrollPane informationScroller = new ScrollPane(informationContainer, new ScrollPane.ScrollPaneStyle());
-        informationContainer.pad(2);
-
-        contentContainer.addActor(content);
-        content.add(title).expandX().fillX().padTop(5).padBottom(10).padLeft(100);
-        content.row();
-        content.add(viewport).maxHeight(130).width(300).padLeft(100).expand().fill();
-        viewport.add(informationScroller).expand().fill();
+        addMainContent(contentTable);
     }
 
-    private void initControls() {
-
-//        leftUILine = (int) contentContainer.getX() + 40;
-//        topUILine = (int) contentContainer.getY() + 165;
-
-        VerticalGroup controls = new VerticalGroup();
-        addActor(controls);
-
-//        controls.align(Align.topLeft);
-//        controls.setPosition(0, 0);
-        controls.setPosition(contentContainer.getX() + 40, contentContainer.getY() + 106);
-        controls.setWidth(120);
-        controls.setHeight(100);
-        controls.space(10);
-//        controls.setDebug(true);
+    private Table initLeftColumn(){
+        Table leftColumn = new Table();
+        leftColumn.setDebug(true);
 
 
         EmployeeIcon icon = new EmployeeIcon(employee);
 //        icon.setPosition(leftUILine, topUILine);
 //        icon.pad(10);
 //        icon.padBottom(10);
-        controls.addActor(icon);
+
+        leftColumn.add(new Label("", Constants.LabelStyle()));
+        leftColumn.row();
+        leftColumn.add(icon).padBottom(10).center().row();
 
         TextButton dismissButton = new TextButton("Dismiss", Constants.TextButtonStyle());
         dismissButton.addListener(new ChangeListener() {
@@ -105,8 +86,34 @@ public class EmployeeProfile extends Popup {
         dismissButton.setSize(120, 20);
 //        dismissButton.padTop(15);
 
-        controls.addActor(dismissButton);
+        leftColumn.add(dismissButton).center();
+
+        return leftColumn;
     }
+
+    private Table initRightColumn() {
+        Table rightColumn = new Table();
+        rightColumn.align(Align.top);
+        rightColumn.setTouchable(Touchable.enabled);
+//        content.setDebug(true);
+
+        title = new Label("Name of Employee", Constants.LabelStyle());
+        title.setFontScale(1.0f);
+
+        Table viewport = new Table();
+        viewport.setBackground(Assets.instance().table_border_patch);
+
+        ScrollPane informationScroller = new ScrollPane(informationContainer, new ScrollPane.ScrollPaneStyle());
+        informationContainer.pad(2);
+
+        rightColumn.add(title).expandX().fillX().padTop(5).padBottom(10).padLeft(10);
+        rightColumn.row();
+        rightColumn.add(viewport)/*.maxHeight(130).width(300)*/.padLeft(10).expand().fill();
+        viewport.add(informationScroller).expand().fill().right();
+//        mainTable.add(content);
+        return rightColumn;
+    }
+
 
     private void fillInformationContainer() {
         informationContainer.clearChildren();

@@ -1,6 +1,7 @@
 package de.hsd.hacking.UI.Employee;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -9,9 +10,12 @@ import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.UI.General.Popup;
+import de.hsd.hacking.UI.General.TabbedView;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Callback.EmployeeCallback;
 import de.hsd.hacking.Utils.Constants;
+
+import java.util.ArrayList;
 
 public class EmployeeBrowser extends Popup {
 
@@ -34,6 +38,14 @@ public class EmployeeBrowser extends Popup {
                 refreshList();
             }
         });
+
+//        ArrayList<Actor> views = new ArrayList<Actor>();
+//        views.add(activeMissions);
+//        views.add(openMissions);
+//        TabbedView tabbedView = new TabbedView(views);
+//
+//        // Set tabbed view as main view
+//        this.addMainContent(tabbedView);
     }
 
     @Override

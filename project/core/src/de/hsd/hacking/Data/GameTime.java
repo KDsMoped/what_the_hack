@@ -33,7 +33,7 @@ public class GameTime extends Actor {
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
     }*/
 
-    private GameTime(){
+    private GameTime() {
         this.currentDay = 1;
         this.currentTime = 0f;
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
@@ -49,15 +49,17 @@ public class GameTime extends Actor {
             currentTime = 0f;
             currentDay++;
             Gdx.app.log(Constants.TAG, "Day changed. Now day: " + currentDay);
-            for (TimeChangedListener t:timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
+            for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
                 t.dayChanged(currentDay);
             }
             if (currentDay % 7 == 0) {
-                for (TimeChangedListener t: timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {t.weekChanged((currentDay / 7) + 1);
+                for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
+                    t.weekChanged((currentDay / 7) + 1);
                 }
             }
             currentStep = 0;
-            for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {t.timeStepChanged(currentStep);
+            for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
+                t.timeStepChanged(currentStep);
             }
         }
         //Time [0;1]
@@ -68,8 +70,7 @@ public class GameTime extends Actor {
         int step = MathUtils.floor(currentTime * (CLOCK_STEPS));
         if (currentStep < step) {
             currentStep = step;
-            for (TimeChangedListener t
-                    : timeChangedListeners) {
+            for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
                 t.timeStepChanged(currentStep);
             }
         }

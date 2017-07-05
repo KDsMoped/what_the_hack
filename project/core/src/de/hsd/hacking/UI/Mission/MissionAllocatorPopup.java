@@ -65,7 +65,7 @@ public class MissionAllocatorPopup extends Popup {
                     selectMission(mission);
                 }
             });
-            missionContainer.add(button).expandX().fillX().padBottom(3).row();
+            missionContainer.add(button).expandX().fillX().center().padBottom(5).row();
         }
 
 
@@ -89,7 +89,7 @@ public class MissionAllocatorPopup extends Popup {
         this.addMainContent(content);
         content.add(title).expandX().fillX().padTop(5).center();
         content.row();
-        content.add(missionScroller).expand().fill().maxHeight(100);
+        content.add(missionScroller).expand().fill().padLeft(20).padRight(20)/*.maxHeight(100)*/;
     }
 
     public void selectMission(Mission mission) {
