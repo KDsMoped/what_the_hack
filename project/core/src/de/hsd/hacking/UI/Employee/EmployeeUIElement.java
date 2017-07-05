@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.Callback.EmployeeCallback;
@@ -76,18 +77,53 @@ public class EmployeeUIElement extends Table {
 
     }
 
-    private static Table initSkillsTable(Collection<Skill> skillset) {
+    private Table initSkillsTable(Collection<Skill> skillset) {
         Table skillsTable = new Table();
 //        skillsTable.setDebug(true);
 
         for (final Skill s : skillset) {
 
-            skillsTable.add(new Label(s.getDisplayType(), Constants.LabelStyle())).left().expandX();
-            skillsTable.add(new Label(s.getDisplayValue(true), Constants.LabelStyle())).right().expandX().padBottom(3).padRight(15);
-            skillsTable.row();
+//            skillsTable.add(new Label(s.getDisplayType(), Constants.LabelStyle())).left().expandX();
+//            skillsTable.add(new Label(s.getDisplayValue(true), Constants.LabelStyle())).right().expandX().padBottom(3).padRight(15);
+//            skillsTable.row();
+            tableElements(skillsTable, new Label(s.getDisplayType(), Constants.LabelStyle()), new Label(s.getDisplayValue(true), Constants.LabelStyle()));
+        }
+
+
+
+        //Specials
+
+        Collection<EmployeeSpecial> specials = employee.getSpecials();
+
+        if (specials.size() > 0) {
+
+            skillsTable.add(new Label("", Constants.LabelStyle()));
+//            skillsTable.add(new Label("Special:", Constants.LabelStyle()));
+
+
+
+            for (final EmployeeSpecial special : specials) {
+
+                if (special.isHidden()) continue;
+
+                skillsTable.row();
+                skillsTable.add(new Label(special.getDisplayName(), Constants.LabelStyle())).left().expandX();
+            }
+
+
+
+//            skillsTable.addActor(new Label("", Constants.LabelStyle()));
+
+
         }
 
         return skillsTable;
+    }
+
+    private void tableElements(Table table, Actor left, Actor right){
+        table.add(left).left().expandX();
+        table.add(right).right().expandX().padBottom(3).padRight(15);
+        table.row();
     }
 
     @Override

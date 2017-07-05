@@ -23,6 +23,7 @@ import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Tile;
@@ -47,19 +48,36 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * Returns the chance for the employee to have a critical failure
      * Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
+     *
      * @return criticalFailureValue in the range 0-20. 0 represents no chance to have a critical failure, 20 means the employee always has a critical failure
      */
     public int getCriticalFailureChance() {
         //TODO abhängig von anderen Faktoren machen
-        return 1;
+
+        int result = 0;
+
+        for (EmployeeSpecial special : employeeSpecials) {
+            result += special.getCriticalFailureBonus();
+        }
+
+        return 1 + result;
     }
+
     /**
      * Returns the chance for the employee to have a critical success
      * Critical success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
+     *
      * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical success, 20 means the employee always has a critical success
      */
     public int getCriticalSuccessChance() {
-        return 1;
+
+        int result = 0;
+
+        for (EmployeeSpecial special : employeeSpecials) {
+            result += special.getCriticalSuccessBonus();
+        }
+
+        return 1 + result;
     }
 
     public enum EmployeeSkillLevel {
@@ -112,6 +130,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public de.hsd.hacking.Entities.Employees.States.EmployeeState getState() {
         return state;
     }
+
     private Mission currentMission;
 
     @Expose
@@ -121,6 +140,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private int currentTileNumber;
     private int occupiedTileNumber;
 
+    //    private Group employeeSpecials = new Group();
+    private ArrayList<EmployeeSpecial> employeeSpecials = new ArrayList<EmployeeSpecial>();
+
+//    private ArrayList<Callback> employListener
 
     private GameStage stage;
 
@@ -179,7 +202,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         movementProvider = stage.getTileMap();
 
 
-
         this.animationState = AnimState.IDLE;
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
@@ -192,13 +214,17 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * This is called as soon as the employee joins the team.
      */
-    public void employ(){
+    public void employ() {
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
         this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
+
+        for (EmployeeSpecial special : employeeSpecials) {
+            special.onEmploy();
+        }
     }
 
 
@@ -224,12 +250,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (animationState == AnimState.WORKING){
-            drawAt(batch, getPosition().sub(0, Constants.TILE_WIDTH / 4f), flipped, false, animationState);
-        }else{
-            drawAt(batch, getPosition(), flipped, false, animationState);
+        if (animationState == AnimState.WORKING) {
+            drawAt(batch, parentAlpha, getPosition().sub(0, Constants.TILE_WIDTH / 4f), flipped, false, animationState);
+        } else {
+            drawAt(batch, parentAlpha, getPosition(), flipped, false, animationState);
         }
-
 
         if (Constants.DEBUG) {
             batch.end();
@@ -244,10 +269,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void drawAt(Batch batch, Vector2 pos) {
-        drawAt(batch, pos, false, true, AnimState.IDLE);
+        drawAt(batch, 1f, pos, false, true, AnimState.IDLE);
     }
 
-    private void drawAt(Batch batch, Vector2 pos, boolean _flipped, boolean icon, AnimState _animationState) {
+    private void drawAt(Batch batch, float parentAlpha, Vector2 pos, boolean _flipped, boolean icon, AnimState _animationState) {
         batch.setShader(shader);
         if (selected && !icon) {
             batch.setColor(Color.RED);
@@ -261,6 +286,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         if (selected && !icon) {
             batch.setColor(Color.WHITE);
         }
+
+        for (EmployeeSpecial special : employeeSpecials) {
+            special.draw(batch, parentAlpha);
+        }
     }
 
     @Override
@@ -273,9 +302,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             this.state = state;
             this.state.enter();
         }
+        for (EmployeeSpecial special : employeeSpecials) {
+            special.act(delta);
+        }
     }
 
-    public void animAct(float delta){
+    public void animAct(float delta) {
         elapsedTime += delta;
     }
 
@@ -375,7 +407,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     private void onTouch() {
+
         toggleSelected();
+        for (EmployeeSpecial special : employeeSpecials) {
+            special.onTouch();
+        }
     }
 
     public void toggleSelected() {
@@ -440,9 +476,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         int allPurpposeIndex = -1;
         for (int i = 0; i < skillSet.size(); i++) {
             Skill skill = skillSet.get(i);
-            if (skill.getType() == type){
+            if (skill.getType() == type) {
                 return skill.getValue();
-            }else if (skill.getType() == SkillType.All_Purpose){
+            } else if (skill.getType() == SkillType.All_Purpose) {
                 allPurpposeIndex = i;
             }
         }
@@ -479,25 +515,52 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.currentMission = currentMission;
     }
 
-    void setSkillSet(ArrayList<Skill> skillset){
+    void setSkillSet(ArrayList<Skill> skillset) {
         this.skillSet = skillset;
     }
 
-    void setSalary(int salary){
+    void setSalary(int salary) {
         this.salary = salary;
     }
 
-    public String getSalary(){ return String.format("%03d", salary) + "$";}
+    public String getSalary() {
+        return String.format("%03d", salary) + "$";
+    }
 
     public String getSalaryText() {
         return String.format("%03d", salary) + "$";
     }
 
-    public int getHiringCost(){
-        return (int) (salary * 1.5f /* * fraction of rest of week*/ );
+    public int getHiringCost() {
+        return (int) (salary * 1.5f /* * fraction of rest of week*/);
     }
 
-    public String getHiringCostText(){
+    public String getHiringCostText() {
         return String.format("%03d", getHiringCost()) + "$";
     }
+
+    public float addEmployeeSpecial(EmployeeSpecial special) {
+
+        for (EmployeeSpecial s : employeeSpecials) {
+            if(s.getClass() == special.getClass()) return 0;
+        }
+
+        employeeSpecials.add(special);
+        return special.getScoreCost();
+    }
+
+    /**
+     * Returns a readonly List of all employee specials.
+     *
+     * @return
+     */
+    public Collection<EmployeeSpecial> getSpecials() {
+        return Collections.unmodifiableCollection(employeeSpecials);
+    }
+
+//    public void addEmployListener(Callback callback) {
+//        if (!employListener.contains(callback)) return;
+//
+//        employListener.add(callback);
+//    }
 }

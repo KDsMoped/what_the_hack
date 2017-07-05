@@ -7,6 +7,7 @@ import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class MissionManager {
         openMissions = new ArrayList<Mission>(MAX_OPEN_MISSIONS);
         completedMissions = new ArrayList<Mission>();
         runningMissions = new ArrayList<MissionWorker>(MAX_ACTIVE_MISSIONS);
+
 
         fillOpenMissions();
 

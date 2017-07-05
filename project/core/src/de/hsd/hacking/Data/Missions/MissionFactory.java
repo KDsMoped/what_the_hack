@@ -29,7 +29,6 @@ public final class MissionFactory {
     public static final Mission CreateRandomMission() {
         Mission mission = DataLoader.getInstance().getNewMission();
         mission.setDuration(2 + RandomUtils.randomInt(5));
-        mission.setSkill(RandomSkills());
         RandomSkillValues(mission, mission.getDifficulty());
         mission.setOutcome(RandomOutcome());
         ReplacePlaceholders(mission);

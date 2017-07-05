@@ -2,6 +2,8 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.MathUtilities;
 
@@ -122,7 +124,7 @@ public class EmployeeFactory {
      */
     private static float educateEmployee(Employee employee, ArrayList<Skill> skillSet) {
 
-        int roll = MathUtils.random(1, 8);
+        int roll = MathUtils.random(1, 9);
 
         switch (roll) {
             case 1:
@@ -135,9 +137,10 @@ public class EmployeeFactory {
             case 6:
             case 7:
             case 8:
-            case 9:
-            case 10:
                 return incrementSkill(skillSet);
+            case 9:
+                return rollSpecial(employee);
+            case 10:
             case 11:
             case 12:
             case 13:
@@ -211,5 +214,30 @@ public class EmployeeFactory {
         skill.incrementSkill();
 
         return COST_INCREMENT_SKILL;
+    }
+
+    private static float rollSpecial(Employee padawan){
+        int roll = MathUtils.random(1, 3);
+
+        switch (roll) {
+            case 1:
+                return padawan.addEmployeeSpecial(new Risky(padawan, 2));
+            case 2:
+                return padawan.addEmployeeSpecial(new Risky(padawan, 1));
+            case 3:
+                return padawan.addEmployeeSpecial(new Unreliable(padawan, 0.03f));
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+        }
+
+        return 0;
     }
 }

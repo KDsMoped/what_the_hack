@@ -1,15 +1,20 @@
 package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
+import java.util.ArrayList;
+
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
+import de.hsd.hacking.UI.General.TabbedView;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -18,12 +23,12 @@ import de.hsd.hacking.Utils.Constants;
 
 public class MissionBrowser extends Popup {
 
-    private Table content;
+    private Table openMissions, activeMissions;
 
     private Label title;
 
-    private Table missionContainer = new Table();
-    private ScrollPane missionScroller;
+    private Table openMissionContainer, activeMissionsContainer;
+    private ScrollPane openMissionScroller, activeMissionScroller;
 
 
     public MissionBrowser() {
@@ -51,29 +56,46 @@ public class MissionBrowser extends Popup {
     }
 
     private void initTable() {
-        content = new Table();
-        content.align(Align.top);
-        content.setTouchable(Touchable.enabled);
+        // Setup open Missions table
+        openMissions = new Table();
+        openMissions.setName("Open");
+        openMissions.align(Align.top);
+        openMissions.setTouchable(Touchable.enabled);
+        openMissions.setBackground(Assets.instance().table_border_patch);
 
-        title = new Label("Missions", Constants.LabelStyle());
-        title.setFontScale(1.2f);
+        // Setup running missions table
+        activeMissions = new Table();
+        activeMissions.setName("Active");
+        activeMissions.align(Align.top);
+        activeMissions.setTouchable(Touchable.enabled);
+        activeMissions.setBackground(Assets.instance().table_border_patch);
 
-        missionScroller = new ScrollPane(missionContainer);
+        // Add everything to the tables
+        openMissionContainer = new Table();
+        openMissionScroller = new ScrollPane(openMissionContainer);
 
         for (final Mission mission : MissionManager.instance().getOpenMissions()) {
-
-            missionContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(5).padBottom(5).row();
+            openMissionContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(5).padBottom(5).row();
         }
 
-//        for (int i = 0; i < 5; i++) {
-//            missionContainer.add(new MissionUIElement(MissionFactory.CreateRandomMission()))
-//                    .expandX().fillX().padTop(5).padBottom(5);
-//            missionContainer.row();
-//        }
+        openMissions.add(openMissionScroller).expand().fill().maxHeight(180).prefWidth(400).maxWidth(400);
 
-        this.addMainContent(content);
-        content.add(title).expandX().fillX().padTop(5).padBottom(5).center();
-        content.row();
-        content.add(missionScroller).expand().fill().maxHeight(175).prefWidth(400).maxWidth(400);
+        activeMissionsContainer = new Table();
+        activeMissionScroller = new ScrollPane(activeMissionsContainer);
+
+        for (final Mission mission : MissionManager.instance().getActiveMissions()) {
+            activeMissionsContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(5).padBottom(5).row();
+        }
+
+        activeMissions.add(activeMissionScroller).expand().fill().maxHeight(180).prefWidth(400).maxWidth(400);
+
+        // Setup tabbed view
+        ArrayList<Actor> views = new ArrayList<Actor>();
+        views.add(activeMissions);
+        views.add(openMissions);
+        TabbedView tabbedView = new TabbedView(views);
+
+        // Set tabbed view as main view
+        this.addMainContent(tabbedView);
     }
 }
