@@ -22,6 +22,9 @@ import de.hsd.hacking.Utils.Constants;
  */
 
 public class MissionBrowser extends Popup {
+    private static final int SCROLLER_WIDTH = 400;
+    private static final int SCROLLER_HEIGHT = 172;
+    private static final int SCROLLER_ELEMENT_PADDING = 5;
 
     private Table openMissions, activeMissions;
 
@@ -61,33 +64,33 @@ public class MissionBrowser extends Popup {
         openMissions.setName("Open");
         openMissions.align(Align.top);
         openMissions.setTouchable(Touchable.enabled);
-        openMissions.setBackground(Assets.instance().table_border_patch);
+        openMissions.setBackground(Assets.instance().tab_view_border_patch);
 
         // Setup running missions table
         activeMissions = new Table();
         activeMissions.setName("Active");
         activeMissions.align(Align.top);
         activeMissions.setTouchable(Touchable.enabled);
-        activeMissions.setBackground(Assets.instance().table_border_patch);
+        activeMissions.setBackground(Assets.instance().tab_view_border_patch);
 
         // Add everything to the tables
         openMissionContainer = new Table();
         openMissionScroller = new ScrollPane(openMissionContainer);
 
         for (final Mission mission : MissionManager.instance().getOpenMissions()) {
-            openMissionContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(5).padBottom(5).row();
+            openMissionContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
         }
 
-        openMissions.add(openMissionScroller).expand().fill().maxHeight(180).prefWidth(400).maxWidth(400);
+        openMissions.add(openMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         activeMissionsContainer = new Table();
         activeMissionScroller = new ScrollPane(activeMissionsContainer);
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-            activeMissionsContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(5).padBottom(5).row();
+            activeMissionsContainer.add(new MissionUIElement(mission)).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
         }
 
-        activeMissions.add(activeMissionScroller).expand().fill().maxHeight(180).prefWidth(400).maxWidth(400);
+        activeMissions.add(activeMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         // Setup tabbed view
         ArrayList<Actor> views = new ArrayList<Actor>();

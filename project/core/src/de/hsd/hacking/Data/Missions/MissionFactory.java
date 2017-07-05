@@ -73,21 +73,6 @@ public final class MissionFactory {
     }
 
     /**
-     * Generates a list of 3 random skills with 3 random values.
-     * @return List of 3 random skills
-     */
-    private static final List<Skill> RandomSkills() {
-        List<Skill> skillz = new ArrayList<Skill>();
-
-        for (int i = 0; i < 3; i++) {
-            Skill skill = new Skill(SkillType.getRandomSkill(false), RandomUtils.randomInt(10) + 1);
-            skillz.add(skill);
-        }
-
-        return skillz;
-    }
-
-    /**
      * Creates a new MissionOutcome object with random outcome.
      * @return Random mission outcome object.
      */

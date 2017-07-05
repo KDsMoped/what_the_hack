@@ -70,7 +70,7 @@ public class Assets {
     public Skin terminal_skin;
     public NinePatchDrawable terminal_patch;
     public NinePatchDrawable win32_patch;
-    public NinePatchDrawable table_border_patch;
+    public NinePatchDrawable table_border_patch, tab_view_border_patch;
 
     public NinePatchDrawable table_dimm_patch;
 
@@ -154,6 +154,7 @@ public class Assets {
         terminal_patch = new NinePatchDrawable(terminal_skin.getPatch("terminal_9_patch"));
         win32_patch = new NinePatchDrawable(terminal_skin.getPatch("popup"));
         table_border_patch = new NinePatchDrawable(terminal_skin.getPatch("table_border"));
+        tab_view_border_patch = new NinePatchDrawable(terminal_skin.getPatch("tab_view_border"));
         table_dimm_patch = new NinePatchDrawable(terminal_skin.getPatch("dimm"));
     }
 

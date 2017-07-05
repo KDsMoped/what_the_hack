@@ -50,7 +50,7 @@ public class TabbedView extends Table {
             buttonHolder.add(tabSwitcher).padLeft(-1).height(20f);
         }
 
-        this.add(buttonHolder).center().padTop(2f);
+        this.add(buttonHolder).left().padTop(2f).padLeft(3f);
         this.row();
         this.add(activeTab);
 
