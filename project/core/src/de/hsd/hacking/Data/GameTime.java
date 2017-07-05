@@ -48,7 +48,7 @@ public class GameTime extends Actor {
         if (currentTime >= 1f) {
             currentTime = 0f;
             currentDay++;
-            Gdx.app.log(Constants.TAG, "Day changed. Now day: " + currentDay);
+            if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "Day changed. Now day: " + currentDay);
             for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
                 t.dayChanged(currentDay);
             }
@@ -104,6 +104,10 @@ public class GameTime extends Actor {
 
     public void setTimeChangedListeners(List<TimeChangedListener> timeChangedListeners) {
         this.timeChangedListeners = timeChangedListeners;
+    }
+
+    public float getRemainingWeekFraction(){
+        return 1 - ((currentDay) % 7) / (float) 7;
     }
 
     public boolean removeTimeChangedListener(TimeChangedListener timeChangedListener) {

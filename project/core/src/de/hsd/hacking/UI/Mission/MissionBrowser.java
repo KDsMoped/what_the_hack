@@ -97,7 +97,7 @@ public class MissionBrowser extends Popup {
         this.addMainContent(tabbedView);
     }
 
-    private void initSubTable(Table table) {
+    private static void initSubTable(Table table) {
         table.align(Align.top);
         table.setTouchable(Touchable.enabled);
         table.setBackground(Assets.instance().tab_view_border_patch);

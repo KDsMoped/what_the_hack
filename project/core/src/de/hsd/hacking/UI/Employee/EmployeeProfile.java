@@ -28,13 +28,8 @@ public class EmployeeProfile extends Popup {
 
     private static final int TABLE_SPACING = 20;
 
-    Table contentTable;
-
-
     private Label title;
     private Table informationContainer = new Table();
-
-
 
 
     private EmployeeProvider employee;
@@ -49,21 +44,20 @@ public class EmployeeProfile extends Popup {
 
     private void initTable() {
 
-
-        contentTable = new Table();
+        Table contentTable = new Table();
         contentTable.align(Align.top);
         contentTable.setTouchable(Touchable.enabled);
 //        contentTable.setDebug(true);
 
-        contentTable.add(initLeftColumn()).left().padLeft(40);
-        contentTable.add(initRightColumn()).right().padRight(40);
+        contentTable.add(initLeftColumn()).left().top().padLeft(20).maxWidth(120).maxHeight(162);
+        contentTable.add(initRightColumn()).right().top().padRight(20).maxWidth(310).prefWidth(310).maxHeight(162);
 
         addMainContent(contentTable);
     }
 
     private Table initLeftColumn(){
         Table leftColumn = new Table();
-        leftColumn.setDebug(true);
+//        leftColumn.setDebug(true);
 
 
         EmployeeIcon icon = new EmployeeIcon(employee);
@@ -71,7 +65,7 @@ public class EmployeeProfile extends Popup {
 //        icon.pad(10);
 //        icon.padBottom(10);
 
-        leftColumn.add(new Label("", Constants.LabelStyle()));
+        leftColumn.add(new Label("", Constants.LabelStyle())).padBottom(15);
         leftColumn.row();
         leftColumn.add(icon).padBottom(10).center().row();
 
@@ -108,7 +102,7 @@ public class EmployeeProfile extends Popup {
 
         rightColumn.add(title).expandX().fillX().padTop(5).padBottom(10).padLeft(10);
         rightColumn.row();
-        rightColumn.add(viewport)/*.maxHeight(130).width(300)*/.padLeft(10).expand().fill();
+        rightColumn.add(viewport).prefWidth(300)/*.maxHeight(130).width(300)*/.padLeft(10).expand().fill();
         viewport.add(informationScroller).expand().fill().right();
 //        mainTable.add(content);
         return rightColumn;

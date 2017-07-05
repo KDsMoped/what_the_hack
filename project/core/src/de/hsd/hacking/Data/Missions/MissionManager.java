@@ -21,7 +21,7 @@ public class MissionManager implements TimeChangedListener {
 
     private static final int MAX_ACTIVE_MISSIONS = 4;
     private static final int MAX_OPEN_MISSIONS = 12;
-    private static final float REFRESH_RATE = 0.3f;
+    private static final float REFRESH_RATE = 0.2f;
 
     private static MissionManager instance;
     private int currentMissionNumber;
@@ -52,13 +52,6 @@ public class MissionManager implements TimeChangedListener {
         GameTime.instance.addTimeChangedListener(this);
 
         fillOpenMissions();
-
-//        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
-        startMission(openMissions.get(0));
-//        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
-        startMission(openMissions.get(0));
-//        Gdx.app.log(Constants.TAG, "open missions: " + openMissions.size());
-        startMission(openMissions.get(0));
     }
 
     private void refreshOpenMissions() {

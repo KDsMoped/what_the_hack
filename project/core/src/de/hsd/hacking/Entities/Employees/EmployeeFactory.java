@@ -216,6 +216,11 @@ public class EmployeeFactory {
         return COST_INCREMENT_SKILL;
     }
 
+    /**
+     * Adds a special ability to this employee and returns its score.
+     * @param padawan
+     * @return
+     */
     private static float rollSpecial(Employee padawan){
         int roll = MathUtils.random(1, 3);
 
@@ -225,7 +230,7 @@ public class EmployeeFactory {
             case 2:
                 return padawan.addEmployeeSpecial(new Risky(padawan, 1));
             case 3:
-                return padawan.addEmployeeSpecial(new Unreliable(padawan, 0.03f));
+                return padawan.addEmployeeSpecial(new Unreliable(padawan, 0.02f));
             case 4:
             case 5:
             case 6:

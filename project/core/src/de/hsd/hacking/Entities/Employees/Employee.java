@@ -21,6 +21,7 @@ import java.util.Collections;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
@@ -105,6 +106,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private ShaderProgram shader;
     private AnimState animationState;
     private boolean flipped;
+    private boolean isEmployed;
 
     //Data
     @Expose
@@ -214,12 +216,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * This is called as soon as the employee joins the team.
      */
     public void onEmploy() {
+        setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.enabled);
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
         this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
+        isEmployed = true;
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onEmploy();
@@ -230,6 +234,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * This is called as soon as the employee leaves the team.
      */
     public void onDismiss(){
+        isEmployed = false;
+
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onDismiss();
         }
@@ -530,7 +536,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.salary = salary;
     }
 
-    public int getSalary() {
+    int getSalary() {
         return salary;
     }
 
@@ -538,15 +544,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return String.format("%03d", salary) + "$";
     }
 
-    public int getHiringCost() {
-        return (int) (salary * 1.5f /* * fraction of rest of week*/);
+    int getHiringCost() {
+        return (int) (salary * 1.5f * GameTime.instance.getRemainingWeekFraction());
     }
 
     public String getHiringCostText() {
         return String.format("%03d", getHiringCost()) + "$";
     }
 
-    public float addEmployeeSpecial(EmployeeSpecial special) {
+    float addEmployeeSpecial(EmployeeSpecial special) {
 
         for (EmployeeSpecial s : employeeSpecials) {
             if(s.getClass() == special.getClass()) return 0;
@@ -565,9 +571,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return Collections.unmodifiableCollection(employeeSpecials);
     }
 
-//    public void addEmployListener(Callback callback) {
-//        if (!employListener.contains(callback)) return;
-//
-//        employListener.add(callback);
-//    }
+    public boolean isEmployed(){
+        return isEmployed;
+    }
 }

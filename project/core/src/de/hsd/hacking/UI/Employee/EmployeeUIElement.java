@@ -1,6 +1,5 @@
 package de.hsd.hacking.UI.Employee;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.Callback.EmployeeCallback;
 import de.hsd.hacking.Utils.Constants;
 
@@ -21,14 +20,13 @@ import java.util.Collection;
 public class EmployeeUIElement extends Table {
 
     private final Employee employee;
-    private final EmployeeCallback onEmploy;
+//    private final EmployeeCallback onEmploy;
 
     private Label money;
-    private TextButton employButton;
 
-    public EmployeeUIElement(Employee employee, EmployeeCallback onEmploy) {
+    public EmployeeUIElement(Employee employee) {
         this.employee = employee;
-        this.onEmploy = onEmploy;
+//        this.onEmploy = onEmploy;
 
         initTable();
     }
@@ -38,43 +36,80 @@ public class EmployeeUIElement extends Table {
         align(Align.top);
         setBackground(Assets.instance().table_border_patch);
         pad(4f);
-
 //        setDebug(true);
 
+        add(new EmployeeIcon(employee)).left().top().padRight(10);
+        add(getSecondColumn()).expand().fillX().top().prefWidth(280);
+        add(getThirdColumn()).expand().fill().right().top().padLeft(10).minWidth(70).prefHeight(100);
+    }
+
+    private Table getSecondColumn(){
         Table secondColumn = new Table();
 //        secondColumn.setDebug(true);
 
         Label name = new Label(employee.getName(), Constants.LabelStyle());
         name.setFontScale(1.05f);
 
-        money = new Label(employee.getSalaryText(), Constants.LabelStyle());
-        money.setAlignment(Align.topRight);
-
         Table skillsTable = initSkillsTable(employee.getSkillset());
-
-        employButton = new TextButton("Employ", Constants.TextButtonStyle());
-        employButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                onEmploy.callback(employee);
-            }
-        });
-
-        Table thirdColumn = new Table();
-//        thirdColumn.setDebug(true);
-
-        add(new EmployeeIcon(employee)).left().top().padRight(5);
-        add(secondColumn).expand().fillX().top().prefWidth(280);
-        add(thirdColumn).expand().fillX().right().top().padLeft(10).minWidth(70);
 
         secondColumn.add(name).expandX().fillX().left().top();
         secondColumn.row();
         secondColumn.add(skillsTable).expand().fill().left().top().padTop(5);
 
+        return secondColumn;
+    }
+
+    private Table getThirdColumn(){
+        if(employee.isEmployed()) return  getThirdColumnTeam();
+        else return getThirdColumnEmploy();
+    }
+
+    private Table getThirdColumnEmploy(){
+        Table thirdColumn = new Table();
+//        thirdColumn.setDebug(true);
+
+        money = new Label(employee.getSalaryText(), Constants.LabelStyle());
+        money.setAlignment(Align.topRight);
+
+        TextButton employButton = new TextButton("Employ", Constants.TextButtonStyle());
+        employButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                EmployeeManager.instance().employ(employee);
+            }
+        });
+
         thirdColumn.add(money).right().top();
+        thirdColumn.row();
+        thirdColumn.add(new Label("", Constants.LabelStyle())).prefHeight(100).minHeight(0);
         thirdColumn.row();
         thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70);
 
+        return thirdColumn;
+    }
+
+    private Table getThirdColumnTeam(){
+        Table thirdColumn = new Table();
+//        thirdColumn.setDebug(true);
+
+        money = new Label(employee.getSalaryText(), Constants.LabelStyle());
+        money.setAlignment(Align.topRight);
+
+        TextButton employButton = new TextButton("Dismiss", Constants.TextButtonStyle());
+        employButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+            EmployeeManager.instance().dismiss(employee);
+            }
+        });
+
+        thirdColumn.add(money).right().top();
+        thirdColumn.row();
+        thirdColumn.add(new Label("", Constants.LabelStyle())).prefHeight(100).minHeight(0);
+        thirdColumn.row();
+        thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70);
+
+        return thirdColumn;
     }
 
     private Table initSkillsTable(Collection<Skill> skillset) {
@@ -83,24 +118,15 @@ public class EmployeeUIElement extends Table {
 
         for (final Skill s : skillset) {
 
-//            skillsTable.add(new Label(s.getDisplayType(), Constants.LabelStyle())).left().expandX();
-//            skillsTable.add(new Label(s.getDisplayValue(true), Constants.LabelStyle())).right().expandX().padBottom(3).padRight(15);
-//            skillsTable.row();
             tableElements(skillsTable, new Label(s.getDisplayType(), Constants.LabelStyle()), new Label(s.getDisplayValue(true), Constants.LabelStyle()));
         }
 
-
-
         //Specials
-
         Collection<EmployeeSpecial> specials = employee.getSpecials();
 
         if (specials.size() > 0) {
 
             skillsTable.add(new Label("", Constants.LabelStyle()));
-//            skillsTable.add(new Label("Special:", Constants.LabelStyle()));
-
-
 
             for (final EmployeeSpecial special : specials) {
 
@@ -109,14 +135,7 @@ public class EmployeeUIElement extends Table {
                 skillsTable.row();
                 skillsTable.add(new Label(special.getDisplayName(), Constants.LabelStyle())).left().expandX();
             }
-
-
-
-//            skillsTable.addActor(new Label("", Constants.LabelStyle()));
-
-
         }
-
         return skillsTable;
     }
 
@@ -129,11 +148,17 @@ public class EmployeeUIElement extends Table {
     @Override
     public void act(float delta) {
 
-        money.setText(
-                employee.getSalaryText() + "\n" +
-                        "a week\n" +
-                        employee.getHiringCostText() + "\n" +
-                        "now");
+        if(employee.isEmployed()) {
+            money.setText(
+                    employee.getSalaryText() + "\n" +
+                            "a week");
+        }else{
+            money.setText(
+                    employee.getSalaryText() + "\n" +
+                            "a week\n" +
+                            employee.getHiringCostText() + "\n" +
+                            "now");
+        }
 
 //        if (Team.instance().getMoney() < employee.getHiringCost()) {
 //            money.setColor(Color.RED);
