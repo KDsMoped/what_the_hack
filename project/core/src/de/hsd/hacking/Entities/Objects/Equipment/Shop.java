@@ -37,9 +37,9 @@ public class Shop {
         Equipment e = shopItems.get(index);
         Team team = Team.instance();
         int price = (int)e.getPrice();
-        if (team.resources.money < price)
+        if (team.getMoney() < price)
             return 1;
-        team.reduceResource(Equipment.EquipmentAttributeType.MONEY, price);
+        team.reduceMoney(price);
         team.addEquipment(e);
         return 0;
     }
@@ -48,9 +48,9 @@ public class Shop {
         int index = shopItems.indexOf(equipment);
         Team team = Team.instance();
         int price = (int)equipment.getPrice();
-        if (team.resources.money < price)
+        if (team.getMoney() < price)
             return 1;
-        team.reduceResource(Equipment.EquipmentAttributeType.MONEY, price);
+        team.reduceMoney(price);
         team.addEquipment(equipment);
         equipment.setBought(true);
         return 0;
@@ -59,9 +59,9 @@ public class Shop {
     public int upgradeItem(Equipment equipment) {
         Team team = Team.instance();
         int price = (int)equipment.getPrice();
-        if (team.resources.money < price)
+        if (team.getMoney() < price)
             return 1;
-        team.reduceResource(Equipment.EquipmentAttributeType.MONEY, price);
+        team.reduceMoney(price);
         ((Upgradable) equipment).upgrade();
         return 0;
     }

@@ -47,6 +47,7 @@ public class ShopUIElement extends Table {
                     if(Shop.instance().buyItem(equipment) == 1) {}
                     if(equipment instanceof Upgradable) {
                         buyButton.setText("Upgrade");
+                        updateTable();
                     }
                 }
                 else {
@@ -68,8 +69,8 @@ public class ShopUIElement extends Table {
 
         name = new Label(equipment.getName(), Constants.LabelStyle());
         price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
-        attribute = new Label(equipment.getAttributeType().toString() + " +" + Integer.toString(equipment.getAttributeValue()), Constants.LabelStyle());
-        level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
+        attribute = new Label("Möp", Constants.LabelStyle());
+        //level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
 
         content.add(name).expandX().fillX().left();
         content.add(price).right().padLeft(10);
@@ -87,7 +88,7 @@ public class ShopUIElement extends Table {
 
         name = new Label(equipment.getName(), Constants.LabelStyle());
         price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
-        attribute = new Label(equipment.getAttributeType().toString() + " +" + Integer.toString(equipment.getAttributeValue()), Constants.LabelStyle());
+        attribute = new Label("Möp", Constants.LabelStyle());
         level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
 
         content.add(name).expandX().fillX().left();

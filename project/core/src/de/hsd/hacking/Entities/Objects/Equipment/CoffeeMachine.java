@@ -18,10 +18,9 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     private int state = 1;
 
     int maxLevel;
-    float mul;
 
     public CoffeeMachine(){
-        super("Coffee Maker 5000", 100, EquipmentAttributeType.SKILL_ALLPURPOSE, 5, Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        super("Coffee Maker 5000", 100, /*EquipmentAttributeType.SKILL_ALLPURPOSE, 5,*/ Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
 
         Assets assets = Assets.instance();
         this.stillRegion = assets.coffeemachine.get(0);
@@ -31,13 +30,15 @@ public class CoffeeMachine extends Equipment implements Upgradable {
 
     public void upgrade() {
         level++;
-        attributeValue += 5;
-        updatePrice();
         team.updateResources();
     }
 
     public void setMaxLevel() {maxLevel = 5; }
-    public void updatePrice() { price *= 2; }
+
+    @Override
+    public int getAllPurposeSkillBonus() { return level * 5; }
+
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
