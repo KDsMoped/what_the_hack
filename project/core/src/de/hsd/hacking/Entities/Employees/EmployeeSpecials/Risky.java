@@ -28,7 +28,10 @@ public class Risky extends EmployeeSpecial {
         switch (level){
             case 1:
                 return "Risky";
-
+            case 2:
+                return "Very Risky";
+            case 3:
+                return "Extremely Risky";
             default:
                 return "Risky " + level;
 
