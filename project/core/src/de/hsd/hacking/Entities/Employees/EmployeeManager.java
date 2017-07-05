@@ -190,6 +190,23 @@ public class EmployeeManager implements TimeChangedListener {
 
     @Override
     public void weekChanged(int week) {
+        payday();
+    }
+
+    private void payday(){
+        for (Employee employee : hiredEmployees.toArray(new Employee[hiredEmployees.size()])) {
+            pay(employee);
+        }
+    }
+
+    private void pay(Employee employee){
+        if (team.getMoney() < employee.getSalary()) {
+            Gdx.app.log(Constants.TAG, "You have no money to pay for " + employee.getName() + " employee! He is leaving!");
+            //TODO: Tell user about this.
+            dismiss(employee);
+        }
+
+        team.reduceMoney(employee.getSalary());
     }
 
     public void addRefreshEmployeeListener(Callback callback) {

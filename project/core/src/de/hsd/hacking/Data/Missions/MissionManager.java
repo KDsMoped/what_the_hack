@@ -66,6 +66,10 @@ public class MissionManager implements TimeChangedListener {
         removeMissions(REFRESH_RATE);
         fillOpenMissions();
 
+        notifyRefreshListeners();
+    }
+
+    private void notifyRefreshListeners(){
         for (Callback c : refreshMissionListener.toArray(new Callback[refreshMissionListener.size()])) {
             c.callback();
         }
@@ -92,12 +96,28 @@ public class MissionManager implements TimeChangedListener {
      * Completes this mission
      *
      * @param mission
-     * @param outcome
      */
-    public void completeMission(Mission mission, MissionOutcome outcome) {
+    public void completeMission(Mission mission) {
         activeMissions.remove(mission);
         completedMissions.add(mission);
-        mission.setOutcome(outcome);
+//        mission.setOutcome(outcome);
+
+        notifyRefreshListeners();
+    }
+
+    /**
+     * Aborts this mission
+     *
+     * @param mission
+     */
+    public void abortMission(Mission mission) {
+        activeMissions.remove(mission);
+//        completedMissions.add(mission);
+//        mission.setOutcome(outcome);
+
+        notifyRefreshListeners();
+
+        //TODO: Remove MissionWorkers
     }
 
     /**
@@ -119,6 +139,8 @@ public class MissionManager implements TimeChangedListener {
         openMissions.remove(mission);
         activeMissions.add(mission);
         mission.Start();
+
+        notifyRefreshListeners();
     }
 
     /**
@@ -167,7 +189,8 @@ public class MissionManager implements TimeChangedListener {
                     GameTime.instance.removeTimeChangedListener(worker);
                     activeMissions.remove(worker.getMission());
                     if (worker.getMission().isCompleted()) {
-                        completedMissions.add(worker.getMission());
+//                        completedMissions.add(worker.getMission());
+                            completeMission(worker.getMission());
                     }
                 }
             }
@@ -201,12 +224,10 @@ public class MissionManager implements TimeChangedListener {
 
     @Override
     public void timeChanged(float time) {
-
     }
 
     @Override
     public void timeStepChanged(int step) {
-
     }
 
     @Override
