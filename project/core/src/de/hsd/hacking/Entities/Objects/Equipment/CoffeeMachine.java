@@ -39,7 +39,6 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     public int getAllPurposeSkillBonus() { return level * 5; }
 
 
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
