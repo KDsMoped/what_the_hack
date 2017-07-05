@@ -1,12 +1,12 @@
 package de.hsd.hacking.UI.Mission;
 
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Missions.Mission;
@@ -29,20 +29,30 @@ import de.hsd.hacking.Entities.Employees.Skill;
     private Label description, skills;
     private Label money;
 
-    private TextButton acceptButton;
+    private TextButton actionButton;
+
+    private String buttonText;
+    private Boolean compactView;
+
+    private EventListener buttonListener;
 
     /**
      * Constructor.
      * @param mission Mission that shall be displayed.
      * @param compactView compactView hides the mission description.
+     * @param buttonText Button text.
+     * @param buttonListener Button callback.
      */
-    public MissionUIElement(Mission mission, Boolean compactView) {
+    public MissionUIElement(Mission mission, Boolean compactView, String buttonText, EventListener buttonListener) {
         this.mission = mission;
+        this.compactView = compactView;
+        this.buttonText = buttonText;
+        this.buttonListener = buttonListener;
 
-        initTable(compactView);
+        initTable();
     }
 
-    private void initTable(Boolean compactView) {
+    private void initTable() {
         // setup own table
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
@@ -62,8 +72,6 @@ import de.hsd.hacking.Entities.Employees.Skill;
             skills.setText(skills.getText() + s.getType().name() + ": " + s.getDisplayValue(false) + " \n");
         }
         skills.setWrap(true);
-
-        acceptButton = new TextButton("Accept", Constants.TextButtonStyle());
 
         Image calendar = new Image(Assets.instance().ui_calendar);
 
@@ -101,7 +109,13 @@ import de.hsd.hacking.Entities.Employees.Skill;
         moneyTimeTable.add(money).right();
         moneyTimeTable.add(dollar).right();
         moneyTimeTable.row().padTop(2f);
-        moneyTimeTable.add(acceptButton);
+
+
+        if (buttonText != null && !buttonText.equals("")) {
+            actionButton = new TextButton(buttonText, Constants.TextButtonStyle());
+            actionButton.addListener(buttonListener);
+            moneyTimeTable.add(actionButton);
+        }
     }
 
     /**
@@ -110,5 +124,37 @@ import de.hsd.hacking.Entities.Employees.Skill;
      */
     public Mission getMission(){
         return mission;
+    }
+
+    public String getButtonText() {
+        return buttonText;
+    }
+
+    public void setButtonText(String buttonText) {
+        this.buttonText = buttonText;
+    }
+
+    public TextButton getActionButton() {
+        return actionButton;
+    }
+
+    public void setActionButton(TextButton actionButton) {
+        this.actionButton = actionButton;
+    }
+
+    public Boolean getCompactView() {
+        return compactView;
+    }
+
+    public void setCompactView(Boolean compactView) {
+        this.compactView = compactView;
+    }
+
+    public EventListener getButtonListener() {
+        return buttonListener;
+    }
+
+    public void setButtonListener(EventListener buttonListener) {
+        this.buttonListener = buttonListener;
     }
 }
