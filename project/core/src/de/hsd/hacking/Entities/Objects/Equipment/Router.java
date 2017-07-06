@@ -11,20 +11,19 @@ import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 public class Router extends Equipment implements Upgradable {
 
     private int maxLevel;
-    private int mul;
-
 
     public Router() {
-        super("Ultra router 4000", 200, EquipmentAttributeType.BANDWIDTH, 50, null, true, Direction.DOWN, 0, Direction.DOWN);
+        super("Ultra router 4000", 200, /*EquipmentAttributeType.BANDWIDTH, 50,*/ null, true, Direction.DOWN, 0, Direction.DOWN);
     }
 
     public void upgrade() {
         level++;
-        team.addBandwidth(attributeValue);
+        team.updateResources();
     }
-
     public void setMaxLevel() { maxLevel = 5; }
-    public void setUpgradePriceMultiplier() { mul = 2; }
+
+    @Override
+    public int getBandwidthBonus() { return level * 50; }
 
     public void onTouch() {};
 

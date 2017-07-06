@@ -142,11 +142,13 @@ public class GameStage extends Stage {
         createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
 
         //other interior
+        /*
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.addObject(10, 0, desk);
         CoffeeMachine coffeeMachine = new CoffeeMachine();
         desk.setContainedObject(coffeeMachine);
         addTouchable(coffeeMachine);
+        */
     }
 
     private void InitUI() {
@@ -226,7 +228,6 @@ public class GameStage extends Stage {
     }
 
     private void InitTeam() {
-
         employeeManager = EmployeeManager.instance();
         team = Team.instance();
 
@@ -234,7 +235,6 @@ public class GameStage extends Stage {
         employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
 
 
-        team.createAndAddEquipment(EquipmentType.MODEM);
     }
 
     @Override
@@ -268,8 +268,8 @@ public class GameStage extends Stage {
             }
         }
         //team.calcRessorces();
-        statusBar.setMoney(team.getMoney());
-        statusBar.setBandwith(team.getBandwith());
+        statusBar.setMoney(team.resources.money);
+        statusBar.setBandwith(team.resources.bandwidth);
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(employeeManager.getTeamSize());
 

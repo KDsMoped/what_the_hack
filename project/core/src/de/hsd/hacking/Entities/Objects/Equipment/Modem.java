@@ -11,20 +11,21 @@ import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 public class Modem extends Equipment implements Upgradable {
 
     private int maxLevel;
-    private int mul;
 
 
     public Modem() {
-        super("Super Modem 2000", 100, EquipmentAttributeType.BANDWIDTH, 100, null, true, Direction.DOWN, 0, Direction.DOWN);
+        super("Super Modem 2000", 100, /*EquipmentAttributeType.BANDWIDTH, 100,*/ null, true, Direction.DOWN, 0, Direction.DOWN);
     }
+
+    @Override
+    public int getBandwidthBonus() { return level * 100; }
 
     public void upgrade() {
         level++;
-        team.addBandwidth(attributeValue);
+        team.updateResources();
     }
 
     public void setMaxLevel() { maxLevel = 5; }
-    public void setUpgradePriceMultiplier() { mul = 2; }
 
     public void onTouch() {};
 

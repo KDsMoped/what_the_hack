@@ -39,7 +39,7 @@ public class Computer extends Equipment implements Upgradable {
 
 
     public Computer() {
-        super("Super Computer 3000", 400, EquipmentAttributeType.COMPUTATIONPOWER, 100,
+        super("Super Computer 3000", 400, /*EquipmentAttributeType.COMPUTATIONPOWER, 100,*/
                 Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
@@ -49,16 +49,15 @@ public class Computer extends Equipment implements Upgradable {
     //Upgrade functions
     public void upgrade() {
         level++;
-        attributeValue += 100;
+        team.updateResources();
     }
 
     public void setMaxLevel() {
         maxLevel = 5;
     }
 
-    public void setUpgradePriceMultiplier() {
-        mul = 2;
-    }
+    @Override
+    public int getComputationPowerBonus() { return level * 100; }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
