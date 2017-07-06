@@ -29,6 +29,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
+import de.hsd.hacking.Utils.DateUtils;
 
 /**
  * Created by ju on 05.06.17.
@@ -161,7 +162,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
         bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
         employeesText.setText(Integer.toString(employees) + "/" + Constants.MAX_EMPLOYEE_COUNT);
-        dateText.setText(df.format(ConvertDaysToDate(date)));
+        dateText.setText(df.format(DateUtils.ConvertDaysToDate(date)));
     }
 
     /**
@@ -192,24 +193,6 @@ public class StatusBar extends Actor implements TimeChangedListener {
         animatedValue = (int)((newValue - oldValue) * interpol);
 
         return animatedValue + oldValue;
-    }
-
-    /**
-     * converts days starting from 1 to an date object starting 1.1.
-     * @param days number in days starting with 1
-     * @return
-     */
-    private Date ConvertDaysToDate(int days) {
-        Date date = new Date();
-
-        try {
-            date = new SimpleDateFormat("D").parse(String.valueOf(days));
-        }
-        catch (Exception e) {
-            Gdx.app.log(Constants.TAG, e.getMessage());
-        }
-
-        return date;
     }
 
 //    public float getTime() {
