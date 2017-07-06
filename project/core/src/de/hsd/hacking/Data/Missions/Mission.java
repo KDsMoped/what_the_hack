@@ -58,6 +58,27 @@ public class Mission implements EventSender {
 
     }
 
+    /**
+     * Creates a copy of this mission object.
+     * @return Copy of this object.
+     */
+    public Mission Clone() {
+        Mission mission = new Mission();
+
+        mission.setName(name);
+        mission.setDescription(description);
+        mission.setDuration(duration);
+        mission.setDifficulty(difficulty);
+        mission.setSkill(skill);
+        mission.setOutcome(outcome);
+        mission.setRisk(risk);
+        mission.setMissionNumber(missionNumber);
+        mission.setFinished(finished);
+        mission.setCompleted(completed);
+
+        return mission;
+    }
+
     @Override
     public void addListener(EventListener listener) {
         listeners.add(listener);

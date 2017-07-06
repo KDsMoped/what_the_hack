@@ -70,7 +70,7 @@ public class DataLoader {
     }
 
     public Mission getNewMission() {
-        return missions.get(MathUtils.random(missions.size() - 1));
+        return missions.get(MathUtils.random(missions.size() - 1)).Clone();
     }
 
 
