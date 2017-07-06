@@ -87,40 +87,10 @@ public class GameStage extends Stage {
 
         //TODO mit gespeicherten Werten aufrufen
 
-        addActor(GameTime.instance);
-
         InitRootObjects();
         InitInterior();
         InitTeam();
         InitUI();
-
-        // REMOVE THIS AGAIN
-        if (Constants.DEBUG) {
-            Skin uiSkin = new Skin(assets.ui_atlas);
-            TextButton.TextButtonStyle style = new TextButton.TextButtonStyle(uiSkin.getDrawable("win32_button_9_patch_normal"), uiSkin.getDrawable("win32_button_9_patch_pressed"),
-                    null, assets.status_bar_font);
-            style.fontColor = Color.BLACK;
-            style.pressedOffsetY = -1f;
-            style.pressedOffsetX = 1f;
-
-            TextButton upgradeButton = new TextButton("Upgrade", style);
-            upgradeButton.addListener(new ChangeListener() {
-                                          @Override
-                                          public void changed(ChangeEvent event, Actor actor) {
-                                              ArrayList<Equipment> equipments = team.getEquipmentList();
-                                              for (Equipment equipment :
-                                                      equipments) {
-                                                  if (equipment instanceof Upgradable) {
-                                                      ((Upgradable) equipment).upgrade();
-                                                  }
-                                              }
-                                          }
-                                      }
-            );
-            upgradeButton.setBounds(10, 40, 100, 30);
-
-            popups.addActor(upgradeButton);
-        }
     }
 
     private void InitRootObjects() {
@@ -134,6 +104,7 @@ public class GameStage extends Stage {
         // the order the actors are added is important
         // it is also the drawing order
         // meaning the last added item will also be drawn last
+        addActor(GameTime.instance);
         addActor(background);
         addActor(tileMap);
         addActor(foreground);
@@ -193,6 +164,7 @@ public class GameStage extends Stage {
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                deselectEmployee();
                 shopBrowser.toggleView();
             }
         });
@@ -205,6 +177,7 @@ public class GameStage extends Stage {
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                deselectEmployee();
                 missionBrowser.toggleView();
             }
         });
@@ -213,10 +186,11 @@ public class GameStage extends Stage {
 
         //Init Recruitment button
         final EmployeeBrowser employeeBrowser = new EmployeeBrowser();
-        TextButton recruitmentButton = new TextButton("Recruit", Constants.TextButtonStyle());
+        TextButton recruitmentButton = new TextButton("Team", Constants.TextButtonStyle());
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                deselectEmployee();
                 employeeBrowser.toggleView();
             }
         });
@@ -229,6 +203,7 @@ public class GameStage extends Stage {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                deselectEmployee();
                 ScreenManager.setMenuScreen();
             }
         });

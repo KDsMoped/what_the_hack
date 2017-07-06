@@ -18,7 +18,7 @@ public class EmployeeManager implements TimeChangedListener {
 
     private static final int MAX_AVAILABLE_EMPLOYEES = 16;
     private static final int AVAILABLE_EMPLOYEES_VARIANCE = 3;
-    private static final float REFRESH_RATE = 0.3f;
+    private static final float REFRESH_RATE = 0.15f;
 
     private static EmployeeManager instance;
 
@@ -55,9 +55,7 @@ public class EmployeeManager implements TimeChangedListener {
         removeAvailableEmployees(REFRESH_RATE);
         populateAvailableEmployees();
 
-        for (Callback c : refreshEmployeeListener.toArray(new Callback[refreshEmployeeListener.size()])) {
-            c.callback();
-        }
+        notifyRefreshListeners();
     }
 
     /**
@@ -96,33 +94,32 @@ public class EmployeeManager implements TimeChangedListener {
     }
 
     /**
-     * Employs this employee and adds it to the team. Returns 1 if successful.
+     * Employs this employee and adds it to the team.
      *
      * @param employee
-     * @return
      */
-    public int employ(Employee employee) {
+    public void employ(Employee employee) {
         if (hiredEmployees.contains(employee)) {
             Gdx.app.error(Constants.TAG, "Error: This employees is already hired!");
-            return 0;
+            return;
         }
         if (isTeamFull()) {
             Gdx.app.log(Constants.TAG, "Warning: Exceeding max number of employees!");
-            return 0;
+            return;
         }
         if (team.getMoney() < employee.getHiringCost()) {
             Gdx.app.log(Constants.TAG, "You have no money to hire this employee!");
             //TODO: Tell user about this.
-            return 0;
+            return;
         }
 
         team.reduceMoney(employee.getHiringCost());
         availableEmployees.remove(employee);
         hiredEmployees.add(employee);
-        employee.setTouchable(Touchable.enabled);
+
         GameStage.instance().addTouchable(employee);
         employee.onEmploy();
-        return 1;
+        notifyRefreshListeners();
     }
 
     /**
@@ -147,6 +144,8 @@ public class EmployeeManager implements TimeChangedListener {
         hiredEmployees.remove(employee);
         GameStage.instance().removeTouchable(employee);
         employee.onDismiss();
+
+        notifyRefreshListeners();
     }
 
     /**
@@ -190,16 +189,26 @@ public class EmployeeManager implements TimeChangedListener {
 
     @Override
     public void weekChanged(int week) {
+        if (Constants.DEBUG) Gdx.app.log("", "Payday");
+
         payday();
     }
 
-    private void payday(){
+    /**
+     * Pays all employees.
+     */
+    private void payday() {
         for (Employee employee : hiredEmployees.toArray(new Employee[hiredEmployees.size()])) {
             pay(employee);
         }
     }
 
-    private void pay(Employee employee){
+    /**
+     * Pays the given employee.
+     *
+     * @param employee
+     */
+    private void pay(Employee employee) {
         if (team.getMoney() < employee.getSalary()) {
             Gdx.app.log(Constants.TAG, "You have no money to pay for " + employee.getName() + " employee! He is leaving!");
             //TODO: Tell user about this.
@@ -211,5 +220,11 @@ public class EmployeeManager implements TimeChangedListener {
 
     public void addRefreshEmployeeListener(Callback callback) {
         if (!refreshEmployeeListener.contains(callback)) refreshEmployeeListener.add(callback);
+    }
+
+    private void notifyRefreshListeners() {
+        for (Callback c : refreshEmployeeListener.toArray(new Callback[refreshEmployeeListener.size()])) {
+            c.callback();
+        }
     }
 }

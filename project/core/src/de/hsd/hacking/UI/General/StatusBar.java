@@ -33,7 +33,7 @@ import de.hsd.hacking.Utils.Constants;
 /**
  * Created by ju on 05.06.17.
  */
-
+// TODO Vor dem Zahltag -15.000$ blinken lassen
 public class StatusBar extends Actor implements TimeChangedListener {
     // Constants
     private final int STATUS_BAR_HEIGHT = 20;
