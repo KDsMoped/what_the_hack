@@ -17,6 +17,11 @@ public class EmojiBubbleFactory {
         SUCCESS, FAILURE, SPEAKING
     }
 
+    /**
+     * Creates an {@link EmojiBubble} with given type over given entity
+     * @param type Changes the texture uses (SUCCESS, FAILURE, SPEAKING)
+     * @param entity The entity at which's position the bubble will be created
+     */
     public static void show(final EmojiType type, final Entity entity) {
         switch (type) {
 

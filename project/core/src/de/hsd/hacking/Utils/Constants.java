@@ -14,6 +14,7 @@ import de.hsd.hacking.Assets.Assets;
 public class Constants {
 
     public static final String TAG = "HackingGame";
+    public static final float TIME_STEPS_PER_DAY = 9;
 
     public static boolean DEBUG = false;
 
