@@ -95,7 +95,12 @@ public class MissionWorker implements TimeChangedListener {
     @Override
     public void dayChanged(final int days) {
         if (!employees.isEmpty() && !mission.isFinished()) {
-            if (--remainingMissionDays == 0) {
+            Gdx.app.log(Constants.TAG, "Next day. Remaining mission days: " + remainingMissionDays);
+            for (MissionSkillRequirement req :
+                    skillRequirements) {
+                Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
+            }
+            if (--remainingMissionDays == -1) {
                 mission.setFinished(true);
                 Gdx.app.log(Constants.TAG, "Mission over!");
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
@@ -112,12 +117,6 @@ public class MissionWorker implements TimeChangedListener {
                     mission.setCompleted(true);
                 }
 
-            } else {
-                Gdx.app.log(Constants.TAG, "Next day. Remaining mission days: " + remainingMissionDays);
-                for (MissionSkillRequirement req :
-                        skillRequirements) {
-                    Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
-                }
             }
         }
     }

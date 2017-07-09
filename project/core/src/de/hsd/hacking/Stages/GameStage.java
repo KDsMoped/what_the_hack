@@ -283,15 +283,15 @@ public class GameStage extends Stage implements EventListener{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         getViewport().unproject(checkVector.set(screenX, screenY));
         if (pointer == 0) {
-            if (employeesTouchable) {
-                for (Employee em
-                        : employeeManager.getHiredEmployees()) {
-                    if (em.touchDown(checkVector)) {
-                        return true;
+            if (!super.touchDown(screenX, screenY, pointer, button)) {
+                if (employeesTouchable) {
+                    for (Employee em
+                            : employeeManager.getHiredEmployees()) {
+                        if (em.touchDown(checkVector)) {
+                            return true;
+                        }
                     }
                 }
-            }
-            if (!super.touchDown(screenX, screenY, pointer, button)) {
                 for (Touchable touchable
                         : touchables) {
                     if (touchable.touchDown(checkVector)) {
@@ -316,18 +316,17 @@ public class GameStage extends Stage implements EventListener{
 
         //We allow only 1 finger on screen
         if (pointer == 0) {
-
-            //1st priority: Employees (touch will be disabled wenn UI is active
-            if (employeesTouchable) {
-                for (Employee em
-                        : employeeManager.getHiredEmployees()) {
-                    if (em.touchUp(checkVector)) {
-                        return true;
+            //1st priority: UI elements
+            if (!super.touchUp(screenX, screenY, pointer, button)) {
+            //2nd priority: Employees (touch will be disabled wenn UI is active)
+                if (employeesTouchable) {
+                    for (Employee em
+                            : employeeManager.getHiredEmployees()) {
+                        if (em.touchUp(checkVector)) {
+                            return true;
+                        }
                     }
                 }
-            }
-            //2nd priority: UI elements
-            if (!super.touchUp(screenX, screenY, pointer, button)) {
                 //3rd priority: Objects
                 for (Touchable touchable
                         : touchables) {
