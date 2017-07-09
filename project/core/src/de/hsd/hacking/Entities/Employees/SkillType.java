@@ -1,6 +1,7 @@
 package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.math.MathUtils;
+import de.hsd.hacking.Utils.RandomUtils;
 
 /**
  * Created by Cuddl3s on 22.05.2017.
@@ -15,10 +16,10 @@ public enum SkillType {
 
     public static SkillType getRandomSkill(Boolean allPurpose) {
         if (allPurpose) {
-            return VALUES[MathUtils.random(SIZE - 1)];
+            return VALUES[RandomUtils.randomInt(SIZE - 1)];
         }
         else {
-            return VALUES[MathUtils.random(SIZE - 2)];
+            return VALUES[RandomUtils.randomInt(SIZE - 2)];
         }
 
     }

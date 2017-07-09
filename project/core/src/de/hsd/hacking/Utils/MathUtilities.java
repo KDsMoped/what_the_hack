@@ -11,7 +11,7 @@ public class MathUtilities {
      * @return
      */
     public static int var(int v) {
-        return MathUtils.random(-v, v);
+        return RandomUtils.randomIntWithin(-v, v);
     }
 
     /**

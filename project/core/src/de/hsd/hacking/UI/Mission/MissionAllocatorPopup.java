@@ -42,7 +42,7 @@ public class MissionAllocatorPopup extends Popup {
         Table content = new Table();
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
-        content.setDebug(true);
+//        content.setDebug(true);
 
         Label title = new Label("Choose a mission to work on", Constants.LabelStyle());
         title.setFontScale(1.0f);
