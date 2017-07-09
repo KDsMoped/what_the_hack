@@ -21,6 +21,7 @@ import de.hsd.hacking.Utils.RandomUtils;
 
 public class MissionWorker implements TimeChangedListener {
 
+    private final int DICE_SIDES = 40;
     private Mission mission;
     private int remainingMissionDays;
     private List<MissionSkillRequirement> skillRequirements;
@@ -72,13 +73,13 @@ public class MissionWorker implements TimeChangedListener {
     private void workOnSkill(Employee em, MissionSkillRequirement req, int value) {
         float stepValue = value * (0.9f + RandomUtils.randomFloat() * 0.2f) * (1 / 9f);
 
-        int dice = RandomUtils.randomInt(20) + 1; //1-20
-        if (dice < 1 + em.getCriticalFailureChance()){
+        int dice = RandomUtils.randomInt(DICE_SIDES) + 1; //1-DICE_SIDES
+        if (dice < em.getCriticalFailureChance() ){
             //criticalFailure
             req.incrementCurrentValue(0.5f);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.FAILURE, em);
             MessageManager.instance().Warning("Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
-        } else if (dice > 20 - em.getCriticalSuccessChance()){
+        } else if (dice > DICE_SIDES - em.getCriticalSuccessChance()){
             //criticalSuccess
             MessageManager.instance().Info("Employee " + em.getName() + " had a critical success while working on " + req.getSkillType().getDisplayName());
             req.incrementCurrentValue(2 * stepValue);

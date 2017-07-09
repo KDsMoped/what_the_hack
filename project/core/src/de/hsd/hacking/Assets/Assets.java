@@ -53,6 +53,8 @@ public class Assets {
     public TextureRegion desk_bf_1;
     public TextureRegion desk_bf_2;
     public TextureRegion chair;
+    public TextureRegion success;
+    public TextureRegion angry;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;
@@ -125,6 +127,8 @@ public class Assets {
         desk_bf_1 = atlas.findRegion("interior/Table_bf", 1);
         desk_bf_2 = atlas.findRegion("interior/Table_bf", 2);
         chair = atlas.findRegion("interior/Chair", 1);
+        success = character_atlas.findRegion("Emojis/success");
+        angry = character_atlas.findRegion("Emojis/angry");
 
         mainmenu_bg = new Array<TextureRegion>();
         mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));

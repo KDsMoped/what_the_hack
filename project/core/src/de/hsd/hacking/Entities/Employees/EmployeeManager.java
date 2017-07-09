@@ -120,7 +120,7 @@ public class EmployeeManager implements TimeChangedListener {
         availableEmployees.remove(employee);
         hiredEmployees.add(employee);
 
-        GameStage.instance().addTouchable(employee);
+//        GameStage.instance().addTouchable(employee);
         employee.onEmploy();
         notifyRefreshListeners();
     }

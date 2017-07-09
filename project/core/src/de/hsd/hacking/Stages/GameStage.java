@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Tile.TileMap;
@@ -44,7 +45,7 @@ import de.hsd.hacking.Utils.Constants;
  * Created by Cuddl3s on 24.05.2017.
  */
 
-public class GameStage extends Stage {
+public class GameStage extends Stage implements EventListener{
 
     private Assets assets;
     //Debug parameters
@@ -69,6 +70,7 @@ public class GameStage extends Stage {
     private Group foreground, background, ui, popups, overlay;
 
     private static GameStage instance;
+    private boolean employeesTouchable = true;
 
     public static GameStage instance() {
         return instance;
@@ -154,6 +156,7 @@ public class GameStage extends Stage {
 
         //Init Mission Window
         popups.addActor(missionBrowser);
+        missionBrowser.addEventListener(this);
 
         //Init Shop button
         final ShopBrowser shopBrowser = new ShopBrowser();
@@ -168,6 +171,7 @@ public class GameStage extends Stage {
         shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
         ui.addActor(shopButton);
         popups.addActor(shopBrowser);
+        shopBrowser.addEventListener(this);
 
         //Init Missions button
         TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());
@@ -194,6 +198,7 @@ public class GameStage extends Stage {
         recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
         ui.addActor(recruitmentButton);
         popups.addActor(employeeBrowser);
+        employeeBrowser.addEventListener(this);
 
         //Init Exit button
         TextButton exitButton = new TextButton("Exit", Constants.TextButtonStyle());
@@ -276,21 +281,28 @@ public class GameStage extends Stage {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (!super.touchDown(screenX, screenY, pointer, button)) {
-            getViewport().unproject(checkVector.set(screenX, screenY));
-            boolean touchableTouched = false;
-            if (pointer == 0) {
-                for (Touchable touchable :
-                        touchables) {
-                    if (touchable.touchDown(checkVector)) {
-                        touchableTouched = true;
-                        break;
+        getViewport().unproject(checkVector.set(screenX, screenY));
+        if (pointer == 0) {
+            if (employeesTouchable) {
+                for (Employee em
+                        : employeeManager.getHiredEmployees()) {
+                    if (em.touchDown(checkVector)) {
+                        return true;
                     }
                 }
             }
-            return touchableTouched;
+            if (!super.touchDown(screenX, screenY, pointer, button)) {
+                for (Touchable touchable
+                        : touchables) {
+                    if (touchable.touchDown(checkVector)) {
+                        return true;
+                    }
+                }
+            } else {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -300,24 +312,37 @@ public class GameStage extends Stage {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (!super.touchUp(screenX, screenY, pointer, button)) {
-            getViewport().unproject(checkVector.set(screenX, screenY));
-            boolean touchableTouchedUp = false;
-            if (pointer == 0) {
-                for (Touchable touchable :
-                        touchables) {
-                    if (touchable.touchUp(checkVector)) {
-                        touchableTouchedUp = true;
-                        break;
+        getViewport().unproject(checkVector.set(screenX, screenY));
+
+        //We allow only 1 finger on screen
+        if (pointer == 0) {
+
+            //1st priority: Employees (touch will be disabled wenn UI is active
+            if (employeesTouchable) {
+                for (Employee em
+                        : employeeManager.getHiredEmployees()) {
+                    if (em.touchUp(checkVector)) {
+                        return true;
                     }
                 }
             }
-            return touchableTouchedUp;
+            //2nd priority: UI elements
+            if (!super.touchUp(screenX, screenY, pointer, button)) {
+                //3rd priority: Objects
+                for (Touchable touchable
+                        : touchables) {
+                    if (touchable.touchUp(checkVector)) {
+                        return true;
+                    }
+                }
+            } else {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
-    public boolean addTouchable(Touchable touchable) {
+    public boolean addTouchable(final Touchable touchable) {
         if (touchables.contains(touchable)) {
             return false;
         }
@@ -325,8 +350,13 @@ public class GameStage extends Stage {
         return true;
     }
 
+
     public void addTouchables(Collection<Touchable> touchables) {
         this.touchables.addAll(touchables);
+    }
+
+    public void addToUILayer(final Actor actor) {
+        ui.addActor(actor);
     }
 
     public boolean removeTouchable(Touchable touchable) {
@@ -356,5 +386,24 @@ public class GameStage extends Stage {
 
     public void addPopup(Actor actor) {
         popups.addActor(actor);
+    }
+
+
+    @Override
+    public void OnEvent(EventType type, Object sender) {
+        switch (type) {
+            case MISSION_STARTED:
+            case MISSION_FINISHED:
+            case MISSION_ABORTED:
+            case MESSAGE_NEW:
+            case MESSAGE_FINISHED_DISPLAYING:
+                break;
+            case POPUP_SHOWN:
+                employeesTouchable = false;
+                break;
+            case POPUP_CLOSED:
+                employeesTouchable = true;
+                break;
+        }
     }
 }

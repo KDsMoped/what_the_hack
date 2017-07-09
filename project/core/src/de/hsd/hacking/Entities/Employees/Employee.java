@@ -38,47 +38,14 @@ import de.hsd.hacking.Utils.*;
 
 public class Employee extends Entity implements Comparable<Employee>, Touchable {
 
-    private ShapeRenderer debugRenderer;
-
     private final int BODY = 0;
     private final int HAIR = 1;
-    private boolean touched;
 
+    private ShapeRenderer debugRenderer;
+
+    private boolean touched;
     private boolean selected;
 
-    /**
-     * Returns the chance for the employee to have a critical failure
-     * Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
-     *
-     * @return criticalFailureValue in the range 0-20. 0 represents no chance to have a critical failure, 20 means the employee always has a critical failure
-     */
-    public int getCriticalFailureChance() {
-
-        int result = 0;
-
-        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
-            result += special.getCriticalFailureBonus();
-        }
-
-        return 1 + result;
-    }
-
-    /**
-     * Returns the chance for the employee to have a critical success
-     * Critical success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
-     *
-     * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical success, 20 means the employee always has a critical success
-     */
-    public int getCriticalSuccessChance() {
-
-        int result = 0;
-
-        for (EmployeeSpecial special : employeeSpecials) {
-            result += special.getCriticalSuccessBonus();
-        }
-
-        return 1 + result;
-    }
 
     public enum EmployeeSkillLevel {
         NOOB, INTERMEDIATE, PRO, WIZARD;
@@ -92,7 +59,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public enum HairStyle {
-        CRAZY, NEAT, NERD, RASTA;
+        CRAZY, NEAT, NERD, RASTA
     }
 
     //Graphics
@@ -216,7 +183,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * This is called as soon as the employee joins the team.
      */
     public void onEmploy() {
-        setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.enabled);
+        setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
         this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
@@ -574,4 +541,39 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public boolean isEmployed(){
         return isEmployed;
     }
+
+    /**
+     * Returns the chance for the employee to have a critical failure
+     * Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
+     *
+     * @return criticalFailureValue in the range 0-20. 0 represents no chance to have a critical failure, 20 means the employee always has a critical failure
+     */
+    public int getCriticalFailureChance() {
+
+        int result = 0;
+
+        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
+            result += special.getCriticalFailureBonus();
+        }
+
+        return 1 + result;
+    }
+
+    /**
+     * Returns the chance for the employee to have a critical success
+     * Critical success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
+     *
+     * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical success, 20 means the employee always has a critical success
+     */
+    public int getCriticalSuccessChance() {
+
+        int result = 0;
+
+        for (EmployeeSpecial special : employeeSpecials) {
+            result += special.getCriticalSuccessBonus();
+        }
+
+        return 1 + result;
+    }
+
 }
