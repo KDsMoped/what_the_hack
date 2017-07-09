@@ -33,6 +33,7 @@ public class Constants {
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
     private static Label.LabelStyle labelStyle;
+    private static Label.LabelStyle terminalLabelStyle;
 
     public static Skin UiSkin() {
         if (uiSkin == null) {
@@ -77,5 +78,15 @@ public class Constants {
         }
 
         return labelStyle;
+    }
+
+    public static Label.LabelStyle TerminalLabelStyle() {
+        if (terminalLabelStyle == null) {
+            terminalLabelStyle = new Label.LabelStyle();
+            terminalLabelStyle.font = Assets.instance().status_bar_font;
+            terminalLabelStyle.fontColor = new Color(41f/255f, 230f/255f, 41f/255f, 1f);
+        }
+
+        return terminalLabelStyle;
     }
 }

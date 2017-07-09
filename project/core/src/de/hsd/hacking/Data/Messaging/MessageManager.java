@@ -97,6 +97,7 @@ public class MessageManager implements EventSender, EventListener{
         Message message = new Message();
 
         newMessage = true;
+        currentMessage++;
 
         Date date = DateUtils.ConvertDaysToDate(GameTime.instance.getCurrentDay());
         message.setDate(date);
@@ -148,7 +149,9 @@ public class MessageManager implements EventSender, EventListener{
      */
     public static MessageManager instance() {
 
-        if (instance == null) return new MessageManager();
+        if (instance == null){
+            instance = new MessageManager();
+        }
         return instance;
     }
 
@@ -165,7 +168,10 @@ public class MessageManager implements EventSender, EventListener{
      * @return Current message.
      */
     public Message getCurrent() {
-        return messages.get(currentMessage);
+        if (!messages.isEmpty())
+            return messages.get(currentMessage);
+        else
+            return null;
     }
 
     @Override

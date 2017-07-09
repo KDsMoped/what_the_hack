@@ -106,9 +106,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         items.setBackground(assets.terminal_patch);
 
         // font style for the text, use monospace!
-        titlebarStyle = new Label.LabelStyle();
-        titlebarStyle.font = assets.status_bar_font;
-        titlebarStyle.fontColor = new Color(41f/255f, 230f/255f, 41f/255f, 1f);
+        titlebarStyle = Constants.TerminalLabelStyle();
 
         // labels with sprites
         moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);

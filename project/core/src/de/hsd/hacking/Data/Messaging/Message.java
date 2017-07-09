@@ -4,10 +4,13 @@ package de.hsd.hacking.Data.Messaging;
  * Created by ju on 06.07.17.
  */
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.gson.annotations.Expose;
 
 import java.util.Date;
 
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Utils.Callback.Callback;
@@ -34,6 +37,29 @@ public class Message{
         this.date = date;
         this.listener = listener;
         this.type = type;
+    }
+
+    public static TextureRegionDrawable GetTypeIcon(Message message) {
+        TextureRegionDrawable drawable;
+
+        switch (message.getType()) {
+            case INFO:
+                drawable = Assets.instance().ui_info;
+                break;
+            case WARNING:
+                drawable = Assets.instance().ui_warning;
+                break;
+            case HELP:
+                drawable = Assets.instance().ui_help;
+                break;
+            case ERROR:
+                drawable = Assets.instance().ui_error;
+                break;
+            default:
+                drawable = Assets.instance().ui_info;
+        }
+
+        return drawable;
     }
 
     public String getText() {

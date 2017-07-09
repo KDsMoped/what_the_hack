@@ -1,11 +1,14 @@
-package de.hsd.hacking.UI.General;
+package de.hsd.hacking.UI.Messaging;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Utils.Constants;
 
 /**
  * Created by ju on 06.07.17.
@@ -32,9 +36,18 @@ public class MessageBar extends Table implements EventListener, EventSender{
     private List<Message> messages;
 
     private Table compactView;
+    private Label compactText;
+    private Image compactType;
+    private Image compactArrow;
+
     private Table fullView;
+    private ScrollPane fullScroller;
+    private VerticalGroup fullContainer;
 
     private Boolean compact = true;
+
+    // Variables for the slide in animation??
+    private Boolean visible = false;
 
     public MessageBar() {
         messages = new ArrayList<Message>();
@@ -42,6 +55,12 @@ public class MessageBar extends Table implements EventListener, EventSender{
         initTable();
         initCompactTable();
         initFullTable();
+
+        this.add(compactView);
+
+        MessageManager.instance().addListener(this);
+
+        MessageManager.instance().Info("test", null);
     }
 
     private void initTable() {
@@ -60,10 +79,21 @@ public class MessageBar extends Table implements EventListener, EventSender{
 
     private void initCompactTable() {
         compactView = new Table();
+        compactView.align(Align.left);
+        compactText = new Label("", Constants.TerminalLabelStyle());
+        compactText.setWrap(false);
+        compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
+        compactType = new Image();
+
+        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 20).left();
+        compactView.add(compactArrow).right();
     }
 
     private void initFullTable() {
         fullView = new Table();
+        fullView.align(Align.topLeft);
+        fullContainer = new VerticalGroup();
+        fullScroller = new ScrollPane(fullContainer);
     }
 
     public void ToggleView() {
@@ -85,8 +115,32 @@ public class MessageBar extends Table implements EventListener, EventSender{
         }
     }
 
+    private void ToggleVisibility() {
+        if (visible) {
+
+        }
+        else {
+
+        }
+    }
+
     private void NewMessage() {
         Message message = MessageManager.instance().getCurrent();
+
+        if (fullContainer.getChildren().size > 99) {
+            fullContainer.removeActor(fullContainer.getChildren().first());
+        }
+
+        fullContainer.addActor(new MessageUIElement(message));
+
+        compactText.setText(message.getText());
+        compactType.setDrawable(Message.GetTypeIcon(message));
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
 
     }
 
