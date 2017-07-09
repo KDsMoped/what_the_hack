@@ -225,12 +225,12 @@ public class MissionManager implements TimeChangedListener {
 
     @Override
     public void dayChanged(int days) {
-        refreshOpenMissions();
+//        refreshOpenMissions(); //Too fast
     }
 
     @Override
     public void weekChanged(int week) {
-
+        refreshOpenMissions();
     }
 
     public void addRefreshMissionListener(Callback callback) {

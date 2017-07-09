@@ -82,7 +82,6 @@ public class EmployeeManager implements TimeChangedListener {
     public void populateAvailableEmployees() {
 
         int missing = MAX_AVAILABLE_EMPLOYEES - availableEmployees.size() + RandomUtils.randomIntWithin(-AVAILABLE_EMPLOYEES_VARIANCE, AVAILABLE_EMPLOYEES_VARIANCE);
-
         if (missing > 0) availableEmployees.addAll(EmployeeFactory.createEmployees(missing, team.calcGameProgress()));
     }
 
@@ -188,7 +187,7 @@ public class EmployeeManager implements TimeChangedListener {
 
     @Override
     public void dayChanged(int days) {
-        refreshAvailableEmployees();
+        refreshAvailableEmployees(); //TODO Auch ein bisschen schnell, vlt nur mit gewisser Chance refreshen?
         if(days % 7 == 6) messageManager.Info("Only one day until payday!");
     }
 

@@ -17,7 +17,7 @@ public class EmojiBubbleFactory {
         SUCCESS, FAILURE, SPEAKING
     }
 
-    public static void show(EmojiType type, Entity entity) {
+    public static void show(final EmojiType type, final Entity entity) {
         switch (type) {
 
             case SUCCESS:

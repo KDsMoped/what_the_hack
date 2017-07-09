@@ -20,7 +20,7 @@ public class EmojiBubble extends Actor {
     private Vector2 position;
 
     public EmojiBubble(final Entity entity, final TextureRegion emoji1) {
-        this(entity, emoji1, 0.3f, 0.5f, 0.3f);
+        this(entity, emoji1, 0.3f, 0.8f, 0.3f);
     }
 
     public EmojiBubble(final Entity entity, final TextureRegion emoji1, float in, float stay, float out) {

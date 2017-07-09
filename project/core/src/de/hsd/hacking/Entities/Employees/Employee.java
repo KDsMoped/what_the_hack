@@ -118,7 +118,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public Employee() {
         super(false, true, false);
-
         Init();
     }
 
@@ -160,7 +159,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
                 pool.removeNumber(randomInt);
             }
         }
-
         Init();
     }
 
@@ -175,7 +173,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         //Graphics
         setUpAnimations();
         setUpShader();
-
         debugRenderer = new ShapeRenderer();
     }
 
