@@ -13,6 +13,7 @@ import java.util.List;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.DateUtils;
 
@@ -77,6 +78,14 @@ public class MessageManager implements EventSender, EventListener{
 
         messages.add(message);
         Process();
+    }
+
+    /**
+     * Send an error message to the user.
+     * @param text Message text.
+     */
+    public void Error(String text) {
+        Error(text, null);
     }
 
     /**

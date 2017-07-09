@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -76,10 +77,10 @@ public class MissionWorker implements TimeChangedListener {
             //criticalFailure
             req.incrementCurrentValue(0.5f);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.FAILURE, em);
-            Gdx.app.log(Constants.TAG, "Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
+            MessageManager.instance().Warning("Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
         } else if (dice > 20 - em.getCriticalSuccessChance()){
             //criticalSuccess
-            Gdx.app.log(Constants.TAG, "Employee " + em.getName() + " had a critical success while working on " + req.getSkillType().getDisplayName());
+            MessageManager.instance().Info("Employee " + em.getName() + " had a critical success while working on " + req.getSkillType().getDisplayName());
             req.incrementCurrentValue(2 * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.SUCCESS, em);
         } else {
@@ -102,10 +103,10 @@ public class MissionWorker implements TimeChangedListener {
                     if (!skillReq.isSuccessfull()) failedSkills.add(skillReq.getSkillType());
                 }
                 if (failedSkills.size() > 0) {
-                    Gdx.app.log(Constants.TAG, "Mission failed, skill(s) to blame: " + failedSkills.toString());
+                    MessageManager.instance().Error("Mission failed, skill(s) to blame: " + failedSkills.toString());
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                 } else {
-                    Gdx.app.log(Constants.TAG, "Mission successfull! NICE!");
+                    MessageManager.instance().Info("Mission successfull! NICE!");
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                     mission.setCompleted(true);
                 }

@@ -10,9 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
@@ -30,15 +27,18 @@ import de.hsd.hacking.Utils.Constants;
  */
 public class MessageBar extends Table implements EventListener, EventSender{
     private final static EventListener.EventType TYPE = EventType.MESSAGE_FINISHED_DISPLAYING;
-    private final int COMPACT_HEIGHT = 20;
+    private final int COMPACT_HEIGHT = 21;
     private final int FULL_HEIGHT = 200;
-
-    private List<Message> messages;
+    private final int SCROLLING_TEXT_CHARS = 45;
+    private final float SCROLLING_SPEED = 0.3f;
+    private final int INITIAL_WAIT = 2;
+    private final int FINAL_WAIT = 3;
 
     private Table compactView;
     private Label compactText;
     private Image compactType;
     private Image compactArrow;
+    private Message currentMessage;
 
     private Table fullView;
     private ScrollPane fullScroller;
@@ -46,12 +46,13 @@ public class MessageBar extends Table implements EventListener, EventSender{
 
     private Boolean compact = true;
 
-    // Variables for the slide in animation??
-    private Boolean visible = false;
+    // Variables for the scrolling in animation
+    private Boolean scrollMessage = false;
+    private int scrollPosition = 0;
+    private float scrollDelta = 0f;
+    private Boolean finishedMessage = true;
 
     public MessageBar() {
-        messages = new ArrayList<Message>();
-
         initTable();
         initCompactTable();
         initFullTable();
@@ -60,7 +61,7 @@ public class MessageBar extends Table implements EventListener, EventSender{
 
         MessageManager.instance().addListener(this);
 
-        MessageManager.instance().Info("test", null);
+        MessageManager.instance().Info("Dies ist ein super langer test Text und alle haben Versagt und wurden geschnappt oder auch nicht?!?", null);
     }
 
     private void initTable() {
@@ -82,10 +83,12 @@ public class MessageBar extends Table implements EventListener, EventSender{
         compactView.align(Align.left);
         compactText = new Label("", Constants.TerminalLabelStyle());
         compactText.setWrap(false);
+        compactText.setAlignment(Align.center);
         compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
         compactType = new Image();
 
-        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 20).left();
+        compactView.add(compactType).left();
+        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(3);
         compactView.add(compactArrow).right();
     }
 
@@ -115,33 +118,73 @@ public class MessageBar extends Table implements EventListener, EventSender{
         }
     }
 
-    private void ToggleVisibility() {
-        if (visible) {
-
-        }
-        else {
-
-        }
-    }
-
     private void NewMessage() {
-        Message message = MessageManager.instance().getCurrent();
+        currentMessage = MessageManager.instance().getCurrent();
 
         if (fullContainer.getChildren().size > 99) {
             fullContainer.removeActor(fullContainer.getChildren().first());
         }
 
-        fullContainer.addActor(new MessageUIElement(message));
+        fullContainer.addActor(new MessageUIElement(currentMessage));
 
-        compactText.setText(message.getText());
-        compactType.setDrawable(Message.GetTypeIcon(message));
+        compactType.setDrawable(Message.GetTypeIcon(currentMessage));
+
+        if (currentMessage.getText().length() > SCROLLING_TEXT_CHARS) {
+            scrollMessage = true;
+            scrollPosition = 0;
+            finishedMessage = false;
+
+            compactText.setText(currentMessage.getText().substring(0, SCROLLING_TEXT_CHARS));
+        }
+        else {
+            scrollMessage = false;
+            finishedMessage = true;
+            compactText.setText(currentMessage.getText());
+        }
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
+        // this is the scrolling mechanism
+        // we only want to scroll if we are in the compact view and when the message is longer than the desired value
+        if (compact && scrollMessage) {
+            // if the message is new we wait INITIAL_WAIT before scrolling
+            if (scrollPosition == 0 && scrollDelta < INITIAL_WAIT) {
+                // just wait
+            }
+            // the initial wait is finished
+            else {
+                // Here we control the scrolling speed
+                if (scrollDelta > SCROLLING_SPEED) {
+                    scrollDelta = 0f;
 
+                    // Are we at the end of the message?
+                    if (currentMessage.getText().length() > (scrollPosition + SCROLLING_TEXT_CHARS)) {
+                        scrollPosition++;
+
+                        // Set the actual displayed substring
+                        compactText.setText(currentMessage.getText().substring(scrollPosition, SCROLLING_TEXT_CHARS + scrollPosition));
+                    }
+                    else {
+                        scrollMessage = false;
+                        finishedMessage = true;
+                    }
+                }
+            }
+
+            scrollDelta += delta;
+        }
+
+        if (finishedMessage) {
+            if (scrollDelta > FINAL_WAIT) {
+
+                notifyListeners(TYPE);
+            }
+
+            scrollDelta += delta;
+        }
     }
 
     @Override

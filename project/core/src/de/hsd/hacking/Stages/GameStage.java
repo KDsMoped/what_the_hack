@@ -18,6 +18,7 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
@@ -209,6 +210,7 @@ public class GameStage extends Stage {
         //Init status bar, message bar & employee details
         overlay.addActor(statusBar = new StatusBar());
         overlay.addActor(messageBar = new MessageBar());
+        messageBar.addListener(MessageManager.instance());
         GameTime.instance.addTimeChangedListener(statusBar);
         ui.addActor(new EmployeeBar());
     }
