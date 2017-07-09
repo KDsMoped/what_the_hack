@@ -81,7 +81,7 @@ public class EmployeeUIElement extends Table {
 
         thirdColumn.add(money).right().top();
         thirdColumn.row();
-        thirdColumn.add(new Label("", Constants.LabelStyle())).prefHeight(100).minHeight(0);
+        thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
         thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70);
 
@@ -90,7 +90,7 @@ public class EmployeeUIElement extends Table {
 
     private Table getThirdColumnTeam(){
         Table thirdColumn = new Table();
-//        thirdColumn.setDebug(true);
+        thirdColumn.setDebug(true);
 
         money = new Label(employee.getSalaryText(), Constants.LabelStyle());
         money.setAlignment(Align.topRight);
@@ -105,7 +105,7 @@ public class EmployeeUIElement extends Table {
 
         thirdColumn.add(money).right().top();
         thirdColumn.row();
-        thirdColumn.add(new Label("", Constants.LabelStyle())).prefHeight(100).minHeight(0);
+        thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
         thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70);
 

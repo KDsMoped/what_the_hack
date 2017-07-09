@@ -10,6 +10,7 @@ import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
+import de.hsd.hacking.Utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -80,7 +81,7 @@ public class EmployeeManager implements TimeChangedListener {
      */
     public void populateAvailableEmployees() {
 
-        int missing = MAX_AVAILABLE_EMPLOYEES - availableEmployees.size() + MathUtils.random(-AVAILABLE_EMPLOYEES_VARIANCE, AVAILABLE_EMPLOYEES_VARIANCE);
+        int missing = MAX_AVAILABLE_EMPLOYEES - availableEmployees.size() + RandomUtils.randomIntWithin(-AVAILABLE_EMPLOYEES_VARIANCE, AVAILABLE_EMPLOYEES_VARIANCE);
 
         if (missing > 0) availableEmployees.addAll(EmployeeFactory.createEmployees(missing, team.calcGameProgress()));
     }
