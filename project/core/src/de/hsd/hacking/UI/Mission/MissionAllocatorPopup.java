@@ -30,16 +30,19 @@ public class MissionAllocatorPopup extends Popup {
         closeButton.setText("Cancel");
 //        closeButton.setWidth(120);
         mainTable.removeActor(closeButton);
-        mainTable.add(closeButton).padBottom(4f).width(100).height(23).center();
-        mainTable.setVisible(true);
+//        mainTable.add(closeButton).padBottom(4f).width(100).height(23).center();
+//        mainTable.setVisible(true);
 
         InitMissionTable();
+
+        show();
     }
 
     private void InitMissionTable() {
         Table content = new Table();
         content.align(Align.top);
         content.setTouchable(Touchable.enabled);
+        content.setDebug(true);
 
         Label title = new Label("Choose a mission to work on", Constants.LabelStyle());
         title.setFontScale(1.0f);
@@ -86,10 +89,15 @@ public class MissionAllocatorPopup extends Popup {
 
 //        }
 
-        this.addMainContent(content);
-        content.add(title).expandX().fillX().padTop(5).center();
+        addMainContent(content);
+
+        content.add().height(30);
         content.row();
-        content.add(missionScroller).expand().fill().padLeft(20).padRight(20)/*.maxHeight(100)*/;
+        content.add(title).expandX().fillX().padBottom(5).center();
+        content.row();
+        content.add(missionScroller).expand().fill().padLeft(20).padRight(20).height(105);
+        content.row();
+        content.add(closeButton).expand().fill().bottom().padTop(3f).padBottom(3f).width(100).height(23);
     }
 
     public void selectMission(Mission mission) {

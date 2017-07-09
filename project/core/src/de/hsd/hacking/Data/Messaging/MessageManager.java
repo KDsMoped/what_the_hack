@@ -5,8 +5,6 @@ package de.hsd.hacking.Data.Messaging;
  * Created by ju on 06.07.17.
  */
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -39,6 +37,14 @@ public class MessageManager implements EventSender, EventListener{
 
     /**
      * Send an info message to the user.
+     * @param text
+     */
+    public void Info(String text){
+        Info(text, null);
+    }
+
+    /**
+     * Send an info message to the user.
      * @param text Message text.
      * @param listener Callback.
      */
@@ -49,6 +55,14 @@ public class MessageManager implements EventSender, EventListener{
 
         messages.add(message);
         Process();
+    }
+
+    /**
+     * Send a warning to the user.
+     * @param text
+     */
+    public void Warning(String text){
+        Warning(text, null);
     }
 
     /**
@@ -97,7 +111,6 @@ public class MessageManager implements EventSender, EventListener{
         Message message = new Message();
 
         newMessage = true;
-        currentMessage++;
 
         Date date = DateUtils.ConvertDaysToDate(GameTime.instance.getCurrentDay());
         message.setDate(date);
@@ -149,9 +162,7 @@ public class MessageManager implements EventSender, EventListener{
      */
     public static MessageManager instance() {
 
-        if (instance == null){
-            instance = new MessageManager();
-        }
+        if (instance == null) instance = new MessageManager();
         return instance;
     }
 

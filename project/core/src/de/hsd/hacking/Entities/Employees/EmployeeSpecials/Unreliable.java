@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Utils.Constants;
@@ -31,7 +32,9 @@ public class Unreliable extends EmployeeSpecial {
         if(MathUtils.random() > chance) return;
 
         //TODO: Implement user feedback
-        Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
+        if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
+        MessageManager.instance().Warning("An unreliable employee " + employee.getName() + " has left the team.");
+
         EmployeeManager.instance().dismiss(employee);
     }
 
