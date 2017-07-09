@@ -24,6 +24,7 @@ import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
+import de.hsd.hacking.UI.General.MessageBar;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
@@ -64,6 +65,7 @@ public class GameStage extends Stage {
     private Team team;
     private EmployeeManager employeeManager;
     private StatusBar statusBar;
+    private MessageBar messageBar;
 
     private List<Touchable> touchables;
 
@@ -208,8 +210,9 @@ public class GameStage extends Stage {
         exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
         ui.addActor(exitButton);
 
-        //Init status bar & employee details
+        //Init status bar, message bar & employee details
         overlay.addActor(statusBar = new StatusBar());
+        overlay.addActor(messageBar = new MessageBar());
         GameTime.instance.addTimeChangedListener(statusBar);
         ui.addActor(new EmployeeBar());
     }

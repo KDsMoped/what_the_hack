@@ -33,10 +33,6 @@ public class MessageManager implements EventSender, EventListener{
     private Boolean newMessage = false;
     private Boolean finishedDisplaying = true;
 
-    public static MessageManager getInstance() {
-        return instance;
-    }
-
     public MessageManager() {
         messages = new ArrayList<Message>(100);
     }
