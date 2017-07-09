@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Stages.GameStage;
@@ -34,6 +35,7 @@ public class EmployeeManager implements TimeChangedListener {
     private ArrayList<Callback> refreshEmployeeListener = new ArrayList<Callback>();
 
     private Team team;
+    private MessageManager messageManager;
 
     public EmployeeManager() {
         instance = this;
@@ -42,6 +44,7 @@ public class EmployeeManager implements TimeChangedListener {
         hiredEmployees = new ArrayList<Employee>();
 
         team = Team.instance();
+        messageManager = MessageManager.instance();
         GameTime.instance.addTimeChangedListener(this);
 
         populateAvailableEmployees();
@@ -185,6 +188,7 @@ public class EmployeeManager implements TimeChangedListener {
     @Override
     public void dayChanged(int days) {
         refreshAvailableEmployees();
+        if(days % 7 == 6) messageManager.Info("Only one day until payday!");
     }
 
     @Override
@@ -198,6 +202,8 @@ public class EmployeeManager implements TimeChangedListener {
      * Pays all employees.
      */
     private void payday() {
+        messageManager.Info("Payday!");
+
         for (Employee employee : hiredEmployees.toArray(new Employee[hiredEmployees.size()])) {
             pay(employee);
         }
@@ -210,9 +216,10 @@ public class EmployeeManager implements TimeChangedListener {
      */
     private void pay(Employee employee) {
         if (team.getMoney() < employee.getSalary()) {
-            Gdx.app.log(Constants.TAG, "You have no money to pay for " + employee.getName() + " employee! He is leaving!");
-            //TODO: Tell user about this.
+            if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + "leaves the team!");
+            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + "leaves the team!");
             dismiss(employee);
+            return;
         }
 
         team.reduceMoney(employee.getSalary());
