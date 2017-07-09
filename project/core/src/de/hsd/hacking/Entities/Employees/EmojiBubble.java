@@ -19,10 +19,23 @@ public class EmojiBubble extends Actor {
     private TextureRegion emoji;
     private Vector2 position;
 
+    /**
+     * Convenience method with default values
+     * @param entity entity which receives the bubble
+     * @param emoji1 desired emoji graphic
+     */
     public EmojiBubble(final Entity entity, final TextureRegion emoji1) {
         this(entity, emoji1, 0.3f, 0.8f, 0.3f);
     }
 
+    /**
+     * Creates an emoji bubble graphic over given entity. Gets destroyed after animation is done.
+     * @param entity entity which receives the bubble
+     * @param emoji1 desired emoji graphic
+     * @param in seconds to fade in
+     * @param stay seconds staying with alpha = 1
+     * @param out seconds to fade out
+     */
     public EmojiBubble(final Entity entity, final TextureRegion emoji1, float in, float stay, float out) {
         this.position = entity.getPosition().add(0, 48f);
         this.emoji = emoji1;
@@ -36,12 +49,16 @@ public class EmojiBubble extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        //setColor needed for fadein/ fadeout
         batch.setColor(getColor());
         batch.draw(emoji, position.x, position.y);
         batch.setColor(Color.WHITE);
     }
 
     @Override
+    /**
+     * Act method overide. Needed for fadein /fadeout
+     */
     public void act(float delta) {
         super.act(delta);
     }
