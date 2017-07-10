@@ -60,7 +60,7 @@ public class TileMap extends Group implements TileMovementProvider {
         ArrayList<Integer> possiblePositions = new ArrayList<Integer>(Constants.TILES_PER_SIDE * Constants.TILES_PER_SIDE);
         for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
             for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
-                if (tiles[i][j].isMovableTo()){
+                if (tiles[i][j].isMovableTo()) {
                     possiblePositions.add(Constants.TILES_PER_SIDE * j + i);
                 }
             }

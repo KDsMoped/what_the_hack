@@ -32,6 +32,10 @@ public abstract class Entity extends Actor {
 //        return position.cpy();
     }
 
+    public Vector2 getPositionReference(){
+        return position;
+    }
+
     public void setPosition(Vector2 position) {
         super.setPosition(position.x, position.y);
 //        this.position.set(position);
@@ -52,5 +56,11 @@ public abstract class Entity extends Actor {
 
     public boolean isInteractable() {
         return interactable;
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        position.set(getX(), getY());
     }
 }

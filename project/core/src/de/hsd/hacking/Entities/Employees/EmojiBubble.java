@@ -37,7 +37,7 @@ public class EmojiBubble extends Actor {
      * @param out seconds to fade out
      */
     public EmojiBubble(final Entity entity, final TextureRegion emoji1, float in, float stay, float out) {
-        this.position = entity.getPosition().add(0, 48f);
+        this.position = entity.getPositionReference();
         this.emoji = emoji1;
         addAction(Actions.sequence(Actions.fadeOut(0f), Actions.fadeIn(in), Actions.delay(stay), Actions.fadeOut(out), Actions.run(new Runnable() {
             @Override
@@ -51,7 +51,7 @@ public class EmojiBubble extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         //setColor needed for fadein/ fadeout
         batch.setColor(getColor());
-        batch.draw(emoji, position.x, position.y);
+        batch.draw(emoji, position.x, position.y + 48f);
         batch.setColor(Color.WHITE);
     }
 

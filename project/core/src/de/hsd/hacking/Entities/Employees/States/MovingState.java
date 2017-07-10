@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Interactable;
+import de.hsd.hacking.Entities.Objects.InteractableObject;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
@@ -30,11 +31,14 @@ public class MovingState extends EmployeeState {
     private float speed;
     private boolean lastTile;
     private boolean delegating = false;
+    private boolean directedMovement = false;
+
     private Interactable delegatingInteractable;
 
 
     public MovingState(Employee employee, Tile destinationTile) {
         super(employee);
+        directedMovement = true;
         init(destinationTile);
     }
 
@@ -119,6 +123,10 @@ public class MovingState extends EmployeeState {
         }
     }
 
+    /**
+     * Ends movement and registers employee on tile. Interacts with object if object permits it.
+     * @return next state for employee
+     */
     private EmployeeState finishPath() {
 
         //Set to endTile
@@ -126,7 +134,8 @@ public class MovingState extends EmployeeState {
 
         //If there's an object, and it can be interacted with ->interact with it
         Object obj = this.endTile.getObject();
-        if (this.endTile.hasInteractableObject() && !((Interactable) obj).isOccupied()) {
+        if (this.endTile.hasInteractableObject() && !((Interactable) obj).isOccupied()
+                && (directedMovement || ((InteractableObject) obj).isAllowRandomInteraction())) {
             if (Constants.DEBUG) {
                 Gdx.app.log(Constants.TAG, "MovingState ended at interactable object for employee" + employee.getName());
             }
@@ -183,7 +192,7 @@ public class MovingState extends EmployeeState {
 
     }
 
-    private void switchCurrentAndNextTiles(Tile currentTile, Tile nextTile) {
+    private void switchCurrentAndNextTiles(final Tile currentTile, final Tile nextTile) {
         if (currentTile != null && nextTile != null) {
             this.currentTile = nextTile;
             this.currentTile.addEmployeeToDraw(employee);

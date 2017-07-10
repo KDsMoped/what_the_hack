@@ -84,10 +84,10 @@ public class MissionWorker implements TimeChangedListener {
             //criticalFailure
             req.incrementCurrentValue(0.5f * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.FAILURE, em);
-            MessageManager.instance().Warning("Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
+//            MessageManager.instance().Warning("Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
         } else if (dice > DICE_SIDES - em.getCriticalSuccessChance()) {
             //criticalSuccess
-            MessageManager.instance().Info("Employee " + em.getName() + " had a critical success while working on " + req.getSkillType().getDisplayName());
+//            MessageManager.instance().Info("Employee " + em.getName() + " had a critical emoji_success while working on " + req.getSkillType().getDisplayName());
             req.incrementCurrentValue(2 * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.SUCCESS, em);
         } else {

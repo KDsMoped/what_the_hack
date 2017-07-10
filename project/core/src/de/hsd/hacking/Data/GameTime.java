@@ -17,7 +17,7 @@ public class GameTime extends Actor {
 
     public static final GameTime instance = new GameTime();
 
-    private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .05f;
+    private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .025f;
     private static final int CLOCK_STEPS = 9;
 
     private float currentTime;

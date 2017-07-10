@@ -2,9 +2,7 @@ package de.hsd.hacking.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -13,12 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.audio.Music;
 
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Utils.Constants;
-
-import java.util.ArrayList;
 
 /**
  * Created by Cuddl3s on 21.04.2017.
@@ -27,6 +21,7 @@ import java.util.ArrayList;
 public class Assets {
 
     private static Assets instance;
+
 
     public static Assets instance() {
         return instance;
@@ -53,8 +48,10 @@ public class Assets {
     public TextureRegion desk_bf_1;
     public TextureRegion desk_bf_2;
     public TextureRegion chair;
-    public TextureRegion success;
-    public TextureRegion angry;
+    public TextureRegion emoji_success;
+    public TextureRegion emoji_angry;
+    public TextureRegion emoji_ok;
+    public TextureRegion emoji_no;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;
@@ -127,8 +124,10 @@ public class Assets {
         desk_bf_1 = atlas.findRegion("interior/Table_bf", 1);
         desk_bf_2 = atlas.findRegion("interior/Table_bf", 2);
         chair = atlas.findRegion("interior/Chair", 1);
-        success = character_atlas.findRegion("Emojis/success");
-        angry = character_atlas.findRegion("Emojis/angry");
+        emoji_success = character_atlas.findRegion("Emojis/success");
+        emoji_angry = character_atlas.findRegion("Emojis/angry");
+        emoji_ok = character_atlas.findRegion("Emojis/ok");
+        emoji_no = character_atlas.findRegion("Emojis/no");
 
         mainmenu_bg = new Array<TextureRegion>();
         mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));
