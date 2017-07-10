@@ -6,6 +6,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.MathUtilities;
+import de.hsd.hacking.Utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -124,7 +125,7 @@ public class EmployeeFactory {
      */
     private static float educateEmployee(Employee employee, ArrayList<Skill> skillSet) {
 
-        int roll = MathUtils.random(1, 9);
+        int roll = RandomUtils.randomIntWithin(1, 9);
 
         switch (roll) {
             case 1:
@@ -209,7 +210,7 @@ public class EmployeeFactory {
 
         if (skillSet.size() < 2) return 0;
 
-        Skill skill = skillSet.get(MathUtils.random(1, skillSet.size() - 1));
+        Skill skill = skillSet.get(RandomUtils.randomIntWithin(1, skillSet.size() - 1));
 
         skill.incrementSkill();
 
@@ -222,7 +223,7 @@ public class EmployeeFactory {
      * @return
      */
     private static float rollSpecial(Employee padawan){
-        int roll = MathUtils.random(1, 3);
+        int roll = RandomUtils.randomIntWithin(1, 3);
 
         switch (roll) {
             case 1:

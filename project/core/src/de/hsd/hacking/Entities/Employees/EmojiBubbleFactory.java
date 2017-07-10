@@ -1,8 +1,7 @@
 package de.hsd.hacking.Entities.Employees;
 
 
-import com.badlogic.gdx.utils.Timer;
-
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Stages.GameStage;
 
@@ -12,25 +11,30 @@ import de.hsd.hacking.Stages.GameStage;
 
 public class EmojiBubbleFactory {
 
-    private GameStage gameStage;
-    private Timer timer;
-
     public static EmojiBubbleFactory instance = new EmojiBubbleFactory();
-
-    public void initialize(GameStage stage){
-        gameStage = stage;
-    }
-
-    private EmojiBubbleFactory(){
-        this.timer = new Timer();
-    }
 
     public enum EmojiType {
         SUCCESS, FAILURE, SPEAKING
     }
 
-    public static void show(EmojiType type, Entity entity) {
-        //TODO emojiBubble an employee Position zeigen, danach wieder entfernen
+    /**
+     * Creates an {@link EmojiBubble} with given type over given entity
+     * @param type Changes the texture uses (SUCCESS, FAILURE, SPEAKING)
+     * @param entity The entity at which's position the bubble will be created
+     */
+    public static void show(final EmojiType type, final Entity entity) {
+        switch (type) {
+
+            case SUCCESS:
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().success));
+                break;
+            case FAILURE:
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().angry));
+                break;
+            case SPEAKING:
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().success));
+                break;
+        }
     }
 
 }

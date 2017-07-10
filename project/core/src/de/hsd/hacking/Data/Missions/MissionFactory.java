@@ -1,17 +1,9 @@
 package de.hsd.hacking.Data.Missions;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import de.hsd.hacking.Data.CompanyNamesHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
-import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**

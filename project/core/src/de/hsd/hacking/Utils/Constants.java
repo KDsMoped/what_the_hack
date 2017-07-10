@@ -14,6 +14,7 @@ import de.hsd.hacking.Assets.Assets;
 public class Constants {
 
     public static final String TAG = "HackingGame";
+    public static final float TIME_STEPS_PER_DAY = 9;
 
     public static boolean DEBUG = false;
 
@@ -33,6 +34,7 @@ public class Constants {
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
     private static Label.LabelStyle labelStyle;
+    private static Label.LabelStyle terminalLabelStyle;
 
     public static Skin UiSkin() {
         if (uiSkin == null) {
@@ -77,5 +79,15 @@ public class Constants {
         }
 
         return labelStyle;
+    }
+
+    public static Label.LabelStyle TerminalLabelStyle() {
+        if (terminalLabelStyle == null) {
+            terminalLabelStyle = new Label.LabelStyle();
+            terminalLabelStyle.font = Assets.instance().status_bar_font;
+            terminalLabelStyle.fontColor = new Color(41f/255f, 230f/255f, 41f/255f, 1f);
+        }
+
+        return terminalLabelStyle;
     }
 }

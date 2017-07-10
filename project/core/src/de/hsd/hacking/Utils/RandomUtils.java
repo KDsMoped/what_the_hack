@@ -22,6 +22,15 @@ public class RandomUtils {
         return rand.nextFloat();
     }
 
+    /**
+     * Returns an in within the interval from {@code from} (inclusive) and {@code to} (inclusive).
+     * @param from
+     * @param to
+     * @return
+     */
+    public static int randomIntWithin(final int from, final int to){
+    return rand.nextInt(to - from + 1) + from;
+    }
 
 
 }

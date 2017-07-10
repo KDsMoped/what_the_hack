@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Utils.Constants;
+import de.hsd.hacking.Utils.RandomUtils;
 
 /**
  * Created by Cuddl3s on 21.05.2017.
@@ -63,14 +64,14 @@ public class DataLoader {
     public String[] getNewName(){
         ArrayList<String> surnames = names.getSurNames();
         ArrayList<String> lastNames = names.getLastNames();
-        String surName = surnames.get(MathUtils.random(surnames.size() -1));
-        String lastName = lastNames.get(MathUtils.random(lastNames.size() -1));
+        String surName = surnames.get(RandomUtils.randomInt(surnames.size()));
+        String lastName = lastNames.get(RandomUtils.randomInt(lastNames.size()));
 
         return new String[]{surName, lastName};
     }
 
     public Mission getNewMission() {
-        return missions.get(MathUtils.random(missions.size() - 1));
+        return missions.get(RandomUtils.randomInt(missions.size())).Clone();
     }
 
 

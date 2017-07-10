@@ -53,6 +53,8 @@ public class Assets {
     public TextureRegion desk_bf_1;
     public TextureRegion desk_bf_2;
     public TextureRegion chair;
+    public TextureRegion success;
+    public TextureRegion angry;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;
@@ -66,6 +68,10 @@ public class Assets {
     public Array<TextureRegionDrawable> clock_icon;
 
     public TextureRegionDrawable ui_calendar;
+
+    // Assets for Notification Bar
+    public TextureRegionDrawable ui_up_arrow_inverted;
+    public TextureRegionDrawable ui_info, ui_warning, ui_error, ui_help;
 
     public Skin terminal_skin;
     public NinePatchDrawable terminal_patch;
@@ -121,6 +127,8 @@ public class Assets {
         desk_bf_1 = atlas.findRegion("interior/Table_bf", 1);
         desk_bf_2 = atlas.findRegion("interior/Table_bf", 2);
         chair = atlas.findRegion("interior/Chair", 1);
+        success = character_atlas.findRegion("Emojis/success");
+        angry = character_atlas.findRegion("Emojis/angry");
 
         mainmenu_bg = new Array<TextureRegion>();
         mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));
@@ -148,6 +156,12 @@ public class Assets {
         }
 
         ui_calendar = new TextureRegionDrawable(ui_atlas.findRegion("calendar"));
+        ui_up_arrow_inverted = new TextureRegionDrawable(ui_atlas.findRegion("up_arrow_inverted"));
+
+        ui_info = new TextureRegionDrawable(ui_atlas.findRegion("info"));
+        ui_error = new TextureRegionDrawable(ui_atlas.findRegion("error"));
+        ui_help = new TextureRegionDrawable(ui_atlas.findRegion("help"));
+        ui_warning = new TextureRegionDrawable(ui_atlas.findRegion("warning"));
 
         terminal_skin = new Skin();
         terminal_skin.addRegions(ui_atlas);

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -15,18 +16,20 @@ import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**
+ * Class that handles employees working on a particular mission
  * Created by Cuddl3s on 28.06.2017.
  */
 
 public class MissionWorker implements TimeChangedListener {
 
+    private static final int DICE_SIDES = 40;
     private Mission mission;
     private int remainingMissionDays;
     private List<MissionSkillRequirement> skillRequirements;
     private List<Employee> employees;
 
-    public MissionWorker(Mission mission){
-        this.mission = mission;
+    public MissionWorker(final Mission mission1) {
+        this.mission = mission1;
         this.remainingMissionDays = mission.getDuration();
         skillRequirements = new ArrayList<MissionSkillRequirement>(4);
         employees = new ArrayList<Employee>(4);
@@ -40,8 +43,7 @@ public class MissionWorker implements TimeChangedListener {
         return mission;
     }
 
-    public void addEmployee(Employee employee) {
-
+    public void addEmployee(final Employee employee) {
         if (employees.contains(employee)) Gdx.app.error(Constants.TAG, "Employee added to Missionworker that was already part of missionworker");
         employees.add(employee);
     }
@@ -60,26 +62,32 @@ public class MissionWorker implements TimeChangedListener {
     private void calculateMissionStep() {
         for (Employee em
                 : employees) {
-            for (MissionSkillRequirement req :
-                    skillRequirements) {
+            for (MissionSkillRequirement req
+                    : skillRequirements) {
                 int value = em.getSkillValue(req.getSkillType());
                 workOnSkill(em, req, value);
             }
         }
     }
 
-    private void workOnSkill(Employee em, MissionSkillRequirement req, int value) {
-        float stepValue = value * (0.9f + RandomUtils.randomFloat() * 0.2f) * (1 / 9f);
+    /**
+     * Gets called every step. Calculates an employees contribution to the overall skill requirement.
+     * @param em Employee that is working
+     * @param req The required Skill Object that holds the required and current skill values
+     * @param value The employees skill value for that paricular skill
+     */
+    private void workOnSkill(final Employee em, final MissionSkillRequirement req, final int value) {
+        float stepValue = value * (0.9f + RandomUtils.randomFloat() * 0.2f) * (1f / Constants.TIME_STEPS_PER_DAY);
 
-        int dice = RandomUtils.randomInt(20) + 1; //1-20
-        if (dice < 1 + em.getCriticalFailureChance()){
+        int dice = RandomUtils.randomInt(DICE_SIDES) + 1; //1-DICE_SIDES
+        if (dice < em.getCriticalFailureChance()) {
             //criticalFailure
-            req.incrementCurrentValue(0.5f);
+            req.incrementCurrentValue(0.5f * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.FAILURE, em);
-            Gdx.app.log(Constants.TAG, "Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
-        } else if (dice > 20 - em.getCriticalSuccessChance()){
+            MessageManager.instance().Warning("Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
+        } else if (dice > DICE_SIDES - em.getCriticalSuccessChance()) {
             //criticalSuccess
-            Gdx.app.log(Constants.TAG, "Employee " + em.getName() + " had a critical success while working on " + req.getSkillType().getDisplayName());
+            MessageManager.instance().Info("Employee " + em.getName() + " had a critical success while working on " + req.getSkillType().getDisplayName());
             req.incrementCurrentValue(2 * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.SUCCESS, em);
         } else {
@@ -93,29 +101,30 @@ public class MissionWorker implements TimeChangedListener {
     @Override
     public void dayChanged(final int days) {
         if (!employees.isEmpty() && !mission.isFinished()) {
+            Gdx.app.log(Constants.TAG, "Next day. Remaining mission days: " + remainingMissionDays);
+            for (MissionSkillRequirement req
+                    : skillRequirements) {
+                Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
+            }
             if (--remainingMissionDays == 0) {
                 mission.setFinished(true);
                 Gdx.app.log(Constants.TAG, "Mission over!");
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
-                for (MissionSkillRequirement skillReq :
-                        skillRequirements) {
-                    if (!skillReq.isSuccessfull()) failedSkills.add(skillReq.getSkillType());
+                for (MissionSkillRequirement skillReq
+                        : skillRequirements) {
+                    if (!skillReq.isSuccessfull()) {
+                        failedSkills.add(skillReq.getSkillType());
+                    }
                 }
                 if (failedSkills.size() > 0) {
-                    Gdx.app.log(Constants.TAG, "Mission failed, skill(s) to blame: " + failedSkills.toString());
+                    MessageManager.instance().Error("Mission failed, skill(s) to blame: " + failedSkills.toString());
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                 } else {
-                    Gdx.app.log(Constants.TAG, "Mission successfull! NICE!");
+                    MessageManager.instance().Info("Mission successfull! NICE!");
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                     mission.setCompleted(true);
                 }
 
-            } else {
-                Gdx.app.log(Constants.TAG, "Next day. Remaining mission days: " + remainingMissionDays);
-                for (MissionSkillRequirement req :
-                        skillRequirements) {
-                    Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
-                }
             }
         }
     }

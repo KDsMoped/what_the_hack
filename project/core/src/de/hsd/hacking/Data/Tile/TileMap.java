@@ -214,10 +214,10 @@ public class TileMap extends Group implements TileMovementProvider {
         return addObject(x, y, object);
     }
 
-    public boolean addObject(int x, int y, Object object){
-        if (tiles[x][y].hasNoObject()){
+    public boolean addObject(int x, int y, Object object) {
+        if (tiles[x][y].hasNoObject()) {
             tiles[x][y].setObject(object);
-            if (object.isTouchable()){
+            if (object.isTouchable()) {
                 stage.addTouchable((Touchable) object);
             }
             int currentX = x;
