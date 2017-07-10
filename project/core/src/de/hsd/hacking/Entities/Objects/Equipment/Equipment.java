@@ -29,7 +29,7 @@ public abstract class Equipment extends TouchableInteractableObject {
     protected float price;
     //protected EquipmentAttributeType attributeType;
     //protected int attributeValue = 100;
-    protected boolean isBought = false;
+    protected boolean isPurchased = false;
 
     protected int level = 1;
     protected Team team;
@@ -71,9 +71,9 @@ public abstract class Equipment extends TouchableInteractableObject {
     public int getAllPurposeSkillBonus() { return 0; }
 
 
-    public boolean isBought() { return isBought; }
-    public void setBought(boolean isBought) {
-        this.isBought = isBought;
+    public boolean isPurchased() { return isPurchased; }
+    public void setPurchased(boolean isPurchased) {
+        this.isPurchased = isPurchased;
     }
 
     @Override

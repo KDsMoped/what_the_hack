@@ -9,13 +9,14 @@ import de.hsd.hacking.Entities.Team.Team;
  * Created by domin on 28.06.2017.
  */
 
-public class Shop {
+public class EquipmentManager {
 
     private ArrayList<Equipment> shopItems = new ArrayList<Equipment>();
+    private ArrayList<Equipment> purchasedItems = new ArrayList<Equipment>();
 
-    private static Shop instance = null;
+    private static EquipmentManager instance = null;
 
-    private Shop() {
+    private EquipmentManager() {
         Computer computer = new Computer();
         shopItems.add(computer);
         Modem modem = new Modem();
@@ -26,13 +27,14 @@ public class Shop {
         shopItems.add(router);
     }
 
-    public static Shop instance() {
+    public static EquipmentManager instance() {
         if (instance == null) {
-            instance = new Shop();
+            instance = new EquipmentManager();
         }
         return instance;
     }
 
+    /*
     public int buyItem(int index) {
         Equipment e = shopItems.get(index);
         Team team = Team.instance();
@@ -43,16 +45,19 @@ public class Shop {
         team.addEquipment(e);
         return 0;
     }
+    */
 
     public int buyItem(Equipment equipment) {
-        int index = shopItems.indexOf(equipment);
         Team team = Team.instance();
         int price = (int)equipment.getPrice();
         if (team.getMoney() < price)
             return 1;
         team.reduceMoney(price);
-        team.addEquipment(equipment);
-        equipment.setBought(true);
+        //team.addEquipment(equipment);
+        shopItems.remove(equipment);
+        purchasedItems.add(equipment);
+        equipment.setPurchased(true);
+        team.updateResources();
         return 0;
     }
 
@@ -63,10 +68,12 @@ public class Shop {
             return 1;
         team.reduceMoney(price);
         ((Upgradable) equipment).upgrade();
+        team.updateResources();
         return 0;
     }
 
 
     public ArrayList<Equipment> getShopItemList() { return shopItems; }
+    public ArrayList<Equipment> getPurchasedItemList() { return purchasedItems; }
 
 }

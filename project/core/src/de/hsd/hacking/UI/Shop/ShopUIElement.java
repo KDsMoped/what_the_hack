@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
 
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.Entities.Objects.Equipment.Shop;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Utils.Constants;
 
@@ -23,6 +23,7 @@ public class ShopUIElement extends Table {
     Table content;
 
     Equipment equipment;
+    EquipmentManager equipmentManager;
 
     private Label name;
     private Label price;
@@ -33,6 +34,7 @@ public class ShopUIElement extends Table {
 
     public ShopUIElement(Equipment equipment) {
         this.equipment = equipment;
+        this.equipmentManager = EquipmentManager.instance();
 
         InitControls();
         InitTable();
@@ -43,8 +45,8 @@ public class ShopUIElement extends Table {
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(equipment.isBought() == false) {
-                    if(Shop.instance().buyItem(equipment) == 1) {}
+                if(equipment.isPurchased() == false) {
+                    if(equipmentManager.buyItem(equipment) == 1) {}
                     if(equipment instanceof Upgradable) {
                         buyButton.setText("Upgrade");
                         updateTable();
@@ -52,7 +54,7 @@ public class ShopUIElement extends Table {
                 }
                 else {
                     if(equipment instanceof Upgradable) {
-                        if (Shop.instance().upgradeItem(equipment) == 1) {
+                        if (equipmentManager.upgradeItem(equipment) == 1) {
                         }
                         updateTable();
                     }

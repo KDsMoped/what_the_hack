@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.Entities.Objects.Equipment.Shop;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 
@@ -27,7 +27,7 @@ public class ShopBrowser extends Popup {
     private Table itemContainer = new Table();
     private ScrollPane itemScroller;
 
-    private Shop shop;
+    private EquipmentManager equipmentManager;
 
 
     /**
@@ -36,7 +36,7 @@ public class ShopBrowser extends Popup {
     public ShopBrowser() {
         super();
 
-        this.shop = Shop.instance();
+        this.equipmentManager = EquipmentManager.instance();
 
         InitTable();
     }
@@ -72,7 +72,13 @@ public class ShopBrowser extends Popup {
 
         itemScroller = new ScrollPane(itemContainer);
 
-        for(Equipment equipment : shop.getShopItemList()) {
+        for(Equipment equipment : equipmentManager.getPurchasedItemList()) {
+            itemContainer.add(new ShopUIElement(equipment))
+                    .expandX().fillX().padBottom(15);
+            itemContainer.row();
+        }
+
+        for(Equipment equipment : equipmentManager.getShopItemList()) {
             itemContainer.add(new ShopUIElement(equipment))
                     .expandX().fillX().padBottom(15);
             itemContainer.row();
