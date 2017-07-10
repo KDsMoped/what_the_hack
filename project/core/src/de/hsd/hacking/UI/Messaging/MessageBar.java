@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
@@ -19,26 +22,25 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by ju on 06.07.17.
- */
-
-/**
  * UI element to display messages for the player.
+ * @author Julian Geywitz
  */
-public class MessageBar extends Table implements EventListener, EventSender{
-    private final static EventListener.EventType TYPE = EventType.MESSAGE_FINISHED_DISPLAYING;
+public class MessageBar extends Table implements EventListener{
     private final int COMPACT_HEIGHT = 21;
     private final int FULL_HEIGHT = 200;
-    private final int SCROLLING_TEXT_CHARS = 45;
-    private final float SCROLLING_SPEED = 0.3f;
-    private final int INITIAL_WAIT = 2;
-    private final int FINAL_WAIT = 3;
+    private final int SCROLLING_TEXT_CHARS = 47;
+    private final float SCROLLING_SPEED = 0.2f;
+    private final int INITIAL_WAIT = 1;
+    private final int FINAL_WAIT = 2;
+    private final int MESSAGE_BUFFER = 100;
 
     private Table compactView;
     private Label compactText;
     private Image compactType;
     private Image compactArrow;
-    private Message currentMessage;
+
+    private List<Message> messages;
+    private int compactPosition = -1;
 
     private Table fullView;
     private ScrollPane fullScroller;
@@ -47,12 +49,14 @@ public class MessageBar extends Table implements EventListener, EventSender{
     private Boolean compact = true;
 
     // Variables for the scrolling in animation
-    private Boolean scrollMessage = false;
     private int scrollPosition = 0;
     private float scrollDelta = 0f;
     private Boolean finishedMessage = true;
+    private Boolean scrollMessage = false;
 
     public MessageBar() {
+        messages = new ArrayList<Message>(MESSAGE_BUFFER);
+
         initTable();
         initCompactTable();
         initFullTable();
@@ -60,8 +64,6 @@ public class MessageBar extends Table implements EventListener, EventSender{
         this.add(compactView);
 
         MessageManager.instance().addListener(this);
-
-        MessageManager.instance().Info("Dies ist ein super langer test Text und alle haben Versagt und wurden geschnappt oder auch nicht?!?", null);
     }
 
     private void initTable() {
@@ -83,12 +85,12 @@ public class MessageBar extends Table implements EventListener, EventSender{
         compactView.align(Align.left);
         compactText = new Label("", Constants.TerminalLabelStyle());
         compactText.setWrap(false);
-        compactText.setAlignment(Align.center);
+        compactText.setAlignment(Align.left);
         compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
         compactType = new Image();
 
         compactView.add(compactType).left();
-        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(3);
+        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(4);
         compactView.add(compactArrow).right();
     }
 
@@ -96,7 +98,10 @@ public class MessageBar extends Table implements EventListener, EventSender{
         fullView = new Table();
         fullView.align(Align.topLeft);
         fullContainer = new VerticalGroup();
+        fullContainer.align(Align.topLeft);
         fullScroller = new ScrollPane(fullContainer);
+
+        fullView.add(fullScroller).expand().fill().bottom();
     }
 
     public void ToggleView() {
@@ -107,6 +112,9 @@ public class MessageBar extends Table implements EventListener, EventSender{
             this.clearChildren();
             this.setHeight(FULL_HEIGHT);
             this.add(fullView);
+
+            // scroll to bottom
+            fullScroller.scrollTo(fullScroller.getX(), fullScroller.getY(), fullScroller.getWidth(), fullScroller.getHeight());
         }
         else {
             // We are now in compact mode!
@@ -115,32 +123,36 @@ public class MessageBar extends Table implements EventListener, EventSender{
             this.clearChildren();
             this.setHeight(COMPACT_HEIGHT);
             this.add(compactView);
+
+            // set the compact view to the newest message
+            finishedMessage = true;
+            compactPosition = messages.size() - 1;
+            scrollPosition = 0;
+            scrollDelta = 0;
+
+            int textLength = messages.get(compactPosition).getText().length();
+            compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
+
+            if (textLength > SCROLLING_TEXT_CHARS)
+                compactText.setText(messages.get(compactPosition).getText().substring(textLength - SCROLLING_TEXT_CHARS, textLength));
+            else
+                compactText.setText(messages.get(compactPosition).getText());
         }
     }
 
-    private void NewMessage() {
-        currentMessage = MessageManager.instance().getCurrent();
+    private void NewMessage(Message newMe) {
+        if (messages.size() > MESSAGE_BUFFER - 2) {
+            messages.remove(0);
+            compactPosition--;
+        }
 
-        if (fullContainer.getChildren().size > 99) {
+        messages.add(newMe);
+
+        if (fullContainer.getChildren().size > MESSAGE_BUFFER - 2) {
             fullContainer.removeActor(fullContainer.getChildren().first());
         }
 
-        fullContainer.addActor(new MessageUIElement(currentMessage));
-
-        compactType.setDrawable(Message.GetTypeIcon(currentMessage));
-
-        if (currentMessage.getText().length() > SCROLLING_TEXT_CHARS) {
-            scrollMessage = true;
-            scrollPosition = 0;
-            finishedMessage = false;
-
-            compactText.setText(currentMessage.getText().substring(0, SCROLLING_TEXT_CHARS));
-        }
-        else {
-            scrollMessage = false;
-            finishedMessage = true;
-            compactText.setText(currentMessage.getText());
-        }
+        fullContainer.addActor(new MessageUIElement(newMe));
     }
 
     @Override
@@ -149,65 +161,63 @@ public class MessageBar extends Table implements EventListener, EventSender{
 
         // this is the scrolling mechanism
         // we only want to scroll if we are in the compact view and when the message is longer than the desired value
-        if (compact && scrollMessage) {
-            // if the message is new we wait INITIAL_WAIT before scrolling
-            if (scrollPosition == 0 && scrollDelta < INITIAL_WAIT) {
-                // just wait
-            }
-            // the initial wait is finished
-            else {
-                // Here we control the scrolling speed
-                if (scrollDelta > SCROLLING_SPEED) {
-                    scrollDelta = 0f;
+        if (compact) {
+            scrollDelta += delta;
 
-                    // Are we at the end of the message?
-                    if (currentMessage.getText().length() > (scrollPosition + SCROLLING_TEXT_CHARS)) {
-                        scrollPosition++;
+            if (scrollMessage) {
+                // if the message is new we wait INITIAL_WAIT before scrolling
+                if (scrollPosition == 0 && scrollDelta < INITIAL_WAIT) {
+                    // just wait
+                }
+                // the initial wait is finished
+                else {
+                    // Here we control the scrolling speed
+                    if (scrollDelta > SCROLLING_SPEED) {
+                        scrollDelta = 0f;
 
-                        // Set the actual displayed substring
-                        compactText.setText(currentMessage.getText().substring(scrollPosition, SCROLLING_TEXT_CHARS + scrollPosition));
-                    }
-                    else {
-                        scrollMessage = false;
-                        finishedMessage = true;
+                        // Are we at the end of the message?
+                        if (messages.get(compactPosition).getText().length() > (scrollPosition + SCROLLING_TEXT_CHARS)) {
+                            scrollPosition++;
+
+                            // Set the actual displayed substring
+                            compactText.setText(messages.get(compactPosition).getText().substring(scrollPosition, SCROLLING_TEXT_CHARS + scrollPosition));
+                        }
+                        else {
+                            scrollMessage = false;
+                            finishedMessage = true;
+                        }
                     }
                 }
             }
 
-            scrollDelta += delta;
-        }
+            if (finishedMessage && compactPosition != (messages.size() - 1)) {
+                if (scrollDelta > FINAL_WAIT) {
+                    finishedMessage = false;
+                    compactPosition++;
+                    scrollPosition = 0;
+                    scrollDelta = 0;
 
-        if (finishedMessage) {
-            if (scrollDelta > FINAL_WAIT) {
+                    compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
+                    int textLength = messages.get(compactPosition).getText().length();
 
-                notifyListeners(TYPE);
+                    if (textLength > SCROLLING_TEXT_CHARS) {
+                        scrollMessage = true;
+                        compactText.setText(messages.get(compactPosition).getText().substring(0, SCROLLING_TEXT_CHARS));
+                    }
+                    else {
+                        scrollMessage = false;
+                        compactText.setText(messages.get(compactPosition).getText());
+                    }
+                }
             }
-
-            scrollDelta += delta;
         }
-    }
 
-    @Override
-    public void addListener(EventListener listener) {
-        listeners.add(listener);
-    }
-
-    @Override
-    public void removeListener(EventListener listener) {
-        listeners.remove(listener);
-    }
-
-    @Override
-    public void notifyListeners(EventListener.EventType type) {
-        for (EventListener listener:listeners) {
-            listener.OnEvent(type, this);
-        }
     }
 
     @Override
     public void OnEvent(EventType type, Object sender) {
         if (type == EventType.MESSAGE_NEW) {
-            NewMessage();
+            NewMessage((Message) sender);
         }
     }
 }
