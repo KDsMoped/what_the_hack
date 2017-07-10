@@ -4,9 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.Tile.TileMap;
+import de.hsd.hacking.Entities.Objects.Desk;
+import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+
+import static de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager.instance;
 
 public class CoffeeMachine extends Equipment implements Upgradable {
 
@@ -38,6 +43,18 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     @Override
     public int getAllPurposeSkillBonus() { return level * 5; }
 
+    @Override
+    public void setPurchased(boolean isPurchased) {
+        super.setPurchased(isPurchased);
+
+        TileMap tileMap = GameStage.instance().getTileMap();
+
+        Desk desk = new Desk(Assets.instance(), Direction.RIGHT, 1);
+        tileMap.addObject(10, 0, desk);
+        //CoffeeMachine coffeeMachine = new CoffeeMachine();
+        desk.setContainedObject(this);
+        GameStage.instance().addTouchable(this);
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
