@@ -29,10 +29,10 @@ public class MessageBar extends Table implements EventListener, EventSender{
     private final static EventListener.EventType TYPE = EventType.MESSAGE_FINISHED_DISPLAYING;
     private final int COMPACT_HEIGHT = 21;
     private final int FULL_HEIGHT = 200;
-    private final int SCROLLING_TEXT_CHARS = 45;
-    private final float SCROLLING_SPEED = 0.3f;
-    private final int INITIAL_WAIT = 2;
-    private final int FINAL_WAIT = 3;
+    private final int SCROLLING_TEXT_CHARS = 47;
+    private final float SCROLLING_SPEED = 0.2f;
+    private final int INITIAL_WAIT = 1;
+    private final int FINAL_WAIT = 2;
 
     private Table compactView;
     private Label compactText;
@@ -83,12 +83,12 @@ public class MessageBar extends Table implements EventListener, EventSender{
         compactView.align(Align.left);
         compactText = new Label("", Constants.TerminalLabelStyle());
         compactText.setWrap(false);
-        compactText.setAlignment(Align.center);
+        compactText.setAlignment(Align.left);
         compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
         compactType = new Image();
 
         compactView.add(compactType).left();
-        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(3);
+        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(4);
         compactView.add(compactArrow).right();
     }
 
@@ -96,7 +96,10 @@ public class MessageBar extends Table implements EventListener, EventSender{
         fullView = new Table();
         fullView.align(Align.topLeft);
         fullContainer = new VerticalGroup();
+        fullContainer.align(Align.topLeft);
         fullScroller = new ScrollPane(fullContainer);
+
+        fullView.add(fullScroller).expand().fill().bottom();
     }
 
     public void ToggleView() {
@@ -107,6 +110,9 @@ public class MessageBar extends Table implements EventListener, EventSender{
             this.clearChildren();
             this.setHeight(FULL_HEIGHT);
             this.add(fullView);
+
+            // scroll to bottom
+            fullScroller.scrollTo(fullScroller.getX(), fullScroller.getY(), fullScroller.getWidth(), fullScroller.getHeight());
         }
         else {
             // We are now in compact mode!
@@ -115,6 +121,17 @@ public class MessageBar extends Table implements EventListener, EventSender{
             this.clearChildren();
             this.setHeight(COMPACT_HEIGHT);
             this.add(compactView);
+
+            // clean up the current message if necessary
+            if (scrollMessage) {
+                scrollMessage = false;
+                finishedMessage = false;
+
+                int textLength = currentMessage.getText().length();
+                compactText.setText(currentMessage.getText().substring(textLength - SCROLLING_TEXT_CHARS, textLength));
+
+                notifyListeners(TYPE);
+            }
         }
     }
 
@@ -179,7 +196,7 @@ public class MessageBar extends Table implements EventListener, EventSender{
 
         if (finishedMessage) {
             if (scrollDelta > FINAL_WAIT) {
-
+                finishedMessage = false;
                 notifyListeners(TYPE);
             }
 
