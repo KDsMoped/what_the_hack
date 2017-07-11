@@ -130,13 +130,15 @@ public class MessageBar extends Table implements EventListener{
             scrollPosition = 0;
             scrollDelta = 0;
 
-            int textLength = messages.get(compactPosition).getText().length();
-            compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
+            if (!messages.isEmpty()) {
+                int textLength = messages.get(compactPosition).getText().length();
+                compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
 
-            if (textLength > SCROLLING_TEXT_CHARS)
-                compactText.setText(messages.get(compactPosition).getText().substring(textLength - SCROLLING_TEXT_CHARS, textLength));
-            else
-                compactText.setText(messages.get(compactPosition).getText());
+                if (textLength > SCROLLING_TEXT_CHARS)
+                    compactText.setText(messages.get(compactPosition).getText().substring(textLength - SCROLLING_TEXT_CHARS, textLength));
+                else
+                    compactText.setText(messages.get(compactPosition).getText());
+            }
         }
     }
 
