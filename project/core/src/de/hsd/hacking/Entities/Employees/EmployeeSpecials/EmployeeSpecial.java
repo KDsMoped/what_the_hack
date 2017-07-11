@@ -91,12 +91,22 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
 
     public void onTouch(){}
 
+    public void onMissionCompleted(){}
+
     /**
      * Override this if the special should be hidden in UI.
      * @return
      */
     public boolean isHidden(){
         return false;
+    }
+
+    /**
+     * Override this if the special cannot be learned during the game.
+     * @return
+     */
+    public boolean isLearnable(){
+        return true;
     }
 
     /**

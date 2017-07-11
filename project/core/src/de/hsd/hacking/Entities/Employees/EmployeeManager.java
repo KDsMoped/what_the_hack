@@ -187,8 +187,10 @@ public class EmployeeManager implements TimeChangedListener {
 
     @Override
     public void dayChanged(int days) {
-        refreshAvailableEmployees(); //TODO Auch ein bisschen schnell, vlt nur mit gewisser Chance refreshen?
-        if(days % 7 == 6) messageManager.Info("Only one day until payday!");
+        if (RandomUtils.randomIntWithin(0, 9) < 5) {
+            refreshAvailableEmployees(); //TODO Auch ein bisschen schnell, vlt nur mit gewisser Chance refreshen?
+        }
+        if (days % 7 == 6) messageManager.Info("Only one day until payday!");
     }
 
     @Override
@@ -218,7 +220,8 @@ public class EmployeeManager implements TimeChangedListener {
         int salary = employee.getSalary();
 
         if (team.getMoney() < salary) {
-            if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + "leaves the team!");
+            if (Constants.DEBUG)
+                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + "leaves the team!");
             messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + "leaves the team!");
             dismiss(employee);
             return;

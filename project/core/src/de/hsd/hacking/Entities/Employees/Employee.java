@@ -1,5 +1,6 @@
 package de.hsd.hacking.Entities.Employees;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -22,6 +23,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
@@ -31,6 +33,10 @@ import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.*;
+
+import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_COMPLETED;
+import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_COMPLETED_PERLEVEL;
+import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CRITICAL_SUCCESS;
 
 /**
  * Created by Cuddl3s on 21.05.2017.
@@ -108,10 +114,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private int currentTileNumber;
     private int occupiedTileNumber;
 
-    //    private Group employeeSpecials = new Group();
     private ArrayList<EmployeeSpecial> employeeSpecials = new ArrayList<EmployeeSpecial>();
-
-//    private ArrayList<Callback> employListener
+    /**
+     * These are the score points currently used for this employees attributes.
+     */
+    private float usedScore;
+    /**
+     * These are the score points available for leveling up.
+     */
+    private float freeScore;
 
     private GameStage stage;
 
@@ -292,7 +303,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     public void animAct(float delta) {
         elapsedTime += delta;
     }
-
 
     public void removeFromDrawingTile() {
         movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
@@ -498,7 +508,18 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     void setSkillSet(ArrayList<Skill> skillset) {
+//        this.skillSet = new ArrayList<Skill>(skillset);
         this.skillSet = skillset;
+        Collections.sort(skillSet);
+    }
+
+    void learnSkill(Skill skill, boolean sort) {
+        skillSet.add(skill);
+        if (sort) Collections.sort(skillSet);
+    }
+
+    void sortSkills() {
+        Collections.sort(skillSet);
     }
 
     void setSalary(int salary) {
@@ -507,6 +528,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     /**
      * Calculates and returns the salary of this employee.
+     *
      * @return
      */
     int getSalary() {
@@ -528,6 +550,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     /**
      * Calculates and returns the hiring cost of this employee.
+     *
      * @return
      */
     int getHiringCost() {
@@ -549,13 +572,20 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     /**
      * Adds a new employee special in case the employee does not already have this kind of special.
+     *
      * @param special
      * @return Returns the balancing score value of this special in case it is added. 0 otherwise.
      */
     float addEmployeeSpecial(EmployeeSpecial special) {
 
+        if (isEmployed && !special.isLearnable()) return 0; //this special cannot be added to an employed employee
+
         for (EmployeeSpecial s : employeeSpecials) {
-            if(s.getClass() == special.getClass()) return 0;
+            if (s.getClass() == special.getClass()) return 0; //employee already has this special
+        }
+
+        if(isEmployed){
+            if(!special.isHidden()) MessageManager.instance().Info(getName() + " gained the '" + special.getDisplayName() + "' ability.");
         }
 
         employeeSpecials.add(special);
@@ -571,7 +601,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return Collections.unmodifiableCollection(employeeSpecials);
     }
 
-    public boolean isEmployed(){
+    public boolean isEmployed() {
         return isEmployed;
     }
 
@@ -609,4 +639,51 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return 1 + result;
     }
 
+//    void incrementUsedScore(float score) {
+//        usedScore += score;
+//    }
+
+    /**
+     * Adds score points for
+     * @param score
+     */
+    public void incrementFreeScore(float score) {
+        freeScore += score;
+        //Gdx.app.log(Constants.TAG, getName() + " gets " + score + " score points.");
+    }
+
+    /**
+     * Spends score points for this employee.
+     * @param score
+     */
+    void useScore(float score){
+        usedScore += score;
+        freeScore -= score;
+    }
+
+    public float getUsedScore() {
+        return usedScore;
+    }
+
+    public float getFreeScore() {
+        return freeScore;
+    }
+
+    public void onMissionCompleted(){
+
+        for (EmployeeSpecial special : employeeSpecials) {
+            special.onMissionCompleted();
+        }
+
+        incrementFreeScore(SCORE_MISSION_COMPLETED + currentMission.getDifficulty() * SCORE_MISSION_COMPLETED_PERLEVEL);
+
+        EmployeeFactory.levelUp(this);
+    }
+
+    public void onMissionCriticalSuccess(){
+
+        incrementFreeScore(SCORE_MISSION_CRITICAL_SUCCESS);
+
+        EmployeeFactory.levelUp(this);
+    }
 }

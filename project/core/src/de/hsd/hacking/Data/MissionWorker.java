@@ -7,11 +7,7 @@ import java.util.List;
 
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
-import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
-import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.MissionSkillRequirement;
-import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
+import de.hsd.hacking.Entities.Employees.*;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -90,6 +86,7 @@ public class MissionWorker implements TimeChangedListener {
 //            MessageManager.instance().Info("Employee " + em.getName() + " had a critical emoji_success while working on " + req.getSkillType().getDisplayName());
             req.incrementCurrentValue(2 * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.SUCCESS, em);
+            em.onMissionCriticalSuccess();
         } else {
             req.incrementCurrentValue(stepValue);
 //            Gdx.app.log(Constants.TAG, "Employee " + em.getName() + " increased required skill value " + req.getSkillType().getDisplayName() + " by " + stepValue + " this step.");
