@@ -197,9 +197,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * This is called as soon as the employee leaves the team.
      */
-    public void onDismiss(){
+    public void onDismiss() {
+        state.cancel();
         isEmployed = false;
-
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onDismiss();
         }
@@ -557,10 +557,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     /**
-     * Returns the chance for the employee to have a critical success
-     * Critical success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
+     * Returns the chance for the employee to have a critical emoji_success
+     * Critical emoji_success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
      *
-     * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical success, 20 means the employee always has a critical success
+     * @return criticalSuccessValue in the range 0-20. 0 represents no chance to have a critical emoji_success, 20 means the employee always has a critical emoji_success
      */
     public int getCriticalSuccessChance() {
 

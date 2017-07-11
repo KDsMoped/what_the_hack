@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.States.WaitingState;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;
@@ -89,18 +90,17 @@ public class Computer extends Equipment implements Upgradable {
     public EmployeeState interact(Employee e) {
         if (isOccupied()) {
             Gdx.app.log(Constants.TAG, "OCCUPIED!!!");
-            //TODO EVENT für Ärgernis des Charakters
+            EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.NO, e);
             return new IdleState(e);
         }
 
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
         Gdx.app.log(Constants.TAG, "Trying to Send to chair...");
         if (e.getMovementProvider().getDiscreteTile(workingChair.getPosition()).isMovableTo()) {
-            //TODO Event für OK!
             return AskForMission(e);
 //            return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
         } else {
-            //TODO EVENT für Ärgernis des Charakters
+            EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.NO, e);
             return new IdleState(e);
         }
     }
@@ -116,6 +116,7 @@ public class Computer extends Equipment implements Upgradable {
             public void callback(Mission mission) {
                 //a mission was chosen
                 e.setCurrentMission(mission);
+                EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.OK, e);
                 waitingState.setFollowingState(new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition())));
             }
         }, new Callback() {

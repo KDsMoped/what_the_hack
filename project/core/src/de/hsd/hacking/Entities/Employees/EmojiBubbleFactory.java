@@ -14,7 +14,7 @@ public class EmojiBubbleFactory {
     public static EmojiBubbleFactory instance = new EmojiBubbleFactory();
 
     public enum EmojiType {
-        SUCCESS, FAILURE, SPEAKING
+        SUCCESS, FAILURE, OK, NO, SPEAKING
     }
 
     /**
@@ -26,13 +26,19 @@ public class EmojiBubbleFactory {
         switch (type) {
 
             case SUCCESS:
-                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().success));
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_success));
                 break;
             case FAILURE:
-                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().angry));
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_angry));
+                break;
+            case OK:
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_ok));
+                break;
+            case NO:
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_no));
                 break;
             case SPEAKING:
-                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().success));
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_success));
                 break;
         }
     }
