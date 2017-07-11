@@ -1,6 +1,5 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Entities.Team.Team;

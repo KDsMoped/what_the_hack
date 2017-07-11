@@ -20,11 +20,13 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.UI.Messaging.MessageBar;
+import de.hsd.hacking.UI.Mission.MissionStatusOverlay;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
@@ -62,6 +64,7 @@ public class GameStage extends Stage implements EventListener{
     private EmployeeManager employeeManager;
     private StatusBar statusBar;
     private MessageBar messageBar;
+    private MissionStatusOverlay missionStatusOverlay;
 
     private List<Touchable> touchables;
 
@@ -165,7 +168,7 @@ public class GameStage extends Stage implements EventListener{
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                deselectEmployee();
+                Team.instance().deselectEmployee();
                 shopBrowser.toggleView();
             }
         });
@@ -179,7 +182,7 @@ public class GameStage extends Stage implements EventListener{
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                deselectEmployee();
+                Team.instance().deselectEmployee();
                 missionBrowser.toggleView();
             }
         });
@@ -192,7 +195,7 @@ public class GameStage extends Stage implements EventListener{
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                deselectEmployee();
+                Team.instance().deselectEmployee();
                 employeeBrowser.toggleView();
             }
         });
@@ -206,7 +209,6 @@ public class GameStage extends Stage implements EventListener{
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                deselectEmployee();
                 ScreenManager.setMenuScreen();
             }
         });
@@ -218,6 +220,11 @@ public class GameStage extends Stage implements EventListener{
         overlay.addActor(messageBar = new MessageBar());
         GameTime.instance.addTimeChangedListener(statusBar);
         ui.addActor(new EmployeeBar());
+
+        missionStatusOverlay = new MissionStatusOverlay();
+        missionStatusOverlay.setVisible(false);
+        ui.addActor(missionStatusOverlay);
+
     }
 
     private void createWorkSpace(int tileX, int tileY) {
@@ -327,6 +334,7 @@ public class GameStage extends Stage implements EventListener{
                         }
                     }
                 }
+
                 //3rd priority: Objects
                 for (Touchable touchable
                         : touchables) {
@@ -334,6 +342,10 @@ public class GameStage extends Stage implements EventListener{
                         return true;
                     }
                 }
+
+                //If no touchable object is clicked, deselect the current employee
+                Team.instance().deselectEmployee();
+
             } else {
                 return true;
             }
@@ -362,17 +374,6 @@ public class GameStage extends Stage implements EventListener{
         return touchables.remove(touchable);
     }
 
-    public Employee getSelectedEmployee() {
-        return team.getSelectedEmployee();
-    }
-
-    public void setSelectedEmployee(Employee selectedEmployee) {
-        team.setSelectedEmployee(selectedEmployee);
-    }
-
-    public void deselectEmployee() {
-        team.deselectEmployee();
-    }
 
     public TileMap getTileMap() {
         return tileMap;
@@ -404,5 +405,16 @@ public class GameStage extends Stage implements EventListener{
                 employeesTouchable = true;
                 break;
         }
+    }
+
+    public void showMissionStatusOverlay(MissionWorker missionWorker, Employee employee) {
+        missionStatusOverlay.setPosition(employee.getPosition().add(32f, 0));
+        missionStatusOverlay.setMissionWorker(missionWorker);
+        missionStatusOverlay.setVisible(true);
+    }
+
+    public void hideMissionStatusOverlay() {
+        missionStatusOverlay.setVisible(false);
+        missionStatusOverlay.setMissionWorker(null);
     }
 }

@@ -22,11 +22,15 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
@@ -397,9 +401,32 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void toggleSelected() {
-        if (!selected) stage.setSelectedEmployee(this);
-        if (selected) stage.deselectEmployee();
+        if (!selected) {
+            onSelect();
+        }
+        if (selected) {
+            onDeselect();
+        }
         selected = !selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        if (selected) onSelect();
+        else onDeselect();
+    }
+
+    private void onSelect() {
+        Team.instance().setSelectedEmployee(this);
+        MissionWorker missionWorker = MissionManager.instance().getMissionWorker(this);
+        if (missionWorker != null) {
+            GameStage.instance().showMissionStatusOverlay(missionWorker, this);
+        }
+    }
+
+    private void onDeselect() {
+        Team.instance().deselectEmployee();
+        GameStage.instance().hideMissionStatusOverlay();
     }
 
     public boolean isSelected() {
@@ -436,9 +463,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.animationState = animationState;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+
 
     @Override
     public GameStage getStage() {

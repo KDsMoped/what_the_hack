@@ -190,6 +190,22 @@ public class MissionManager implements TimeChangedListener {
         }
     }
 
+    /**
+     * Gets the {@link MissionWorker} for a given working Employee.
+     * Returns null if Employee is not working on mission.
+     * @param employee
+     * @return
+     */
+    public MissionWorker getMissionWorker(final Employee employee) {
+        if (employee.getCurrentMission() != null) {
+            int workerNumber = isMissionRunning(employee.getCurrentMission());
+            if (workerNumber > -1) {
+                return runningMissions.get(workerNumber);
+            }
+        }
+        return null;
+    }
+
     public Collection<Mission> getActiveMissions() {
         return Collections.unmodifiableCollection(activeMissions);
     }

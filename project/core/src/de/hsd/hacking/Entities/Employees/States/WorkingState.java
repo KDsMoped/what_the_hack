@@ -90,7 +90,7 @@ public class WorkingState extends EmployeeState implements EventListener {
         computer.setOn(false);
         computer.deOccupy();
         //TODO mission
-        if (employee.getCurrentMission() != null){
+        if (employee.getCurrentMission() != null) {
             MissionManager.instance().stopWorking(employee);
         }
     }
@@ -116,6 +116,8 @@ public class WorkingState extends EmployeeState implements EventListener {
             case MISSION_ABORTED:
                 Gdx.app.log(Constants.TAG, "Mission working was aborted for Employee: " + employee.getName());
                 cancel();
+            default:
+                break;
         }
     }
 }
