@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
 
+import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
@@ -24,6 +25,7 @@ public class ShopUIElement extends Table {
 
     Equipment equipment;
     EquipmentManager equipmentManager;
+    ShopBrowser shopBrowser;
 
     private Label name;
     private Label price;
@@ -31,10 +33,12 @@ public class ShopUIElement extends Table {
     private Label level;
 
     TextButton buyButton;
+    TextButton upgradeButton;
 
     public ShopUIElement(Equipment equipment) {
         this.equipment = equipment;
         this.equipmentManager = EquipmentManager.instance();
+        this.shopBrowser = ShopBrowser.instance();
 
         InitControls();
         InitTable();
@@ -45,20 +49,18 @@ public class ShopUIElement extends Table {
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(equipment.isPurchased() == false) {
-                    if(equipmentManager.buyItem(equipment) == 1) {}
-                    if(equipment instanceof Upgradable) {
-                        buyButton.setText("Upgrade");
-                        updateTable();
-                    }
+                if(equipmentManager.buyItem(equipment) == 1) {}
+                shopBrowser.updateTable();
+            }
+        });
+
+        upgradeButton = new TextButton("Upgrade", Constants.TextButtonStyle());
+        upgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (equipmentManager.upgradeItem(equipment) == 1) {
                 }
-                else {
-                    if(equipment instanceof Upgradable) {
-                        if (equipmentManager.upgradeItem(equipment) == 1) {
-                        }
-                        updateTable();
-                    }
-                }
+                shopBrowser.updateTable();
             }
         });
     }
@@ -66,6 +68,7 @@ public class ShopUIElement extends Table {
     public void InitTable() {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
+        this.setBackground(Assets.instance().tab_view_border_patch);
 
         content = new Table();
 
@@ -82,7 +85,14 @@ public class ShopUIElement extends Table {
         content.row();
 
         this.add(content).expandX().fillX().left();
-        this.add(buyButton).right().padLeft(10).size(100, 30);
+        if(equipmentManager.getPurchasedItemList().contains(equipment)) {
+            if(equipment instanceof Upgradable) {
+                this.add(upgradeButton).right().padLeft(10).size(100, 30);
+            }
+        }
+        else {
+            this.add(buyButton).right().padLeft(10).size(100, 30);
+        }
     }
 
     public void updateTable() {

@@ -159,7 +159,8 @@ public class GameStage extends Stage implements EventListener{
         missionBrowser.addEventListener(this);
 
         //Init Shop button
-        final ShopBrowser shopBrowser = new ShopBrowser();
+        final ShopBrowser shopBrowser = ShopBrowser.instance();
+        shopBrowser.init();
         TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
         shopButton.addListener(new ChangeListener() {
             @Override
