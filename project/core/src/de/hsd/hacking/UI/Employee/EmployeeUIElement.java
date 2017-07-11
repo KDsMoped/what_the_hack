@@ -90,7 +90,7 @@ public class EmployeeUIElement extends Table {
 
     private Table getThirdColumnTeam(){
         Table thirdColumn = new Table();
-        thirdColumn.setDebug(true);
+//        thirdColumn.setDebug(true);
 
         money = new Label(employee.getSalaryText(), Constants.LabelStyle());
         money.setAlignment(Align.topRight);
