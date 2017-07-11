@@ -22,7 +22,7 @@ public class Chair extends InteractableObject {
     private Computer computer;
 
     public Chair(Assets assets) {
-        super(assets.chair, false, false, true, Direction.DOWN, 0, Direction.DOWN);
+        super(assets.chair, false, false, true, Direction.DOWN, 0, Direction.DOWN, false);
     }
 
     @Override

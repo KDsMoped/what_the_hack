@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import de.hsd.hacking.Entities.Objects.Equipment.Shop;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
 
@@ -27,18 +27,27 @@ public class ShopBrowser extends Popup {
     private Table itemContainer = new Table();
     private ScrollPane itemScroller;
 
-    private Shop shop;
+    private EquipmentManager equipmentManager;
 
+    private static ShopBrowser instance = null;
 
     /**
      * We need the ui assets to display a beautiful popup window.
      */
     public ShopBrowser() {
         super();
+    }
 
-        this.shop = Shop.instance();
-
+    public void init() {
+        this.equipmentManager = EquipmentManager.instance();
         InitTable();
+    }
+
+    public static ShopBrowser instance() {
+        if (instance == null) {
+            instance = new ShopBrowser();
+        }
+        return instance;
     }
 
     @Override
@@ -68,11 +77,17 @@ public class ShopBrowser extends Popup {
         content.setTouchable(Touchable.enabled);
 
         title = new Label("Shop", Constants.LabelStyle());
-        title.setFontScale(1.3f);
+        title.setFontScale(1.4f);
 
         itemScroller = new ScrollPane(itemContainer);
 
-        for(Equipment equipment : shop.getShopItemList()) {
+        for(Equipment equipment : equipmentManager.getPurchasedItemList()) {
+            itemContainer.add(new ShopUIElement(equipment))
+                    .expandX().fillX().padBottom(15);
+            itemContainer.row();
+        }
+
+        for(Equipment equipment : equipmentManager.getShopItemList()) {
             itemContainer.add(new ShopUIElement(equipment))
                     .expandX().fillX().padBottom(15);
             itemContainer.row();
@@ -82,5 +97,35 @@ public class ShopBrowser extends Popup {
         content.add(title).expandX().fillX().padTop(5);
         content.row();
         content.add(itemScroller).expand().fill().maxHeight(185);
+    }
+
+    protected void updateTable() {
+        contentContainer = this.getContent();
+
+        content.clear();
+
+        content = new Table();
+        content.align(Align.top);
+        content.setTouchable(Touchable.enabled);
+
+        itemScroller = new ScrollPane(itemContainer);
+
+        for(Equipment equipment : equipmentManager.getPurchasedItemList()) {
+            itemContainer.add(new ShopUIElement(equipment))
+                    .expandX().fillX().padBottom(15);
+            itemContainer.row();
+        }
+
+        for(Equipment equipment : equipmentManager.getShopItemList()) {
+            itemContainer.add(new ShopUIElement(equipment))
+                    .expandX().fillX().padBottom(15);
+            itemContainer.row();
+        }
+
+        contentContainer.addActor(content);
+        content.add(title).expandX().fillX().padTop(5);
+        content.row();
+        content.add(itemScroller).expand().fill().maxHeight(185);
+
     }
 }

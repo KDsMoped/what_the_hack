@@ -85,11 +85,6 @@ public class StatusBar extends Actor implements TimeChangedListener {
     private Table items;
 
     /**
-     * The date format we want for the top bar.
-     */
-    private final DateFormat df = new SimpleDateFormat("dd MMM");
-
-    /**
      * Initializes a new top bar. Top bar needs assets to get the ui themes and fonts.
      */
     public StatusBar() {
@@ -160,7 +155,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
         bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
         employeesText.setText(Integer.toString(employees) + "/" + Constants.MAX_EMPLOYEE_COUNT);
-        dateText.setText(df.format(DateUtils.ConvertDaysToDate(date)));
+        dateText.setText(Constants.dateFormat.format(DateUtils.ConvertDaysToDate(date)));
     }
 
     /**

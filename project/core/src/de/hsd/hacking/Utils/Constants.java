@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import de.hsd.hacking.Assets.Assets;
 
 /**
@@ -35,6 +39,11 @@ public class Constants {
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
     private static Label.LabelStyle labelStyle;
     private static Label.LabelStyle terminalLabelStyle;
+
+    /**
+     * The date format we want for the ui.
+     */
+    public static final DateFormat dateFormat = new SimpleDateFormat("dd MMM");
 
     public static Skin UiSkin() {
         if (uiSkin == null) {

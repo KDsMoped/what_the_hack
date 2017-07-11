@@ -159,7 +159,8 @@ public class GameStage extends Stage implements EventListener{
         missionBrowser.addEventListener(this);
 
         //Init Shop button
-        final ShopBrowser shopBrowser = new ShopBrowser();
+        final ShopBrowser shopBrowser = ShopBrowser.instance();
+        shopBrowser.init();
         TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
         shopButton.addListener(new ChangeListener() {
             @Override
@@ -215,7 +216,6 @@ public class GameStage extends Stage implements EventListener{
         //Init status bar, message bar & employee details
         overlay.addActor(statusBar = new StatusBar());
         overlay.addActor(messageBar = new MessageBar());
-        messageBar.addListener(MessageManager.instance());
         GameTime.instance.addTimeChangedListener(statusBar);
         ui.addActor(new EmployeeBar());
     }
@@ -391,11 +391,11 @@ public class GameStage extends Stage implements EventListener{
     @Override
     public void OnEvent(EventType type, Object sender) {
         switch (type) {
+            // Fun fact: Ich glaube so etwas hat mal zu einem Bug für einen iOS Jailbreak geführt :D
             case MISSION_STARTED:
             case MISSION_FINISHED:
             case MISSION_ABORTED:
             case MESSAGE_NEW:
-            case MESSAGE_FINISHED_DISPLAYING:
                 break;
             case POPUP_SHOWN:
                 employeesTouchable = false;
