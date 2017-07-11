@@ -100,13 +100,9 @@ public class ShopBrowser extends Popup {
     }
 
     protected void updateTable() {
-        contentContainer = this.getContent();
-
+        contentContainer.clear();
         content.clear();
-
-        content = new Table();
-        content.align(Align.top);
-        content.setTouchable(Touchable.enabled);
+        itemContainer.clear();
 
         itemScroller = new ScrollPane(itemContainer);
 
@@ -126,6 +122,5 @@ public class ShopBrowser extends Popup {
         content.add(title).expandX().fillX().padTop(5);
         content.row();
         content.add(itemScroller).expand().fill().maxHeight(185);
-
     }
 }
