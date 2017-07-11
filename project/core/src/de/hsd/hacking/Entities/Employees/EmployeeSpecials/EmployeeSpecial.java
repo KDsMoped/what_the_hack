@@ -14,7 +14,6 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
         super();
 
         this.employee = employee;
-
     }
 
     @Override
@@ -66,14 +65,55 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
     public int getCriticalFailureBonus() { return  0;}
     public int getCriticalSuccessBonus() { return  0;}
 
+    /**
+     * Override this if this special should affect hiring cost of this employee. Value is applied in absolute values at the end of the calculation.
+     * @return
+     */
+    public int getHiringCostAbsoluteBonus() { return  0;}
+
+    /**
+     * Override this if this special should affect hiring cost of this employee. Value is applied relatively during the calculation.
+     * @return
+     */
+    public float getHiringCostRelativeFactor() { return  1;}
+
+    /**
+     * Override this if this special should affect salary of this employee. Value is applied in absolute values at the end of the calculation.
+     * @return
+     */
+    public int getSalaryAbsoluteBonus() { return  0;}
+
+    /**
+     * Override this if this special should affect salary of this employee. Value is applied relatively during the calculation.
+     * @return
+     */
+    public float getSalaryRelativeFactor() { return  1;}
+
     public void onTouch(){}
 
+    /**
+     * Override this if the special should be hidden in UI.
+     * @return
+     */
     public boolean isHidden(){
         return false;
     }
 
+    /**
+     * Returns the display name of this special as shown in UI.
+     * @return
+     */
     public abstract String getDisplayName();
+
+    /**
+     * Returns the display description of this special as shown in UI.
+     * @return
+     */
     public abstract String getDescription();
 
+    /**
+     * Returns the balancing score cost of this special. Use negative values for negative specials and positive for positive specials.
+     * @return
+     */
     public abstract float getScoreCost();
 }

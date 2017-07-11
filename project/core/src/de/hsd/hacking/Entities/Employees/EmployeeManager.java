@@ -215,14 +215,16 @@ public class EmployeeManager implements TimeChangedListener {
      * @param employee
      */
     private void pay(Employee employee) {
-        if (team.getMoney() < employee.getSalary()) {
+        int salary = employee.getSalary();
+
+        if (team.getMoney() < salary) {
             if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + "leaves the team!");
             messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + "leaves the team!");
             dismiss(employee);
             return;
         }
 
-        team.reduceMoney(employee.getSalary());
+        team.reduceMoney(salary);
     }
 
     public void addRefreshEmployeeListener(Callback callback) {

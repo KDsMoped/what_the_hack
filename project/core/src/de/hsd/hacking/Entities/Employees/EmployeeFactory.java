@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.CheapToHire;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
 import de.hsd.hacking.Entities.Team.Team;
@@ -223,7 +224,7 @@ public class EmployeeFactory {
      * @return
      */
     private static float rollSpecial(Employee padawan){
-        int roll = RandomUtils.randomIntWithin(1, 3);
+        int roll = RandomUtils.randomIntWithin(1, 4);
 
         switch (roll) {
             case 1:
@@ -233,6 +234,7 @@ public class EmployeeFactory {
             case 3:
                 return padawan.addEmployeeSpecial(new Unreliable(padawan, 0.02f));
             case 4:
+                return padawan.addEmployeeSpecial(new CheapToHire(padawan));
             case 5:
             case 6:
             case 7:

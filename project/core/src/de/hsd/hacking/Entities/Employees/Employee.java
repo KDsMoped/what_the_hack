@@ -115,14 +115,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private GameStage stage;
 
-
+    /**
+     * Creates a default employee ready to be shaped by the EmployeeFactory.
+     */
     public Employee() {
         super(false, true, false);
-        Init();
+        init();
     }
 
     /**
-     * Creates a new random employee
+     * Creates a new random employee. This is @deprecated and replaced by {@link Employee()}.
      *
      * @param level The desired skill Level
      */
@@ -159,10 +161,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
                 pool.removeNumber(randomInt);
             }
         }
-        Init();
+        init();
     }
 
-    private void Init() {
+    /**
+     * Initializes this employee.
+     */
+    private void init() {
         this.stage = GameStage.instance();
         this.assets = Assets.instance();
         movementProvider = stage.getTileMap();
@@ -500,22 +505,53 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.salary = salary;
     }
 
+    /**
+     * Calculates and returns the salary of this employee.
+     * @return
+     */
     int getSalary() {
-        return salary;
+
+        int specialAbsoluteBonus = 0;
+        float specialRelativeBonus = 1;
+
+        for (EmployeeSpecial s : employeeSpecials) {
+            specialAbsoluteBonus += s.getSalaryAbsoluteBonus();
+            specialRelativeBonus *= s.getSalaryRelativeFactor();
+        }
+
+        return (int) (salary * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
     public String getSalaryText() {
         return String.format("%03d", salary) + "$";
     }
 
+    /**
+     * Calculates and returns the hiring cost of this employee.
+     * @return
+     */
     int getHiringCost() {
-        return (int) (salary * 1.5f * GameTime.instance.getRemainingWeekFraction());
+
+        int specialAbsoluteBonus = 0;
+        float specialRelativeBonus = 1;
+
+        for (EmployeeSpecial s : employeeSpecials) {
+            specialAbsoluteBonus += s.getHiringCostAbsoluteBonus();
+            specialRelativeBonus *= s.getHiringCostRelativeFactor();
+        }
+
+        return (int) (salary * 1.5f * GameTime.instance.getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
     public String getHiringCostText() {
         return String.format("%03d", getHiringCost()) + "$";
     }
 
+    /**
+     * Adds a new employee special in case the employee does not already have this kind of special.
+     * @param special
+     * @return Returns the balancing score value of this special in case it is added. 0 otherwise.
+     */
     float addEmployeeSpecial(EmployeeSpecial special) {
 
         for (EmployeeSpecial s : employeeSpecials) {
