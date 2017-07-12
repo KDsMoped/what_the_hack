@@ -7,9 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Utils.Direction;
-import de.hsd.hacking.Entities.Objects.Equipment.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 

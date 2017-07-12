@@ -1,6 +1,8 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
@@ -36,8 +38,6 @@ public abstract class Equipment extends TouchableInteractableObject {
 
     public Equipment(String name,
                      float price,
-                     //EquipmentAttributeType attributeType,
-                     //int attributeValue,
                      TextureRegion drawableRegion,
                      boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection) {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
@@ -75,6 +75,8 @@ public abstract class Equipment extends TouchableInteractableObject {
     public void setPurchased(boolean isPurchased) {
         this.isPurchased = isPurchased;
     }
+
+    public TextureRegionDrawable getIcon() { return null; }
 
     @Override
     public String getName()  {

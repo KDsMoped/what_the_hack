@@ -1,15 +1,18 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.States.WaitingState;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;
 import de.hsd.hacking.Utils.Callback.Callback;
@@ -59,6 +62,11 @@ public class Computer extends Equipment implements Upgradable {
 
     @Override
     public int getComputationPowerBonus() { return level * 100; }
+
+    @Override
+    public TextureRegionDrawable getIcon() {
+        return Assets.instance().computer_icon;
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

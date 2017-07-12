@@ -1,11 +1,16 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Objects.Desk;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -54,6 +59,11 @@ public class CoffeeMachine extends Equipment implements Upgradable {
         //CoffeeMachine coffeeMachine = new CoffeeMachine();
         desk.setContainedObject(this);
         GameStage.instance().addTouchable(this);
+    }
+
+    @Override
+    public TextureRegionDrawable getIcon() {
+        return Assets.instance().coffeemachine_icon;
     }
 
     @Override
