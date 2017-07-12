@@ -5,6 +5,7 @@ package de.hsd.hacking.Data.Messaging;
  */
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.gson.annotations.Expose;
 
@@ -25,14 +26,14 @@ public class Message{
     @Expose private String text = "";
     @Expose private Date date;
     // TODO EventListener serialization
-    private Callback listener;
+    private ClickListener listener;
     @Expose private Type type = Type.INFO;
 
     public Message() {
 
     }
 
-    public Message(String text, Date date, Type type, Callback listener) {
+    public Message(String text, Date date, Type type, ClickListener listener) {
         this.text = text;
         this.date = date;
         this.listener = listener;
@@ -78,11 +79,11 @@ public class Message{
         this.date = date;
     }
 
-    public Callback getListener() {
+    public ClickListener getListener() {
         return listener;
     }
 
-    public void setListener(Callback listener) {
+    public void setListener(ClickListener listener) {
         this.listener = listener;
     }
 

@@ -1,7 +1,7 @@
 package de.hsd.hacking.Entities.Team;
 
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Objects.Equipment.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 
 /**
  * Created by domin on 07.06.2017.

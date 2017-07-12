@@ -78,6 +78,12 @@ public class Assets {
 
     public NinePatchDrawable table_dimm_patch;
 
+    // Equipment Icons
+    public TextureRegionDrawable computer_icon;
+    public TextureRegionDrawable router_icon;
+    public TextureRegionDrawable coffeemachine_icon;
+
+    // Audio Assets
     public Sound buttonSound;
 
 
@@ -171,6 +177,10 @@ public class Assets {
         table_border_patch = new NinePatchDrawable(terminal_skin.getPatch("table_border"));
         tab_view_border_patch = new NinePatchDrawable(terminal_skin.getPatch("tab_view_border"));
         table_dimm_patch = new NinePatchDrawable(terminal_skin.getPatch("dimm"));
+
+        coffeemachine_icon = new TextureRegionDrawable(atlas.findRegion("icon/CoffeeMachine", 3));
+        computer_icon = new TextureRegionDrawable(atlas.findRegion("icon/Computer_Backfaced", 3));
+        router_icon = new TextureRegionDrawable(atlas.findRegion("icon/Router", 1));
     }
 
     /*Muss von außerhalb aufgerufen werden wenn manager.update() true zurück gibt*/

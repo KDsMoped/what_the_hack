@@ -1,5 +1,6 @@
 package de.hsd.hacking.UI.Messaging;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,9 +16,9 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
-import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -25,6 +26,8 @@ import de.hsd.hacking.Utils.Constants;
  * UI element to display messages for the player.
  * @author Julian Geywitz
  */
+// TODO scroll down
+// TODO autohide
 public class MessageBar extends Table implements EventListener{
     private final int COMPACT_HEIGHT = 21;
     private final int FULL_HEIGHT = 200;
@@ -33,6 +36,7 @@ public class MessageBar extends Table implements EventListener{
     private final int INITIAL_WAIT = 1;
     private final int FINAL_WAIT = 2;
     private final int MESSAGE_BUFFER = 100;
+    private final float ANIMATION_TIME = 0.5f;
 
     private Table compactView;
     private Label compactText;
@@ -48,11 +52,17 @@ public class MessageBar extends Table implements EventListener{
 
     private Boolean compact = true;
 
+    private Boolean visible = false;
+    private Boolean isHiding = false;
+    private Boolean isShowing = false;
+    private float showHideDelta = 0.0f;
+
     // Variables for the scrolling in animation
     private int scrollPosition = 0;
-    private float scrollDelta = 0f;
+    private float scrollDelta = INITIAL_WAIT;
     private Boolean finishedMessage = true;
     private Boolean scrollMessage = false;
+    private Boolean firstMessage = true;
 
     public MessageBar() {
         messages = new ArrayList<Message>(MESSAGE_BUFFER);
@@ -67,7 +77,7 @@ public class MessageBar extends Table implements EventListener{
     }
 
     private void initTable() {
-        this.setPosition(0, 0);
+        this.setPosition(0, - COMPACT_HEIGHT);
         this.setHeight(COMPACT_HEIGHT);
         this.setWidth(GameStage.VIEWPORT_WIDTH);
         this.setTouchable(Touchable.enabled);
@@ -89,7 +99,7 @@ public class MessageBar extends Table implements EventListener{
         compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
         compactType = new Image();
 
-        compactView.add(compactType).left();
+        compactView.add(compactType).left().width(15);
         compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(4);
         compactView.add(compactArrow).right();
     }
@@ -102,6 +112,13 @@ public class MessageBar extends Table implements EventListener{
         fullScroller = new ScrollPane(fullContainer);
 
         fullView.add(fullScroller).expand().fill().bottom();
+    }
+
+    public void Show() {
+        if (visible)
+            return;
+
+        isShowing = true;
     }
 
     public void ToggleView() {
@@ -143,6 +160,8 @@ public class MessageBar extends Table implements EventListener{
     }
 
     private void NewMessage(Message newMe) {
+        Show();
+
         if (messages.size() > MESSAGE_BUFFER - 2) {
             messages.remove(0);
             compactPosition--;
@@ -161,6 +180,64 @@ public class MessageBar extends Table implements EventListener{
     public void act(float delta) {
         super.act(delta);
 
+        if (visible || isShowing) {
+            Scroll(delta);
+        }
+        else if (isHiding) {
+            showHideDelta += delta;
+
+            float progress = Math.min(1f, showHideDelta/ANIMATION_TIME);
+            float interpol = Interpolation.sineOut.apply(progress);
+
+            this.setPosition(0, -(COMPACT_HEIGHT * interpol));
+
+            if (progress == 1f) {
+                isHiding = false;
+                visible = false;
+
+                showHideDelta = 0;
+            }
+        }
+
+        if (isShowing) {
+            showHideDelta += delta;
+
+            float progress = Math.min(1f, showHideDelta/ANIMATION_TIME);
+            float interpol = Interpolation.sineOut.apply(progress);
+
+            this.setPosition(0, -COMPACT_HEIGHT + (COMPACT_HEIGHT * interpol));
+
+            if (progress == 1f) {
+                isShowing = false;
+                visible = true;
+
+                showHideDelta = 0;
+                scrollDelta = 0;
+            }
+        }
+    }
+
+    @Override
+    public void OnEvent(EventType type, Object sender) {
+        if (type == EventType.MESSAGE_NEW) {
+
+            // We need to add the swipe runnable here because in the constructor the gamescreen object is not ready yet
+            if (firstMessage) {
+                firstMessage = false;
+
+                ScreenManager.setSwipeUpAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        Show();
+                    }
+                });
+            }
+
+            NewMessage((Message) sender);
+        }
+    }
+
+    private void Scroll(float delta) {
         // this is the scrolling mechanism
         // we only want to scroll if we are in the compact view and when the message is longer than the desired value
         if (compact) {
@@ -191,15 +268,27 @@ public class MessageBar extends Table implements EventListener{
                     }
                 }
             }
+            else if (scrollDelta > FINAL_WAIT) {
+                finishedMessage = true;
+            }
 
             if (finishedMessage && compactPosition != (messages.size() - 1)) {
-                if (scrollDelta > FINAL_WAIT) {
+                if (scrollDelta > FINAL_WAIT || messages.size() == 1) {
                     finishedMessage = false;
                     compactPosition++;
                     scrollPosition = 0;
                     scrollDelta = 0;
 
                     compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
+
+                    for (com.badlogic.gdx.scenes.scene2d.EventListener e : compactText.getListeners()) {
+                        compactText.removeListener(e);
+                    }
+
+                    if (messages.get(compactPosition).getListener() != null) {
+                        compactText.addListener(messages.get(compactPosition).getListener());
+                    }
+
                     int textLength = messages.get(compactPosition).getText().length();
 
                     if (textLength > SCROLLING_TEXT_CHARS) {
@@ -212,14 +301,18 @@ public class MessageBar extends Table implements EventListener{
                     }
                 }
             }
+            else {
+                if (visible && !isHiding) {
+                    if (scrollDelta > FINAL_WAIT) {
+                        isHiding = true;
+                        visible = false;
+                    }
+                }
+            }
         }
-
     }
 
-    @Override
-    public void OnEvent(EventType type, Object sender) {
-        if (type == EventType.MESSAGE_NEW) {
-            NewMessage((Message) sender);
-        }
+    public Boolean getVisible() {
+        return visible;
     }
 }

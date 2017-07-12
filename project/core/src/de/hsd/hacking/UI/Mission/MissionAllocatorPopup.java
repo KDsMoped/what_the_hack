@@ -2,6 +2,8 @@ package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -51,24 +53,24 @@ public class MissionAllocatorPopup extends Popup {
         ScrollPane missionScroller = new ScrollPane(missionContainer);
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-//            MissionUIElement mission = new MissionUIElement(MissionFactory.CreateRandomMission());
-//            mission.addListener(new ChangeListener() {
+//            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
+//            button.addListener(new ChangeListener() {
 //                @Override
 //                public void changed(ChangeEvent event, Actor actor) {
 //                    selectMission(mission);
 //                }
 //            });
-//
-//            missionContainer.add(mission).expandX().fillX().padTop(5).padBottom(5).row();
+//            missionContainer.add(button).expandX().fillX().center().padBottom(5).row();
 
-            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
-            button.addListener(new ChangeListener() {
+
+            MissionUIElement uiElement = new MissionUIElement(mission, true, "Choose", new EventListener() {
                 @Override
-                public void changed(ChangeEvent event, Actor actor) {
+                public boolean handle(Event event) {
                     selectMission(mission);
+                    return true;
                 }
             });
-            missionContainer.add(button).expandX().fillX().center().padBottom(5).row();
+            missionContainer.add(uiElement).expandX().fillX().center().padBottom(5).row();
         }
 
 

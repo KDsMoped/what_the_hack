@@ -1,5 +1,7 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;

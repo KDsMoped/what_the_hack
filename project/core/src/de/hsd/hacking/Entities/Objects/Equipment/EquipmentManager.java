@@ -1,8 +1,12 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Modem;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Router;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Server;
 import de.hsd.hacking.Entities.Team.Team;
 
 /**
@@ -21,10 +25,12 @@ public class EquipmentManager {
         shopItems.add(computer);
         Modem modem = new Modem();
         shopItems.add(modem);
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        CoffeeMachine coffeeMachine = new de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine();
         shopItems.add(coffeeMachine);
         Router router = new Router();
         shopItems.add(router);
+        Server server = new Server();
+        shopItems.add(server);
     }
 
     public static EquipmentManager instance() {

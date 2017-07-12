@@ -2,6 +2,7 @@ package de.hsd.hacking.UI.Shop;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -33,6 +34,8 @@ public class ShopUIElement extends Table {
     private Label price;
     private Label attribute;
     private Label level;
+
+    private Image icon;
 
     TextButton buyButton;
     TextButton upgradeButton;
@@ -81,8 +84,11 @@ public class ShopUIElement extends Table {
         price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
 
         level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
+        icon = new Image(equipment.getIcon());
 
         leftContent.setWidth(30);
+        leftContent.add(icon);
+        leftContent.row();
         leftContent.add(level).left().expand().fillX().padRight(10);
 
         midContent.setWidth(60);

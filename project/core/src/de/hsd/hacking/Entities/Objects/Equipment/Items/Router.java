@@ -1,5 +1,10 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
@@ -24,6 +29,11 @@ public class Router extends Equipment implements Upgradable {
 
     @Override
     public int getBandwidthBonus() { return level * 50; }
+
+    @Override
+    public TextureRegionDrawable getIcon() {
+        return Assets.instance().router_icon;
+    }
 
     public void onTouch() {};
 
