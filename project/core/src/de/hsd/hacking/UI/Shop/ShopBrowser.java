@@ -96,7 +96,7 @@ public class ShopBrowser extends Popup {
         contentContainer.addActor(content);
         content.add(title).expandX().fillX().padTop(5);
         content.row();
-        content.add(itemScroller).expand().fill().maxHeight(185);
+        content.add(itemScroller).expand().fill().maxHeight(SCROLLER_HEIGHT);
     }
 
     protected void updateTable() {
@@ -121,6 +121,6 @@ public class ShopBrowser extends Popup {
         contentContainer.addActor(content);
         content.add(title).expandX().fillX().padTop(5);
         content.row();
-        content.add(itemScroller).expand().fill().maxHeight(185);
+        content.add(itemScroller).expand().fill().maxHeight(SCROLLER_HEIGHT);
     }
 }

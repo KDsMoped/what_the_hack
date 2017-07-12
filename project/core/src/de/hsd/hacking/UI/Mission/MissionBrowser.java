@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
@@ -28,10 +29,6 @@ import de.hsd.hacking.Utils.Constants;
  * Popup mission browser for open and active missions.
  */
 public class MissionBrowser extends Popup {
-    private static final int SCROLLER_WIDTH = 400;
-    private static final int SCROLLER_HEIGHT = 172;
-    private static final int SCROLLER_ELEMENT_PADDING = 5;
-
     private Table openMissions, activeMissions, completedMissions;
 
     private Label title;

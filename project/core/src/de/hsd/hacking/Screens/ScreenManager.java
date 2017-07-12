@@ -2,6 +2,8 @@ package de.hsd.hacking.Screens;
 
 import com.badlogic.gdx.Screen;
 
+import de.hsd.hacking.Data.EventListener;
+import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.HackingGame;
 
 /**
@@ -40,4 +42,7 @@ public class ScreenManager {
         }
     }
 
+    public static void setSwipeUpAction(Runnable r) {
+        ((GameScreen)currentScreen).setSwipeUpAction(r);
+    }
 }

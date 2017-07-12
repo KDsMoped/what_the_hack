@@ -13,6 +13,8 @@ import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Entities.Employees.Skill;
 
+import java.util.List;
+
 /**
  * Created by ju on 22.06.17.
  */
@@ -68,8 +70,12 @@ import de.hsd.hacking.Entities.Employees.Skill;
         Label dollar = new Label("$", Constants.LabelStyle());
 
         skills = new Label("", Constants.LabelStyle());
-        for (Skill s:mission.getSkill()) {
-            skills.setText(skills.getText() + s.getType().name() + ": " + s.getDisplayValue(false) + " \n");
+        List<Skill> skill = mission.getSkill();
+
+        for (int i = 0; i < skill.size(); i++) {
+            Skill s = skill.get(i);
+            if(i== 0) skills.setText(s.getType().name() + " " + s.getDisplayValue(false));
+            else skills.setText(skills.getText() + " \n" + s.getType().name() + " " + s.getDisplayValue(false));
         }
         skills.setWrap(true);
 

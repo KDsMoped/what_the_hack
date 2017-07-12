@@ -93,6 +93,8 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
 
     public void onMissionCompleted(){}
 
+    public void onLevelUp(){}
+
     /**
      * Override this if the special should be hidden in UI.
      * @return

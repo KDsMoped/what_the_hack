@@ -52,6 +52,7 @@ public class Assets {
     public TextureRegion emoji_angry;
     public TextureRegion emoji_ok;
     public TextureRegion emoji_no;
+    public TextureRegion emoji_levelup;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> gray_character_body;
@@ -134,6 +135,7 @@ public class Assets {
         emoji_angry = character_atlas.findRegion("Emojis/angry");
         emoji_ok = character_atlas.findRegion("Emojis/ok");
         emoji_no = character_atlas.findRegion("Emojis/no");
+        emoji_levelup = character_atlas.findRegion("Emojis/levelup");
 
         mainmenu_bg = new Array<TextureRegion>();
         mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));
