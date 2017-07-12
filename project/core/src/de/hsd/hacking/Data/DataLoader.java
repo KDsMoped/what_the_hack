@@ -2,7 +2,6 @@ package de.hsd.hacking.Data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +21,7 @@ public class DataLoader {
     private static DataLoader INSTANCE;
     private static NameHolder names;
     private static ArrayList<Mission> missions;
-    private static CompanyNamesHolder companyNames;
+    private static MissionVariablesHolder missionVariables;
 
     public static DataLoader getInstance(){
         if (INSTANCE == null){
@@ -51,14 +50,20 @@ public class DataLoader {
             missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
         }
 
-        FileHandle compNames = Gdx.files.internal("data/companies.json");
+        FileHandle variables = Gdx.files.internal("data/missionVariables.json");
 
-        if (!compNames.exists()){
+        if (!variables.exists()){
             Gdx.app.log(Constants.TAG, "COMPANY NAMES JSON FILE DOESNT EXIST");
         }else{
             Json json = new Json();
-            companyNames = json.fromJson(CompanyNamesHolder.class, compNames);
+            missionVariables = json.fromJson(MissionVariablesHolder.class, variables);
         }
+    }
+
+    public String getNewFullName(){
+        String[] name = getNewName();
+
+        return name[0] + " " + name [1];
     }
 
     public String[] getNewName(){
@@ -76,6 +81,15 @@ public class DataLoader {
 
 
     public String getNewCompanyName() {
-        return companyNames.getRandom();
+        return missionVariables.getRandomCompany();
+    }
+    public String getNewPasswordApplication() {
+        return missionVariables.getRandomPasswordApplication();
+    }
+    public String getNewUniversityName() {
+        return missionVariables.getRandomUniversity();
+    }
+    public String getNewTown() {
+        return missionVariables.getRandomTown();
     }
 }

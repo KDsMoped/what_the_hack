@@ -96,8 +96,18 @@ public final class MissionFactory {
      * @param mission
      */
     private static final void ReplacePlaceholders(Mission mission) {
-        String company = DataLoader.getInstance().getNewCompanyName();
-        mission.setName(mission.getName().replaceAll("%COMPANY%", company));
-        mission.setDescription(mission.getDescription().replaceAll("%COMPANY%", company));
+
+        DataLoader dl = DataLoader.getInstance();
+
+        ReplacePlaceholder(mission,"%COMPANY%", dl.getNewCompanyName());
+        ReplacePlaceholder(mission,"%PW_APPLICATION%", dl.getNewPasswordApplication());
+        ReplacePlaceholder(mission,"%CONTACT%", dl.getNewFullName());
+        ReplacePlaceholder(mission,"%UNIVERSITY%", dl.getNewUniversityName());
+        ReplacePlaceholder(mission,"%TOWN%", dl.getNewTown());
+    }
+
+    private static final void ReplacePlaceholder(Mission mission, String placeholder, String token){
+        mission.setName(mission.getName().replaceAll(placeholder, token));
+        mission.setDescription(mission.getDescription().replaceAll(placeholder, token));
     }
 }
