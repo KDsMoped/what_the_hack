@@ -15,7 +15,6 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
-import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Stages.GameStage;
@@ -25,6 +24,9 @@ import de.hsd.hacking.Utils.Constants;
  * UI element to display messages for the player.
  * @author Julian Geywitz
  */
+// TODO scroll down
+// TODO onclick
+// TODO autohide
 public class MessageBar extends Table implements EventListener{
     private final int COMPACT_HEIGHT = 21;
     private final int FULL_HEIGHT = 200;
@@ -89,7 +91,7 @@ public class MessageBar extends Table implements EventListener{
         compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
         compactType = new Image();
 
-        compactView.add(compactType).left();
+        compactView.add(compactType).left().width(15);
         compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(4);
         compactView.add(compactArrow).right();
     }
@@ -200,6 +202,15 @@ public class MessageBar extends Table implements EventListener{
                     scrollDelta = 0;
 
                     compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
+
+                    for (com.badlogic.gdx.scenes.scene2d.EventListener e : compactText.getListeners()) {
+                        compactText.removeListener(e);
+                    }
+
+                    if (messages.get(compactPosition).getListener() != null) {
+                        compactText.addListener(messages.get(compactPosition).getListener());
+                    }
+
                     int textLength = messages.get(compactPosition).getText().length();
 
                     if (textLength > SCROLLING_TEXT_CHARS) {
