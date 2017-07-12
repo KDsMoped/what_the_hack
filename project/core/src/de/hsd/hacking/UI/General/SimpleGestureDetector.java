@@ -39,9 +39,10 @@ public class SimpleGestureDetector extends GestureDetector {
                 }
             }
             else {
-                if(velocityY>0){
+                if (velocityY>0) {
                     directionListener.onDown();
-                }else{
+                }
+                else {
                     directionListener.onUp();
                 }
             }

@@ -27,7 +27,6 @@ import de.hsd.hacking.Utils.Constants;
  * @author Julian Geywitz
  */
 // TODO scroll down
-// TODO autohide
 public class MessageBar extends Table implements EventListener{
     private final int COMPACT_HEIGHT = 21;
     private final int FULL_HEIGHT = 200;
@@ -114,6 +113,9 @@ public class MessageBar extends Table implements EventListener{
         fullView.add(fullScroller).expand().fill().bottom();
     }
 
+    /**
+     * Show the MessageBar if not visible already.
+     */
     public void Show() {
         if (visible)
             return;
@@ -121,6 +123,9 @@ public class MessageBar extends Table implements EventListener{
         isShowing = true;
     }
 
+    /**
+     * Toggle between compact and full mode.
+     */
     public void ToggleView() {
         if (compact) {
             // We are now in Full mode!
@@ -272,6 +277,7 @@ public class MessageBar extends Table implements EventListener{
                 finishedMessage = true;
             }
 
+            // if the message is finished we set the new message from the queue
             if (finishedMessage && compactPosition != (messages.size() - 1)) {
                 if (scrollDelta > FINAL_WAIT || messages.size() == 1) {
                     finishedMessage = false;

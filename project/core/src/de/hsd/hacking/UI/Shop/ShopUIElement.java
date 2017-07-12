@@ -2,6 +2,7 @@ package de.hsd.hacking.UI.Shop;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -74,7 +75,6 @@ public class ShopUIElement extends Table {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);
         this.setBackground(Assets.instance().table_border_patch);
-        //TODO: add icon to leftContent.
 
         leftContent = new Table();
         midContent = new Table();
@@ -84,10 +84,13 @@ public class ShopUIElement extends Table {
         price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
 
         level = new Label("Lvl. " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
+
         icon = new Image(equipment.getIcon());
+        Container<Image> iconContainer = new Container<Image>(icon);
+        iconContainer.setBackground(Assets.instance().table_border_patch);
 
         leftContent.setWidth(30);
-        leftContent.add(icon);
+        leftContent.add(iconContainer);
         leftContent.row();
         leftContent.add(level).left().expand().fillX().padRight(10);
 
