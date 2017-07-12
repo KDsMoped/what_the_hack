@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
