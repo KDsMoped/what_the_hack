@@ -6,6 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.sun.org.apache.bcel.internal.generic.POP;
+
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
@@ -76,7 +78,7 @@ public class EmployeeBrowser extends Popup {
         ScrollPane scroller = new ScrollPane(openEmployeeContainer = new Table());
 
         content.row();
-        content.add(scroller).expand().fill().maxHeight(175).prefWidth(400).maxWidth(400);
+        content.add(scroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);
         return content;
     }
 
@@ -87,7 +89,7 @@ public class EmployeeBrowser extends Popup {
         ScrollPane scroller = new ScrollPane(hiredEmployeeContainer = new Table());
 
         content.row();
-        content.add(scroller).expand().fill().maxHeight(175).prefWidth(400).maxWidth(400);
+        content.add(scroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);
         return content;
     }
 
