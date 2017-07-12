@@ -95,8 +95,24 @@ public class MissionManager implements TimeChangedListener {
         completedMissions.add(mission);
 //        mission.setOutcome(outcome);
 
+
+
+
+
         notifyRefreshListeners();
     }
+
+    /**
+     * Failes this mission
+     *
+     * @param mission
+     */
+    public void failMission(Mission mission) {
+        activeMissions.remove(mission);
+
+        notifyRefreshListeners();
+    }
+
 
     /**
      * Aborts this mission
@@ -184,6 +200,8 @@ public class MissionManager implements TimeChangedListener {
                     if (worker.getMission().isCompleted()) {
 //                        completedMissions.add(worker.getMission());
                             completeMission(worker.getMission());
+                    } else {
+                        failMission(worker.getMission());
                     }
                 }
             }

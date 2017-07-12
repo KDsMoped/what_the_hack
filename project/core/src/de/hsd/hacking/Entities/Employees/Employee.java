@@ -221,6 +221,20 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
+    /**
+     * This is called as soon as the employee levels up.
+     */
+    public void onLevelUp(){
+        EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.LEVELUP, this);
+
+        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
+            special.onLevelUp();
+        }
+
+        //TODO: Gehaltsverhandlungen starten
+
+    }
+
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;
         String fragmentShader = Shader.getFragmentShader(

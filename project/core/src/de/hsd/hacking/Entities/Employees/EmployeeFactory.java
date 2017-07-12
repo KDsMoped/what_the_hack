@@ -320,5 +320,7 @@ public class EmployeeFactory {
         spendScorePoints(employee);
 
         Gdx.app.log(Constants.TAG, employee.getName() + " has now " + employee.getUsedScore() + " score.");
+
+        employee.onLevelUp();
     }
 }

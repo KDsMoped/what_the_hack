@@ -14,7 +14,7 @@ public class EmojiBubbleFactory {
     public static EmojiBubbleFactory instance = new EmojiBubbleFactory();
 
     public enum EmojiType {
-        SUCCESS, FAILURE, OK, NO, SPEAKING
+        SUCCESS, FAILURE, OK, NO, SPEAKING, LEVELUP
     }
 
     /**
@@ -39,6 +39,9 @@ public class EmojiBubbleFactory {
                 break;
             case SPEAKING:
                 GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_success));
+                break;
+            case LEVELUP:
+                GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_levelup));
                 break;
         }
     }
