@@ -52,7 +52,7 @@ public class CoffeeMachine extends Equipment implements Upgradable {
         Desk desk = new Desk(Assets.instance(), Direction.RIGHT, 1);
         tileMap.addObject(10, 0, desk);
         //CoffeeMachine coffeeMachine = new CoffeeMachine();
-        desk.setContainedObject(this);
+        desk.setContainedObject(this, 0);
         GameStage.instance().addTouchable(this);
     }
 

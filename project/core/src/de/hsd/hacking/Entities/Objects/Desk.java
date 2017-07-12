@@ -17,25 +17,15 @@ public class Desk extends ContainerObject {
     private TextureRegion desk;
 
     public Desk(Assets assets, Direction direction, int occupyAmount) {
-        super(null, true, false, false, direction, occupyAmount);
+        super(null, true, false, false, direction, occupyAmount, new Vector2(0f, - Constants.TILE_WIDTH / 2f));
         desk = assets.getRandomDesk();
 
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (getDrawPosition() != null){
-            batch.draw(desk, getDrawPosition().x , getDrawPosition().y);
-        }else{
-            batch.draw(desk, getPosition().x , getPosition().y);
-        }
 
+        batch.draw(desk, getPosition().x + getDrawPosAdjust().x, getPosition().y + getDrawPosAdjust().y);
         super.draw(batch, parentAlpha);
-    }
-
-    @Override
-    public void setPosition(Vector2 position) {
-        super.setPosition(position);
-        setDrawPosition(position.cpy().sub(0f, Constants.TILE_WIDTH / 2f));
     }
 }

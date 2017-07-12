@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Entity;
@@ -21,6 +22,7 @@ public abstract class Object extends Entity {
         this.drawableRegion = region;
         this.occupyDirection = occupyDirection;
         this.occupyAmount = occupyAmount;
+
     }
 
     @Override

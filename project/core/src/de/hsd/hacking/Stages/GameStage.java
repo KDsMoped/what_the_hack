@@ -145,7 +145,7 @@ public class GameStage extends Stage implements EventListener{
         Desk desk = new Desk(assets, Direction.RIGHT, 1);
         tileMap.addObject(10, 0, desk);
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        desk.setContainedObject(coffeeMachine);
+        desk.setContainedObject(coffeeMachine, 0);
         addTouchable(coffeeMachine);
         */
     }
@@ -228,7 +228,7 @@ public class GameStage extends Stage implements EventListener{
         Computer computer = new Computer();
         computer.setWorkingChair(chair);
         addTouchable(computer);
-        desk.setContainedObject(computer);
+        desk.setContainedObject(computer, 0);
     }
 
     private void InitTeam() {
