@@ -25,7 +25,7 @@ public class EquipmentManager {
         shopItems.add(computer);
         Modem modem = new Modem();
         shopItems.add(modem);
-        CoffeeMachine coffeeMachine = new de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine();
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
         shopItems.add(coffeeMachine);
         Router router = new Router();
         shopItems.add(router);
