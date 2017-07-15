@@ -110,7 +110,9 @@ public class EmployeeFactory {
 
 //        float remainingScore = score;
 
-        freshman.setName(DataLoader.getInstance().getNewName());
+        Employee.Gender gender = Employee.Gender.random();
+        freshman.setGender(gender);
+        freshman.setName(DataLoader.getInstance().getNewName(gender));
 
         //spend score points on random attributes and skills
         learnBasicSkillSet(freshman);
@@ -125,7 +127,6 @@ public class EmployeeFactory {
      * Creates an employees basic skillSet and levels it according to the available score points. Returns the remaining score points.
      *
      * @param employee
-     * @param remainingScore
      * @return
      */
     private static void learnBasicSkillSet(Employee employee){

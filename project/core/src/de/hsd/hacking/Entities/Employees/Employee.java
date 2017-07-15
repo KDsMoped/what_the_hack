@@ -44,6 +44,15 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CR
 
 public class Employee extends Entity implements Comparable<Employee>, Touchable {
 
+    public enum Gender {
+        UNDECIDED, MALE, FEMALE;
+
+        static Gender random() {
+            if (RandomUtils.randomIntWithin(0, 1) == 0) return MALE;
+            else return FEMALE;
+        }
+    }
+
     private final int BODY = 0;
     private final int HAIR = 1;
 
@@ -80,6 +89,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private AnimState animationState;
     private boolean flipped;
     private boolean isEmployed;
+    private Gender gender;
 
     //Data
     @Expose
@@ -143,7 +153,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         super(false, true, false);
 
         //Create random name
-        setName(DataLoader.getInstance().getNewName());
+        setName(DataLoader.getInstance().getNewName(Gender.UNDECIDED));
         this.skillLevel = level;
 
         //Skill points to spend. NOOB = 55, INTERMEDIATE = 65, PRO = 75, WIZARD = 85
@@ -224,7 +234,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * This is called as soon as the employee levels up.
      */
-    public void onLevelUp(){
+    public void onLevelUp() {
         EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.LEVELUP, this);
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
@@ -521,6 +531,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.currentMission = currentMission;
     }
 
+    void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
     void setSkillSet(ArrayList<Skill> skillset) {
 //        this.skillSet = new ArrayList<Skill>(skillset);
         this.skillSet = skillset;
@@ -598,8 +616,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             if (s.getClass() == special.getClass()) return 0; //employee already has this special
         }
 
-        if(isEmployed){
-            if(!special.isHidden()) MessageManager.instance().Info(getName() + " gained the '" + special.getDisplayName() + "' ability.");
+        if (isEmployed) {
+            if (!special.isHidden())
+                MessageManager.instance().Info(getName() + " gained the '" + special.getDisplayName() + "' ability.");
         }
 
         employeeSpecials.add(special);
@@ -659,6 +678,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     /**
      * Adds score points for
+     *
      * @param score
      */
     public void incrementFreeScore(float score) {
@@ -668,9 +688,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     /**
      * Spends score points for this employee.
+     *
      * @param score
      */
-    void useScore(float score){
+    void useScore(float score) {
         usedScore += score;
         freeScore -= score;
     }
@@ -683,7 +704,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return freeScore;
     }
 
-    public void onMissionCompleted(){
+    public void onMissionCompleted() {
 
         for (EmployeeSpecial special : employeeSpecials) {
             special.onMissionCompleted();
@@ -694,7 +715,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         EmployeeFactory.levelUp(this);
     }
 
-    public void onMissionCriticalSuccess(){
+    public void onMissionCriticalSuccess() {
 
         incrementFreeScore(SCORE_MISSION_CRITICAL_SUCCESS);
 

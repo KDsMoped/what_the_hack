@@ -1,30 +1,10 @@
 [
   {
-    "name": "Hack the %COMPANY% mayors car",
-    "description": "The %COMPANY% mayor just ",
-    "skill": [
-      {
-        "type": "Social",
-        "value": 0
-      },
-      {
-        "type": "Hardware",
-        "value": 0
-      },
-      {
-        "type": "Crypto",
-        "value": 0
-      }
-    ],
-    "risk": 0,
-    "duration": 3
-  },
-  {
-    "name": "HelloKitty forum secrets",
+    "name": "Hello Kitty forum secrets",
     "description": "Somebody found and send you the database of a very popular HelloKitty forum. Apparently the forum uses old technology to save passwords, so it should be easy to crack with some password power. Maybe the HelloKitty passwords also work in Amazon to order some HelloKitty merch...",
     "skill": [
       {
-        "type": "Software",
+        "type": "Crypto",
         "value": 0
       },
       {
@@ -37,30 +17,12 @@
       }
     ],
     "risk": 0,
-    "duration": 3
+    "duration": 3,
+    "minLevel": 0,
+    "maxLevel": 0
   },
   {
-    "name": "Get your money back",
-    "description": "Another hacker stole all your money! Steal it back as fast as you can before its gone...",
-    "skill": [
-      {
-        "type": "Crypto",
-        "value": 0
-      },
-      {
-        "type": "Hardware",
-        "value": 0
-      },
-      {
-        "type": "Software",
-        "value": 0
-      }
-    ],
-    "risk": 0,
-    "duration": 3
-  },
-  {
-    "name": "Crack a %PW_APPLICATION%",
+    "name": "Crack'n'Hack",
     "description": "%CONTACT% from %COMPANY% called us today. They accidentally deleted their %PW_APPLICATION% passwords and need some cracking power.",
     "skill": [
       {
@@ -73,7 +35,9 @@
       }
     ],
     "risk": 0,
-    "duration": 6
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
   },
   {
     "name": "Security awareness lecture",
@@ -89,7 +53,9 @@
       }
     ],
     "risk": 0,
-    "duration": 6
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
   },
   {
     "name": "IT security lecture",
@@ -105,6 +71,176 @@
       }
     ],
     "risk": 0,
-    "duration": 6
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "No, this is Patrick",
+    "description": "The %TOWN% %UNIVERSITY% develops a new mobile communication protocol and needs your help for implementing a new security scheme.",
+    "skill": [
+      {
+        "type": "Crypto",
+        "value": 0
+      },
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Homefront",
+    "description": "The guy next door, %CONTACT_M%, has a barking dog that really upsets you. Hack his %PW_APPLICATION% as payback.",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Crypto",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "C'mon Honey",
+    "description": "The %TOWN% library frequently gets hacked by some bad guys. Install a honeypot in their IT system to catch those script kiddies.",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Search",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "You, Robot",
+    "description": "%COMPANY%, a smart home equipment manufacturer has been hijacked. All it's products are now part of a botnet. You need to wipe the malware and find the companies security leak.",
+    "skill": [
+      {
+        "type": "Crypto",
+        "value": 0
+      },
+      {
+        "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Memeful intermezzo",
+    "description": "The monitoring screens at %COMPANY% suddently started to display some dank memes. CEO %CONTACT% turns to you in desperate need of help. Don't forget to save the good memes for your private collection.",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Dayly bread",
+    "description": "You are hired for holding a security audit at a %COMPANY% facility in %TOWN%. Hack into their %PW_APPLICATION% to raise security awareness.",
+    "skill": [
+      {
+        "type": "Social",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Catch a ride",
+    "description": "The %COMPANY% motor company is evaluating the security of their cars electronic key system.",
+    "skill": [
+      {
+        "type": "Crypto",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "You have no power here",
+    "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system. All piece of cake since they are still running on XP.",
+    "skill": [
+      {
+        "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Social",
+        "value": 0
+      },
+      {
+        "type": "Crypto",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
   }
 ]

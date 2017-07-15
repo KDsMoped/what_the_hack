@@ -3,6 +3,7 @@ package de.hsd.hacking.Data.Missions;
 import java.util.List;
 
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -101,7 +102,9 @@ public final class MissionFactory {
 
         ReplacePlaceholder(mission,"%COMPANY%", dl.getNewCompanyName());
         ReplacePlaceholder(mission,"%PW_APPLICATION%", dl.getNewPasswordApplication());
-        ReplacePlaceholder(mission,"%CONTACT%", dl.getNewFullName());
+        ReplacePlaceholder(mission,"%CONTACT%", dl.getNewFullName(Employee.Gender.UNDECIDED));
+        ReplacePlaceholder(mission,"%CONTACT_M%", dl.getNewFullName(Employee.Gender.MALE));
+        ReplacePlaceholder(mission,"%CONTACT_F%", dl.getNewFullName(Employee.Gender.FEMALE));
         ReplacePlaceholder(mission,"%UNIVERSITY%", dl.getNewUniversityName());
         ReplacePlaceholder(mission,"%TOWN%", dl.getNewTown());
     }
