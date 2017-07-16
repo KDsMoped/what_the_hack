@@ -181,8 +181,8 @@
   },
   {
     "name": "Memeful intermezzo",
-    "description": "The monitoring screens at %COMPANY% suddently started to display some dank memes. CEO %CONTACT% turns to you in desperate need of help. Don't forget to save the good memes for your private collection.",
-    "onSuccess": "",
+    "description": "The monitoring screens at %COMPANY% suddenly started to display some dank memes. CEO %CONTACT% turns to you in desperate need of help.",
+    "onSuccess": "You did it! They were using Win XP and an old Flash version vulnerable to man in the middle attacks. Of course you saved the dankest memes for your private collection.",
     "onFail": "",
     "skill": [
       {
@@ -341,12 +341,12 @@
   },
   {
     "name": "Fixing potholes",
-    "description": "%COMPANY% has problems integrating a new %SOFTWARE% into their %WEBSERVICE%. Apparently, they are using an old Flash version vulnerable to man in the middle attacks.",
-    "onSuccess": "",
-    "onFail": "",
+    "description": "%COMPANY% has problems integrating a new %SOFTWARE% into their %WEBSERVICE%. ",
+    "onSuccess": "Easy Peasy. This %SOFTWARE% is absolutely amazing.",
+    "onFail": "This %SOFTWARE% and their %WEBSERVICE% must be written in gibberish++. After days of nonsense you give up.",
     "skill": [
       {
-        "type": "Network",
+        "type": "Search",
         "value": 0
       },
       {
@@ -354,7 +354,31 @@
         "value": 0
       },
       {
+        "type": "Network",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Golden Age of Piracy",
+    "description": "The %TOWN% %UNIVERSITY% spin-of %COMPANY% launches an innovative %SOFTWARE%. You are asked to audit their piracy protection system.",
+    "onSuccess": "Wow, this tech is amazing! Now those pirates are gonna have a hard time.",
+    "onFail": "Somehow you missed that obvious vulnerability. The %SOFTWARE% was cracked hours after release.",
+    "skill": [
+      {
         "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Crypto",
         "value": 0
       }
     ],

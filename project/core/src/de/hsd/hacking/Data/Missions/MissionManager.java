@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -40,9 +41,12 @@ public class MissionManager implements TimeChangedListener {
 
     private ArrayList<Callback> refreshMissionListener = new ArrayList<Callback>();
 
+    private MessageManager messageManager;
+
     private MissionManager() {
         instance = this;
 
+        messageManager = MessageManager.instance();
         currentMissionNumber = 0;
         activeMissions = new ArrayList<Mission>(MAX_ACTIVE_MISSIONS);
         openMissions = new ArrayList<Mission>(MAX_OPEN_MISSIONS);
@@ -54,6 +58,9 @@ public class MissionManager implements TimeChangedListener {
         fillOpenMissions();
     }
 
+    /**
+     * Refreshes the available open missions and notifies all listeners.
+     */
     private void refreshOpenMissions() {
 
         removeMissions(REFRESH_RATE);
@@ -62,12 +69,16 @@ public class MissionManager implements TimeChangedListener {
         notifyRefreshListeners();
     }
 
-    private void notifyRefreshListeners(){
+    private void notifyRefreshListeners() {
         for (Callback c : refreshMissionListener.toArray(new Callback[refreshMissionListener.size()])) {
             c.callback();
         }
     }
 
+    /**
+     * Removes the given fraction of open missions.
+     * @param fraction
+     */
     private void removeMissions(float fraction) {
 
         int removeAmount = MathUtils.clamp((int) (fraction * MAX_OPEN_MISSIONS), 0, openMissions.size());
@@ -77,6 +88,9 @@ public class MissionManager implements TimeChangedListener {
         }
     }
 
+    /**
+     * Creates open missions until the maximum is reached.
+     */
     private void fillOpenMissions() {
         int gameProgress = Team.instance().calcGameProgress();
 
@@ -86,7 +100,7 @@ public class MissionManager implements TimeChangedListener {
     }
 
     /**
-     * Completes this mission
+     * Completes the given mission.
      *
      * @param mission
      */
@@ -95,27 +109,29 @@ public class MissionManager implements TimeChangedListener {
         completedMissions.add(mission);
 //        mission.setOutcome(outcome);
 
-
-
-
+        messageManager.Info("Job " + mission.getName() + ": " +  mission.getSuccessText());
+        Gdx.app.log(Constants.TAG, "Job " + mission.getName() + ": " +  mission.getSuccessText());
 
         notifyRefreshListeners();
     }
 
     /**
-     * Failes this mission
+     * Fails the given mission.
      *
      * @param mission
      */
     public void failMission(Mission mission) {
         activeMissions.remove(mission);
 
+        messageManager.Info("Job " + mission.getName() + ": " +  mission.getFailText());
+        Gdx.app.log(Constants.TAG, "Job " + mission.getName() + ": " +  mission.getFailText());
+
         notifyRefreshListeners();
     }
 
 
     /**
-     * Aborts this mission
+     * Aborts the given mission.
      *
      * @param mission
      */
@@ -197,9 +213,9 @@ public class MissionManager implements TimeChangedListener {
                     runningMissions.remove(worker);
                     GameTime.instance.removeTimeChangedListener(worker);
                     activeMissions.remove(worker.getMission());
+
                     if (worker.getMission().isCompleted()) {
-//                        completedMissions.add(worker.getMission());
-                            completeMission(worker.getMission());
+                        completeMission(worker.getMission());
                     } else {
                         failMission(worker.getMission());
                     }

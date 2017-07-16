@@ -98,7 +98,7 @@ public class MissionWorker implements TimeChangedListener {
     @Override
     public void dayChanged(final int days) {
         if (!employees.isEmpty() && !mission.isFinished()) {
-            Gdx.app.log(Constants.TAG, "Next day. Remaining mission days: " + remainingMissionDays);
+            Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() +  " Remaining mission days: " + remainingMissionDays);
             for (MissionSkillRequirement req
                     : skillRequirements) {
                 Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
@@ -114,10 +114,10 @@ public class MissionWorker implements TimeChangedListener {
                     }
                 }
                 if (failedSkills.size() > 0) {
-                    MessageManager.instance().Error("Mission failed, skill(s) to blame: " + failedSkills.toString());
+//                    MessageManager.instance().Error("Mission failed, skill(s) to blame: " + failedSkills.toString());
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                 } else {
-                    MessageManager.instance().Info("Mission successfull! NICE!");
+//                    MessageManager.instance().Info("Mission successfull! NICE!");
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                     mission.setCompleted(true);
                 }

@@ -3,10 +3,7 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.Missions.Mission;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.CheapToHire;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.FastLearner;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.*;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.MathUtilities;
@@ -283,7 +280,7 @@ public class EmployeeFactory {
      * @return
      */
     private static float rollSpecial(Employee padawan){
-        int roll = RandomUtils.randomIntWithin(1, 5);
+        int roll = RandomUtils.randomIntWithin(1, 6);
 
         switch (roll) {
             case 1:
@@ -297,6 +294,7 @@ public class EmployeeFactory {
             case 5:
                 return padawan.addEmployeeSpecial(new FastLearner(padawan));
             case 6:
+                return padawan.addEmployeeSpecial(new CodeMonkey(padawan));
             case 7:
             case 8:
             case 9:

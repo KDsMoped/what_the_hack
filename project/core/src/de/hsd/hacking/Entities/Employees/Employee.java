@@ -488,17 +488,42 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return Collections.unmodifiableCollection(skillSet);
     }
 
+    /**
+     * Returns the skill value of the given skill or the Allpurpose skill level of the employee doesnt have the skill.
+     *
+     * @param type
+     * @return
+     */
     public int getSkillValue(SkillType type) {
         int allPurpposeIndex = -1;
         for (int i = 0; i < skillSet.size(); i++) {
             Skill skill = skillSet.get(i);
             if (skill.getType() == type) {
-                return skill.getValue();
+                return evaluateSkill(skill);
             } else if (skill.getType() == SkillType.All_Purpose) {
                 allPurpposeIndex = i;
             }
         }
-        return skillSet.get(allPurpposeIndex).getValue();
+        return evaluateSkill(skillSet.get(allPurpposeIndex));
+    }
+
+    /**
+     * Returns the skill level of the given skill using special and equipment bonuses.
+     *
+     * @param skill
+     * @return
+     */
+    private int evaluateSkill(Skill skill) {
+
+        int specialAbsoluteBonus = 0;
+        float specialRelativeBonus = 1;
+
+        for (EmployeeSpecial s : employeeSpecials) {
+            specialAbsoluteBonus += s.getSkillAbsoluteBonus(skill.getType());
+            specialRelativeBonus *= s.getSkillRelativeFactor(skill.getType());
+        }
+
+        return (int) ((skill.getValue() + specialAbsoluteBonus) * specialRelativeBonus);
     }
 
     public int getCurrentTileNumber() {
@@ -610,6 +635,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      */
     float addEmployeeSpecial(EmployeeSpecial special) {
 
+        if (!special.isApplicable()) return 0; //this special cannot be learned by this employee
+
         if (isEmployed && !special.isLearnable()) return 0; //this special cannot be added to an employed employee
 
         for (EmployeeSpecial s : employeeSpecials) {
@@ -636,6 +663,19 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     public boolean isEmployed() {
         return isEmployed;
+    }
+
+    /**
+     * Returns true if this employee has the skill of the given type.
+     * @param type
+     * @return
+     */
+    public boolean hasSkill(SkillType type) {
+        for (Skill skill : skillSet) {
+            if (skill.getType() == type) return true;
+        }
+
+        return false;
     }
 
     /**

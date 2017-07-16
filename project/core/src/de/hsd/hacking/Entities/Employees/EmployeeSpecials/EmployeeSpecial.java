@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.SkillType;
 
 public abstract class EmployeeSpecial extends Actor implements TimeChangedListener {
 
@@ -62,6 +63,20 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
      */
     public void weekChanged(int week){}
 
+    /**
+     * Override this if this special should affect skills of this employee. Value is applied relatively at the end of the calculation.
+     * @param type
+     * @return
+     */
+    public float getSkillRelativeFactor(SkillType type) { return  1;}
+
+    /**
+     * Override this if this special should affect skills of this employee. Value is applied absolutely during the calculation.
+     * @param type
+     * @return
+     */
+    public int getSkillAbsoluteBonus(SkillType type) { return  0;}
+
     public int getCriticalFailureBonus() { return  0;}
     public int getCriticalSuccessBonus() { return  0;}
 
@@ -108,6 +123,14 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
      * @return
      */
     public boolean isLearnable(){
+        return true;
+    }
+
+    /**
+     * Override this if learning this special has requirements. Return false if it cannot be learned.
+     * @return
+     */
+    public boolean isApplicable(){
         return true;
     }
 

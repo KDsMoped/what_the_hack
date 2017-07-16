@@ -95,7 +95,7 @@ public class MissionAllocatorPopup extends Popup {
 
 //        content.add().height(30);
 //        content.row();
-        content.add(title).expandX().fillX().padLeft(15).padBottom(5).padTop(5).center();
+        content.add(title).expandX().fillX().padLeft(20).padBottom(5).padTop(5).center();
         content.row();
         content.add(missionScroller).expand().fill().padLeft(20).padRight(20).height(140).width(390);
 //        content.row();
