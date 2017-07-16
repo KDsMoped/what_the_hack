@@ -132,6 +132,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      *
      * @param level The desired skill Level
      */
+    @Deprecated
     public Employee(EmployeeSkillLevel level) {
         super(false, true, false);
 
@@ -176,7 +177,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.assets = Assets.instance();
         movementProvider = stage.getTileMap();
 
-
         this.animationState = AnimState.IDLE;
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
@@ -192,8 +192,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
-        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
+//        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
+        startTile.setOccupyingEmployee(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
         isEmployed = true;
@@ -291,6 +292,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         for (EmployeeSpecial special : employeeSpecials) {
             special.act(delta);
         }
+        this.bounds.setPosition(getPosition().cpy().add(5f, 5f));
     }
 
     public void animAct(float delta) {
@@ -509,7 +511,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void setState(EmployeeState state) {
-        this.state.cancel();
         this.state = state;
         this.state.enter();
     }

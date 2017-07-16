@@ -159,6 +159,7 @@ public class Computer extends Equipment implements Upgradable {
     public void onTouch() {
         tintFrames += 10;
         if (team.isEmployeeSelected()) {
+            team.getSelectedEmployee().getState().cancel();
             team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
             team.deselectEmployee();
         }
