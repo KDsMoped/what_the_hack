@@ -28,11 +28,11 @@ public class Unreliable extends EmployeeSpecial {
 
         return "May leave the company any day.";
     }
-    public void dayChanged(int days){
-        if(MathUtils.random() > chance) return;
+    public void dayChanged(int days) {
+        if (MathUtils.random() > chance) return;
 
         //TODO: Implement user feedback
-        if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
+        if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
         MessageManager.instance().Warning("An unreliable employee " + employee.getName() + " has left the team.");
 
         EmployeeManager.instance().dismiss(employee);
@@ -40,7 +40,6 @@ public class Unreliable extends EmployeeSpecial {
 
     @Override
     public float getScoreCost() {
-
         return -14;
     }
 }

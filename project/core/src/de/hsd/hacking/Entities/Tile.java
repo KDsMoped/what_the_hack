@@ -51,12 +51,16 @@ public class Tile extends Actor {
         return occupyingEmployee;
     }
 
-    public void setOccupyingEmployee(Employee occupyingEmployee) {
-        if (occupyingEmployee != null){
-            occupyingEmployee.removeFromOccupyingTile();
-            occupyingEmployee.setOccupiedTileNumber(tileNumber);
+    public void setOccupyingEmployee(final Employee newOccupyingEmployee) {
+        //Should only be called when theres no employee on this tile
+        if (this.occupyingEmployee == null) {
+            //if the newly occupant is occupying another tile, remove him from there
+            if (newOccupyingEmployee != null) {
+                newOccupyingEmployee.removeFromOccupyingTile();
+                newOccupyingEmployee.setOccupiedTileNumber(tileNumber);
+            }
         }
-        this.occupyingEmployee = occupyingEmployee;
+        this.occupyingEmployee = newOccupyingEmployee;
     }
 
     public boolean isMovableTo(){
@@ -130,12 +134,14 @@ public class Tile extends Actor {
     }
 
     public void addEmployeeToDraw(Employee employee) {
-        employee.removeFromDrawingTile();
+        //When employee isn't already drawn by this tile
         if (!employeesToDraw.contains(employee)){
+            employee.removeFromDrawingTile();
             employeesToDraw.add(employee);
+            employee.setCurrentTileNumber(tileNumber);
         }
-        employee.setCurrentTileNumber(tileNumber);
     }
+
     public void clearEmployeesToDraw(){
         employeesToDraw.clear();
     }

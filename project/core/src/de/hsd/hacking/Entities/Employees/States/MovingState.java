@@ -1,8 +1,11 @@
 package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -18,22 +21,16 @@ import de.hsd.hacking.Utils.Constants;
 
 public class MovingState extends EmployeeState {
 
-    private static final float MAX_SPEED = 40f;
-
-
-    private Vector2 destinationPos;
-    private Tile endTile;
     private Tile nextTile;
     private Tile currentTile;
+    private Tile endTile;
     private Path path;
 
-    private float acceleration;
-    private float speed;
-    private boolean lastTile;
     private boolean delegating = false;
     private boolean directedMovement = false;
-
     private Interactable delegatingInteractable;
+
+    private boolean moving;
 
 
     public MovingState(Employee employee, Tile destinationTile) {
@@ -50,74 +47,52 @@ public class MovingState extends EmployeeState {
     }
 
     private void init(Tile destinationTile) {
-        this.speed = 0f;
-        this.acceleration = 20f;
+        this.endTile = destinationTile;
         this.currentTile = employee.getMovementProvider().getTile(employee.getCurrentTileNumber());
-
-
-        this.lastTile = false;
-
         if (destinationTile != null) {
-            this.endTile = destinationTile;
-
             //If object at the end of path delegates to another object, walk there instead
-            if (endTile.hasInteractableObject() && ((Interactable) endTile.getObject()).isDelegatingInteraction()) {
+            if (destinationTile.hasInteractableObject() && ((Interactable) destinationTile.getObject()).isDelegatingInteraction()) {
                 this.delegating = true;
-                this.delegatingInteractable = ((Interactable) endTile);
+                this.delegatingInteractable = ((Interactable) destinationTile);
             } else {
-                this.path = employee.getMovementProvider().getPathToTile(this.currentTile, this.endTile);
-
-                if (path != null && !path.isPathFinished()) {
-                    this.endTile.setOccupyingEmployee(employee);
-                    setNextDestination();
-                } else {
-//                    currentTile.setOccupyingEmployee(employee);
-                    this.destinationPos = currentTile.getPosition().cpy();
-                }
+                this.path = employee.getMovementProvider().getPathToTile(this.currentTile, destinationTile);
+                destinationTile.setOccupyingEmployee(employee);
             }
         } else {
             if (Constants.DEBUG) {
                 Gdx.app.log(Constants.TAG, "No destination tile for employee" + employee.getName() + "found");
             }
-
-            //No destination -> Current tile is destination;
-            this.endTile = currentTile;
-            this.endTile.setOccupyingEmployee(employee);
-            this.destinationPos = endTile.getPosition().cpy();
         }
     }
 
     @Override
     public EmployeeState act(float deltaTime) {
-        if (!canceled) {
-            if (delegating) {
-                if (Constants.DEBUG) {
-                    Gdx.app.log(Constants.TAG, employee.getName() + "Delegated by interactable object");
-                }
-                return this.delegatingInteractable.interact(employee);
+        if (delegating) {
+            if (Constants.DEBUG) {
+                Gdx.app.log(Constants.TAG, employee.getName() + "Delegated by interactable object");
             }
-            // If destination wasn't reached yet, move further.
-            if (destinationPos.cpy().sub(employee.getPosition()).len2() > 1f) {
-                //EASE-IN / EASE-OUT
-                if (!lastTile) {
-                    speed += acceleration * deltaTime;
-                    speed = MathUtils.clamp(speed, 0, MAX_SPEED);
-                } else {
-                    speed -= acceleration / 2f * deltaTime;
-                    speed = MathUtils.clamp(speed, 10f, MAX_SPEED);
-                }
-                //Movemenet
-                employee.setPosition(employee.getPosition().cpy().add(destinationPos.cpy().sub(employee.getPosition()).nor().scl(speed).scl(deltaTime)));
-                return null;
-            } else {
-                //Path fully walked
-                if (path == null || path.isPathFinished()) {
-                    return finishPath();
-                } else {
+            return this.delegatingInteractable.interact(employee);
+        }
+        if (path != null) {
+            if (!path.isPathFinished()) {
+                if (!moving) {
                     setNextDestination();
-                    return null;
+                    moving = true;
+                    employee.addAction(Actions.sequence(Actions.moveTo(nextTile.getPosition().x, nextTile.getPosition().y, .5f),
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                moving = false;
+                            }
+                        })
+                    ));
                 }
+                return null;
             }
+            if (!moving) {
+                return finishPath();
+            }
+            return null;
         } else {
             return new IdleState(employee);
         }
@@ -130,11 +105,11 @@ public class MovingState extends EmployeeState {
     private EmployeeState finishPath() {
 
         //Set to endTile
-        switchCurrentAndNextTiles(currentTile, endTile);
+        switchCurrentAndNextTiles(currentTile, nextTile);
 
         //If there's an object, and it can be interacted with ->interact with it
-        Object obj = this.endTile.getObject();
-        if (this.endTile.hasInteractableObject() && !((Interactable) obj).isOccupied()
+        Object obj = this.currentTile.getObject();
+        if (this.currentTile.hasInteractableObject() && !((Interactable) obj).isOccupied()
                 && (directedMovement || ((InteractableObject) obj).isAllowRandomInteraction())) {
             if (Constants.DEBUG) {
                 Gdx.app.log(Constants.TAG, "MovingState ended at interactable object for employee" + employee.getName());
@@ -151,16 +126,9 @@ public class MovingState extends EmployeeState {
      * Sets the next destination in the given path
      */
     private void setNextDestination() {
-
         switchCurrentAndNextTiles(currentTile, nextTile);
-
         this.nextTile = path.getNextStep();
-        this.destinationPos = nextTile.getPosition().cpy();
-        employee.flipHorizontal(destinationPos.x > employee.getPosition().x);
-        if (path.isPathFinished()) {
-            lastTile = true;
-        }
-
+        employee.flipHorizontal(nextTile.getPosition().x > employee.getPosition().x);
     }
 
     @Override
@@ -183,12 +151,12 @@ public class MovingState extends EmployeeState {
         if (Constants.DEBUG) {
             Gdx.app.log(Constants.TAG, "MovingState was cancelled for employee " + employee.getName());
         }
-        canceled = true;
-
-        if (endTile != null) {
-            endTile.setOccupyingEmployee(employee);
+        //Cleanup
+        employee.clearActions();
+        if (this.endTile.hasInteractableObject()){
+            ((InteractableObject) this.endTile.getObject()).deOccupy();
         }
-        switchCurrentAndNextTiles(this.currentTile, this.nextTile);
+        employee.setState(new IdleState(employee));
 
     }
 

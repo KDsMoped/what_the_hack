@@ -144,4 +144,8 @@ public class MissionWorker implements TimeChangedListener {
     public boolean hasNoWorkers() {
         return employees.isEmpty();
     }
+
+    public List<MissionSkillRequirement> getSkillRequirements(){
+        return skillRequirements;
+    }
 }

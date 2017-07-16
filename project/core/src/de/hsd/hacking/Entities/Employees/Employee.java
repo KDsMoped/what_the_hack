@@ -24,11 +24,15 @@ import de.hsd.hacking.Data.ColorHolder;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Stages.GameStage;
@@ -149,6 +153,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      *
      * @param level The desired skill Level
      */
+    @Deprecated
     public Employee(EmployeeSkillLevel level) {
         super(false, true, false);
 
@@ -193,7 +198,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.assets = Assets.instance();
         movementProvider = stage.getTileMap();
 
-
         this.animationState = AnimState.IDLE;
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
@@ -209,8 +213,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
         Tile startTile = movementProvider.getStartTile(this);
         Vector2 startPos = startTile.getPosition().cpy();
-        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
+//        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
+        startTile.setOccupyingEmployee(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
         isEmployed = true;
@@ -322,6 +327,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         for (EmployeeSpecial special : employeeSpecials) {
             special.act(delta);
         }
+        this.bounds.setPosition(getPosition().cpy().add(5f, 5f));
     }
 
     public void animAct(float delta) {
@@ -431,9 +437,32 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void toggleSelected() {
-        if (!selected) stage.setSelectedEmployee(this);
-        if (selected) stage.deselectEmployee();
+        if (!selected) {
+            onSelect();
+        }
+        if (selected) {
+            onDeselect();
+        }
         selected = !selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        if (selected) onSelect();
+        else onDeselect();
+    }
+
+    private void onSelect() {
+        Team.instance().setSelectedEmployee(this);
+        MissionWorker missionWorker = MissionManager.instance().getMissionWorker(this);
+        if (missionWorker != null) {
+            GameStage.instance().showMissionStatusOverlay(missionWorker, this);
+        }
+    }
+
+    private void onDeselect() {
+        Team.instance().deselectEmployee();
+        GameStage.instance().hideMissionStatusOverlay();
     }
 
     public boolean isSelected() {
@@ -470,9 +499,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.animationState = animationState;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+
 
     @Override
     public GameStage getStage() {
@@ -543,7 +570,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void setState(EmployeeState state) {
-        this.state.cancel();
         this.state = state;
         this.state.enter();
     }
