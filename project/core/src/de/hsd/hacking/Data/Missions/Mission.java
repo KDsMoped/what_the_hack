@@ -18,7 +18,7 @@ import de.hsd.hacking.Entities.Employees.Skill;
  */
 public class Mission implements EventSender {
     @Expose
-    private String name, description;
+    private String name, description, onSuccess, onFail;
     @Expose
     private int duration;
     @Expose
@@ -82,6 +82,8 @@ public class Mission implements EventSender {
 
         mission.setName(name);
         mission.setDescription(description);
+        mission.setSuccessText(onSuccess);
+        mission.setFailText(onFail);
         mission.setDuration(duration);
         mission.setDifficulty(difficulty);
         mission.setSkill(skill);
@@ -120,6 +122,22 @@ public class Mission implements EventSender {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSuccessText() {
+        return onSuccess;
+    }
+
+    public String getFailText() {
+        return onFail;
+    }
+
+    public void setSuccessText(String onSuccess) {
+        this.onSuccess = onSuccess;
+    }
+
+    public void setFailText(String onFail) {
+        this.onFail = onFail;
     }
 
     public String getDescription() {

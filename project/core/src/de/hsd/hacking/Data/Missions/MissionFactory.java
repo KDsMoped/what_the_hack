@@ -96,7 +96,7 @@ public final class MissionFactory {
      * Replaces the %COMPANY% tag in mission data with random company names.
      * @param mission
      */
-    private static final void ReplacePlaceholders(Mission mission) {
+    private static void ReplacePlaceholders(Mission mission) {
 
         DataLoader dl = DataLoader.getInstance();
 
@@ -106,11 +106,15 @@ public final class MissionFactory {
         ReplacePlaceholder(mission,"%CONTACT_M%", dl.getNewFullName(Employee.Gender.MALE));
         ReplacePlaceholder(mission,"%CONTACT_F%", dl.getNewFullName(Employee.Gender.FEMALE));
         ReplacePlaceholder(mission,"%UNIVERSITY%", dl.getNewUniversityName());
+        ReplacePlaceholder(mission,"%WEBSERVICE%", dl.getNewWebServiceName());
+        ReplacePlaceholder(mission,"%SOFTWARE%", dl.getNewSoftwareName());
         ReplacePlaceholder(mission,"%TOWN%", dl.getNewTown());
     }
 
-    private static final void ReplacePlaceholder(Mission mission, String placeholder, String token){
+    private static void ReplacePlaceholder(Mission mission, String placeholder, String token){
         mission.setName(mission.getName().replaceAll(placeholder, token));
         mission.setDescription(mission.getDescription().replaceAll(placeholder, token));
+        mission.setSuccessText(mission.getSuccessText().replaceAll(placeholder, token));
+        mission.setFailText(mission.getFailText().replaceAll(placeholder, token));
     }
 }

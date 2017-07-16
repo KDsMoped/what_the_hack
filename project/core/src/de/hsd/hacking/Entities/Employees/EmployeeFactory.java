@@ -25,7 +25,7 @@ public class EmployeeFactory {
     private static final int COST_INCREMENT_SKILL = 6;
     private static final int COST_INCREMENT_ALLPURPOSE = 12;
     private static final float SALARY_VARIANCE = 0.1f;
-    private static final int PROGRESS_VARIANCE = 4;
+    private static final int PROGRESS_VARIANCE = 6;
     private static final int LEVELUP_THRESHOLD = 10;
 
     public static final float SCORE_MISSION_COMPLETED = 2;

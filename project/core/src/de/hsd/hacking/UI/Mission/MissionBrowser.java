@@ -114,7 +114,7 @@ public class MissionBrowser extends Popup {
         }
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-            activeMissionsContainer.add(new MissionUIElement(mission, true, "Abort", new ChangeListener() {
+            activeMissionsContainer.add(new MissionUIElement(mission, false, "Abort", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().abortMission(mission);

@@ -71,13 +71,13 @@ import java.util.List;
 
         skills = new Label("", Constants.LabelStyle());
         List<Skill> skill = mission.getSkill();
+        skills.setWrap(true);
 
         for (int i = 0; i < skill.size(); i++) {
             Skill s = skill.get(i);
             if(i== 0) skills.setText(s.getType().name() + " " + s.getDisplayValue(false));
             else skills.setText(skills.getText() + " \n" + s.getType().name() + " " + s.getDisplayValue(false));
         }
-        skills.setWrap(true);
 
         Image calendar = new Image(Assets.instance().ui_calendar);
 

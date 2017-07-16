@@ -142,7 +142,6 @@ public class EmployeeProfile extends Popup {
         }
 
         //Specials
-
         Collection<EmployeeSpecial> specials = employee.get().getSpecials();
 
         if (specials.size() > 0) {

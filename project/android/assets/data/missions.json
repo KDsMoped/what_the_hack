@@ -2,6 +2,8 @@
   {
     "name": "Hello Kitty forum secrets",
     "description": "Somebody found and send you the database of a very popular HelloKitty forum. Apparently the forum uses old technology to save passwords, so it should be easy to crack with some password power. Maybe the HelloKitty passwords also work in Amazon to order some HelloKitty merch...",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Crypto",
@@ -24,6 +26,8 @@
   {
     "name": "Crack'n'Hack",
     "description": "%CONTACT% from %COMPANY% called us today. They accidentally deleted their %PW_APPLICATION% passwords and need some cracking power.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Crypto",
@@ -42,6 +46,8 @@
   {
     "name": "Security awareness lecture",
     "description": "Prof. %CONTACT%, head of %TOWN% %UNIVERSITY% asked you to give a lecture on security awareness.",
+    "onSuccess": "It was great. Your demonstration of an attack on a %WEBSERVICE% really kicked ass.",
+    "onFail": "The lecture was a complete disaster. Prof. %CONTACT% will probably not invite you again.",
     "skill": [
       {
         "type": "Social",
@@ -60,6 +66,8 @@
   {
     "name": "IT security lecture",
     "description": "Mister %CONTACT%, CEO at %COMPANY% in %TOWN% wants you to give a lecture on IT security in cooperation with the %TOWN% %UNIVERSITY%.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Social",
@@ -77,7 +85,9 @@
   },
   {
     "name": "No, this is Patrick",
-    "description": "The %TOWN% %UNIVERSITY% develops a new mobile communication protocol and needs your help for implementing a new security scheme.",
+    "description": "The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help for implementing a new security scheme.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Crypto",
@@ -100,6 +110,8 @@
   {
     "name": "Homefront",
     "description": "The guy next door, %CONTACT_M%, has a barking dog that really upsets you. Hack his %PW_APPLICATION% as payback.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Network",
@@ -122,6 +134,8 @@
   {
     "name": "C'mon Honey",
     "description": "The %TOWN% library frequently gets hacked by some bad guys. Install a honeypot in their IT system to catch those script kiddies.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Network",
@@ -144,6 +158,8 @@
   {
     "name": "You, Robot",
     "description": "%COMPANY%, a smart home equipment manufacturer has been hijacked. All it's products are now part of a botnet. You need to wipe the malware and find the companies security leak.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Crypto",
@@ -166,6 +182,8 @@
   {
     "name": "Memeful intermezzo",
     "description": "The monitoring screens at %COMPANY% suddently started to display some dank memes. CEO %CONTACT% turns to you in desperate need of help. Don't forget to save the good memes for your private collection.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Network",
@@ -184,6 +202,8 @@
   {
     "name": "Dayly bread",
     "description": "You are hired for holding a security audit at a %COMPANY% facility in %TOWN%. Hack into their %PW_APPLICATION% to raise security awareness.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Social",
@@ -201,7 +221,9 @@
   },
   {
     "name": "Catch a ride",
-    "description": "The %COMPANY% motor company is evaluating the security of their cars electronic key system.",
+    "description": "The %COMPANY% motor company is evaluating the security of their cars electronic key system. Intercept the keys radio signal and copy it onto a duplicate key. How about a new BMW?",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Crypto",
@@ -224,6 +246,8 @@
   {
     "name": "You have no power here",
     "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system. All piece of cake since they are still running on XP.",
+    "onSuccess": "",
+    "onFail": "",
     "skill": [
       {
         "type": "Search",
@@ -234,7 +258,103 @@
         "value": 0
       },
       {
+        "type": "Network",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "%TOWN% tech festival",
+    "description": "You have the opportunity to present your company at the %TOWN% tech festival. Gather together some cool gadgets and choreograph them with custom software.",
+    "onSuccess": "",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Social",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Censorship is [CENSORED]",
+    "description": "%COMPANY% and the %TOWN% %UNIVERSITY% are cooperating to develop an open-source anti censorship software. Help improving their protocol with some extra manpower.",
+    "onSuccess": "",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
         "type": "Crypto",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Rainbow shield",
+    "description": "%COMPANY% hosts a %WEBSERVICE% that has been jammed by frequent DDOS attacks. You need to identify the origin of the threat and implement a robust counter mechanism.",
+    "onSuccess": "",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Search",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "duration": 6,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "Fixing potholes",
+    "description": "%COMPANY% has problems integrating a new %SOFTWARE% into their %WEBSERVICE%. Apparently, they are using an old Flash version vulnerable to man in the middle attacks.",
+    "onSuccess": "",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Search",
         "value": 0
       }
     ],

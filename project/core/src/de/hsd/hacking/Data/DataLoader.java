@@ -90,6 +90,12 @@ public class DataLoader {
     public String getNewUniversityName() {
         return missionVariables.getRandomUniversity();
     }
+    public String getNewWebServiceName() {
+        return missionVariables.getRandomWebService();
+    }
+    public String getNewSoftwareName() {
+        return missionVariables.getRandomSoftware();
+    }
     public String getNewTown() {
         return missionVariables.getRandomTown();
     }
