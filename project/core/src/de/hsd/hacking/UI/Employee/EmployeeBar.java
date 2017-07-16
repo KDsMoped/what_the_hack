@@ -95,8 +95,8 @@ public class EmployeeBar extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
-        if (!Team.instance().isEmployeeSelected()) return;
+        if (!Team.instance().isEmployeeSelected()
+                || Team.instance().getSelectedEmployee().getCurrentMission() != null) return;
 
         super.draw(batch, parentAlpha);
     }
@@ -104,7 +104,8 @@ public class EmployeeBar extends Group {
     @Override
     public void act(float delta) {
 
-        if (!Team.instance().isEmployeeSelected()) return;
+        if (!Team.instance().isEmployeeSelected()
+                || Team.instance().getSelectedEmployee().getCurrentMission() != null) return;
 
         nameLabel.setText("" + GetSelected().getName());
 //        jobLabel.setText("" + GetSelected().getState().getDisplayName());
@@ -114,5 +115,13 @@ public class EmployeeBar extends Group {
 
     private Employee GetSelected() {
         return Team.instance().getSelectedEmployee();
+    }
+
+    public boolean isEmployeeProfileOpen(){
+        return profilePopup.isActive();
+    }
+
+    public void closeEmployeeProfile(){
+        profilePopup.close();
     }
 }

@@ -164,8 +164,17 @@ public class MissionManager implements TimeChangedListener {
         openMissions.remove(mission);
         activeMissions.add(mission);
         mission.Start();
-
         notifyRefreshListeners();
+        createMissionWorker(mission);
+    }
+
+    private void createMissionWorker(Mission mission) {
+        int workerNumber = isMissionRunning(mission);
+        if (workerNumber < 0) {
+            MissionWorker worker = new MissionWorker(mission);
+            runningMissions.add(worker);
+            GameTime.instance.addTimeChangedListener(worker);
+        }
     }
 
     /**

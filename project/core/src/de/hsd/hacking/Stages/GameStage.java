@@ -74,6 +74,7 @@ public class GameStage extends Stage implements EventListener{
 
     private static GameStage instance;
     private boolean employeesTouchable = true;
+    private EmployeeBar employeeBar;
 
     public static GameStage instance() {
         return instance;
@@ -157,9 +158,17 @@ public class GameStage extends Stage implements EventListener{
         int buttonHeight = 20;
         int buttonSpacing = 5;
 
+        this.employeeBar = new EmployeeBar();
+        popups.addActor(employeeBar);
+
+        missionStatusOverlay = new MissionStatusOverlay();
+        missionStatusOverlay.setVisible(false);
+        popups.addActor(missionStatusOverlay);
+        GameTime.instance.addTimeChangedListener(missionStatusOverlay);
+
         //Init Mission Window
         popups.addActor(missionBrowser);
-        missionBrowser.addEventListener(this);
+
 
         //Init Shop button
         final ShopBrowser shopBrowser = ShopBrowser.instance();
@@ -175,7 +184,7 @@ public class GameStage extends Stage implements EventListener{
         shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
         ui.addActor(shopButton);
         popups.addActor(shopBrowser);
-        shopBrowser.addEventListener(this);
+
 
         //Init Missions button
         TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());
@@ -202,7 +211,6 @@ public class GameStage extends Stage implements EventListener{
         recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
         ui.addActor(recruitmentButton);
         popups.addActor(employeeBrowser);
-        employeeBrowser.addEventListener(this);
 
         //Init Exit button
         TextButton exitButton = new TextButton("Exit", Constants.TextButtonStyle());
@@ -219,11 +227,6 @@ public class GameStage extends Stage implements EventListener{
         overlay.addActor(statusBar = new StatusBar());
         overlay.addActor(messageBar = new MessageBar());
         GameTime.instance.addTimeChangedListener(statusBar);
-        ui.addActor(new EmployeeBar());
-
-        missionStatusOverlay = new MissionStatusOverlay();
-        missionStatusOverlay.setVisible(false);
-        ui.addActor(missionStatusOverlay);
 
     }
 
@@ -291,14 +294,12 @@ public class GameStage extends Stage implements EventListener{
         getViewport().unproject(checkVector.set(screenX, screenY));
         if (pointer == 0) {
             if (!super.touchDown(screenX, screenY, pointer, button)) {
-                if (employeesTouchable) {
                     for (Employee em
                             : employeeManager.getHiredEmployees()) {
                         if (em.touchDown(checkVector)) {
                             return true;
                         }
                     }
-                }
                 for (Touchable touchable
                         : touchables) {
                     if (touchable.touchDown(checkVector)) {
@@ -325,16 +326,13 @@ public class GameStage extends Stage implements EventListener{
         if (pointer == 0) {
             //1st priority: UI elements
             if (!super.touchUp(screenX, screenY, pointer, button)) {
-            //2nd priority: Employees (touch will be disabled wenn UI is active)
-                if (employeesTouchable) {
-                    for (Employee em
-                            : employeeManager.getHiredEmployees()) {
-                        if (em.touchUp(checkVector)) {
-                            return true;
-                        }
+            //2nd priority: Employees
+                for (Employee em
+                        : employeeManager.getHiredEmployees()) {
+                    if (em.touchUp(checkVector)) {
+                        return true;
                     }
                 }
-
                 //3rd priority: Objects
                 for (Touchable touchable
                         : touchables) {
@@ -344,12 +342,21 @@ public class GameStage extends Stage implements EventListener{
                 }
 
                 //If no touchable object is clicked, deselect the current employee
+
                 Team.instance().deselectEmployee();
+
+                if (employeeBar.isEmployeeProfileOpen()) {
+                    employeeBar.closeEmployeeProfile();
+                }
 
             } else {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean popUpOpen() {
         return false;
     }
 
@@ -398,17 +405,11 @@ public class GameStage extends Stage implements EventListener{
             case MISSION_ABORTED:
             case MESSAGE_NEW:
                 break;
-            case POPUP_SHOWN:
-                employeesTouchable = false;
-                break;
-            case POPUP_CLOSED:
-                employeesTouchable = true;
-                break;
         }
     }
 
     public void showMissionStatusOverlay(MissionWorker missionWorker, Employee employee) {
-        missionStatusOverlay.setPosition(employee.getPosition().add(32f, 0));
+        missionStatusOverlay.setPosition(employee.getPosition().add(32f, -16f));
         missionStatusOverlay.setMissionWorker(missionWorker);
         missionStatusOverlay.setVisible(true);
     }

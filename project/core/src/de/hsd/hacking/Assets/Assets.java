@@ -23,6 +23,7 @@ public class Assets {
 
     private static Assets instance;
 
+
     public static Assets instance() {
         return instance;
     }
@@ -34,7 +35,7 @@ public class Assets {
     public BitmapFont gold_font;
     public static BitmapFont gold_font_small;
     public BitmapFont status_bar_font;
-    //public BitmapFont tiny_label_font;
+    public BitmapFont tiny_label_font;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
@@ -126,6 +127,7 @@ public class Assets {
 
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
+        tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
         status_bar_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         //tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
@@ -186,7 +188,7 @@ public class Assets {
         skill_icon_search = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 5));
         skill_icon_allpurpose = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 6));
 
-        loading_bar = new Array<TextureRegionDrawable>(2);
+        loading_bar = new Array<TextureRegionDrawable>(4);
         for (TextureRegion t : ui_atlas.findRegions("Loading_Bar_Normal")) {
             loading_bar.add(new TextureRegionDrawable(t));
         }
