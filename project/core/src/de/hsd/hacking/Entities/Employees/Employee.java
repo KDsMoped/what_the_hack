@@ -129,6 +129,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private int occupiedTileNumber;
 
     private ArrayList<EmployeeSpecial> employeeSpecials = new ArrayList<EmployeeSpecial>();
+    private ArrayList<EmployeeSpecial> employeeSpecialsVisible = new ArrayList<EmployeeSpecial>();
     /**
      * These are the score points currently used for this employees attributes.
      */
@@ -500,7 +501,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
 
-
     @Override
     public GameStage getStage() {
         return stage;
@@ -654,7 +654,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     /**
-     * Adds a new employee special in case the employee does not already have this kind of special.
+     * Adds a new employee special in case the employee does not already have this kind of special and he meets all specials requirements.
      *
      * @param special
      * @return Returns the balancing score value of this special in case it is added. 0 otherwise.
@@ -675,6 +675,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
 
         employeeSpecials.add(special);
+        if (!special.isHidden()) employeeSpecialsVisible.add(special);
         return special.getScoreCost();
     }
 
@@ -683,8 +684,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      *
      * @return
      */
-    public Collection<EmployeeSpecial> getSpecials() {
-        return Collections.unmodifiableCollection(employeeSpecials);
+    public Collection<EmployeeSpecial> getSpecials(boolean includeHidden) {
+        if (includeHidden) return Collections.unmodifiableCollection(employeeSpecials);
+        else return Collections.unmodifiableCollection(employeeSpecialsVisible);
     }
 
     public boolean isEmployed() {
@@ -693,6 +695,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     /**
      * Returns true if this employee has the skill of the given type.
+     *
      * @param type
      * @return
      */

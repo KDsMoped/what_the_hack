@@ -109,6 +109,7 @@ public final class MissionFactory {
         ReplacePlaceholder(mission,"%WEBSERVICE%", dl.getNewWebServiceName());
         ReplacePlaceholder(mission,"%SOFTWARE%", dl.getNewSoftwareName());
         ReplacePlaceholder(mission,"%TOWN%", dl.getNewTown());
+        ReplacePlaceholder(mission,"%COUNTRY%", dl.getNewCountryName());
     }
 
     private static void ReplacePlaceholder(Mission mission, String placeholder, String token){

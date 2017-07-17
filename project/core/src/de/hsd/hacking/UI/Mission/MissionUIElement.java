@@ -28,8 +28,9 @@ import java.util.List;
 
     private Label name;
     private Label time;
-    private Label description, skills;
+    private Label description;
     private Label money;
+    private Table skills;
 
     private TextButton actionButton;
 
@@ -69,14 +70,28 @@ import java.util.List;
         money = new Label("1.322", Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
 
-        skills = new Label("", Constants.LabelStyle());
+//        skills = new Label("", Constants.LabelStyle());
         List<Skill> skill = mission.getSkill();
-        skills.setWrap(true);
+//        skills.setWrap(true);
+
+//        for (int i = 0; i < skill.size(); i++) {
+//            Skill s = skill.get(i);
+//            if(i== 0) skills.setText(s.getType().name() + " " + s.getDisplayValue(false));
+//            else skills.setText(skills.getText() + " \n" + s.getType().name() + " " + s.getDisplayValue(false));
+//        }
+
+        skills = new Table();
+//        skills.setDebug(true);
+        skills.align(Align.left);
 
         for (int i = 0; i < skill.size(); i++) {
             Skill s = skill.get(i);
-            if(i== 0) skills.setText(s.getType().name() + " " + s.getDisplayValue(false));
-            else skills.setText(skills.getText() + " \n" + s.getType().name() + " " + s.getDisplayValue(false));
+
+            Image icon = new Image(Assets.instance().getSkillIcon(s.getType()));
+            Label text = new Label(s.getDisplayValue(false),Constants.LabelStyle());
+
+            skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);
+            skills.add(text).left().padLeft(3).padRight(28);
         }
 
         Image calendar = new Image(Assets.instance().ui_calendar);
@@ -102,10 +117,10 @@ import java.util.List;
 
         // add the helper table to the main table
         this.row().padTop(10f);
-        this.add(infoTable).expand().fill();
+        this.add(infoTable).expand().fill().left();
 
         // add all the infos to the info table
-        infoTable.add(skills).left().expand().fill();
+        infoTable.add(skills).left().expand().fill().pad(5);
         infoTable.add(moneyTimeTable).expandY().fillY().padTop(1f);
 
         // setup moneyTimeTable
@@ -120,7 +135,7 @@ import java.util.List;
         if (buttonText != null && !buttonText.equals("")) {
             actionButton = new TextButton(buttonText, Constants.TextButtonStyle());
             actionButton.addListener(buttonListener);
-            moneyTimeTable.add(actionButton);
+            moneyTimeTable.add(actionButton).width(70).right().colspan(2);
         }
     }
 

@@ -221,9 +221,9 @@
   },
   {
     "name": "Catch a ride",
-    "description": "The %COMPANY% motor company is evaluating the security of their cars electronic key system. Intercept the keys radio signal and copy it onto a duplicate key. How about a new BMW?",
-    "onSuccess": "",
-    "onFail": "",
+    "description": "The %COMPANY% motor company is evaluating the security of their cars electronic key system. Implement a new technique to complement it.",
+    "onSuccess": "You intercept the keys radio signal and copy it onto a duplicate you soldered last night. How about a new BMW?",
+    "onFail": "The keys feature an advanced cryptography algorithm you can't bite through.",
     "skill": [
       {
         "type": "Crypto",
@@ -245,8 +245,8 @@
   },
   {
     "name": "You have no power here",
-    "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system. All piece of cake since they are still running on XP.",
-    "onSuccess": "",
+    "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system.",
+    "onSuccess": "After dropping some USB sticks with you exploit code it only took hours until you .All piece of cake since they are still running on XP.",
     "onFail": "",
     "skill": [
       {
@@ -318,8 +318,8 @@
   {
     "name": "Rainbow shield",
     "description": "%COMPANY% hosts a %WEBSERVICE% that has been jammed by frequent DDOS attacks. You need to identify the origin of the threat and implement a robust counter mechanism.",
-    "onSuccess": "",
-    "onFail": "",
+    "onSuccess": "The attack has been routed across the planet but you could track them to a command and control server in %COUNTRY%.",
+    "onFail": "Seems like there is no destinct attack pattern you can focus on. The attackers pay much effort in hiding their identity.",
     "skill": [
       {
         "type": "Network",

@@ -39,7 +39,7 @@ public enum SkillType {
             case Software:
                 return "Software";
             case All_Purpose:
-                return "Allrounder";
+                return "Allround";
             default:
                 return name();
         }

@@ -2,6 +2,7 @@ package de.hsd.hacking.UI.Employee;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -12,10 +13,10 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Utils.Callback.EmployeeCallback;
 import de.hsd.hacking.Utils.Constants;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class EmployeeUIElement extends Table {
 
@@ -38,7 +39,7 @@ public class EmployeeUIElement extends Table {
         pad(4f);
 //        setDebug(true);
 
-        add(new EmployeeIcon(employee)).left().top().padRight(10);
+        add(new EmployeeIcon(employee)).left().top().padRight(10).width(32).minWidth(32).maxWidth(32);
         add(getSecondColumn()).expand().fillX().top().prefWidth(280);
         add(getThirdColumn()).expand().fill().right().top().padLeft(10).minWidth(70).prefHeight(100);
     }
@@ -60,7 +61,7 @@ public class EmployeeUIElement extends Table {
     }
 
     private Table getThirdColumn(){
-        if(employee.isEmployed()) return  getThirdColumnTeam();
+        if(employee.isEmployed()) return getThirdColumnTeam();
         else return getThirdColumnEmploy();
     }
 
@@ -116,31 +117,54 @@ public class EmployeeUIElement extends Table {
         Table skillsTable = new Table();
 //        skillsTable.setDebug(true);
 
-        for (final Skill s : skillset) {
+        for (Iterator<Skill> iterator = skillset.iterator(); iterator.hasNext(); ) {
+            skillsElement(skillsTable, iterator.next());
 
-            tableElements(skillsTable, new Label(s.getDisplayType(), Constants.LabelStyle()), new Label(s.getDisplayValue(true), Constants.LabelStyle()));
+            if(iterator.hasNext()) skillsTable.row();
         }
 
         //Specials
-        Collection<EmployeeSpecial> specials = employee.getSpecials();
+        Collection<EmployeeSpecial> specials = employee.getSpecials(false);
 
         if (specials.size() > 0) {
 
-            skillsTable.add(new Label("", Constants.LabelStyle()));
+            skillsTable.row();
+            skillsTable.add().height(7);
 
             for (final EmployeeSpecial special : specials) {
 
-                if (special.isHidden()) continue;
-
                 skillsTable.row();
-                skillsTable.add(new Label(special.getDisplayName(), Constants.LabelStyle())).left().expandX();
+                skillsTable.add(new Label(special.getDisplayName(), Constants.LabelStyle())).left().expandX().colspan(3);
             }
         }
         return skillsTable;
     }
 
+    private void skillsElement(Table skillsTable, Skill s){
+        Image icon = new Image(Assets.instance().getSkillIcon(s.getType()));
+        Label skillText = new Label(s.getDisplayType(), Constants.LabelStyle());
+        skillText.setAlignment(Align.left);
+        Label skillNum = new Label(s.getDisplayValue(true), Constants.LabelStyle());
+        skillNum.setAlignment(Align.right);
+
+//            tableElements(skillsTable, icon, skillText, skillNum);
+
+//        Gdx.app.log("", "img width " + icon.getImageWidth());
+
+        skillsTable.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);
+        skillsTable.add(skillText).expandX().left().padLeft(5);
+        skillsTable.add(skillNum).right().expandX().padRight(6);
+    }
+
     private void tableElements(Table table, Actor left, Actor right){
         table.add(left).left().expandX();
+        table.add(right).right().expandX().padBottom(3).padRight(15);
+        table.row();
+    }
+
+    private void tableElements(Table table, Actor left, Actor center, Actor right){
+        table.add(left).left().expandX();
+        table.add(center).expandX();
         table.add(right).right().expandX().padBottom(3).padRight(15);
         table.row();
     }
