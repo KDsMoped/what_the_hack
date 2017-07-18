@@ -1,9 +1,12 @@
 package de.hsd.hacking.Screens;
 
 import com.badlogic.gdx.Screen;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
+import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.HackingGame;
 
 /**
@@ -27,10 +30,14 @@ public class ScreenManager {
         game.setScreen(currentScreen);
     }
 
-    public static void setGameScreen(){
+    public static void setGameScreen(Boolean resumed){
         if(currentScreen != null){
             currentScreen.dispose();
         }
+
+        if (!resumed)
+            initSingletons();
+
         currentScreen = new GameScreen(game);
         game.setScreen(currentScreen);
     }
@@ -44,5 +51,10 @@ public class ScreenManager {
 
     public static void setSwipeUpAction(Runnable r) {
         ((GameScreen)currentScreen).setSwipeUpAction(r);
+    }
+
+    private static void initSingletons() {
+        GameTime.instance = new GameTime();
+        Team.setInstance(new Team());
     }
 }

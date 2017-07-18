@@ -295,4 +295,24 @@ public class MissionManager implements TimeChangedListener {
     public void addRefreshMissionListener(Callback callback) {
         if (!refreshMissionListener.contains(callback)) refreshMissionListener.add(callback);
     }
+
+    public void setCurrentMissionNumber(int currentMissionNumber) {
+        this.currentMissionNumber = currentMissionNumber;
+    }
+
+    public void setActiveMissions(ArrayList<Mission> activeMissions) {
+        this.activeMissions = activeMissions;
+    }
+
+    public void setOpenMissions(ArrayList<Mission> openMissions) {
+        this.openMissions = openMissions;
+    }
+
+    public void setCompletedMissions(ArrayList<Mission> completedMissions) {
+        this.completedMissions = completedMissions;
+    }
+
+    public void setRunningMissions(ArrayList<MissionWorker> runningMissions) {
+        this.runningMissions = runningMissions;
+    }
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import de.hsd.hacking.Assets.Assets;
 
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
@@ -37,18 +38,32 @@ public class MenuStage extends Stage {
         backgroundAnim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);
 
 
-        TextButton button = new TextButton("what_the_hack.exe", Constants.TextButtonStyle());
-        button.addListener(new ChangeListener() {
+        TextButton resumeButton = new TextButton("Resume", Constants.TextButtonStyle());
+        resumeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
                    assets.buttonSound.play();
-                   ScreenManager.setGameScreen();
+                   SaveGameManager.LoadGame();
+                   ScreenManager.setGameScreen(true);
                }
            }
         );
 
-        button.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 220, 194, 40);
-        addActor(button);
+        TextButton newButton = new TextButton("New", Constants.TextButtonStyle());
+        newButton.addListener(new ChangeListener() {
+                               @Override
+                               public void changed(ChangeEvent event, Actor actor) {
+                                   assets.buttonSound.play();
+                                   ScreenManager.setGameScreen(false);
+                               }
+                           }
+        );
+
+        resumeButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 220, 194, 40);
+        addActor(resumeButton);
+
+        newButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 265, 194, 40);
+        addActor(newButton);
     }
 
     @Override
