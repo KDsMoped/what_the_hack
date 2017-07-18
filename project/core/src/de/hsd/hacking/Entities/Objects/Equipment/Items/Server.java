@@ -14,10 +14,9 @@ import de.hsd.hacking.Utils.Direction;
  */
 
 public class Server extends Equipment implements Upgradable {
-    int maxLevel;
 
     public Server() {
-        super("Le Server", 400, null, true, Direction.DOWN, 0, Direction.DOWN);
+        super("Server", 400, null, true, Direction.DOWN, 0, Direction.DOWN);
     }
 
     public void upgrade() {
@@ -25,7 +24,7 @@ public class Server extends Equipment implements Upgradable {
         team.updateResources();
     }
 
-    public void setMaxLevel() { maxLevel = 5; }
+    public int getMaxLevel() { return 5; }
 
     @Override
     public int getBandwidthBonus() { return level * 100; }

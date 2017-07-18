@@ -38,12 +38,8 @@ public class Computer extends Equipment implements Upgradable {
     private int tintFrames = 0;
     private Chair workingChair;
 
-    private int maxLevel;
-    private int mul;
-
-
     public Computer() {
-        super("Super Computer 3000", 400, /*EquipmentAttributeType.COMPUTATIONPOWER, 100,*/
+        super("Computer", 400, /*EquipmentAttributeType.COMPUTATIONPOWER, 100,*/
                 Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
@@ -56,9 +52,7 @@ public class Computer extends Equipment implements Upgradable {
         team.updateResources();
     }
 
-    public void setMaxLevel() {
-        maxLevel = 5;
-    }
+    public int getMaxLevel() { return 5; }
 
     @Override
     public int getComputationPowerBonus() { return level * 100; }
