@@ -258,7 +258,12 @@ public class Team {
         result += resources.money * 0.00001f;
         result += resources.bandwidth * 0.005f;
         result += resources.computationPower * 0.003f;
-        result += MissionManager.instance().getNumberCompletedMissions() * 0.2f;
+
+        for (Mission m : MissionManager.instance().getCompletedMissions()) {
+            result += (m.getDifficulty() * (1 + m.getRisk())) * 0.2f;
+        }
+
+//        result += MissionManager.instance().getNumberCompletedMissions() * 0.2f;
 
         return (int) result;
     }

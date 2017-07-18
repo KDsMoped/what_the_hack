@@ -8,9 +8,7 @@ import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
@@ -77,6 +75,7 @@ public class MissionManager implements TimeChangedListener {
 
     /**
      * Removes the given fraction of open missions.
+     *
      * @param fraction
      */
     private void removeMissions(float fraction) {
@@ -109,8 +108,15 @@ public class MissionManager implements TimeChangedListener {
         completedMissions.add(mission);
 //        mission.setOutcome(outcome);
 
-        messageManager.Info("Job " + mission.getName() + ": " +  mission.getSuccessText());
-        Gdx.app.log(Constants.TAG, "Job " + mission.getName() + ": " +  mission.getSuccessText());
+        int money = mission.getOutcome().rewardMoney;
+        String text;
+
+        if (mission.hasSuccessText()) text = "Job " + mission.getName() + " completed! " + mission.getSuccessText() + " You've earned " + money + "$.";
+        else text = "Job " + mission.getName() + " completed! You've earned " + money + "$.";
+
+        Team.instance().addMoney(money);
+        messageManager.Info(text);
+        Gdx.app.log(Constants.TAG, text);
 
         notifyRefreshListeners();
     }
@@ -123,8 +129,12 @@ public class MissionManager implements TimeChangedListener {
     public void failMission(Mission mission) {
         activeMissions.remove(mission);
 
-        messageManager.Info("Job " + mission.getName() + ": " +  mission.getFailText());
-        Gdx.app.log(Constants.TAG, "Job " + mission.getName() + ": " +  mission.getFailText());
+        String failText;
+        if (mission.hasFailText()) failText = "Job " + mission.getName() + " failed. " + mission.getFailText();
+        else failText = "Job " + mission.getName() + " failed.";
+
+        messageManager.Info(failText);
+        Gdx.app.log(Constants.TAG, failText);
 
         notifyRefreshListeners();
     }
@@ -236,6 +246,7 @@ public class MissionManager implements TimeChangedListener {
     /**
      * Gets the {@link MissionWorker} for a given working Employee.
      * Returns null if Employee is not working on mission.
+     *
      * @param employee
      * @return
      */
@@ -289,6 +300,8 @@ public class MissionManager implements TimeChangedListener {
 
     @Override
     public void weekChanged(int week) {
+
+        Gdx.app.log(Constants.TAG, "Your game progress is: " + Team.instance().calcGameProgress());
         refreshOpenMissions();
     }
 

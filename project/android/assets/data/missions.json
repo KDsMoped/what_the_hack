@@ -19,6 +19,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 3,
     "minLevel": 0,
     "maxLevel": 0
@@ -26,8 +27,8 @@
   {
     "name": "Crack'n'Hack",
     "description": "%CONTACT% from %COMPANY% called us today. They accidentally deleted their %PW_APPLICATION% passwords and need some cracking power.",
-    "onSuccess": "",
-    "onFail": "",
+    "onSuccess": "Fortunately, they only used password shorter than 8 digits.",
+    "onFail": "You stress their %PW_APPLICATION% protection with brute force, but after days you give up.",
     "skill": [
       {
         "type": "Crypto",
@@ -39,6 +40,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -59,6 +61,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -76,18 +79,23 @@
       {
         "type": "Search",
         "value": 0
+      },
+      {
+        "type": "Network",
+        "value": 0
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
-    "name": "No, this is Patrick",
-    "description": "The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help for implementing a new security scheme.",
-    "onSuccess": "",
-    "onFail": "",
+    "name": "Best standard",
+    "description": "The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help for implementing a %WEBSERVICE% featuring the latest security standards.",
+    "onSuccess": "The new %WEBSERVICE% now implements the ISO 27000 standard and it's rocksolid.",
+    "onFail": "This ",
     "skill": [
       {
         "type": "Crypto",
@@ -103,6 +111,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -110,8 +119,8 @@
   {
     "name": "Homefront",
     "description": "The guy next door, %CONTACT_M%, has a barking dog that really upsets you. Hack his %PW_APPLICATION% as payback.",
-    "onSuccess": "",
-    "onFail": "",
+    "onSuccess": "His the password of his %PW_APPLICATION% actually was 'abc123'. Shame if someone changed it.",
+    "onFail": "You tried a brute force attack using a dictionary of the most common passwords but everything failed. His %PW_APPLICATION% is secure for now.",
     "skill": [
       {
         "type": "Network",
@@ -127,6 +136,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -151,6 +161,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -175,6 +186,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -195,6 +207,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -215,6 +228,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -239,6 +253,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -246,7 +261,7 @@
   {
     "name": "You have no power here",
     "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system.",
-    "onSuccess": "After dropping some USB sticks with you exploit code it only took hours until you .All piece of cake since they are still running on XP.",
+    "onSuccess": "You won the competition! After dropping some USB sticks with the exploit code it only took hours until you could control the test system. All piece of cake since they are still running on XP.",
     "onFail": "",
     "skill": [
       {
@@ -263,6 +278,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1.3,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -287,13 +303,14 @@
       }
     ],
     "risk": 0,
+    "hardness": 1.1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "Censorship is [CENSORED]",
-    "description": "%COMPANY% and the %TOWN% %UNIVERSITY% are cooperating to develop an open-source anti censorship software. Help improving their protocol with some extra manpower.",
+    "description": "%COMPANY% and the %TOWN% %UNIVERSITY% are cooperating to develop an open-source anti censorship software to support free journalism in %COUNTRY%. Help improving their protocol with some extra manpower.",
     "onSuccess": "",
     "onFail": "",
     "skill": [
@@ -311,6 +328,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -319,7 +337,7 @@
     "name": "Rainbow shield",
     "description": "%COMPANY% hosts a %WEBSERVICE% that has been jammed by frequent DDOS attacks. You need to identify the origin of the threat and implement a robust counter mechanism.",
     "onSuccess": "The attack has been routed across the planet but you could track them to a command and control server in %COUNTRY%.",
-    "onFail": "Seems like there is no destinct attack pattern you can focus on. The attackers pay much effort in hiding their identity.",
+    "onFail": "Seems like there is no distinct attack pattern you can focus on. The attackers pay much effort in hiding their identity.",
     "skill": [
       {
         "type": "Network",
@@ -335,6 +353,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1.2,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -359,6 +378,7 @@
       }
     ],
     "risk": 0,
+    "hardness": 1,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
@@ -383,8 +403,34 @@
       }
     ],
     "risk": 0,
+    "hardness": 1.3,
     "duration": 6,
     "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "SUPER HARD MISSION",
+    "description": "This mission will only appear on player level 3.",
+    "onSuccess": "",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Crypto",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "hardness": 1,
+    "duration": 6,
+    "minLevel": 3,
     "maxLevel": 0
   }
 ]

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * UI element to display a mission.
  */
-    public class MissionUIElement extends Table {
+public class MissionUIElement extends Table {
     private Mission mission;
 
     private Label name;
@@ -41,9 +41,10 @@ import java.util.List;
 
     /**
      * Constructor.
-     * @param mission Mission that shall be displayed.
-     * @param compactView compactView hides the mission description.
-     * @param buttonText Button text.
+     *
+     * @param mission        Mission that shall be displayed.
+     * @param compactView    compactView hides the mission description.
+     * @param buttonText     Button text.
      * @param buttonListener Button callback.
      */
     public MissionUIElement(Mission mission, Boolean compactView, String buttonText, EventListener buttonListener) {
@@ -67,7 +68,7 @@ import java.util.List;
         name.setFontScale(1.05f);
         time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
 
-        money = new Label("1.322", Constants.LabelStyle());
+        money = new Label("" + mission.getOutcome().rewardMoney, Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
 
 //        skills = new Label("", Constants.LabelStyle());
@@ -88,7 +89,7 @@ import java.util.List;
             Skill s = skill.get(i);
 
             Image icon = new Image(Assets.instance().getSkillIcon(s.getType()));
-            Label text = new Label(s.getDisplayValue(false),Constants.LabelStyle());
+            Label text = new Label(s.getDisplayValue(false), Constants.LabelStyle());
 
             skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);
             skills.add(text).left().padLeft(3).padRight(28);
@@ -141,9 +142,10 @@ import java.util.List;
 
     /**
      * Get the mission object this object represents.
+     *
      * @return represented mission object.
      */
-    public Mission getMission(){
+    public Mission getMission() {
         return mission;
     }
 
