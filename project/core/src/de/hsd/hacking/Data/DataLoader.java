@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -53,22 +54,23 @@ public class DataLoader {
         FileHandle variables = Gdx.files.internal("data/missionVariables.json");
 
         if (!variables.exists()){
-            Gdx.app.log(Constants.TAG, "COMPANY NAMES JSON FILE DOESNT EXIST");
+            Gdx.app.log(Constants.TAG, "MISSION VARIABLES JSON FILE DOESNT EXIST");
         }else{
             Json json = new Json();
             missionVariables = json.fromJson(MissionVariablesHolder.class, variables);
         }
     }
 
-    public String getNewFullName(){
-        String[] name = getNewName();
+    public String getNewFullName(Employee.Gender gender){
+        String[] name = getNewName(gender);
 
         return name[0] + " " + name [1];
     }
 
-    public String[] getNewName(){
-        ArrayList<String> surnames = names.getSurNames();
+    public String[] getNewName(Employee.Gender gender){
+        ArrayList<String> surnames = names.getSurNames(gender);;
         ArrayList<String> lastNames = names.getLastNames();
+
         String surName = surnames.get(RandomUtils.randomInt(surnames.size()));
         String lastName = lastNames.get(RandomUtils.randomInt(lastNames.size()));
 
@@ -79,15 +81,23 @@ public class DataLoader {
         return missions.get(RandomUtils.randomInt(missions.size())).Clone();
     }
 
-
     public String getNewCompanyName() {
         return missionVariables.getRandomCompany();
+    }
+    public String getNewCountryName() {
+        return missionVariables.getRandomCountry();
     }
     public String getNewPasswordApplication() {
         return missionVariables.getRandomPasswordApplication();
     }
     public String getNewUniversityName() {
         return missionVariables.getRandomUniversity();
+    }
+    public String getNewWebServiceName() {
+        return missionVariables.getRandomWebService();
+    }
+    public String getNewSoftwareName() {
+        return missionVariables.getRandomSoftware();
     }
     public String getNewTown() {
         return missionVariables.getRandomTown();

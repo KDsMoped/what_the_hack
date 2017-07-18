@@ -1,6 +1,7 @@
 package de.hsd.hacking.Data;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MissionWorker implements TimeChangedListener {
         employees = new ArrayList<Employee>(4);
         for (Skill skill
                 : mission.getSkill()) {
-            skillRequirements.add(new MissionSkillRequirement(skill.getType(), skill.getValue() * mission.getDuration(), 0f));
+            skillRequirements.add(new MissionSkillRequirement(skill.getType(), skill.getValue() * MathUtils.clamp(mission.getDuration() / 2f, 1f, 99f), 0f));
         }
     }
 
@@ -40,7 +41,9 @@ public class MissionWorker implements TimeChangedListener {
     }
 
     public void addEmployee(final Employee employee) {
-        if (employees.contains(employee)) Gdx.app.error(Constants.TAG, "Employee added to Missionworker that was already part of missionworker");
+        if (employees.contains(employee)) {
+            Gdx.app.error(Constants.TAG, "Employee added to Missionworker that was already part of missionworker");
+        }
         employees.add(employee);
     }
 
@@ -64,6 +67,12 @@ public class MissionWorker implements TimeChangedListener {
                 workOnSkill(em, req, value);
             }
         }
+        if (alreadyDone()) {
+            mission.setFinished(true);
+            Gdx.app.log(Constants.TAG, "Mission already over!");
+            mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
+            mission.setCompleted(true);
+        }
     }
 
     /**
@@ -80,25 +89,35 @@ public class MissionWorker implements TimeChangedListener {
             //criticalFailure
             req.incrementCurrentValue(0.5f * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.FAILURE, em);
-//            MessageManager.instance().Warning("Employee " + em.getName() + " had a critical failure while working on " + req.getSkillType().getDisplayName());
         } else if (dice > DICE_SIDES - em.getCriticalSuccessChance()) {
             //criticalSuccess
-//            MessageManager.instance().Info("Employee " + em.getName() + " had a critical emoji_success while working on " + req.getSkillType().getDisplayName());
             req.incrementCurrentValue(2 * stepValue);
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.SUCCESS, em);
             em.onMissionCriticalSuccess();
         } else {
             req.incrementCurrentValue(stepValue);
-//            Gdx.app.log(Constants.TAG, "Employee " + em.getName() + " increased required skill value " + req.getSkillType().getDisplayName() + " by " + stepValue + " this step.");
         }
+    }
 
+    private boolean alreadyDone() {
+        int notFinishedSkills = 0;
+        for (MissionSkillRequirement skillReq
+                : skillRequirements) {
+            if (!skillReq.isSuccessfull()) {
+                notFinishedSkills++;
+            }
+        }
+        if (notFinishedSkills > 0) {
+            return false;
+        }
+        return true;
     }
 
 
     @Override
     public void dayChanged(final int days) {
-        if (!employees.isEmpty() && !mission.isFinished()) {
-            Gdx.app.log(Constants.TAG, "Next day. Remaining mission days: " + remainingMissionDays);
+        if (!mission.isFinished()) {
+            Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() +  " Remaining mission days: " + remainingMissionDays);
             for (MissionSkillRequirement req
                     : skillRequirements) {
                 Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
@@ -114,10 +133,8 @@ public class MissionWorker implements TimeChangedListener {
                     }
                 }
                 if (failedSkills.size() > 0) {
-                    MessageManager.instance().Error("Mission failed, skill(s) to blame: " + failedSkills.toString());
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                 } else {
-                    MessageManager.instance().Info("Mission successfull! NICE!");
                     mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
                     mission.setCompleted(true);
                 }
@@ -143,5 +160,21 @@ public class MissionWorker implements TimeChangedListener {
 
     public boolean hasNoWorkers() {
         return employees.isEmpty();
+    }
+
+    public List<MissionSkillRequirement> getSkillRequirements(){
+        return skillRequirements;
+    }
+
+    public int getRemainingMissionDays() {
+        return remainingMissionDays;
+    }
+
+    public int getPassedMissionDays() {
+        return mission.getDuration() - remainingMissionDays;
+    }
+
+    public int getMissionDays() {
+        return mission.getDuration();
     }
 }

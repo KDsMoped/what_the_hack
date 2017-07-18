@@ -35,4 +35,8 @@ public class Path {
     public void prependTile(Tile tile) {
         path.add(0, tile);
     }
+
+    public List<Tile> getTiles() {
+        return path;
+    }
 }

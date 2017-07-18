@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
 
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.SkillType;
 
 /**
  * Created by Cuddl3s on 21.04.2017.
@@ -34,7 +35,7 @@ public class Assets {
     public BitmapFont gold_font;
     public static BitmapFont gold_font_small;
     public BitmapFont status_bar_font;
-    //public BitmapFont tiny_label_font;
+    public BitmapFont tiny_label_font;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
@@ -64,8 +65,16 @@ public class Assets {
 
     public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
     public Array<TextureRegionDrawable> clock_icon;
+    public Array<TextureRegionDrawable> loading_bar;
 
     public TextureRegionDrawable ui_calendar;
+    public TextureRegionDrawable skill_icon_social;
+    public TextureRegionDrawable skill_icon_software;
+    public TextureRegionDrawable skill_icon_hardware;
+    public TextureRegionDrawable skill_icon_crypto;
+    public TextureRegionDrawable skill_icon_search;
+    public TextureRegionDrawable skill_icon_network;
+    public TextureRegionDrawable skill_icon_allpurpose;
 
     // Assets for Notification Bar
     public TextureRegionDrawable ui_up_arrow_inverted;
@@ -118,6 +127,7 @@ public class Assets {
 
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
+        tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
         status_bar_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         //tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
@@ -170,6 +180,19 @@ public class Assets {
         ui_help = new TextureRegionDrawable(ui_atlas.findRegion("help"));
         ui_warning = new TextureRegionDrawable(ui_atlas.findRegion("warning"));
 
+        skill_icon_social = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 0));
+        skill_icon_crypto = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 1));
+        skill_icon_software = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 2));
+        skill_icon_hardware = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 3));
+        skill_icon_network = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 4));
+        skill_icon_search = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 5));
+        skill_icon_allpurpose = new TextureRegionDrawable(ui_atlas.findRegion("Skill_Icons", 6));
+
+        loading_bar = new Array<TextureRegionDrawable>(4);
+        for (TextureRegion t : ui_atlas.findRegions("Loading_Bar_Normal")) {
+            loading_bar.add(new TextureRegionDrawable(t));
+        }
+
         terminal_skin = new Skin();
         terminal_skin.addRegions(ui_atlas);
         terminal_patch = new NinePatchDrawable(terminal_skin.getPatch("terminal_9_patch"));
@@ -215,5 +238,26 @@ public class Assets {
         boolean desk1 = MathUtils.randomBoolean();
         if (desk1) return desk_1;
         return desk_2;
+    }
+
+    public TextureRegionDrawable getSkillIcon(SkillType skillType) {
+        switch (skillType) {
+            case Social:
+                return  skill_icon_social;
+            case Hardware:
+                return skill_icon_hardware;
+            case Software:
+                return skill_icon_software;
+            case Network:
+                return skill_icon_network;
+            case Crypto:
+                return skill_icon_crypto;
+            case Search:
+                return skill_icon_search;
+            case All_Purpose:
+                return skill_icon_allpurpose;
+            default:
+                return skill_icon_software;
+        }
     }
 }

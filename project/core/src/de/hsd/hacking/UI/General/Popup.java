@@ -36,7 +36,6 @@ public abstract class Popup extends Group {
     protected TextButton closeButton;
 
     private VerticalGroup content = new VerticalGroup();
-    private List<EventListener> listeners;
 
     public Popup(int popupMargin) {
         init(popupMargin);
@@ -91,7 +90,6 @@ public abstract class Popup extends Group {
 
         addActor(noBackgroundClick);
         addActor(mainTable);
-        listeners = new ArrayList<EventListener>(4);
     }
 
     @Override
@@ -111,22 +109,14 @@ public abstract class Popup extends Group {
     protected void show() {
         mainTable.setVisible(true);
         noBackgroundClick.setVisible(true);
-        for (EventListener listener
-                : listeners){
-            listener.OnEvent(EventListener.EventType.POPUP_SHOWN, this);
-        }
     }
 
     /**
      * Disables act and draw for the popup window.
      */
-    protected void close() {
+    public void close() {
         mainTable.setVisible(false);
         noBackgroundClick.setVisible(false);
-        for (EventListener listener
-                : listeners){
-            listener.OnEvent(EventListener.EventType.POPUP_CLOSED, this);
-        }
     }
 
     public void toggleView() {
@@ -151,11 +141,4 @@ public abstract class Popup extends Group {
         return content;
     }
 
-    public void addEventListener(final EventListener listener) {
-        if (!listeners.contains(listener)) listeners.add(listener);
-    }
-
-    public boolean removeListener(final EventListener listener) {
-        return listeners.remove(listener);
-    }
 }

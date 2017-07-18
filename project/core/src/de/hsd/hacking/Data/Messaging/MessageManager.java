@@ -26,7 +26,7 @@ public class MessageManager implements EventSender{
     private Message message;
 
     public MessageManager() {
-
+        instance = this;
     }
 
     /**
@@ -135,11 +135,11 @@ public class MessageManager implements EventSender{
 
     /**
      * Global instance for the MessageManager.
-     * @return Glocal instance.
+     * @return Global instance.
      */
     public static MessageManager instance() {
 
-        if (instance == null) instance = new MessageManager();
+        if (instance == null) return new MessageManager();
         return instance;
     }
 

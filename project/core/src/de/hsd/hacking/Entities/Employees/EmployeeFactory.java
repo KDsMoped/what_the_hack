@@ -3,10 +3,7 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.Missions.Mission;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.CheapToHire;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.FastLearner;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.*;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.MathUtilities;
@@ -25,7 +22,7 @@ public class EmployeeFactory {
     private static final int COST_INCREMENT_SKILL = 6;
     private static final int COST_INCREMENT_ALLPURPOSE = 12;
     private static final float SALARY_VARIANCE = 0.1f;
-    private static final int PROGRESS_VARIANCE = 4;
+    private static final int PROGRESS_VARIANCE = 6;
     private static final int LEVELUP_THRESHOLD = 10;
 
     public static final float SCORE_MISSION_COMPLETED = 2;
@@ -110,7 +107,9 @@ public class EmployeeFactory {
 
 //        float remainingScore = score;
 
-        freshman.setName(DataLoader.getInstance().getNewName());
+        Employee.Gender gender = Employee.Gender.random();
+        freshman.setGender(gender);
+        freshman.setName(DataLoader.getInstance().getNewName(gender));
 
         //spend score points on random attributes and skills
         learnBasicSkillSet(freshman);
@@ -125,7 +124,6 @@ public class EmployeeFactory {
      * Creates an employees basic skillSet and levels it according to the available score points. Returns the remaining score points.
      *
      * @param employee
-     * @param remainingScore
      * @return
      */
     private static void learnBasicSkillSet(Employee employee){
@@ -282,7 +280,7 @@ public class EmployeeFactory {
      * @return
      */
     private static float rollSpecial(Employee padawan){
-        int roll = RandomUtils.randomIntWithin(1, 5);
+        int roll = RandomUtils.randomIntWithin(1, 6);
 
         switch (roll) {
             case 1:
@@ -296,6 +294,7 @@ public class EmployeeFactory {
             case 5:
                 return padawan.addEmployeeSpecial(new FastLearner(padawan));
             case 6:
+                return padawan.addEmployeeSpecial(new CodeMonkey(padawan));
             case 7:
             case 8:
             case 9:

@@ -12,7 +12,7 @@ public interface EventListener {
      * These are the different event types we use.
      */
     enum EventType {
-        MISSION_STARTED, MISSION_FINISHED, MISSION_ABORTED, MESSAGE_NEW, POPUP_SHOWN, POPUP_CLOSED
+        MISSION_STARTED, MISSION_FINISHED, MISSION_ABORTED, MESSAGE_NEW
     }
 
     /**
