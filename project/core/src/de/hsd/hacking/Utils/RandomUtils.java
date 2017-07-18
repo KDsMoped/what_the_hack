@@ -2,6 +2,9 @@ package de.hsd.hacking.Utils;
 
 import com.badlogic.gdx.math.RandomXS128;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Created by Cuddl3s on 05.07.2017.
  */
@@ -32,5 +35,13 @@ public class RandomUtils {
     return rand.nextInt(to - from + 1) + from;
     }
 
-
+    /**
+     * Returns a random element from the given List.
+     * @param collection
+     * @param <T>
+     * @return
+     */
+    public static <T> T randomElement(List<T> collection){
+        return collection.get(randomInt(collection.size()));
+    }
 }

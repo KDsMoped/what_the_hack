@@ -17,22 +17,36 @@ import de.hsd.hacking.Entities.Employees.Skill;
  * This class represents a mission.
  */
 public class Mission implements EventSender {
-    @Expose private String name, description;
-    @Expose private int duration;
-    @Expose private int difficulty;
-    @Expose private List<Skill> skill;
-    @Expose private MissionOutcome outcome;
-    @Expose private float risk;
+    @Expose
+    private String name, description, onSuccess, onFail;
+    @Expose
+    private int duration;
+    @Expose
+    private int difficulty;
+    @Expose
+    private List<Skill> skill;
+    @Expose
+    private MissionOutcome outcome;
+    @Expose
+    private float risk;
+
+    //TODO: Implement minimum and maximun levels in MISSION Factory
+    @Expose
+    private int minLevel;
+    @Expose
+    private int maxLevel;
 
 
     /**
      * //Number that gets set when mission is started. To check if mission == mission.
      */
-    @Expose private int missionNumber;
-    @Expose private boolean finished;
+    @Expose
+    private int missionNumber;
+    @Expose
+    private boolean finished;
     private boolean completed;
 
-    public Mission(){
+    public Mission() {
         this.missionNumber = -1;
     }
 
@@ -60,6 +74,7 @@ public class Mission implements EventSender {
 
     /**
      * Creates a copy of this mission object.
+     *
      * @return Copy of this object.
      */
     public Mission Clone() {
@@ -67,6 +82,8 @@ public class Mission implements EventSender {
 
         mission.setName(name);
         mission.setDescription(description);
+        mission.setSuccessText(onSuccess);
+        mission.setFailText(onFail);
         mission.setDuration(duration);
         mission.setDifficulty(difficulty);
         mission.setSkill(skill);
@@ -75,6 +92,8 @@ public class Mission implements EventSender {
         mission.setMissionNumber(missionNumber);
         mission.setFinished(finished);
         mission.setCompleted(completed);
+        mission.setMinLevel(minLevel);
+        mission.setMaxLevel(maxLevel);
 
         return mission;
     }
@@ -92,7 +111,7 @@ public class Mission implements EventSender {
     @Override
     public void notifyListeners(EventListener.EventType type) {
 
-        for (EventListener listener:listeners) {
+        for (EventListener listener : listeners) {
             listener.OnEvent(type, this);
         }
     }
@@ -103,6 +122,22 @@ public class Mission implements EventSender {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSuccessText() {
+        return onSuccess;
+    }
+
+    public String getFailText() {
+        return onFail;
+    }
+
+    public void setSuccessText(String onSuccess) {
+        this.onSuccess = onSuccess;
+    }
+
+    public void setFailText(String onFail) {
+        this.onFail = onFail;
     }
 
     public String getDescription() {
@@ -127,6 +162,24 @@ public class Mission implements EventSender {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public void setMinLevel(int level) {
+        this.minLevel = level;
+    }
+
+    public void setMaxLevel(int level) {
+        this.maxLevel = level;
+    }
+
+    public int getMinLevel() {
+        return minLevel;
+    }
+
+    public int getMaxLevel() {
+
+        if(maxLevel < 1) return Integer.MAX_VALUE;
+        return maxLevel;
     }
 
     public List<Skill> getSkill() {
@@ -158,13 +211,14 @@ public class Mission implements EventSender {
         this.missionNumber = missionNumber1;
     }
 
-    public int getMissionNumber(){
+    public int getMissionNumber() {
         return this.missionNumber;
     }
 
     public boolean isFinished() {
         return finished;
     }
+
     public void setFinished(final boolean finished1) {
         finished = finished1;
     }

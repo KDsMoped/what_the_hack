@@ -8,7 +8,7 @@ import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Direction;
-import de.hsd.hacking.Entities.Objects.Equipment.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 
@@ -41,7 +41,8 @@ public class WorkingState extends EmployeeState implements EventListener {
         if (!isCanceled()){
             if (workingOnMission){
                 if (missionFinished){
-                    //TODO get xp etc
+                    employee.onMissionCompleted();
+
                     return new IdleState(employee);
                 }
                 return null;
@@ -90,7 +91,7 @@ public class WorkingState extends EmployeeState implements EventListener {
         computer.setOn(false);
         computer.deOccupy();
         //TODO mission
-        if (employee.getCurrentMission() != null){
+        if (employee.getCurrentMission() != null) {
             MissionManager.instance().stopWorking(employee);
         }
     }
@@ -116,6 +117,8 @@ public class WorkingState extends EmployeeState implements EventListener {
             case MISSION_ABORTED:
                 Gdx.app.log(Constants.TAG, "Mission working was aborted for Employee: " + employee.getName());
                 cancel();
+            default:
+                break;
         }
     }
 }

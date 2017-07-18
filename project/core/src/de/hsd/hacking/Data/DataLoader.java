@@ -2,7 +2,6 @@ package de.hsd.hacking.Data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -10,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -22,7 +22,7 @@ public class DataLoader {
     private static DataLoader INSTANCE;
     private static NameHolder names;
     private static ArrayList<Mission> missions;
-    private static CompanyNamesHolder companyNames;
+    private static MissionVariablesHolder missionVariables;
 
     public static DataLoader getInstance(){
         if (INSTANCE == null){
@@ -51,19 +51,26 @@ public class DataLoader {
             missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
         }
 
-        FileHandle compNames = Gdx.files.internal("data/companies.json");
+        FileHandle variables = Gdx.files.internal("data/missionVariables.json");
 
-        if (!compNames.exists()){
-            Gdx.app.log(Constants.TAG, "COMPANY NAMES JSON FILE DOESNT EXIST");
+        if (!variables.exists()){
+            Gdx.app.log(Constants.TAG, "MISSION VARIABLES JSON FILE DOESNT EXIST");
         }else{
             Json json = new Json();
-            companyNames = json.fromJson(CompanyNamesHolder.class, compNames);
+            missionVariables = json.fromJson(MissionVariablesHolder.class, variables);
         }
     }
 
-    public String[] getNewName(){
-        ArrayList<String> surnames = names.getSurNames();
+    public String getNewFullName(Employee.Gender gender){
+        String[] name = getNewName(gender);
+
+        return name[0] + " " + name [1];
+    }
+
+    public String[] getNewName(Employee.Gender gender){
+        ArrayList<String> surnames = names.getSurNames(gender);;
         ArrayList<String> lastNames = names.getLastNames();
+
         String surName = surnames.get(RandomUtils.randomInt(surnames.size()));
         String lastName = lastNames.get(RandomUtils.randomInt(lastNames.size()));
 
@@ -74,8 +81,25 @@ public class DataLoader {
         return missions.get(RandomUtils.randomInt(missions.size())).Clone();
     }
 
-
     public String getNewCompanyName() {
-        return companyNames.getRandom();
+        return missionVariables.getRandomCompany();
+    }
+    public String getNewCountryName() {
+        return missionVariables.getRandomCountry();
+    }
+    public String getNewPasswordApplication() {
+        return missionVariables.getRandomPasswordApplication();
+    }
+    public String getNewUniversityName() {
+        return missionVariables.getRandomUniversity();
+    }
+    public String getNewWebServiceName() {
+        return missionVariables.getRandomWebService();
+    }
+    public String getNewSoftwareName() {
+        return missionVariables.getRandomSoftware();
+    }
+    public String getNewTown() {
+        return missionVariables.getRandomTown();
     }
 }

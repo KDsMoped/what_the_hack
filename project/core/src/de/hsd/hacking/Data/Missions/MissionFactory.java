@@ -3,6 +3,7 @@ package de.hsd.hacking.Data.Missions;
 import java.util.List;
 
 import de.hsd.hacking.Data.DataLoader;
+import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -95,9 +96,26 @@ public final class MissionFactory {
      * Replaces the %COMPANY% tag in mission data with random company names.
      * @param mission
      */
-    private static final void ReplacePlaceholders(Mission mission) {
-        String company = DataLoader.getInstance().getNewCompanyName();
-        mission.setName(mission.getName().replaceAll("%COMPANY%", company));
-        mission.setDescription(mission.getDescription().replaceAll("%COMPANY%", company));
+    private static void ReplacePlaceholders(Mission mission) {
+
+        DataLoader dl = DataLoader.getInstance();
+
+        ReplacePlaceholder(mission,"%COMPANY%", dl.getNewCompanyName());
+        ReplacePlaceholder(mission,"%PW_APPLICATION%", dl.getNewPasswordApplication());
+        ReplacePlaceholder(mission,"%CONTACT%", dl.getNewFullName(Employee.Gender.UNDECIDED));
+        ReplacePlaceholder(mission,"%CONTACT_M%", dl.getNewFullName(Employee.Gender.MALE));
+        ReplacePlaceholder(mission,"%CONTACT_F%", dl.getNewFullName(Employee.Gender.FEMALE));
+        ReplacePlaceholder(mission,"%UNIVERSITY%", dl.getNewUniversityName());
+        ReplacePlaceholder(mission,"%WEBSERVICE%", dl.getNewWebServiceName());
+        ReplacePlaceholder(mission,"%SOFTWARE%", dl.getNewSoftwareName());
+        ReplacePlaceholder(mission,"%TOWN%", dl.getNewTown());
+        ReplacePlaceholder(mission,"%COUNTRY%", dl.getNewCountryName());
+    }
+
+    private static void ReplacePlaceholder(Mission mission, String placeholder, String token){
+        mission.setName(mission.getName().replaceAll(placeholder, token));
+        mission.setDescription(mission.getDescription().replaceAll(placeholder, token));
+        mission.setSuccessText(mission.getSuccessText().replaceAll(placeholder, token));
+        mission.setFailText(mission.getFailText().replaceAll(placeholder, token));
     }
 }

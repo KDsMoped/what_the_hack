@@ -1,9 +1,14 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Modem;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Router;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Server;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Utils.Callback.Callback;
 
 /**
  * Created by domin on 28.06.2017.
@@ -16,6 +21,8 @@ public class EquipmentManager {
 
     private static EquipmentManager instance = null;
 
+    private ArrayList<Callback> refreshEquipmentListener = new ArrayList<Callback>();
+
     private EquipmentManager() {
         Computer computer = new Computer();
         shopItems.add(computer);
@@ -25,6 +32,8 @@ public class EquipmentManager {
         shopItems.add(coffeeMachine);
         Router router = new Router();
         shopItems.add(router);
+        Server server = new Server();
+        shopItems.add(server);
     }
 
     public static EquipmentManager instance() {
@@ -34,30 +43,19 @@ public class EquipmentManager {
         return instance;
     }
 
-    /*
-    public int buyItem(int index) {
-        Equipment e = shopItems.get(index);
-        Team team = Team.instance();
-        int price = (int)e.getPrice();
-        if (team.getMoney() < price)
-            return 1;
-        team.reduceMoney(price);
-        team.addEquipment(e);
-        return 0;
-    }
-    */
-
     public int buyItem(Equipment equipment) {
         Team team = Team.instance();
         int price = (int)equipment.getPrice();
         if (team.getMoney() < price)
             return 1;
         team.reduceMoney(price);
-        //team.addEquipment(equipment);
+
         shopItems.remove(equipment);
         purchasedItems.add(equipment);
         equipment.setPurchased(true);
         team.updateResources();
+
+        notifyRefreshListeners();
         return 0;
     }
 
@@ -69,11 +67,32 @@ public class EquipmentManager {
         team.reduceMoney(price);
         ((Upgradable) equipment).upgrade();
         team.updateResources();
+
+        if(equipment.getLevel() >= ((Upgradable) equipment).getMaxLevel()) {
+            finishItem(equipment);
+        }
+
+        notifyRefreshListeners();
         return 0;
     }
 
+    private void finishItem(Equipment equipment) {
+
+
+    }
 
     public ArrayList<Equipment> getShopItemList() { return shopItems; }
     public ArrayList<Equipment> getPurchasedItemList() { return purchasedItems; }
+
+
+    public void addRefreshEmployeeListener(Callback callback) {
+        if (!refreshEquipmentListener.contains(callback)) refreshEquipmentListener.add(callback);
+    }
+
+    private void notifyRefreshListeners() {
+        for (Callback c : refreshEquipmentListener.toArray(new Callback[refreshEquipmentListener.size()])) {
+            c.callback();
+        }
+    }
 
 }

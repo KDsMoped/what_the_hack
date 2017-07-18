@@ -3,6 +3,7 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +16,16 @@ import de.hsd.hacking.Utils.Constants;
 
 public class GameTime extends Actor {
 
-    public static final GameTime instance = new GameTime();
+    public static GameTime instance;
 
     private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .025f;
     private static final int CLOCK_STEPS = 9;
 
-    private float currentTime;
-    private int currentDay;
+    @Expose private float currentTime;
+    @Expose private int currentDay;
     private List<TimeChangedListener> timeChangedListeners;
-    private int currentStep;
+
+    @Expose private int currentStep;
 
 
     //for de-serializing?
@@ -33,11 +35,13 @@ public class GameTime extends Actor {
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
     }*/
 
-    private GameTime() {
+    public GameTime() {
         this.currentDay = 1;
         this.currentTime = 0f;
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
         this.currentStep = 0;
+
+        instance = this;
     }
 
     @Override
@@ -96,6 +100,14 @@ public class GameTime extends Actor {
 
     public void setCurrentDay(int currentDay) {
         this.currentDay = currentDay;
+    }
+
+    public int getCurrentStep() {
+        return currentStep;
+    }
+
+    public void setCurrentStep(int currentStep) {
+        this.currentStep = currentStep;
     }
 
     public List<TimeChangedListener> getTimeChangedListeners() {

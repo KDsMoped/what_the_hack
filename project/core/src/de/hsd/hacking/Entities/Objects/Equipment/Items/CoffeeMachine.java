@@ -1,11 +1,16 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Objects.Desk;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -22,10 +27,8 @@ public class CoffeeMachine extends Equipment implements Upgradable {
 
     private int state = 1;
 
-    int maxLevel;
-
     public CoffeeMachine(){
-        super("Coffee Maker 5000", 100, /*EquipmentAttributeType.SKILL_ALLPURPOSE, 5,*/ Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        super("Coffee Maker", 100, /*EquipmentAttributeType.SKILL_ALLPURPOSE, 5,*/ Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
 
         Assets assets = Assets.instance();
         this.stillRegion = assets.coffeemachine.get(0);
@@ -38,7 +41,7 @@ public class CoffeeMachine extends Equipment implements Upgradable {
         team.updateResources();
     }
 
-    public void setMaxLevel() {maxLevel = 5; }
+    public int getMaxLevel() { return 5; }
 
     @Override
     public int getAllPurposeSkillBonus() { return level * 5; }
@@ -54,6 +57,11 @@ public class CoffeeMachine extends Equipment implements Upgradable {
         //CoffeeMachine coffeeMachine = new CoffeeMachine();
         desk.setContainedObject(this, 0);
         GameStage.instance().addTouchable(this);
+    }
+
+    @Override
+    public TextureRegionDrawable getIcon() {
+        return Assets.instance().coffeemachine_icon;
     }
 
     @Override

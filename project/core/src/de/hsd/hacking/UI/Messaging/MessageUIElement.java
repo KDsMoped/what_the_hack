@@ -1,5 +1,6 @@
 package de.hsd.hacking.UI.Messaging;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -29,6 +30,11 @@ public class MessageUIElement extends Table {
 
     private void initUI() {
         this.clearChildren();
+        this.setTouchable(Touchable.enabled);
+
+        if (message.getListener() != null) {
+            this.addListener(message.getListener());
+        }
 
         Image img = new Image(Message.GetTypeIcon(message));
 

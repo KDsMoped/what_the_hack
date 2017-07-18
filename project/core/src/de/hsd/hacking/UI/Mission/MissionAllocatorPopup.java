@@ -2,12 +2,15 @@ package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
@@ -22,14 +25,14 @@ public class MissionAllocatorPopup extends Popup {
     private Callback onCancel;
 
     public MissionAllocatorPopup(MissionCallback onSelectMission, Callback onCancel) {
-        super(60);
+        super(50);
 
         this.onSelectMission = onSelectMission;
         this.onCancel = onCancel;
 
-        closeButton.setText("Cancel");
+//        closeButton.setText("Cancel");
 //        closeButton.setWidth(120);
-        mainTable.removeActor(closeButton);
+//        mainTable.removeActor(closeButton);
 //        mainTable.add(closeButton).padBottom(4f).width(100).height(23).center();
 //        mainTable.setVisible(true);
 
@@ -45,30 +48,29 @@ public class MissionAllocatorPopup extends Popup {
 //        content.setDebug(true);
 
         Label title = new Label("Choose a mission to work on", Constants.LabelStyle());
-        title.setFontScale(1.0f);
+//        title.setFontScale(1.0f);
 
         Table missionContainer = new Table();
         ScrollPane missionScroller = new ScrollPane(missionContainer);
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-//            MissionUIElement mission = new MissionUIElement(MissionFactory.CreateRandomMission());
-//            mission.addListener(new ChangeListener() {
+//            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
+//            button.addListener(new ChangeListener() {
 //                @Override
 //                public void changed(ChangeEvent event, Actor actor) {
 //                    selectMission(mission);
 //                }
 //            });
-//
-//            missionContainer.add(mission).expandX().fillX().padTop(5).padBottom(5).row();
+//            missionContainer.add(button).expandX().fillX().center().padBottom(5).row();
 
-            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
-            button.addListener(new ChangeListener() {
+
+            MissionUIElement uiElement = new MissionUIElement(mission, true, "Choose", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     selectMission(mission);
                 }
             });
-            missionContainer.add(button).expandX().fillX().center().padBottom(5).row();
+            missionContainer.add(uiElement).expandX().fillX().center().padBottom(5).row();
         }
 
 
@@ -91,13 +93,13 @@ public class MissionAllocatorPopup extends Popup {
 
         addMainContent(content);
 
-        content.add().height(30);
+//        content.add().height(30);
+//        content.row();
+        content.add(title).expandX().fillX().padLeft(20).padBottom(5).padTop(5).center();
         content.row();
-        content.add(title).expandX().fillX().padBottom(5).center();
-        content.row();
-        content.add(missionScroller).expand().fill().padLeft(20).padRight(20).height(105);
-        content.row();
-        content.add(closeButton).expand().fill().bottom().padTop(3f).padBottom(3f).width(100).height(23);
+        content.add(missionScroller).expand().fill().padLeft(20).padRight(20).height(140).width(390);
+//        content.row();
+//        content.add(closeButton).expand().fill().bottom().padTop(3f).padBottom(3f).width(100).height(23);
     }
 
     public void selectMission(Mission mission) {

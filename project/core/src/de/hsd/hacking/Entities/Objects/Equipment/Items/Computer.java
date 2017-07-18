@@ -1,15 +1,18 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.States.WaitingState;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;
 import de.hsd.hacking.Utils.Callback.Callback;
@@ -35,12 +38,8 @@ public class Computer extends Equipment implements Upgradable {
     private int tintFrames = 0;
     private Chair workingChair;
 
-    private int maxLevel;
-    private int mul;
-
-
     public Computer() {
-        super("Super Computer 3000", 400, /*EquipmentAttributeType.COMPUTATIONPOWER, 100,*/
+        super("Computer", 400, /*EquipmentAttributeType.COMPUTATIONPOWER, 100,*/
                 Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
@@ -53,12 +52,15 @@ public class Computer extends Equipment implements Upgradable {
         team.updateResources();
     }
 
-    public void setMaxLevel() {
-        maxLevel = 5;
-    }
+    public int getMaxLevel() { return 5; }
 
     @Override
     public int getComputationPowerBonus() { return level * 100; }
+
+    @Override
+    public TextureRegionDrawable getIcon() {
+        return Assets.instance().computer_icon;
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -159,6 +161,7 @@ public class Computer extends Equipment implements Upgradable {
     public void onTouch() {
         tintFrames += 10;
         if (team.isEmployeeSelected()) {
+            team.getSelectedEmployee().getState().cancel();
             team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
             team.deselectEmployee();
         }

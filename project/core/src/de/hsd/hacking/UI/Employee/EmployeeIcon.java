@@ -21,6 +21,7 @@ public class EmployeeIcon extends Container<Actor>{
                 return employee;
             }
         };
+//        setDebug(true);
 
         init();
     }

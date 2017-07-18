@@ -1,5 +1,7 @@
-package de.hsd.hacking.Entities.Objects.Equipment;
+package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
@@ -10,11 +12,8 @@ import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
 public class Modem extends Equipment implements Upgradable {
 
-    private int maxLevel;
-
-
     public Modem() {
-        super("Super Modem 2000", 100, /*EquipmentAttributeType.BANDWIDTH, 100,*/ null, true, Direction.DOWN, 0, Direction.DOWN);
+        super("Modem", 100, /*EquipmentAttributeType.BANDWIDTH, 100,*/ null, true, Direction.DOWN, 0, Direction.DOWN);
     }
 
     @Override
@@ -25,7 +24,7 @@ public class Modem extends Equipment implements Upgradable {
         team.updateResources();
     }
 
-    public void setMaxLevel() { maxLevel = 5; }
+    public int getMaxLevel() { return 5; }
 
     public void onTouch() {};
 

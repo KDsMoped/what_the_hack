@@ -1,16 +1,16 @@
 package de.hsd.hacking.Entities.Employees;
 
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.DataLoader;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.CheapToHire;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
-import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
+import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.*;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.MathUtilities;
 import de.hsd.hacking.Utils.RandomUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 
 /**
  * This creates Employees based on the players progress.
@@ -22,7 +22,14 @@ public class EmployeeFactory {
     private static final int COST_INCREMENT_SKILL = 6;
     private static final int COST_INCREMENT_ALLPURPOSE = 12;
     private static final float SALARY_VARIANCE = 0.1f;
-    private static final int PROGRESS_VARIANCE = 4;
+    private static final int PROGRESS_VARIANCE = 6;
+    private static final int LEVELUP_THRESHOLD = 10;
+
+    public static final float SCORE_MISSION_COMPLETED = 2;
+    public static final float SCORE_MISSION_COMPLETED_PERLEVEL = 0.5f;
+    public static final float SCORE_MISSION_CRITICAL_SUCCESS = 0.1f;
+
+
 
     /**
      * Defines the correlation between game progress and employee competence.
@@ -43,50 +50,6 @@ public class EmployeeFactory {
      */
     private static int calcSalary(int gameProgress, float score) {
         return ((int) ((5 + score * 2) * MathUtilities.mult_var(SALARY_VARIANCE)) * 10);
-    }
-
-    /**
-     * Creates an Employee based on the players progress.
-     *
-     * @return
-     */
-    public static Employee createEmployee() {
-
-        return createEmployee(Team.instance().calcGameProgress());
-    }
-
-    /**
-     * Creates an Employee based on the given progress.
-     *
-     * @param gameProgress
-     * @return
-     */
-    public static Employee createEmployee(int gameProgress) {
-
-        int progress = Math.max(0, gameProgress + MathUtilities.var(PROGRESS_VARIANCE));
-
-
-        Employee freshman = new Employee();
-        final float score = calcScore(progress);
-        float remainingScore = score;
-
-        freshman.setName(DataLoader.getInstance().getNewName());
-
-        ArrayList<Skill> skillSet = new ArrayList<Skill>();
-        skillSet.add(new Skill(SkillType.All_Purpose, 1));
-
-        //sending freshman to university
-        remainingScore -= learnSkill(skillSet);
-
-        while (remainingScore > 0) {
-            remainingScore -= educateEmployee(freshman, skillSet);
-        }
-
-        Collections.sort(skillSet);
-        freshman.setSkillSet(skillSet);
-        freshman.setSalary(calcSalary(progress, score - remainingScore));
-
-        return freshman;
     }
 
     /**
@@ -118,21 +81,101 @@ public class EmployeeFactory {
     }
 
     /**
-     * Rolls for a random feature for the Employee, adds it, and returns its score cost.
+     * Creates an Employee based on the players progress.
      *
-     * @param employee
-     * @param skillSet
      * @return
      */
-    private static float educateEmployee(Employee employee, ArrayList<Skill> skillSet) {
+    public static Employee createEmployee() {
 
-        int roll = RandomUtils.randomIntWithin(1, 9);
+        return createEmployee(Team.instance().calcGameProgress());
+    }
+
+    /**
+     * Creates an Employee based on the given progress.
+     *
+     * @param gameProgress
+     * @return
+     */
+    public static Employee createEmployee(int gameProgress) {
+
+        int progress = Math.max(0, gameProgress + MathUtilities.var(PROGRESS_VARIANCE));
+
+
+        Employee freshman = new Employee();
+//        final float score = calcScore(progress);
+        freshman.incrementFreeScore(calcScore(progress));
+
+//        float remainingScore = score;
+
+        Employee.Gender gender = Employee.Gender.random();
+        freshman.setGender(gender);
+        freshman.setName(DataLoader.getInstance().getNewName(gender));
+
+        //spend score points on random attributes and skills
+        learnBasicSkillSet(freshman);
+
+//        freshman.incrementUsedScore(score - remainingScore);
+        freshman.setSalary(calcSalary(progress, freshman.getUsedScore()/* + freshman.getFreeScore()*/));
+
+        return freshman;
+    }
+
+    /**
+     * Creates an employees basic skillSet and levels it according to the available score points. Returns the remaining score points.
+     *
+     * @param employee
+     * @return
+     */
+    private static void learnBasicSkillSet(Employee employee){
+
+        ArrayList<Skill> skillSet = new ArrayList<Skill>();
+        skillSet.add(new Skill(SkillType.All_Purpose, 1));
+        employee.setSkillSet(skillSet);
+
+        //sending freshman to university
+        employee.useScore(learnSkill(employee, skillSet));
+
+        spendScorePoints(employee, skillSet);
+    }
+
+    /**
+     * Spends all free score points of this employee.
+     * @param employee
+     */
+    public static void spendScorePoints(Employee employee) {
+
+        spendScorePoints(employee, employee.getSkillset());
+    }
+
+    /**
+     * Spends all free score points of this employee.
+     * @param employee
+     */
+    private static void spendScorePoints(Employee employee, Collection<Skill> skillSet) {
+
+        while (employee.getFreeScore() > 0) {
+            employee.useScore(educateEmployee(employee, skillSet));
+        }
+
+        employee.sortSkills();
+    }
+
+    /**
+         * Rolls for a random feature for the Employee, adds it, and returns its score cost.
+         *
+         * @param employee
+         * @param skillSet
+         * @return
+         */
+    private static float educateEmployee(Employee employee, Collection<Skill> skillSet) {
+
+        int roll = RandomUtils.randomIntWithin(1, 10);
 
         switch (roll) {
             case 1:
                 return incrementAllpurpose(skillSet);
             case 2:
-                return learnSkill(skillSet);
+                return learnSkill(employee, skillSet);
             case 3:
             case 4:
             case 5:
@@ -143,6 +186,7 @@ public class EmployeeFactory {
             case 9:
                 return rollSpecial(employee);
             case 10:
+                return 1; //wasting time playing video games
             case 11:
             case 12:
             case 13:
@@ -162,7 +206,8 @@ public class EmployeeFactory {
      * @param skillSet
      * @return
      */
-    private static float learnSkill(ArrayList<Skill> skillSet) {
+    private static float learnSkill(Employee employee, Collection<Skill> skillSet) {
+
         if (skillSet.size() >= MAX_SKILL_NUMBER) return 0;
 
         SkillType skillType;
@@ -171,7 +216,8 @@ public class EmployeeFactory {
             skillType = SkillType.getRandomSkill(true);
         } while (!isUniqueSkill(skillSet, skillType));
 
-        skillSet.add(new Skill(skillType, 1));
+        employee.learnSkill(new Skill(skillType, 1), false);
+
         return COST_NEW_SKILL;
     }
 
@@ -182,7 +228,7 @@ public class EmployeeFactory {
      * @param type
      * @return
      */
-    private static boolean isUniqueSkill(ArrayList<Skill> skillSet, SkillType type) {
+    private static boolean isUniqueSkill(Collection<Skill> skillSet, SkillType type) {
         for (Skill skill : skillSet) {
             if (skill.getType() == type) return false;
         }
@@ -195,10 +241,17 @@ public class EmployeeFactory {
      * @param skillSet
      * @return
      */
-    private static float incrementAllpurpose(ArrayList<Skill> skillSet) {
-        skillSet.get(0).incrementSkill();
+    private static float incrementAllpurpose(Collection<Skill> skillSet) {
 
-        return COST_INCREMENT_ALLPURPOSE;
+        for (Skill skill :skillSet) {
+            if (skill.getType()  != SkillType.All_Purpose) continue;
+
+            skill.incrementSkill();
+            return COST_INCREMENT_ALLPURPOSE;
+        }
+
+        Gdx.app.error(Constants.TAG, "Error: Employee does not have all-purpose skill!");
+        return 0;
     }
 
     /**
@@ -207,11 +260,14 @@ public class EmployeeFactory {
      * @param skillSet
      * @return Returns the score cost of this skill.
      */
-    private static float incrementSkill(ArrayList<Skill> skillSet) {
+    private static float incrementSkill(Collection<Skill> skillSet) {
 
         if (skillSet.size() < 2) return 0;
 
-        Skill skill = skillSet.get(RandomUtils.randomIntWithin(1, skillSet.size() - 1));
+        Skill skill;
+        do {
+            skill = skillSet.toArray(new Skill[skillSet.size()])[RandomUtils.randomIntWithin(0, skillSet.size() - 1)];
+        }while (skill.getType() == SkillType.All_Purpose);
 
         skill.incrementSkill();
 
@@ -224,7 +280,7 @@ public class EmployeeFactory {
      * @return
      */
     private static float rollSpecial(Employee padawan){
-        int roll = RandomUtils.randomIntWithin(1, 4);
+        int roll = RandomUtils.randomIntWithin(1, 6);
 
         switch (roll) {
             case 1:
@@ -236,7 +292,9 @@ public class EmployeeFactory {
             case 4:
                 return padawan.addEmployeeSpecial(new CheapToHire(padawan));
             case 5:
+                return padawan.addEmployeeSpecial(new FastLearner(padawan));
             case 6:
+                return padawan.addEmployeeSpecial(new CodeMonkey(padawan));
             case 7:
             case 8:
             case 9:
@@ -247,5 +305,21 @@ public class EmployeeFactory {
         }
 
         return 0;
+    }
+
+    /**
+     * Given that the employees free score point exceed the level-up threshold,
+     * @param employee
+     */
+    public static void levelUp(Employee employee){
+        if(employee.getFreeScore() < LEVELUP_THRESHOLD) return;
+
+        Gdx.app.log(Constants.TAG, employee.getName() + " levels up!");
+
+        spendScorePoints(employee);
+
+        Gdx.app.log(Constants.TAG, employee.getName() + " has now " + employee.getUsedScore() + " score.");
+
+        employee.onLevelUp();
     }
 }

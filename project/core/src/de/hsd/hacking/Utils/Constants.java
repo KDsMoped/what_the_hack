@@ -37,6 +37,7 @@ public class Constants {
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
     private static Label.LabelStyle labelStyle;
+    private static Label.LabelStyle tinyLabelStyle;
     private static Label.LabelStyle terminalLabelStyle;
 
     /**
@@ -87,6 +88,16 @@ public class Constants {
         }
 
         return labelStyle;
+    }
+
+    public static Label.LabelStyle TinyLabelStyle() {
+        if (tinyLabelStyle == null) {
+            tinyLabelStyle = new Label.LabelStyle();
+            tinyLabelStyle.font = Assets.instance().tiny_label_font;
+            tinyLabelStyle.fontColor = Color.BLACK;
+        }
+
+        return tinyLabelStyle;
     }
 
     public static Label.LabelStyle TerminalLabelStyle() {

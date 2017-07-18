@@ -32,4 +32,9 @@ public class CheapToHire extends EmployeeSpecial {
     public boolean isHidden() {
         return true;
     }
+
+    @Override
+    public boolean isLearnable() {
+        return false;
+    }
 }

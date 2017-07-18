@@ -1,5 +1,7 @@
 package de.hsd.hacking.Data.Messaging;
 
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -24,7 +26,7 @@ public class MessageManager implements EventSender{
     private Message message;
 
     public MessageManager() {
-
+        instance = this;
     }
 
     /**
@@ -40,7 +42,7 @@ public class MessageManager implements EventSender{
      * @param text Message text.
      * @param listener Callback.
      */
-    public void Info(String text, Callback listener) {
+    public void Info(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
         message.setType(Message.Type.INFO);
         this.message = message;
@@ -61,7 +63,7 @@ public class MessageManager implements EventSender{
      * @param text Message text.
      * @param listener Callback.
      */
-    public void Warning(String text, Callback listener) {
+    public void Warning(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
         message.setType(Message.Type.WARNING);
         this.message = message;
@@ -82,7 +84,7 @@ public class MessageManager implements EventSender{
      * @param text Message text.
      * @param listener Callback.
      */
-    public void Error(String text, Callback listener) {
+    public void Error(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
         message.setType(Message.Type.ERROR);
         this.message = message;
@@ -95,7 +97,7 @@ public class MessageManager implements EventSender{
      * @param text Message text.
      * @param listener Callback.
      */
-    public void Help(String text, Callback listener) {
+    public void Help(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
         message.setType(Message.Type.HELP);
         this.message = message;
@@ -103,7 +105,7 @@ public class MessageManager implements EventSender{
         notifyListeners(TYPE);
     }
 
-    private Message CreateNewMessage(String text, Callback listener) {
+    private Message CreateNewMessage(String text, ClickListener listener) {
         Message message = new Message();
 
         Date date = DateUtils.ConvertDaysToDate(GameTime.instance.getCurrentDay());
@@ -133,11 +135,11 @@ public class MessageManager implements EventSender{
 
     /**
      * Global instance for the MessageManager.
-     * @return Glocal instance.
+     * @return Global instance.
      */
     public static MessageManager instance() {
 
-        if (instance == null) instance = new MessageManager();
+        if (instance == null) return new MessageManager();
         return instance;
     }
 

@@ -27,13 +27,15 @@ import de.hsd.hacking.Utils.Constants;
  */
 public abstract class Popup extends Group {
     private final int POPUP_MARGIN_DEFAULT = 20;
+    protected static final int SCROLLER_WIDTH = 420;
+    protected static final int SCROLLER_HEIGHT = 195;
+    protected static final int SCROLLER_ELEMENT_PADDING = 5;
 
     protected Table mainTable = new Table();
     protected Table noBackgroundClick = new Table();
     protected TextButton closeButton;
 
     private VerticalGroup content = new VerticalGroup();
-    private List<EventListener> listeners;
 
     public Popup(int popupMargin) {
         init(popupMargin);
@@ -61,22 +63,22 @@ public abstract class Popup extends Group {
         mainTable.setVisible(false);
 
         // Setup close button
-        closeButton = new TextButton("OK", Constants.TextButtonStyle());
+        closeButton = new TextButton("X", Constants.TextButtonStyle());
         closeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 close();
             }
         });
+        closeButton.align(Align.center);
 
         // Content container setup
         content.setTouchable(Touchable.enabled);
         content.align(Align.top);
 
         // Table layout
-        mainTable.add(content).expand().fill();
-        mainTable.row();
-        mainTable.add(closeButton).padTop(3f).padBottom(3f).width(50).height(23);
+        mainTable.add(content).expand().fill().padRight(-20);
+        mainTable.add(closeButton).top().right().pad(1f).padTop(-6f).padRight(2f).width(20).height(20);
 
         // No Background Click
         noBackgroundClick.setVisible(false);
@@ -88,7 +90,6 @@ public abstract class Popup extends Group {
 
         addActor(noBackgroundClick);
         addActor(mainTable);
-        listeners = new ArrayList<EventListener>(4);
     }
 
     @Override
@@ -108,22 +109,14 @@ public abstract class Popup extends Group {
     protected void show() {
         mainTable.setVisible(true);
         noBackgroundClick.setVisible(true);
-        for (EventListener listener
-                : listeners){
-            listener.OnEvent(EventListener.EventType.POPUP_SHOWN, this);
-        }
     }
 
     /**
      * Disables act and draw for the popup window.
      */
-    protected void close() {
+    public void close() {
         mainTable.setVisible(false);
         noBackgroundClick.setVisible(false);
-        for (EventListener listener
-                : listeners){
-            listener.OnEvent(EventListener.EventType.POPUP_CLOSED, this);
-        }
     }
 
     public void toggleView() {
@@ -148,11 +141,4 @@ public abstract class Popup extends Group {
         return content;
     }
 
-    public void addEventListener(final EventListener listener) {
-        if (!listeners.contains(listener)) listeners.add(listener);
-    }
-
-    public boolean removeListener(final EventListener listener) {
-        return listeners.remove(listener);
-    }
 }
