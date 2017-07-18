@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -131,6 +132,9 @@ public class StatusBar extends Actor implements TimeChangedListener {
         // window_width / 2 - topbar_width / 2
         // so we have to set position as last because we need the width of the top bar
         items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight() + 0);
+
+        this.setDate(GameTime.instance.getCurrentDay());
+        this.setTime(GameTime.instance.getCurrentStep());
     }
 
     /**

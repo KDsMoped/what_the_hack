@@ -3,6 +3,8 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.google.gson.annotations.Expose;
+
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.TimeChangedListener;
@@ -30,8 +32,8 @@ public class EmployeeManager implements TimeChangedListener {
         return instance;
     }
 
-    private ArrayList<Employee> availableEmployees;
-    private ArrayList<Employee> hiredEmployees;
+    @Expose private ArrayList<Employee> availableEmployees;
+    @Expose private ArrayList<Employee> hiredEmployees;
 
     private ArrayList<Callback> refreshEmployeeListener = new ArrayList<Callback>();
 
@@ -238,5 +240,9 @@ public class EmployeeManager implements TimeChangedListener {
         for (Callback c : refreshEmployeeListener.toArray(new Callback[refreshEmployeeListener.size()])) {
             c.callback();
         }
+    }
+
+    public static void setInstance(EmployeeManager instance) {
+        EmployeeManager.instance = instance;
     }
 }

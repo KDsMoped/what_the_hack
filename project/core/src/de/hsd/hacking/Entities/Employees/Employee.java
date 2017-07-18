@@ -139,7 +139,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      */
     private float freeScore;
 
-    private GameStage stage;
+    private transient GameStage stage;
 
     /**
      * Creates a default employee ready to be shaped by the EmployeeFactory.

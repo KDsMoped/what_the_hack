@@ -15,8 +15,6 @@ public class HackingGame extends Game {
 		assets = new Assets();
 		assets.load();
 
-        SaveGameManager.LoadGame();
-
 		ScreenManager.initialize(this);
 		ScreenManager.setMenuScreen();
 	}
