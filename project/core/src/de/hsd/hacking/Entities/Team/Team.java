@@ -1,4 +1,3 @@
-==== BASE ====
 package de.hsd.hacking.Entities.Team;
 
 import java.util.ArrayList;
@@ -268,4 +267,3 @@ public class Team {
         Team.instance = instance;
     }
 }
-==== BASE ====
