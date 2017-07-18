@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,8 +58,8 @@ public class GameStage extends Stage implements EventListener{
 
     private Vector2 checkVector;
     private TileMap tileMap;
-    private Team team;
-    private EmployeeManager employeeManager;
+    @Expose private Team team;
+    @Expose private EmployeeManager employeeManager;
     private StatusBar statusBar;
     private MessageBar messageBar;
 
@@ -236,8 +237,6 @@ public class GameStage extends Stage implements EventListener{
 
         employeeManager.dismissAll();
         employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
-
-
     }
 
     @Override

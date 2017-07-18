@@ -3,25 +3,43 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.List;
+
+import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by ju on 30.05.17.
- */
-
 public final class SaveGameManager {
+    @Expose private static SaveGameContainer savedObjects = new SaveGameContainer() {
+    };
 
     // TBD
-    public static Object LoadGame() {
-        Object obj = null;
+    public static void LoadGame() {
+        savedObjects = (SaveGameContainer) LoadObject("de.hsd.hacking.Data.SaveGameContainer");
 
-        return obj;
+        GameTime.instance = savedObjects.getGameTime();
     }
 
     // TBD
     public static boolean SaveGame() {
         boolean success = false;
+        savedObjects = new SaveGameContainer();
+
+        // Employee
+        // Employee Status
+        // Employee Stats
+        //
+        // Game Time
+
+        savedObjects.setGameTime(GameTime.instance);
+        // Messages
+
+        SaveObject(savedObjects);
 
         return success;
     }
