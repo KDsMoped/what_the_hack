@@ -13,6 +13,7 @@ import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.States.WaitingState;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;
 import de.hsd.hacking.Utils.Callback.Callback;
@@ -37,13 +38,14 @@ public class Computer extends Equipment implements Upgradable {
     private float elapsedTime = 0f;
     private int tintFrames = 0;
     private Chair workingChair;
+    private Workspace workspace;
 
-    public Computer() {
-        super("Computer", 400, /*EquipmentAttributeType.COMPUTATIONPOWER, 100,*/
-                Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+    public Computer(String name, Workspace workspace) {
+        super(name, 400, Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
+        this.workspace = workspace;
     }
 
     //Upgrade functions
@@ -56,6 +58,13 @@ public class Computer extends Equipment implements Upgradable {
 
     @Override
     public int getComputationPowerBonus() { return level * 100; }
+
+    @Override
+    public void setPurchased(boolean isPurchased) {
+        super.setPurchased(isPurchased);
+
+        workspace.addComputer(this);
+    }
 
     @Override
     public TextureRegionDrawable getIcon() {

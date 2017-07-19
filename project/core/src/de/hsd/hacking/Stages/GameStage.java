@@ -25,6 +25,7 @@ import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
+import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.UI.Mission.MissionStatusOverlay;
@@ -69,6 +70,9 @@ public class GameStage extends Stage implements EventListener{
 
     private List<Touchable> touchables;
 
+    private List<Workspace> workspaces;
+
+
     private final MissionBrowser missionBrowser = new MissionBrowser();
 
     private Group foreground, background, ui, popups, overlay;
@@ -104,6 +108,7 @@ public class GameStage extends Stage implements EventListener{
         popups = new Group();
         overlay = new Group();
         touchables = new ArrayList<Touchable>();
+        workspaces = new ArrayList<Workspace>();
 
         // the order the actors are added is important
         // it is also the drawing order
@@ -140,19 +145,14 @@ public class GameStage extends Stage implements EventListener{
         tileMap.addObject(0, 3, ObjectFactory.generateObject(ObjectType.LAMP, assets));
 
         //Workspaces
-        createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4), (Constants.TILES_PER_SIDE / 3) * 2);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
-
-        //other interior
-        /*
-        Desk desk = new Desk(assets, Direction.RIGHT, 1);
-        tileMap.addObject(10, 0, desk);
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
-        desk.setContainedObject(coffeeMachine);
-        addTouchable(coffeeMachine);
-        */
+        Workspace workspace1 = new Workspace(tileMap, Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
+        Workspace workspace2 = new Workspace(tileMap, (Constants.TILES_PER_SIDE / 4) * 3, Constants.TILES_PER_SIDE / 3);
+        Workspace workspace3 = new Workspace(tileMap, (Constants.TILES_PER_SIDE / 4), (Constants.TILES_PER_SIDE / 3) * 2);
+        Workspace workspace4 = new Workspace(tileMap, (Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
+        workspaces.add(workspace1);
+        workspaces.add(workspace2);
+        workspaces.add(workspace3);
+        workspaces.add(workspace4);
     }
 
     private void InitUI() {
@@ -231,16 +231,6 @@ public class GameStage extends Stage implements EventListener{
 
     }
 
-    private void createWorkSpace(int tileX, int tileY) {
-        Desk desk = new Desk(assets, Direction.RIGHT, 1);
-        tileMap.addObject(tileX, tileY, desk);
-        Chair chair = new Chair(assets);
-        tileMap.addObject(tileX, tileY - 1, chair);
-        Computer computer = new Computer();
-        computer.setWorkingChair(chair);
-        addTouchable(computer);
-        desk.setContainedObject(computer);
-    }
 
     private void InitTeam() {
         employeeManager = EmployeeManager.instance();
@@ -417,4 +407,6 @@ public class GameStage extends Stage implements EventListener{
         missionStatusOverlay.setVisible(false);
         missionStatusOverlay.setMissionWorker(null);
     }
+
+    public List<Workspace> getWorkspaces() {return workspaces; }
 }

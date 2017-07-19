@@ -18,19 +18,8 @@ public abstract class Equipment extends TouchableInteractableObject {
         COMPUTER, SWITCH, COFFEEMACHINE, MODEM, SERVER;
     }
 
-    /*
-    public enum EquipmentAttributeType {
-        MONEY, BANDWIDTH, COMPUTATIONPOWER,
-        SKILL_SOCIAL, SKILL_HARDWARE, SKILL_SOFTWARE, SKILL_NETWORK,
-        SKILL_CRYPTO, SKILL_SEARCH, SKILL_ALLPURPOSE;
-        //Unfortunately there doesn't seem to be an elegant way to mirror Employee.SkillType here.
-    }
-    */
-
     protected String name;
     protected float price;
-    //protected EquipmentAttributeType attributeType;
-    //protected int attributeValue = 100;
     protected boolean isPurchased = false;
 
     protected int level = 1;
@@ -43,16 +32,8 @@ public abstract class Equipment extends TouchableInteractableObject {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
         this.name = name;
         setPrice(price);
-        //setAttributeType(attributeType);
-        //setAttributeValue(attributeValue);
         this.team = team.instance();
     }
-
-    //public void setAttributeType(EquipmentAttributeType attributeType) { this.attributeType = attributeType; }
-    //public EquipmentAttributeType getAttributeType() { return attributeType; }
-
-    //public void setAttributeValue(int attributeValue) { this.attributeValue = attributeValue; }
-    //public int getAttributeValue() { return attributeValue; }
 
     public int getLevel() { return level; }
 
