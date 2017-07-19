@@ -28,14 +28,15 @@ public class MissionUIElement extends Table {
 
     private Label name;
     private Label time;
-    private Label description;
+    private Label description, outcomeDescription;
     private Label money;
     private Table skills;
 
     private TextButton actionButton;
 
     private String buttonText;
-    private Boolean compactView;
+    private Boolean showDescription;
+    private Boolean showOutcome;
 
     private EventListener buttonListener;
 
@@ -43,13 +44,14 @@ public class MissionUIElement extends Table {
      * Constructor.
      *
      * @param mission        Mission that shall be displayed.
-     * @param compactView    compactView hides the mission description.
+     * @param showDescription    showDescription hides the mission description.
      * @param buttonText     Button text.
      * @param buttonListener Button callback.
      */
-    public MissionUIElement(Mission mission, Boolean compactView, String buttonText, EventListener buttonListener) {
+    public MissionUIElement(Mission mission, boolean showDescription, boolean showOutcome, String buttonText, EventListener buttonListener) {
         this.mission = mission;
-        this.compactView = compactView;
+        this.showDescription = showDescription;
+        this.showOutcome = showOutcome;
         this.buttonText = buttonText;
         this.buttonListener = buttonListener;
 
@@ -98,13 +100,20 @@ public class MissionUIElement extends Table {
         Image calendar = new Image(Assets.instance().ui_calendar);
 
         // Add mission name to main table
-        this.add(name).expandX().fillX().left();
+        add(name).expandX().fillX().left();
 
-        if (!compactView) {
+        if (showDescription) {
             description = new Label(mission.getDescription(), Constants.LabelStyle());
             description.setWrap(true);
-            this.row().padTop(10f);
-            this.add(description).left().expand().fill();
+            row().padTop(10f);
+            add(description).left().expand().fill();
+        }
+
+        if (showOutcome) {
+            outcomeDescription = new Label(mission.getSuccessText(), Constants.LabelStyle());
+            outcomeDescription.setWrap(true);
+            row().padTop(10f);
+            add(outcomeDescription).left().expand().fill();
         }
 
         // setup helper tables
@@ -165,12 +174,12 @@ public class MissionUIElement extends Table {
         this.actionButton = actionButton;
     }
 
-    public Boolean getCompactView() {
-        return compactView;
+    public Boolean getShowDescription() {
+        return showDescription;
     }
 
-    public void setCompactView(Boolean compactView) {
-        this.compactView = compactView;
+    public void setShowDescription(Boolean showDescription) {
+        this.showDescription = showDescription;
     }
 
     public EventListener getButtonListener() {

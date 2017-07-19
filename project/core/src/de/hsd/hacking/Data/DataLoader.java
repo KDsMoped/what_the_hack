@@ -97,6 +97,9 @@ public class DataLoader {
     public String getNewCompanyName() {
         return missionVariables.getRandomCompany();
     }
+    public String getNewInstitution() {
+        return missionVariables.getRandomInstitution();
+    }
     public String getNewCountryName() {
         return missionVariables.getRandomCountry();
     }

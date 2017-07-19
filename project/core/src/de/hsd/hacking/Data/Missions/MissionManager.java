@@ -111,8 +111,8 @@ public class MissionManager implements TimeChangedListener {
         int money = mission.getOutcome().rewardMoney;
         String text;
 
-        if (mission.hasSuccessText()) text = "Job " + mission.getName() + " completed! " + mission.getSuccessText() + " You've earned " + money + "$.";
-        else text = "Job " + mission.getName() + " completed! You've earned " + money + "$.";
+        if (mission.hasSuccessText()) text = "Job '" + mission.getName() + "' completed! " + mission.getSuccessText() + " You've earned " + money + "$.";
+        else text = "Job '" + mission.getName() + "' completed! You've earned " + money + "$.";
 
         Team.instance().addMoney(money);
         messageManager.Info(text);
@@ -130,8 +130,8 @@ public class MissionManager implements TimeChangedListener {
         activeMissions.remove(mission);
 
         String failText;
-        if (mission.hasFailText()) failText = "Job " + mission.getName() + " failed. " + mission.getFailText();
-        else failText = "Job " + mission.getName() + " failed.";
+        if (mission.hasFailText()) failText = "Job '" + mission.getName() + "' failed. " + mission.getFailText();
+        else failText = "Job '" + mission.getName() + "' failed.";
 
         messageManager.Info(failText);
         Gdx.app.log(Constants.TAG, failText);

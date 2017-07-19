@@ -32,7 +32,7 @@ public abstract class Equipment extends TouchableInteractableObject {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
         this.name = name;
         setPrice(price);
-        this.team = team.instance();
+        this.team = Team.instance();
     }
 
     public int getLevel() { return level; }

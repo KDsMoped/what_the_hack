@@ -1,6 +1,8 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
@@ -96,8 +98,8 @@ public class EquipmentManager {
 
     }
 
-    public ArrayList<Equipment> getShopItemList() { return shopItems; }
-    public ArrayList<Equipment> getPurchasedItemList() { return purchasedItems; }
+    public Collection<Equipment> getShopItemList() { return Collections.unmodifiableList(shopItems); }
+    public Collection<Equipment> getPurchasedItemList() { return Collections.unmodifiableList(purchasedItems); }
 
 
     public void addRefreshEmployeeListener(Callback callback) {

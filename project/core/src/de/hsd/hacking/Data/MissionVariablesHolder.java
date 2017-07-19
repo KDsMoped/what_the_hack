@@ -18,6 +18,7 @@ public class MissionVariablesHolder {
     private ArrayList<String> webservices = new ArrayList<String>();
     private ArrayList<String> software = new ArrayList<String>();
     private ArrayList<String> universities = new ArrayList<String>();
+    private ArrayList<String> institutions = new ArrayList<String>();
     private ArrayList<String> towns = new ArrayList<String>();
     private ArrayList<String> countries = new ArrayList<String>();
 
@@ -30,6 +31,16 @@ public class MissionVariablesHolder {
     public String getRandomCompany() {
         return RandomUtils.randomElement(companyNames);
     }
+
+
+    /**
+     * Returns a random institution from the list.
+     * @return
+     */
+    public String getRandomInstitution() {
+        return RandomUtils.randomElement(institutions);
+    }
+
 
     /**
      * Returns a random company name from the list.

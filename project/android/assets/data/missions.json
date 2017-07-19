@@ -41,7 +41,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 8,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -62,7 +62,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 7,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -86,8 +86,8 @@
       }
     ],
     "risk": 0,
-    "hardness": 1,
-    "duration": 6,
+    "hardness": 0.9,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -95,7 +95,7 @@
     "name": "Best standard",
     "description": "The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help for implementing a %WEBSERVICE% featuring the latest security standards.",
     "onSuccess": "The new %WEBSERVICE% now implements the ISO 27000 standard and it's rocksolid.",
-    "onFail": "This ",
+    "onFail": "",
     "skill": [
       {
         "type": "Crypto",
@@ -112,7 +112,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -136,15 +136,15 @@
       }
     ],
     "risk": 0,
-    "hardness": 1,
-    "duration": 6,
+    "hardness": 0.7,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "C'mon Honey",
-    "description": "The %TOWN% library frequently gets hacked by some bad guys. Install a honeypot in their IT system to catch those script kiddies.",
-    "onSuccess": "",
+    "description": "The %TOWN% %INSTITUTION% frequently gets hacked by some bad guys. Install a honeypot in their IT system to catch those script kiddies.",
+    "onSuccess": "You setup a sandboxed server with some fake data that looks like an easy target. In fact, every access is logged and carefully analysed. Two day later the fish gets caught in the net.",
     "onFail": "",
     "skill": [
       {
@@ -161,8 +161,8 @@
       }
     ],
     "risk": 0,
-    "hardness": 1,
-    "duration": 6,
+    "hardness": 1.2,
+    "duration": 8,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -187,7 +187,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 7,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -208,7 +208,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -229,7 +229,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -254,14 +254,14 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "You have no power here",
-    "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system.",
-    "onSuccess": "You won the competition! After dropping some USB sticks with the exploit code it only took hours until you could control the test system. All piece of cake since they are still running on XP.",
+    "description": "The %TOWN% %INSTITUTION% organizes a competition for hackers to find security vulnerabilities in their IT system.",
+    "onSuccess": "You won the competition! After dropping some USB sticks with the exploit code it only took hours until you could control the test system. Piece of cake since they are still running on XP.",
     "onFail": "",
     "skill": [
       {
@@ -279,7 +279,7 @@
     ],
     "risk": 0,
     "hardness": 1.3,
-    "duration": 6,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -304,7 +304,7 @@
     ],
     "risk": 0,
     "hardness": 1.1,
-    "duration": 6,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -329,7 +329,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 7,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -353,8 +353,8 @@
       }
     ],
     "risk": 0,
-    "hardness": 1.2,
-    "duration": 6,
+    "hardness": 1.3,
+    "duration": 9,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -379,7 +379,7 @@
     ],
     "risk": 0,
     "hardness": 1,
-    "duration": 6,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -404,13 +404,38 @@
     ],
     "risk": 0,
     "hardness": 1.3,
-    "duration": 6,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "SUPER HARD MISSION",
     "description": "This mission will only appear on player level 3.",
+    "onSuccess": "",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      },
+      {
+        "type": "Crypto",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "hardness": 1,
+    "duration": 4,
+    "minLevel": 3,
+    "maxLevel": 0
+  },
+  {
+    "name": "",
+    "description": ".",
     "onSuccess": "",
     "onFail": "",
     "skill": [

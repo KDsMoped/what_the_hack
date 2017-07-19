@@ -223,8 +223,8 @@ public class EmployeeManager implements TimeChangedListener {
 
         if (team.getMoney() < salary) {
             if (Constants.DEBUG)
-                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + "leaves the team!");
-            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + "leaves the team!");
+                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + " leaves the team!");
+            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + " leaves the team!");
             dismiss(employee);
             return;
         }

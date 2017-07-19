@@ -1,6 +1,5 @@
 package de.hsd.hacking.Entities.Employees;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -21,7 +20,6 @@ import java.util.Collections;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
-import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
@@ -30,7 +28,6 @@ import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
-import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
@@ -43,9 +40,12 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CO
 import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CRITICAL_SUCCESS;
 
 /**
- * Created by Cuddl3s on 21.05.2017.
+ * An Employee is an Entity that ist created by the EmployeeFactory, hired and dismissed by the EmployeeManager and
+ * drawn by the tile it stands on. It has an animated visual representation and may interact with a computer to work
+ * on a mission. It may have different skills and specials.
+ *
+ * @author Florian, Hendrik
  */
-
 public class Employee extends Entity implements Comparable<Employee>, Touchable {
 
     public enum Gender {
@@ -65,17 +65,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private boolean touched;
     private boolean selected;
 
-
-    public enum EmployeeSkillLevel {
-        NOOB, INTERMEDIATE, PRO, WIZARD;
-
-        private static final EmployeeSkillLevel[] VALUES = values();
-        public static final int SIZE = VALUES.length;
-
-        public static EmployeeSkillLevel getRandomSkillLevel() {
-            return VALUES[MathUtils.random(SIZE - 1)];
-        }
-    }
+//    public enum EmployeeSkillLevel {
+//        NOOB, INTERMEDIATE, PRO, WIZARD;
+//
+//        private static final EmployeeSkillLevel[] VALUES = values();
+//        public static final int SIZE = VALUES.length;
+//
+//        public static EmployeeSkillLevel getRandomSkillLevel() {
+//            return VALUES[MathUtils.random(SIZE - 1)];
+//        }
+//    }
 
     public enum HairStyle {
         CRAZY, NEAT, NERD, RASTA
@@ -104,8 +103,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private String description; // ? Needed ?
     @Expose
     private int salary;
-    @Expose
-    private EmployeeSkillLevel skillLevel;
+    //    @Expose
+//    private EmployeeSkillLevel skillLevel;
     @Expose
     private ArrayList<Skill> skillSet;
     private float elapsedTime = MathUtils.random(3);
@@ -149,47 +148,47 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         init();
     }
 
-    /**
-     * Creates a new random employee. This is @deprecated and replaced by {@link Employee()}.
-     *
-     * @param level The desired skill Level
-     */
-    @Deprecated
-    public Employee(EmployeeSkillLevel level) {
-        super(false, true, false);
-
-        //Create random name
-        setName(DataLoader.getInstance().getNewName(Gender.UNDECIDED));
-        this.skillLevel = level;
-
-        //Skill points to spend. NOOB = 55, INTERMEDIATE = 65, PRO = 75, WIZARD = 85
-        //35 Points are spent by default (5 per Skill)
-        int skillPoints = 55 + skillLevel.ordinal() * 10;
-        skillSet = new ArrayList<Skill>(7);
-        for (SkillType type :
-                SkillType.values()) {
-            skillSet.add(new Skill(type, 5));
-            skillPoints -= 5;
-        }
-        salary = (300 + RandomUtils.randomInt(251)) * 100;
-//                ls.random(300, 550) * 100;
-
-        //RandomIntPool chooses a number randomly from a set of predefined numbers.
-        //Used numbers can either be removed or left in the set.
-        RandomIntPool pool = new RandomIntPool(new FromTo(0, skillSet.size() - 1));
-
-        while (skillPoints > 0) {
-            int randomInt = pool.getRandomNumberWithoutRemoving();
-            Skill incrementSkill = skillSet.get(randomInt);
-            if (incrementSkill.getValue() < 15) {
-                incrementSkill.incrementSkill();
-                skillPoints--;
-            } else { //Skill at max -> Remove skill index from possible random indexes
-                pool.removeNumber(randomInt);
-            }
-        }
-        init();
-    }
+//    /**
+//     * Creates a new random employee. This is @deprecated and replaced by {@link Employee()}.
+//     *
+//     * @param level The desired skill Level
+//     */
+//    @Deprecated
+//    public Employee(EmployeeSkillLevel level) {
+//        super(false, true, false);
+//
+//        //Create random name
+//        setName(DataLoader.getInstance().getNewName(Gender.UNDECIDED));
+//        this.skillLevel = level;
+//
+//        //Skill points to spend. NOOB = 55, INTERMEDIATE = 65, PRO = 75, WIZARD = 85
+//        //35 Points are spent by default (5 per Skill)
+//        int skillPoints = 55 + skillLevel.ordinal() * 10;
+//        skillSet = new ArrayList<Skill>(7);
+//        for (SkillType type :
+//                SkillType.values()) {
+//            skillSet.add(new Skill(type, 5));
+//            skillPoints -= 5;
+//        }
+//        salary = (300 + RandomUtils.randomInt(251)) * 100;
+////                ls.random(300, 550) * 100;
+//
+//        //RandomIntPool chooses a number randomly from a set of predefined numbers.
+//        //Used numbers can either be removed or left in the set.
+//        RandomIntPool pool = new RandomIntPool(new FromTo(0, skillSet.size() - 1));
+//
+//        while (skillPoints > 0) {
+//            int randomInt = pool.getRandomNumberWithoutRemoving();
+//            Skill incrementSkill = skillSet.get(randomInt);
+//            if (incrementSkill.getValue() < 15) {
+//                incrementSkill.incrementSkill();
+//                skillPoints--;
+//            } else { //Skill at max -> Remove skill index from possible random indexes
+//                pool.removeNumber(randomInt);
+//            }
+//        }
+//        init();
+//    }
 
     /**
      * Initializes this employee.
@@ -345,7 +344,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public String toString() {
-        return "Employee: " + surName + " " + lastName + ". Skilllevel: " + this.skillLevel.name() + ". Skills: " + skillSetToString();
+        return "Employee: " + getName() + " Used score:" + getUsedScore() + " Free score:" + getFreeScore() + " Skills: " + skillSetToString() + " Salary:" + getSalaryText();
     }
 
     private Vector2 clampToPixels(Vector2 position) {
@@ -549,6 +548,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             specialAbsoluteBonus += s.getSkillAbsoluteBonus(skill.getType());
             specialRelativeBonus *= s.getSkillRelativeFactor(skill.getType());
         }
+
+        specialAbsoluteBonus += Team.instance().resources.getSkillBonus(skill);
 
         return (int) ((skill.getValue() + specialAbsoluteBonus) * specialRelativeBonus);
     }
