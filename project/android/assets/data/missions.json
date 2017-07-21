@@ -1,30 +1,5 @@
 [
   {
-    "name": "Hello Kitty forum secrets",
-    "description": "Somebody found and send you the database of a very popular HelloKitty forum. Apparently the forum uses old technology to save passwords, so it should be easy to crack with some password power. Maybe the HelloKitty passwords also work in Amazon to order some HelloKitty merch...",
-    "onSuccess": "",
-    "onFail": "",
-    "skill": [
-      {
-        "type": "Crypto",
-        "value": 0
-      },
-      {
-        "type": "Search",
-        "value": 0
-      },
-      {
-        "type": "Network",
-        "value": 0
-      }
-    ],
-    "risk": 0,
-    "hardness": 1,
-    "duration": 3,
-    "minLevel": 0,
-    "maxLevel": 0
-  },
-  {
     "name": "Crack'n'Hack",
     "description": "%CONTACT% from %COMPANY% called us today. They accidentally deleted their %PW_APPLICATION% passwords and need some cracking power.",
     "onSuccess": "Fortunately, they only used password shorter than 8 digits.",
@@ -409,53 +384,45 @@
     "maxLevel": 0
   },
   {
-    "name": "SUPER HARD MISSION",
-    "description": "This mission will only appear on player level 3.",
-    "onSuccess": "",
-    "onFail": "",
+    "name": "",
+    "description": "You got a job offer at the %TOWN% film studios for a supernumerary role as an evil super hacker. Don't forget to bring some impressive equipment.",
+    "onSuccess": "It's doubtful that this movie will receive much attention but at least the villain is convincing.",
+    "onFail": "In front of the cameras you suddenly become stage fright and have to leave the set. Embarrassing!",
     "skill": [
       {
+        "type": "Social",
+        "value": 0
+      },
+      {
         "type": "Search",
-        "value": 0
-      },
-      {
-        "type": "Software",
-        "value": 0
-      },
-      {
-        "type": "Crypto",
         "value": 0
       }
     ],
     "risk": 0,
-    "hardness": 1,
+    "hardness": 0.8,
     "duration": 4,
-    "minLevel": 3,
-    "maxLevel": 0
+    "minLevel": 2,
+    "maxLevel": 5
   },
   {
-    "name": "",
-    "description": ".",
-    "onSuccess": "",
+    "name": "Gossip factory",
+    "description": "Rumors tell that the %WEBSERVICE% hosed by %COMPANY% uses an outdated HTTPS protocol that allows session hijacking. Scout a viable attack scenario.",
+    "onSuccess": "You created a script that intercepts data sent to the %WEBSERVICE% and may insert any kind of code. You sell your exploit profitably on the darknet.",
     "onFail": "",
     "skill": [
       {
-        "type": "Search",
+        "type": "Network",
         "value": 0
       },
       {
         "type": "Software",
         "value": 0
-      },
-      {
-        "type": "Crypto",
-        "value": 0
       }
     ],
-    "risk": 0,
-    "hardness": 1,
+    "risk": 0.5,
+    "hardness": 1.2,
     "duration": 6,
-    "minLevel": 3,
+    "minLevel": 0,
     "maxLevel": 0
   }
 ]

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.HardwareStation;
@@ -15,6 +16,7 @@ import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
+import de.hsd.hacking.Utils.Constants;
 
 
 /**
@@ -31,7 +33,13 @@ public class EquipmentManager {
     private ArrayList<Callback> refreshEquipmentListener = new ArrayList<Callback>();
 
     private EquipmentManager() {
+        Gdx.app.log(Constants.TAG, "new equip manager.");
+    }
+
+    public void initBasicEquipment(){
+
         List<Workspace> workspaces = GameStage.instance().getWorkspaces();
+
         Computer computer1 = new Computer("Computer 1", workspaces.get(0));
         shopItems.add(computer1);
         buyItem(computer1);
@@ -67,6 +75,8 @@ public class EquipmentManager {
             return 1;
         team.reduceMoney(price);
 
+//        Gdx.app.log(Constants.TAG, "buying " + equipment.getName() + " for " + price + "$.");
+
         shopItems.remove(equipment);
         purchasedItems.add(equipment);
         equipment.setPurchased(true);
@@ -84,6 +94,8 @@ public class EquipmentManager {
         team.reduceMoney(price);
         ((Upgradable) equipment).upgrade();
         team.updateResources();
+
+//        Gdx.app.log(Constants.TAG, "upgrading " + equipment.getName() + " for " + price + "$.");
 
         if(equipment.getLevel() >= ((Upgradable) equipment).getMaxLevel()) {
             finishItem(equipment);

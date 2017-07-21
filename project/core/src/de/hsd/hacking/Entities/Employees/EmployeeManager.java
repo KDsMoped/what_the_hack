@@ -190,15 +190,13 @@ public class EmployeeManager implements TimeChangedListener {
     @Override
     public void dayChanged(int days) {
         if (RandomUtils.randomIntWithin(0, 9) < 5) {
-            refreshAvailableEmployees(); //TODO Auch ein bisschen schnell, vlt nur mit gewisser Chance refreshen?
+            refreshAvailableEmployees();
         }
         if (days % 7 == 6) messageManager.Info("Only one day until payday!");
     }
 
     @Override
     public void weekChanged(int week) {
-        if (Constants.DEBUG) Gdx.app.log("", "Payday");
-
         payday();
     }
 

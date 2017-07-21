@@ -25,6 +25,7 @@ import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.UI.Messaging.MessageBar;
@@ -238,6 +239,8 @@ public class GameStage extends Stage implements EventListener{
 
         employeeManager.dismissAll();
         employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
+
+        EquipmentManager.instance().initBasicEquipment();
     }
 
     @Override
