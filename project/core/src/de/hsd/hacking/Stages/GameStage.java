@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
@@ -181,6 +182,7 @@ public class GameStage extends Stage implements EventListener{
             public void changed(ChangeEvent event, Actor actor) {
                 Team.instance().deselectEmployee();
                 shopBrowser.toggleView();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
@@ -195,6 +197,7 @@ public class GameStage extends Stage implements EventListener{
             public void changed(ChangeEvent event, Actor actor) {
                 Team.instance().deselectEmployee();
                 missionBrowser.toggleView();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight - buttonSpacing, 100, buttonHeight);
@@ -208,6 +211,7 @@ public class GameStage extends Stage implements EventListener{
             public void changed(ChangeEvent event, Actor actor) {
                 Team.instance().deselectEmployee();
                 employeeBrowser.toggleView();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
@@ -220,6 +224,7 @@ public class GameStage extends Stage implements EventListener{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.setMenuScreen();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);

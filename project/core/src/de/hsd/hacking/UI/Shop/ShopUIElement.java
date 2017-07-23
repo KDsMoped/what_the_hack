@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
@@ -57,6 +58,7 @@ public class ShopUIElement extends Table {
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                AudioManager.instance().playUIButtonSound();
                 if(equipmentManager.buyItem(equipment) == 1) {}
             }
         });
@@ -65,6 +67,7 @@ public class ShopUIElement extends Table {
         upgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                AudioManager.instance().playUIButtonSound();
                 if (equipmentManager.upgradeItem(equipment) == 1) {}
             }
         });

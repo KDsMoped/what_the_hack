@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -68,6 +69,7 @@ public abstract class Popup extends Group {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 close();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         closeButton.align(Align.center);

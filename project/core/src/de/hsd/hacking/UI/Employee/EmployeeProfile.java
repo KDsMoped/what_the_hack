@@ -7,8 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.sun.org.apache.xerces.internal.util.AugmentationsImpl;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
@@ -74,6 +76,7 @@ public class EmployeeProfile extends Popup {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 onDismissButton();
+                AudioManager.instance().playUIButtonSound();
             }
         });
 //        dismissButton.setBounds(leftUILine, topUILine - 40, 80, 20);

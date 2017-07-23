@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -44,6 +45,7 @@ public class TabbedView extends Table {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     SwitchTab(actor);
+                    AudioManager.instance().playUIButtonSound();
                 }
             });
 

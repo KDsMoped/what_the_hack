@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
@@ -77,6 +78,7 @@ public class EmployeeUIElement extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 EmployeeManager.instance().employ(employee);
+                AudioManager.instance().playUIButtonSound();
             }
         });
 
