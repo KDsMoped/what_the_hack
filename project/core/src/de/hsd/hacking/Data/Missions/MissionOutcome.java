@@ -8,6 +8,9 @@ package de.hsd.hacking.Data.Missions;
  * This class contains all outcomes of an mission.
  */
 public class MissionOutcome {
+
+    public int rewardMoney;
+
     public Object Completed;
     public Object Aborted;
     public Object Failed;

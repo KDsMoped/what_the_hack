@@ -77,12 +77,28 @@ public class DataLoader {
         return new String[]{surName, lastName};
     }
 
-    public Mission getNewMission() {
-        return missions.get(RandomUtils.randomInt(missions.size())).Clone();
+    /**
+     * Gets a mission that meets the given level requirement.
+     * @param level
+     * @return
+     */
+    public Mission getNewMission(int level) {
+
+        Mission mission;
+
+        do {
+            mission = missions.get(RandomUtils.randomInt(missions.size()));
+        }while (mission.getMinLevel() > level || mission.getMaxLevel() < level);
+
+
+        return mission.Clone();
     }
 
     public String getNewCompanyName() {
         return missionVariables.getRandomCompany();
+    }
+    public String getNewInstitution() {
+        return missionVariables.getRandomInstitution();
     }
     public String getNewCountryName() {
         return missionVariables.getRandomCountry();

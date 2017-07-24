@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import de.hsd.hacking.Assets.Assets;
 
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
@@ -29,6 +30,8 @@ public class MenuStage extends Stage {
 
     private Assets assets;
 
+    private AudioManager audioManager;
+
     private Animation<TextureRegion> backgroundAnim;
     private TextureRegion background_current;
     private float elapsedTime = 0f;
@@ -37,6 +40,7 @@ public class MenuStage extends Stage {
         super(Gdx.app.getType() == Application.ApplicationType.Android ? new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
                 : new FitViewport(512f, 288f));
         this.assets = Assets.instance();
+        this.audioManager = AudioManager.instance();
 
         backgroundAnim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);
 
@@ -45,7 +49,7 @@ public class MenuStage extends Stage {
         resumeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
-                   assets.buttonSound.play();
+                   audioManager.playMenuButtonSound();
                    SaveGameManager.LoadGame();
                    ScreenManager.setGameScreen(true);
                }
@@ -56,7 +60,7 @@ public class MenuStage extends Stage {
         newButton.addListener(new ChangeListener() {
                                @Override
                                public void changed(ChangeEvent event, Actor actor) {
-                                   assets.buttonSound.play();
+                                   audioManager.playMenuButtonSound();
                                    ScreenManager.setGameScreen(false);
                                }
                            }

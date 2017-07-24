@@ -1,33 +1,9 @@
 [
   {
-    "name": "Hello Kitty forum secrets",
-    "description": "Somebody found and send you the database of a very popular HelloKitty forum. Apparently the forum uses old technology to save passwords, so it should be easy to crack with some password power. Maybe the HelloKitty passwords also work in Amazon to order some HelloKitty merch...",
-    "onSuccess": "",
-    "onFail": "",
-    "skill": [
-      {
-        "type": "Crypto",
-        "value": 0
-      },
-      {
-        "type": "Search",
-        "value": 0
-      },
-      {
-        "type": "Network",
-        "value": 0
-      }
-    ],
-    "risk": 0,
-    "duration": 3,
-    "minLevel": 0,
-    "maxLevel": 0
-  },
-  {
     "name": "Crack'n'Hack",
     "description": "%CONTACT% from %COMPANY% called us today. They accidentally deleted their %PW_APPLICATION% passwords and need some cracking power.",
-    "onSuccess": "",
-    "onFail": "",
+    "onSuccess": "Fortunately, they only used password shorter than 8 digits.",
+    "onFail": "You stress their %PW_APPLICATION% protection with brute force, but after days you give up.",
     "skill": [
       {
         "type": "Crypto",
@@ -39,7 +15,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 8,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -59,7 +36,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 7,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -76,17 +54,22 @@
       {
         "type": "Search",
         "value": 0
+      },
+      {
+        "type": "Network",
+        "value": 0
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 0.9,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
-    "name": "No, this is Patrick",
-    "description": "The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help for implementing a new security scheme.",
-    "onSuccess": "",
+    "name": "Best standard",
+    "description": "The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help for implementing a %WEBSERVICE% featuring the latest security standards.",
+    "onSuccess": "The new %WEBSERVICE% now implements the ISO 27000 standard and it's rocksolid.",
     "onFail": "",
     "skill": [
       {
@@ -103,15 +86,16 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "Homefront",
     "description": "The guy next door, %CONTACT_M%, has a barking dog that really upsets you. Hack his %PW_APPLICATION% as payback.",
-    "onSuccess": "",
-    "onFail": "",
+    "onSuccess": "His the password of his %PW_APPLICATION% actually was 'abc123'. Shame if someone changed it.",
+    "onFail": "You tried a brute force attack using a dictionary of the most common passwords but everything failed. His %PW_APPLICATION% is secure for now.",
     "skill": [
       {
         "type": "Network",
@@ -127,14 +111,15 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 0.7,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "C'mon Honey",
-    "description": "The %TOWN% library frequently gets hacked by some bad guys. Install a honeypot in their IT system to catch those script kiddies.",
-    "onSuccess": "",
+    "description": "The %TOWN% %INSTITUTION% frequently gets hacked by some bad guys. Install a honeypot in their IT system to catch those script kiddies.",
+    "onSuccess": "You setup a sandboxed server with some fake data that looks like an easy target. In fact, every access is logged and carefully analysed. Two day later the fish gets caught in the net.",
     "onFail": "",
     "skill": [
       {
@@ -151,7 +136,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1.2,
+    "duration": 8,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -175,7 +161,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 7,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -195,7 +182,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -215,7 +203,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -239,14 +228,15 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "You have no power here",
-    "description": "The %TOWN% power plant organizes a competition for hackers to find security vulnerabilities in their IT system.",
-    "onSuccess": "After dropping some USB sticks with you exploit code it only took hours until you .All piece of cake since they are still running on XP.",
+    "description": "The %TOWN% %INSTITUTION% organizes a competition for hackers to find security vulnerabilities in their IT system.",
+    "onSuccess": "You won the competition! After dropping some USB sticks with the exploit code it only took hours until you could control the test system. Piece of cake since they are still running on XP.",
     "onFail": "",
     "skill": [
       {
@@ -263,7 +253,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1.3,
+    "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -287,13 +278,14 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1.1,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
   {
     "name": "Censorship is [CENSORED]",
-    "description": "%COMPANY% and the %TOWN% %UNIVERSITY% are cooperating to develop an open-source anti censorship software. Help improving their protocol with some extra manpower.",
+    "description": "%COMPANY% and the %TOWN% %UNIVERSITY% are cooperating to develop an open-source anti censorship software to support free journalism in %COUNTRY%. Help improving their protocol with some extra manpower.",
     "onSuccess": "",
     "onFail": "",
     "skill": [
@@ -311,7 +303,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 7,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -319,7 +312,7 @@
     "name": "Rainbow shield",
     "description": "%COMPANY% hosts a %WEBSERVICE% that has been jammed by frequent DDOS attacks. You need to identify the origin of the threat and implement a robust counter mechanism.",
     "onSuccess": "The attack has been routed across the planet but you could track them to a command and control server in %COUNTRY%.",
-    "onFail": "Seems like there is no destinct attack pattern you can focus on. The attackers pay much effort in hiding their identity.",
+    "onFail": "Seems like there is no distinct attack pattern you can focus on. The attackers pay much effort in hiding their identity.",
     "skill": [
       {
         "type": "Network",
@@ -335,7 +328,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1.3,
+    "duration": 9,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -359,7 +353,8 @@
       }
     ],
     "risk": 0,
-    "duration": 6,
+    "hardness": 1,
+    "duration": 4,
     "minLevel": 0,
     "maxLevel": 0
   },
@@ -383,6 +378,49 @@
       }
     ],
     "risk": 0,
+    "hardness": 1.3,
+    "duration": 5,
+    "minLevel": 0,
+    "maxLevel": 0
+  },
+  {
+    "name": "",
+    "description": "You got a job offer at the %TOWN% film studios for a supernumerary role as an evil super hacker. Don't forget to bring some impressive equipment.",
+    "onSuccess": "It's doubtful that this movie will receive much attention but at least the villain is convincing.",
+    "onFail": "In front of the cameras you suddenly become stage fright and have to leave the set. Embarrassing!",
+    "skill": [
+      {
+        "type": "Social",
+        "value": 0
+      },
+      {
+        "type": "Search",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "hardness": 0.8,
+    "duration": 4,
+    "minLevel": 2,
+    "maxLevel": 5
+  },
+  {
+    "name": "Gossip factory",
+    "description": "Rumors tell that the %WEBSERVICE% hosed by %COMPANY% uses an outdated HTTPS protocol that allows session hijacking. Scout a viable attack scenario.",
+    "onSuccess": "You created a script that intercepts data sent to the %WEBSERVICE% and may insert any kind of code. You sell your exploit profitably on the darknet.",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Network",
+        "value": 0
+      },
+      {
+        "type": "Software",
+        "value": 0
+      }
+    ],
+    "risk": 0.5,
+    "hardness": 1.2,
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0

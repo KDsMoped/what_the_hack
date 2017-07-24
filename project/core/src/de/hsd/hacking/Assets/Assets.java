@@ -93,7 +93,8 @@ public class Assets {
     public TextureRegionDrawable coffeemachine_icon;
 
     // Audio Assets
-    public Sound buttonSound;
+    public Sound menuButtonSound;
+    public Sound uiButtonSound;
 
 
     public Assets() {
@@ -108,7 +109,8 @@ public class Assets {
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
         manager.load("img/Character_Assets.atlas", TextureAtlas.class);
 
-        manager.load("sounds/dummy_button.wav", Sound.class);
+        manager.load("sounds/Retro_Game_Sounds_SFX_28_16bit.wav", Sound.class);
+        manager.load("sounds/button_on_off_064_16bit.wav", Sound.class);
 
         gold_font = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
         gold_font_small = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
@@ -123,7 +125,9 @@ public class Assets {
         ui_atlas = manager.get("img/UI_Assets.atlas");
         character_atlas = manager.get("img/Character_Assets.atlas");
 
-        buttonSound = manager.get("sounds/dummy_button.wav");
+        // Sounds
+        menuButtonSound = manager.get("sounds/Retro_Game_Sounds_SFX_28_16bit.wav");
+        uiButtonSound = manager.get("sounds/button_on_off_064_16bit.wav");
 
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);

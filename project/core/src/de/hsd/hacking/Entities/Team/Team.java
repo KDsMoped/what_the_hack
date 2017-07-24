@@ -7,6 +7,7 @@ import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
+import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -24,12 +25,7 @@ import de.hsd.hacking.Utils.Constants;
 
 public class Team {
     private String teamName;
-    private GameStage stage;
 
-    //private Group employees;
-    private Group equipment;
-    //private Group workspaces;
-    private ArrayList<Equipment> listOfEquipment;
     private ArrayList<Workspace> listOfWorkspaces;
     private Employee selectedEmployee;
 
@@ -49,15 +45,28 @@ public class Team {
             public int search;
         }
         public Skill skill = new Skill();
+
+        public int getSkillBonus(de.hsd.hacking.Entities.Employees.Skill s){
+            switch (s.getType()){
+                case All_Purpose:   return skill.allPurpose;
+                case Software:   return skill.software;
+                case Social:   return skill.social;
+                case Search:   return skill.search;
+                case Network:   return skill.network;
+                case Hardware:   return skill.hardware;
+                case Crypto:   return skill.crypto;
+                default: return 0;
+            }
+        }
     }
-    public Resources resources;
+    public final Resources resources;
 
     private int[] TeamSkills = new int[SkillType.SIZE];
 
     private static Team instance;
 
     public Team() {
-        listOfEquipment = new ArrayList<Equipment>();
+//        listOfEquipment = new ArrayList<Equipment>();
         listOfWorkspaces = new ArrayList<Workspace>();
         resources = new Resources();
     }
@@ -95,48 +104,40 @@ public class Team {
 
     /* Add given Equipment to the Team.
      */
-    public void addEquipment(Equipment equipment) {
-        listOfEquipment.add(equipment);
-        updateResources();
-    }
+//    public void addEquipment(Equipment equipment) {
+//        listOfEquipment.add(equipment);
+//        updateResources();
+//    }
 
-    /* Returns the Equipment object associated with the given index.
-     */
-    public Equipment getEquipment(int index) {
-        return listOfEquipment.get(index);
-    }
+//    /* Returns the Equipment object associated with the given index.
+//     */
+//    public Equipment getEquipment(int index) {
+//        return listOfEquipment.get(index);
+//    }
+//
+//    /* Removes the given Equipment from the list.
+//     */
+//    public void removeEquipment(Equipment e) {
+//        listOfEquipment.remove(e);
+//        updateResources();
+//        //equipment.removeActor(e);
+//    }
+//
+//    /* Removes the Equipment with the given index from the list.
+//     */
+//    public void removeEquipment(int index) {
+//        listOfEquipment.remove(index);
+//        Equipment e = getEquipment(index);
+//        updateResources();
+//        //equipment.removeActor(e);
+//    }
 
-    /* Removes the given Equipment from the list.
-     */
-    public void removeEquipment(Equipment e) {
-        listOfEquipment.remove(e);
-        updateResources();
-        //equipment.removeActor(e);
-    }
-
-    /* Removes the Equipment with the given index from the list.
-     */
-    public void removeEquipment(int index) {
-        listOfEquipment.remove(index);
-        Equipment e = getEquipment(index);
-        updateResources();
-        //equipment.removeActor(e);
-    }
-
-    public ArrayList<Equipment> getEquipmentList() {
-        return listOfEquipment;
-    }
+//    public ArrayList<Equipment> getEquipmentList() {
+//        return listOfEquipment;
+//    }
 
 
     // Manage Workspaces ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     *
-     */
-    public void addWorkspace() {
-        Workspace w = new Workspace();
-        listOfWorkspaces.add(w);
-    }
 
     public int getWorkspaceCount() {
         return listOfWorkspaces.size();
@@ -146,42 +147,7 @@ public class Team {
         listOfWorkspaces.remove(index);
     }
 
-
     // Manage Resources ////////////////////////////////////////////////////////////////////////////
-    /*
-     void addResource(Equipment.EquipmentAttributeType type, int value) {
-        switch(type) {
-            case BANDWIDTH:
-                resources.bandwidth += value;
-            case MONEY:
-                resources.money += value;
-            case COMPUTATIONPOWER:
-                resources.computationPower += value;
-        }
-    }
-
-    public void reduceResource(Equipment.EquipmentAttributeType type, int value) {
-        switch(type) {
-            case BANDWIDTH:
-                resources.bandwidth -= value;
-            case MONEY:
-                resources.money -= value;
-            case COMPUTATIONPOWER:
-                resources.computationPower -= value;
-        }
-    }
-
-    public void setResource(Equipment.EquipmentAttributeType type, int value) {
-        switch(type) {
-            case BANDWIDTH:
-                resources.bandwidth = value;
-            case MONEY:
-                resources.money = value;
-            case COMPUTATIONPOWER:
-                resources.computationPower = value;
-        }
-    }
-    */
 
     public int getMoney() { return resources.money; }
 
@@ -252,13 +218,22 @@ public class Team {
         }
     }
 
+    /**
+     * Calculates the players game progress based on resources and completed missions.
+     * @return
+     */
     public int calcGameProgress() {
         float result = 1;
 
         result += resources.money * 0.00001f;
         result += resources.bandwidth * 0.005f;
         result += resources.computationPower * 0.003f;
-        result += MissionManager.instance().getNumberCompletedMissions() * 0.2f;
+
+        for (Mission m : MissionManager.instance().getCompletedMissions()) {
+            result += (m.getDifficulty() * (1 + m.getRisk())) * 0.2f;
+        }
+
+//        result += MissionManager.instance().getNumberCompletedMissions() * 0.2f;
 
         return (int) result;
     }

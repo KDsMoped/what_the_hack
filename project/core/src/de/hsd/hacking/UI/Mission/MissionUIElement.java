@@ -1,14 +1,19 @@
 package de.hsd.hacking.UI.Mission;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Entities.Employees.Skill;
@@ -23,32 +28,35 @@ import java.util.List;
 /**
  * UI element to display a mission.
  */
-    public class MissionUIElement extends Table {
+public class MissionUIElement extends Table {
     private Mission mission;
 
     private Label name;
     private Label time;
-    private Label description;
+    private Label description, outcomeDescription;
     private Label money;
     private Table skills;
 
     private TextButton actionButton;
 
     private String buttonText;
-    private Boolean compactView;
+    private Boolean showDescription;
+    private Boolean showOutcome;
 
     private EventListener buttonListener;
 
     /**
      * Constructor.
-     * @param mission Mission that shall be displayed.
-     * @param compactView compactView hides the mission description.
-     * @param buttonText Button text.
+     *
+     * @param mission        Mission that shall be displayed.
+     * @param showDescription    showDescription hides the mission description.
+     * @param buttonText     Button text.
      * @param buttonListener Button callback.
      */
-    public MissionUIElement(Mission mission, Boolean compactView, String buttonText, EventListener buttonListener) {
+    public MissionUIElement(Mission mission, boolean showDescription, boolean showOutcome, String buttonText, EventListener buttonListener) {
         this.mission = mission;
-        this.compactView = compactView;
+        this.showDescription = showDescription;
+        this.showOutcome = showOutcome;
         this.buttonText = buttonText;
         this.buttonListener = buttonListener;
 
@@ -67,7 +75,7 @@ import java.util.List;
         name.setFontScale(1.05f);
         time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
 
-        money = new Label("1.322", Constants.LabelStyle());
+        money = new Label("" + mission.getOutcome().rewardMoney, Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
 
 //        skills = new Label("", Constants.LabelStyle());
@@ -88,7 +96,7 @@ import java.util.List;
             Skill s = skill.get(i);
 
             Image icon = new Image(Assets.instance().getSkillIcon(s.getType()));
-            Label text = new Label(s.getDisplayValue(false),Constants.LabelStyle());
+            Label text = new Label(s.getDisplayValue(false), Constants.LabelStyle());
 
             skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);
             skills.add(text).left().padLeft(3).padRight(28);
@@ -97,13 +105,20 @@ import java.util.List;
         Image calendar = new Image(Assets.instance().ui_calendar);
 
         // Add mission name to main table
-        this.add(name).expandX().fillX().left();
+        add(name).expandX().fillX().left();
 
-        if (!compactView) {
+        if (showDescription) {
             description = new Label(mission.getDescription(), Constants.LabelStyle());
             description.setWrap(true);
-            this.row().padTop(10f);
-            this.add(description).left().expand().fill();
+            row().padTop(10f);
+            add(description).left().expand().fill();
+        }
+
+        if (showOutcome) {
+            outcomeDescription = new Label(mission.getSuccessText(), Constants.LabelStyle());
+            outcomeDescription.setWrap(true);
+            row().padTop(10f);
+            add(outcomeDescription).left().expand().fill();
         }
 
         // setup helper tables
@@ -135,15 +150,22 @@ import java.util.List;
         if (buttonText != null && !buttonText.equals("")) {
             actionButton = new TextButton(buttonText, Constants.TextButtonStyle());
             actionButton.addListener(buttonListener);
+            actionButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    AudioManager.instance().playUIButtonSound();
+                }
+            });
             moneyTimeTable.add(actionButton).width(70).right().colspan(2);
         }
     }
 
     /**
      * Get the mission object this object represents.
+     *
      * @return represented mission object.
      */
-    public Mission getMission(){
+    public Mission getMission() {
         return mission;
     }
 
@@ -163,12 +185,12 @@ import java.util.List;
         this.actionButton = actionButton;
     }
 
-    public Boolean getCompactView() {
-        return compactView;
+    public Boolean getShowDescription() {
+        return showDescription;
     }
 
-    public void setCompactView(Boolean compactView) {
-        this.compactView = compactView;
+    public void setShowDescription(Boolean showDescription) {
+        this.showDescription = showDescription;
     }
 
     public EventListener getButtonListener() {

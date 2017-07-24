@@ -2,11 +2,9 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.DataLoader;
-import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.*;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Utils.Constants;
-import de.hsd.hacking.Utils.MathUtilities;
 import de.hsd.hacking.Utils.RandomUtils;
 
 import java.util.ArrayList;
@@ -49,7 +47,7 @@ public class EmployeeFactory {
      * @return
      */
     private static int calcSalary(int gameProgress, float score) {
-        return ((int) ((5 + score * 2) * MathUtilities.mult_var(SALARY_VARIANCE)) * 10);
+        return ((int) ((5 + score * 2) * RandomUtils.mult_var(SALARY_VARIANCE)) * 10);
     }
 
     /**
@@ -98,7 +96,7 @@ public class EmployeeFactory {
      */
     public static Employee createEmployee(int gameProgress) {
 
-        int progress = Math.max(0, gameProgress + MathUtilities.var(PROGRESS_VARIANCE));
+        int progress = Math.max(0, gameProgress + RandomUtils.var(PROGRESS_VARIANCE));
 
 
         Employee freshman = new Employee();
@@ -280,7 +278,7 @@ public class EmployeeFactory {
      * @return
      */
     private static float rollSpecial(Employee padawan){
-        int roll = RandomUtils.randomIntWithin(1, 6);
+        int roll = RandomUtils.randomIntWithin(1, 8);
 
         switch (roll) {
             case 1:
@@ -294,9 +292,10 @@ public class EmployeeFactory {
             case 5:
                 return padawan.addEmployeeSpecial(new FastLearner(padawan));
             case 6:
-                return padawan.addEmployeeSpecial(new CodeMonkey(padawan));
             case 7:
+                return padawan.addEmployeeSpecial(new CodeMonkey(padawan));
             case 8:
+                return padawan.addEmployeeSpecial(new LuckyDevil(padawan));
             case 9:
             case 10:
             case 11:

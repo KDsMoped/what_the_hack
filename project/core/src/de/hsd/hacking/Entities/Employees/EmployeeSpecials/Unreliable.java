@@ -6,11 +6,11 @@ import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Utils.Constants;
-import de.hsd.hacking.Utils.MathUtilities;
 
 public class Unreliable extends EmployeeSpecial {
 
     private float chance;
+
 
     public Unreliable(Employee employee, float chance) {
         super(employee);
@@ -31,7 +31,6 @@ public class Unreliable extends EmployeeSpecial {
     public void dayChanged(int days) {
         if (MathUtils.random() > chance) return;
 
-        //TODO: Implement user feedback
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
         MessageManager.instance().Warning("An unreliable employee " + employee.getName() + " has left the team.");
 

@@ -64,7 +64,7 @@ public class MissionAllocatorPopup extends Popup {
 //            missionContainer.add(button).expandX().fillX().center().padBottom(5).row();
 
 
-            MissionUIElement uiElement = new MissionUIElement(mission, true, "Choose", new ChangeListener() {
+            MissionUIElement uiElement = new MissionUIElement(mission, false, false, "Choose", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     selectMission(mission);

@@ -24,6 +24,8 @@ public class Mission implements EventSender {
     @Expose
     private int difficulty;
     @Expose
+    private float hardness = 1;
+    @Expose
     private List<Skill> skill;
     @Expose
     private MissionOutcome outcome;
@@ -94,6 +96,7 @@ public class Mission implements EventSender {
         mission.setCompleted(completed);
         mission.setMinLevel(minLevel);
         mission.setMaxLevel(maxLevel);
+        mission.setHardness(hardness);
 
         return mission;
     }
@@ -130,6 +133,14 @@ public class Mission implements EventSender {
 
     public String getFailText() {
         return onFail;
+    }
+
+    public boolean hasFailText(){
+        return onFail.length() > 0;
+    }
+
+    public boolean hasSuccessText(){
+        return onSuccess.length() > 0;
     }
 
     public void setSuccessText(String onSuccess) {
@@ -229,5 +240,14 @@ public class Mission implements EventSender {
 
     public void setCompleted(boolean completed1) {
         this.completed = completed1;
+    }
+
+
+    public float getHardness() {
+        return hardness;
+    }
+
+    public void setHardness(float hardness) {
+        this.hardness = hardness;
     }
 }

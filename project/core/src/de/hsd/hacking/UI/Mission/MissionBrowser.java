@@ -105,7 +105,7 @@ public class MissionBrowser extends Popup {
         activeMissionsContainer.clearChildren();
 
         for (final Mission mission : MissionManager.instance().getOpenMissions()) {
-            openMissionContainer.add(new MissionUIElement(mission, false, "Accept", new ChangeListener() {
+            openMissionContainer.add(new MissionUIElement(mission, true, false, "Accept", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().startMission(mission);
@@ -114,7 +114,7 @@ public class MissionBrowser extends Popup {
         }
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-            activeMissionsContainer.add(new MissionUIElement(mission, false, "Abort", new ChangeListener() {
+            activeMissionsContainer.add(new MissionUIElement(mission, true, false, "Abort", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().abortMission(mission);
@@ -123,7 +123,7 @@ public class MissionBrowser extends Popup {
         }
 
         for (final Mission mission : MissionManager.instance().getCompletedMissions()) {
-            completedMissionsContainer.add(new MissionUIElement(mission, true, "", new ChangeListener() {
+            completedMissionsContainer.add(new MissionUIElement(mission, true, true, "", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
 

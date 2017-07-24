@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
@@ -27,6 +28,8 @@ import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
+import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.UI.Mission.MissionStatusOverlay;
@@ -71,6 +74,9 @@ public class GameStage extends Stage implements EventListener{
 
     private List<Touchable> touchables;
 
+    private List<Workspace> workspaces;
+
+
     private final MissionBrowser missionBrowser = new MissionBrowser();
 
     private Group foreground, background, ui, popups, overlay;
@@ -107,6 +113,7 @@ public class GameStage extends Stage implements EventListener{
         popups = new Group();
         overlay = new Group();
         touchables = new ArrayList<Touchable>();
+        workspaces = new ArrayList<Workspace>();
 
         // the order the actors are added is important
         // it is also the drawing order
@@ -143,19 +150,14 @@ public class GameStage extends Stage implements EventListener{
         tileMap.addObject(0, 3, ObjectFactory.generateObject(ObjectType.LAMP, assets));
 
         //Workspaces
-        createWorkSpace(Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, Constants.TILES_PER_SIDE / 3);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4), (Constants.TILES_PER_SIDE / 3) * 2);
-        createWorkSpace((Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
-
-        //other interior
-        /*
-        Desk desk = new Desk(assets, Direction.RIGHT, 1);
-        tileMap.addObject(10, 0, desk);
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
-        desk.setContainedObject(coffeeMachine, 0);
-        addTouchable(coffeeMachine);
-        */
+        Workspace workspace1 = new Workspace(tileMap, Constants.TILES_PER_SIDE / 4, Constants.TILES_PER_SIDE / 3);
+        Workspace workspace2 = new Workspace(tileMap, (Constants.TILES_PER_SIDE / 4) * 3, Constants.TILES_PER_SIDE / 3);
+        Workspace workspace3 = new Workspace(tileMap, (Constants.TILES_PER_SIDE / 4), (Constants.TILES_PER_SIDE / 3) * 2);
+        Workspace workspace4 = new Workspace(tileMap, (Constants.TILES_PER_SIDE / 4) * 3, (Constants.TILES_PER_SIDE / 3) * 2);
+        workspaces.add(workspace1);
+        workspaces.add(workspace2);
+        workspaces.add(workspace3);
+        workspaces.add(workspace4);
     }
 
     private void InitUI() {
@@ -183,6 +185,7 @@ public class GameStage extends Stage implements EventListener{
             public void changed(ChangeEvent event, Actor actor) {
                 Team.instance().deselectEmployee();
                 shopBrowser.toggleView();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
@@ -197,6 +200,7 @@ public class GameStage extends Stage implements EventListener{
             public void changed(ChangeEvent event, Actor actor) {
                 Team.instance().deselectEmployee();
                 missionBrowser.toggleView();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight - buttonSpacing, 100, buttonHeight);
@@ -210,6 +214,7 @@ public class GameStage extends Stage implements EventListener{
             public void changed(ChangeEvent event, Actor actor) {
                 Team.instance().deselectEmployee();
                 employeeBrowser.toggleView();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
@@ -222,6 +227,7 @@ public class GameStage extends Stage implements EventListener{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ScreenManager.setMenuScreen();
+                AudioManager.instance().playUIButtonSound();
             }
         });
         exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
@@ -234,16 +240,6 @@ public class GameStage extends Stage implements EventListener{
 
     }
 
-    private void createWorkSpace(int tileX, int tileY) {
-        Desk desk = new Desk(assets, Direction.RIGHT, 1);
-        tileMap.addObject(tileX, tileY, desk);
-        Chair chair = new Chair(assets);
-        tileMap.addObject(tileX, tileY - 1, chair);
-        Computer computer = new Computer();
-        computer.setWorkingChair(chair);
-        addTouchable(computer);
-        desk.setContainedObject(computer, 0);
-    }
 
     private void InitTeam() {
         employeeManager = EmployeeManager.instance();
@@ -251,6 +247,8 @@ public class GameStage extends Stage implements EventListener{
 
         employeeManager.dismissAll();
         employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
+
+        EquipmentManager.instance().initBasicEquipment();
     }
 
     @Override
@@ -420,4 +418,6 @@ public class GameStage extends Stage implements EventListener{
         missionStatusOverlay.setVisible(false);
         missionStatusOverlay.setMissionWorker(null);
     }
+
+    public List<Workspace> getWorkspaces() {return workspaces; }
 }

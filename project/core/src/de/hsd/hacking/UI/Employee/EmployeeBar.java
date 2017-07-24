@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Stages.GameStage;
@@ -55,7 +56,9 @@ public class EmployeeBar extends Group {
         TextButton detailsButton = new TextButton("Details", Constants.TextButtonStyle());
         detailsButton.addListener(new ChangeListener() {
                                       @Override
-                                      public void changed(ChangeEvent event, Actor actor) {onDetailsClick();
+                                      public void changed(ChangeEvent event, Actor actor) {
+                                          onDetailsClick();
+                                          AudioManager.instance().playUIButtonSound();
                                       }
                                   });
 
