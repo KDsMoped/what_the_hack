@@ -1,5 +1,6 @@
 package de.hsd.hacking.Stages;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import de.hsd.hacking.Assets.Assets;
 
@@ -32,7 +34,8 @@ public class MenuStage extends Stage {
     private float elapsedTime = 0f;
 
     public MenuStage(){
-        super(new ExtendViewport(VIEWPORT_WIDTH ,VIEWPORT_HEIGHT));
+        super(Gdx.app.getType() == Application.ApplicationType.Android ? new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
+                : new FitViewport(512f, 288f));
         this.assets = Assets.instance();
 
         backgroundAnim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);

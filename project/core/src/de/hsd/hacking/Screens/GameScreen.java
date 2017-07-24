@@ -18,7 +18,7 @@ import de.hsd.hacking.Utils.Constants;
 class GameScreen implements Screen {
 
     private HackingGame game;
-    private Stage stage;
+    private GameStage stage;
     private Runnable swipeUpAction;
 
     public GameScreen(HackingGame game) {
@@ -75,7 +75,7 @@ class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height);
     }
 
     @Override
