@@ -6,7 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.sun.org.apache.bcel.internal.generic.POP;
+
+import java.util.ArrayList;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -14,9 +15,6 @@ import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.UI.General.TabbedView;
 import de.hsd.hacking.Utils.Callback.Callback;
-import de.hsd.hacking.Utils.Callback.EmployeeCallback;
-
-import java.util.ArrayList;
 
 public class EmployeeBrowser extends Popup {
 

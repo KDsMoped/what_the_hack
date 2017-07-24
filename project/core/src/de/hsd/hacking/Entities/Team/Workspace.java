@@ -38,7 +38,7 @@ public class Workspace {
         this.computer = computer;
         computer.setWorkingChair(chair);
         GameStage.instance().addTouchable(computer);
-        desk.setContainedObject(computer);
+        desk.setContainedObject(computer, 0);
     }
 
 }

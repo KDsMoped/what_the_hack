@@ -1,10 +1,7 @@
 package de.hsd.hacking.Screens;
 
 import com.badlogic.gdx.Screen;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import de.hsd.hacking.Data.EventListener;
-import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.HackingGame;
