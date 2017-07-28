@@ -1371,6 +1371,30 @@ public final class Proto {
   public interface MessageManagerOrBuilder extends
       // @@protoc_insertion_point(interface_extends:what_the_hack.MessageManager)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    java.util.List<de.hsd.hacking.Proto.Message> 
+        getMessagesList();
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    de.hsd.hacking.Proto.Message getMessages(int index);
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    int getMessagesCount();
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    java.util.List<? extends de.hsd.hacking.Proto.MessageOrBuilder> 
+        getMessagesOrBuilderList();
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    de.hsd.hacking.Proto.MessageOrBuilder getMessagesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code what_the_hack.MessageManager}
@@ -1384,6 +1408,7 @@ public final class Proto {
       super(builder);
     }
     private MessageManager() {
+      messages_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1396,6 +1421,7 @@ public final class Proto {
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      int mutable_bitField0_ = 0;
       try {
         boolean done = false;
         while (!done) {
@@ -1410,6 +1436,15 @@ public final class Proto {
               }
               break;
             }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                messages_ = new java.util.ArrayList<de.hsd.hacking.Proto.Message>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              messages_.add(
+                  input.readMessage(de.hsd.hacking.Proto.Message.parser(), extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1418,6 +1453,9 @@ public final class Proto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          messages_ = java.util.Collections.unmodifiableList(messages_);
+        }
         makeExtensionsImmutable();
       }
     }
@@ -1433,6 +1471,41 @@ public final class Proto {
               de.hsd.hacking.Proto.MessageManager.class, de.hsd.hacking.Proto.MessageManager.Builder.class);
     }
 
+    public static final int MESSAGES_FIELD_NUMBER = 1;
+    private java.util.List<de.hsd.hacking.Proto.Message> messages_;
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    public java.util.List<de.hsd.hacking.Proto.Message> getMessagesList() {
+      return messages_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    public java.util.List<? extends de.hsd.hacking.Proto.MessageOrBuilder> 
+        getMessagesOrBuilderList() {
+      return messages_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    public int getMessagesCount() {
+      return messages_.size();
+    }
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    public de.hsd.hacking.Proto.Message getMessages(int index) {
+      return messages_.get(index);
+    }
+    /**
+     * <code>repeated .what_the_hack.Message messages = 1;</code>
+     */
+    public de.hsd.hacking.Proto.MessageOrBuilder getMessagesOrBuilder(
+        int index) {
+      return messages_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1445,6 +1518,9 @@ public final class Proto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      for (int i = 0; i < messages_.size(); i++) {
+        output.writeMessage(1, messages_.get(i));
+      }
     }
 
     public int getSerializedSize() {
@@ -1452,6 +1528,10 @@ public final class Proto {
       if (size != -1) return size;
 
       size = 0;
+      for (int i = 0; i < messages_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, messages_.get(i));
+      }
       memoizedSize = size;
       return size;
     }
@@ -1468,6 +1548,8 @@ public final class Proto {
       de.hsd.hacking.Proto.MessageManager other = (de.hsd.hacking.Proto.MessageManager) obj;
 
       boolean result = true;
+      result = result && getMessagesList()
+          .equals(other.getMessagesList());
       return result;
     }
 
@@ -1478,6 +1560,10 @@ public final class Proto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      if (getMessagesCount() > 0) {
+        hash = (37 * hash) + MESSAGES_FIELD_NUMBER;
+        hash = (53 * hash) + getMessagesList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1603,10 +1689,17 @@ public final class Proto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getMessagesFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
+        if (messagesBuilder_ == null) {
+          messages_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          messagesBuilder_.clear();
+        }
         return this;
       }
 
@@ -1629,6 +1722,16 @@ public final class Proto {
 
       public de.hsd.hacking.Proto.MessageManager buildPartial() {
         de.hsd.hacking.Proto.MessageManager result = new de.hsd.hacking.Proto.MessageManager(this);
+        int from_bitField0_ = bitField0_;
+        if (messagesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            messages_ = java.util.Collections.unmodifiableList(messages_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.messages_ = messages_;
+        } else {
+          result.messages_ = messagesBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -1670,6 +1773,32 @@ public final class Proto {
 
       public Builder mergeFrom(de.hsd.hacking.Proto.MessageManager other) {
         if (other == de.hsd.hacking.Proto.MessageManager.getDefaultInstance()) return this;
+        if (messagesBuilder_ == null) {
+          if (!other.messages_.isEmpty()) {
+            if (messages_.isEmpty()) {
+              messages_ = other.messages_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureMessagesIsMutable();
+              messages_.addAll(other.messages_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.messages_.isEmpty()) {
+            if (messagesBuilder_.isEmpty()) {
+              messagesBuilder_.dispose();
+              messagesBuilder_ = null;
+              messages_ = other.messages_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              messagesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMessagesFieldBuilder() : null;
+            } else {
+              messagesBuilder_.addAllMessages(other.messages_);
+            }
+          }
+        }
         onChanged();
         return this;
       }
@@ -1694,6 +1823,247 @@ public final class Proto {
           }
         }
         return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<de.hsd.hacking.Proto.Message> messages_ =
+        java.util.Collections.emptyList();
+      private void ensureMessagesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          messages_ = new java.util.ArrayList<de.hsd.hacking.Proto.Message>(messages_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Message, de.hsd.hacking.Proto.Message.Builder, de.hsd.hacking.Proto.MessageOrBuilder> messagesBuilder_;
+
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Message> getMessagesList() {
+        if (messagesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(messages_);
+        } else {
+          return messagesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public int getMessagesCount() {
+        if (messagesBuilder_ == null) {
+          return messages_.size();
+        } else {
+          return messagesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Message getMessages(int index) {
+        if (messagesBuilder_ == null) {
+          return messages_.get(index);
+        } else {
+          return messagesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder setMessages(
+          int index, de.hsd.hacking.Proto.Message value) {
+        if (messagesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessagesIsMutable();
+          messages_.set(index, value);
+          onChanged();
+        } else {
+          messagesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder setMessages(
+          int index, de.hsd.hacking.Proto.Message.Builder builderForValue) {
+        if (messagesBuilder_ == null) {
+          ensureMessagesIsMutable();
+          messages_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          messagesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder addMessages(de.hsd.hacking.Proto.Message value) {
+        if (messagesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessagesIsMutable();
+          messages_.add(value);
+          onChanged();
+        } else {
+          messagesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder addMessages(
+          int index, de.hsd.hacking.Proto.Message value) {
+        if (messagesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessagesIsMutable();
+          messages_.add(index, value);
+          onChanged();
+        } else {
+          messagesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder addMessages(
+          de.hsd.hacking.Proto.Message.Builder builderForValue) {
+        if (messagesBuilder_ == null) {
+          ensureMessagesIsMutable();
+          messages_.add(builderForValue.build());
+          onChanged();
+        } else {
+          messagesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder addMessages(
+          int index, de.hsd.hacking.Proto.Message.Builder builderForValue) {
+        if (messagesBuilder_ == null) {
+          ensureMessagesIsMutable();
+          messages_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          messagesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder addAllMessages(
+          java.lang.Iterable<? extends de.hsd.hacking.Proto.Message> values) {
+        if (messagesBuilder_ == null) {
+          ensureMessagesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, messages_);
+          onChanged();
+        } else {
+          messagesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder clearMessages() {
+        if (messagesBuilder_ == null) {
+          messages_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          messagesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public Builder removeMessages(int index) {
+        if (messagesBuilder_ == null) {
+          ensureMessagesIsMutable();
+          messages_.remove(index);
+          onChanged();
+        } else {
+          messagesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Message.Builder getMessagesBuilder(
+          int index) {
+        return getMessagesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public de.hsd.hacking.Proto.MessageOrBuilder getMessagesOrBuilder(
+          int index) {
+        if (messagesBuilder_ == null) {
+          return messages_.get(index);  } else {
+          return messagesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public java.util.List<? extends de.hsd.hacking.Proto.MessageOrBuilder> 
+           getMessagesOrBuilderList() {
+        if (messagesBuilder_ != null) {
+          return messagesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(messages_);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Message.Builder addMessagesBuilder() {
+        return getMessagesFieldBuilder().addBuilder(
+            de.hsd.hacking.Proto.Message.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Message.Builder addMessagesBuilder(
+          int index) {
+        return getMessagesFieldBuilder().addBuilder(
+            index, de.hsd.hacking.Proto.Message.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Message messages = 1;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Message.Builder> 
+           getMessagesBuilderList() {
+        return getMessagesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Message, de.hsd.hacking.Proto.Message.Builder, de.hsd.hacking.Proto.MessageOrBuilder> 
+          getMessagesFieldBuilder() {
+        if (messagesBuilder_ == null) {
+          messagesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              de.hsd.hacking.Proto.Message, de.hsd.hacking.Proto.Message.Builder, de.hsd.hacking.Proto.MessageOrBuilder>(
+                  messages_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        return messagesBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1773,8 +2143,9 @@ public final class Proto {
       "ep\030\003 \001(\005\"\207\001\n\007Message\022\017\n\007message\030\001 \001(\t\022\014\n" +
       "\004date\030\002 \001(\005\022)\n\004type\030\003 \001(\0162\033.what_the_hac" +
       "k.Message.Type\"2\n\004Type\022\010\n\004INFO\020\000\022\013\n\007WARN" +
-      "ING\020\001\022\t\n\005ERROR\020\002\022\010\n\004HELP\020\003\"\020\n\016MessageMan" +
-      "agerB\027\n\016de.hsd.hackingB\005Protob\006proto3"
+      "ING\020\001\022\t\n\005ERROR\020\002\022\010\n\004HELP\020\003\":\n\016MessageMan" +
+      "ager\022(\n\010messages\030\001 \003(\0132\026.what_the_hack.M" +
+      "essageB\027\n\016de.hsd.hackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1805,7 +2176,7 @@ public final class Proto {
     internal_static_what_the_hack_MessageManager_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MessageManager_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "Messages", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
