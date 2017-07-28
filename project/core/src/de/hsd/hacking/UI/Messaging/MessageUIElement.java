@@ -43,8 +43,8 @@ public class MessageUIElement extends Table {
         Label text = new Label(message.getText(), Constants.TerminalLabelStyle());
         text.setWrap(true);
 
-        this.add(img).pad(4);
-        this.add(date).pad(4);
+        this.add(img).pad(4).top();
+        this.add(date).pad(4).top();
         this.add(text).width(400).pad(4);
     }
 
