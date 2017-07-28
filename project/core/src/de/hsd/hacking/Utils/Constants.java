@@ -3,6 +3,7 @@ package de.hsd.hacking.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -36,6 +37,7 @@ public class Constants {
 
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
+    private static ScrollPane.ScrollPaneStyle scrollPaneStyle;
     private static Label.LabelStyle labelStyle;
     private static Label.LabelStyle tinyLabelStyle;
     private static Label.LabelStyle terminalLabelStyle;
@@ -67,6 +69,19 @@ public class Constants {
         }
 
         return textButtonStyle;
+    }
+
+    public static ScrollPane.ScrollPaneStyle ScrollPaneStyle() {
+        if (scrollPaneStyle == null) {
+            scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
+
+            scrollPaneStyle.vScrollKnob = UiSkin().getDrawable("win32_button_9_patch_normal");
+            scrollPaneStyle.hScrollKnob = UiSkin().getDrawable("win32_button_9_patch_normal");
+            scrollPaneStyle.vScroll = UiSkin().getDrawable("win32_scoll_background");
+            scrollPaneStyle.hScroll = UiSkin().getDrawable("win32_scoll_background");
+        }
+
+        return scrollPaneStyle;
     }
 
     public static TextButton.TextButtonStyle TabButtonStyle() {
