@@ -116,7 +116,7 @@ public class MessageBar extends Table implements EventListener{
         fullScroller.setFadeScrollBars(false);
         fullScroller.setStyle(Constants.ScrollPaneStyleTerminal());
 
-        fullView.add(fullScroller).expand().fill().bottom().padTop(2);
+        fullView.add(fullScroller).expand().fill().bottom().prefWidth(GameStage.VIEWPORT_WIDTH - 4).padTop(2);
     }
 
     /**
