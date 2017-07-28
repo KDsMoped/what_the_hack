@@ -3,11 +3,12 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.google.gson.annotations.Expose;
+import com.google.protobuf.Internal;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Proto.Global;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -15,67 +16,64 @@ import de.hsd.hacking.Utils.Constants;
  */
 
 public class GameTime extends Actor {
-
+    Global.Builder data;
     public static GameTime instance;
 
     private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .025f;
     private static final int CLOCK_STEPS = 9;
 
-    @Expose private float currentTime;
-    @Expose private int currentDay;
     private List<TimeChangedListener> timeChangedListeners;
 
-    @Expose private int currentStep;
-
-
-    //for de-serializing?
-    /*public GameTime(int startingDay, float startingTime){
-        this.currentDay = startingDay;
-        this.currentTime = startingTime;
-        timeChangedListeners = new ArrayList<TimeChangedListener>(4);
-    }*/
-
     public GameTime() {
-        this.currentDay = 1;
-        this.currentTime = 0f;
-        timeChangedListeners = new ArrayList<TimeChangedListener>(4);
-        this.currentStep = 0;
+        data = Global.newBuilder();
 
+        data.setDay(1);
+        data.setTime(0f);
+        timeChangedListeners = new ArrayList<TimeChangedListener>(4);
+        data.setCurrentStep(0);
+
+        instance = this;
+    }
+
+    public GameTime(Global.Builder data) {
+        this.data = data;
+
+        timeChangedListeners = new ArrayList<TimeChangedListener>(4);
         instance = this;
     }
 
     @Override
     public void act(float delta) {
-        currentTime += delta * SECONDS_TO_GAME_TIME_DAY_FACTOR;
+        data.setTime(data.getTime() + delta * SECONDS_TO_GAME_TIME_DAY_FACTOR);
 
         //Day is over
-        if (currentTime >= 1f) {
-            currentTime = 0f;
-            currentDay++;
-            if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "Day changed. Now day: " + currentDay);
+        if (data.getTime() >= 1f) {
+            data.setTime(0f);
+            data.setDay(data.getDay() + 1);
+            if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "Day changed. Now day: " + data.getDay());
             for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
-                t.dayChanged(currentDay);
+                t.dayChanged(data.getDay());
             }
-            if (currentDay % 7 == 0) {
+            if (data.getDay() % 7 == 0) {
                 for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
-                    t.weekChanged((currentDay / 7) + 1);
+                    t.weekChanged((data.getDay() / 7) + 1);
                 }
             }
-            currentStep = 0;
+            data.setCurrentStep(0);
             for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
-                t.timeStepChanged(currentStep);
+                t.timeStepChanged(data.getCurrentStep());
             }
         }
         //Time [0;1]
         for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
-            t.timeChanged(currentTime);
+            t.timeChanged(data.getTime());
         }
         //Timesteps [0;8]
-        int step = MathUtils.floor(currentTime * (CLOCK_STEPS));
-        if (currentStep < step) {
-            currentStep = step;
+        int step = MathUtils.floor(data.getTime() * (CLOCK_STEPS));
+        if (data.getCurrentStep() < step) {
+            data.setCurrentStep(step);
             for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
-                t.timeStepChanged(currentStep);
+                t.timeStepChanged(data.getCurrentStep());
             }
         }
     }
@@ -87,27 +85,27 @@ public class GameTime extends Actor {
     }
 
     public float getCurrentTime() {
-        return currentTime;
+        return data.getTime();
     }
 
     public void setCurrentTime(float currentTime) {
-        this.currentTime = currentTime;
+        data.setTime(currentTime);
     }
 
     public int getCurrentDay() {
-        return currentDay;
+        return data.getDay();
     }
 
     public void setCurrentDay(int currentDay) {
-        this.currentDay = currentDay;
+        data.setDay(currentDay);
     }
 
     public int getCurrentStep() {
-        return currentStep;
+        return data.getCurrentStep();
     }
 
     public void setCurrentStep(int currentStep) {
-        this.currentStep = currentStep;
+        data.setCurrentStep(currentStep);
     }
 
     public List<TimeChangedListener> getTimeChangedListeners() {
@@ -119,7 +117,7 @@ public class GameTime extends Actor {
     }
 
     public float getRemainingWeekFraction(){
-        return 1 - ((currentDay) % 7) / (float) 7;
+        return 1 - ((data.getDay()) % 7) / (float) 7;
     }
 
     public boolean removeTimeChangedListener(TimeChangedListener timeChangedListener) {

@@ -1,9 +1,46 @@
 apply plugin: "java"
 sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-sourceSets.main.java.srcDirs = ["src/"]
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/'
+        }
+    }
+    core {
+        proto {
+            srcDir 'src/de/hsd/hacking/Proto'
+        }
+    }
+}
+
 eclipse.project {
     name = appName + "-core"
 }
+
 dependencies {
+}
+
+protobuf {
+    protoc {
+        // Download from repositories
+        artifact = 'com.google.protobuf:protoc:3.3.0'
+    }
+
+    generateProtoTasks.generatedFilesBaseDir = 'gen'
+
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { outputSubDir = '' }
+            }
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file("${protobuf.generatedFilesBaseDir}/main");
+    }
 }

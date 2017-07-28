@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package what_the_hack;
+
+option java_package = "de.hsd.hacking";
+option java_outer_classname = "Proto";
+
+message Global {
+  int32 day = 1;
+  float time = 2;
+  int32 currentStep = 3;
+}
+
+message Message {
+  string message = 1;
+  int32 date = 2;
+  Type type = 3;
+
+  enum Type {
+    INFO = 0;
+    WARNING = 1;
+    ERROR = 2;
+    HELP = 3;
+  }
+}
+
+message MessageManager {
+  repeated Message messages = 1;
+}
