@@ -15,6 +15,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.UI.General.TabbedView;
 import de.hsd.hacking.Utils.Callback.Callback;
+import de.hsd.hacking.Utils.Constants;
 
 public class EmployeeBrowser extends Popup {
 
@@ -74,6 +75,8 @@ public class EmployeeBrowser extends Popup {
         content.setName("Hire");
 
         ScrollPane scroller = new ScrollPane(openEmployeeContainer = new Table());
+        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setFadeScrollBars(false);
 
         content.row();
         content.add(scroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);
@@ -85,6 +88,8 @@ public class EmployeeBrowser extends Popup {
         content.setName("Team");
 
         ScrollPane scroller = new ScrollPane(hiredEmployeeContainer = new Table());
+        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setFadeScrollBars(false);
 
         content.row();
         content.add(scroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);

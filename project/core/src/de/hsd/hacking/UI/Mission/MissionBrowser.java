@@ -71,14 +71,20 @@ public class MissionBrowser extends Popup {
         // Add everything to the helper tables
         openMissionContainer = new Table();
         openMissionScroller = new ScrollPane(openMissionContainer);
+        openMissionScroller.setStyle(Constants.ScrollPaneStyle());
+        openMissionScroller.setFadeScrollBars(false);
         openMissions.add(openMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         activeMissionsContainer = new Table();
         activeMissionScroller = new ScrollPane(activeMissionsContainer);
+        activeMissionScroller.setStyle(Constants.ScrollPaneStyle());
+        activeMissionScroller.setFadeScrollBars(false);
         activeMissions.add(activeMissionScroller).expand().fill().prefHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         completedMissionsContainer = new Table();
         completedMissionsScroller = new ScrollPane(completedMissionsContainer);
+        activeMissionScroller.setStyle(Constants.ScrollPaneStyle());
+        activeMissionScroller.setFadeScrollBars(false);
         completedMissions.add(completedMissionsScroller).expand().fill().prefHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         refreshList();
@@ -110,7 +116,7 @@ public class MissionBrowser extends Popup {
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().startMission(mission);
                 }
-            })).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
+            })).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).padRight(4).row();
         }
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
@@ -119,7 +125,7 @@ public class MissionBrowser extends Popup {
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().abortMission(mission);
                 }
-            })).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
+            })).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).padRight(4).row();
         }
 
         for (final Mission mission : MissionManager.instance().getCompletedMissions()) {
@@ -128,7 +134,7 @@ public class MissionBrowser extends Popup {
                 public void changed(ChangeEvent event, Actor actor) {
 
                 }
-            })).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).row();
+            })).expandX().fillX().padTop(SCROLLER_ELEMENT_PADDING).padBottom(SCROLLER_ELEMENT_PADDING).padRight(4).row();
         }
     }
 }

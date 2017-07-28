@@ -170,7 +170,7 @@ public class ShopUIElement extends Table {
         }
 
         this.add(leftContent).expandX().fillX().top().left().width(42);
-        this.add(midContent).expandX().fillX().top().left().width(258);
+        this.add(midContent).expandX().fillX().top().left().width(250);
         this.add(rightContent).expandX().fillX().right().width(100);
 
     }

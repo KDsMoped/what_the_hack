@@ -52,6 +52,8 @@ public class MissionAllocatorPopup extends Popup {
 
         Table missionContainer = new Table();
         ScrollPane missionScroller = new ScrollPane(missionContainer);
+        missionScroller.setStyle(Constants.ScrollPaneStyle());
+        missionScroller.setFadeScrollBars(false);
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
 //            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
