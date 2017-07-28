@@ -3,10 +3,8 @@ package de.hsd.hacking.UI.Shop;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
@@ -96,6 +94,8 @@ public class ShopBrowser extends Popup {
         content.setName("Shop");
 
         ScrollPane scroller = new ScrollPane(shopContainer = new Table());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
+        scroller.setFadeScrollBars(false);
 
         content.row();
         content.add(scroller).expand().fill().prefHeight(SCROLLER_HEIGHT).maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);
@@ -107,6 +107,8 @@ public class ShopBrowser extends Popup {
         content.setName("Upgrades");
 
         ScrollPane scroller = new ScrollPane(upgradeContainer = new Table());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
+        scroller.setFadeScrollBars(false);
 
         content.row();
         content.add(scroller).expand().fill().prefHeight(SCROLLER_HEIGHT).maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);
@@ -118,6 +120,8 @@ public class ShopBrowser extends Popup {
         content.setName("Finished");
 
         ScrollPane scroller = new ScrollPane(finishedContainer = new Table());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
+        scroller.setFadeScrollBars(false);
 
         content.row();
         content.add(scroller).expand().fill().prefHeight(SCROLLER_HEIGHT).maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH);
@@ -137,7 +141,7 @@ public class ShopBrowser extends Popup {
         shopContainer.top();
         for (final Equipment equipment : equipmentManager.getShopItemList()) {
 
-            shopContainer.add(new ShopUIElement(equipment)).expandX().fillX().padBottom(5).maxWidth(400).row();
+            shopContainer.add(new ShopUIElement(equipment)).expandX().fillX().padBottom(5).padRight(4).row();
         }
 
         upgradeContainer.clearChildren();
@@ -146,9 +150,9 @@ public class ShopBrowser extends Popup {
         finishedContainer.top();
         for (final Equipment equipment : equipmentManager.getPurchasedItemList()) {
             if(equipment instanceof Upgradable && equipment.getLevel() < ((Upgradable) equipment).getMaxLevel()) {
-                upgradeContainer.add(new ShopUIElement(equipment)).expandX().fillX().padBottom(5).maxWidth(400).row();
+                upgradeContainer.add(new ShopUIElement(equipment)).expandX().fillX().padBottom(5).padRight(4).row();
             }
-            else finishedContainer.add(new ShopUIElement(equipment)).expandX().fillX().padBottom(5).maxWidth(400).row();
+            else finishedContainer.add(new ShopUIElement(equipment)).expandX().fillX().padBottom(5).padRight(4).row();
         }
     }
 

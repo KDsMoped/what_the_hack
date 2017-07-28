@@ -3,6 +3,7 @@ package de.hsd.hacking.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -36,6 +37,7 @@ public class Constants {
 
     private static Skin uiSkin;
     private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
+    private static ScrollPane.ScrollPaneStyle scrollPaneStyleWin32, scrollPaneStyleTerminal;
     private static Label.LabelStyle labelStyle;
     private static Label.LabelStyle tinyLabelStyle;
     private static Label.LabelStyle terminalLabelStyle;
@@ -67,6 +69,32 @@ public class Constants {
         }
 
         return textButtonStyle;
+    }
+
+    public static ScrollPane.ScrollPaneStyle ScrollPaneStyleWin32() {
+        if (scrollPaneStyleWin32 == null) {
+            scrollPaneStyleWin32 = new ScrollPane.ScrollPaneStyle();
+
+            scrollPaneStyleWin32.vScrollKnob = UiSkin().getDrawable("win32_button_9_patch_normal");
+            scrollPaneStyleWin32.hScrollKnob = UiSkin().getDrawable("win32_button_9_patch_normal");
+            scrollPaneStyleWin32.vScroll = UiSkin().getDrawable("win32_scoll_background");
+            scrollPaneStyleWin32.hScroll = UiSkin().getDrawable("win32_scoll_background");
+        }
+
+        return scrollPaneStyleWin32;
+    }
+
+    public static ScrollPane.ScrollPaneStyle ScrollPaneStyleTerminal() {
+        if (scrollPaneStyleTerminal == null) {
+            scrollPaneStyleTerminal = new ScrollPane.ScrollPaneStyle();
+
+            scrollPaneStyleTerminal.vScrollKnob = UiSkin().getDrawable("terminal_scroll_button");
+            scrollPaneStyleTerminal.hScrollKnob = UiSkin().getDrawable("terminal_scroll_button");
+            scrollPaneStyleTerminal.vScroll = UiSkin().getDrawable("terminal_scroll_background");
+            scrollPaneStyleTerminal.hScroll = UiSkin().getDrawable("terminal_scroll_background");
+        }
+
+        return scrollPaneStyleTerminal;
     }
 
     public static TextButton.TextButtonStyle TabButtonStyle() {

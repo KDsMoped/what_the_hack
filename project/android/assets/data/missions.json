@@ -2,7 +2,7 @@
   {
     "name": "Crack'n'Hack",
     "description": "%CONTACT% from %COMPANY% called us today. They accidentally deleted their %PW_APPLICATION% passwords and need some cracking power.",
-    "onSuccess": "Fortunately, they only used password shorter than 8 digits.",
+    "onSuccess": "Fortunately, they only used passwords shorter than 8 digits.",
     "onFail": "You stress their %PW_APPLICATION% protection with brute force, but after days you give up.",
     "skill": [
       {
