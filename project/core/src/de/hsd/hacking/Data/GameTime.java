@@ -123,4 +123,8 @@ public class GameTime extends Actor {
     public boolean removeTimeChangedListener(TimeChangedListener timeChangedListener) {
         return timeChangedListeners.remove(timeChangedListener);
     }
+
+    public Global.Builder getData() {
+        return data;
+    }
 }

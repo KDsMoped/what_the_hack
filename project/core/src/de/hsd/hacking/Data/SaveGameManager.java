@@ -5,12 +5,15 @@ import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
@@ -20,24 +23,37 @@ public final class SaveGameManager {
 
     // TBD
     public static void LoadGame() {
-        savedObjects = (SaveGameContainer) LoadObject("de.hsd.hacking.Data.SaveGameContainer");
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/gametime");
+            Proto.Global global = Proto.Global.parseFrom(stream);
 
-        GameTime.instance = savedObjects.getGameTime();
+            Proto.Global.Builder builder = global.toBuilder();
+            new GameTime(builder);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
     // TBD
     public static boolean SaveGame() {
         boolean success = false;
-        savedObjects = new SaveGameContainer();
 
-        // Employee
-        // Employee Status
-        // Employee Stats
-        //
         // Game Time
+        Proto.Global.Builder gameTime = GameTime.instance.getData();
+        Proto.Global gameTimeCompiled = gameTime.build();
 
-        savedObjects.setGameTime(GameTime.instance);
-        // Messages
+        try {
+            FileOutputStream stream = new FileOutputStream(Gdx.files.getLocalStoragePath() + "/gametime");
+            gameTimeCompiled.writeTo(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error while saving.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
 
         SaveObject(savedObjects);
 

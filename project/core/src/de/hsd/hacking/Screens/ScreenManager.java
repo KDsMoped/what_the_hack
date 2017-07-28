@@ -35,6 +35,8 @@ public class ScreenManager {
         if (!resumed)
             initSingletons();
 
+        Team.setInstance(new Team());
+
         currentScreen = new GameScreen(game);
         game.setScreen(currentScreen);
     }
