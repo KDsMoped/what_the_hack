@@ -61,6 +61,10 @@ public class DataLoader {
         }
     }
 
+    public String getNewLastName(){
+        return RandomUtils.randomElement(names.getLastNames());
+    }
+
     public String getNewFullName(Employee.Gender gender){
         String[] name = getNewName(gender);
 
@@ -68,11 +72,8 @@ public class DataLoader {
     }
 
     public String[] getNewName(Employee.Gender gender){
-        ArrayList<String> surnames = names.getSurNames(gender);;
-        ArrayList<String> lastNames = names.getLastNames();
-
-        String surName = surnames.get(RandomUtils.randomInt(surnames.size()));
-        String lastName = lastNames.get(RandomUtils.randomInt(lastNames.size()));
+        String surName = RandomUtils.randomElement(names.getSurNames(gender));
+        String lastName = RandomUtils.randomElement(names.getLastNames());
 
         return new String[]{surName, lastName};
     }

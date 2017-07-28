@@ -205,11 +205,12 @@ public final class MissionFactory {
 
         DataLoader dl = DataLoader.getInstance();
 
-        ReplacePlaceholder(mission, "%COMPANY%", dl.getNewCompanyName());
-        ReplacePlaceholder(mission, "%PW_APPLICATION%", dl.getNewPasswordApplication());
         ReplacePlaceholder(mission, "%CONTACT%", dl.getNewFullName(Employee.Gender.UNDECIDED));
+        ReplacePlaceholder(mission, "%CONTACT_L%", dl.getNewLastName());
         ReplacePlaceholder(mission, "%CONTACT_M%", dl.getNewFullName(Employee.Gender.MALE));
         ReplacePlaceholder(mission, "%CONTACT_F%", dl.getNewFullName(Employee.Gender.FEMALE));
+        ReplacePlaceholder(mission, "%COMPANY%", dl.getNewCompanyName());
+        ReplacePlaceholder(mission, "%PW_APPLICATION%", dl.getNewPasswordApplication());
         ReplacePlaceholder(mission, "%UNIVERSITY%", dl.getNewUniversityName());
         ReplacePlaceholder(mission, "%WEBSERVICE%", dl.getNewWebServiceName());
         ReplacePlaceholder(mission, "%SOFTWARE%", dl.getNewSoftwareName());

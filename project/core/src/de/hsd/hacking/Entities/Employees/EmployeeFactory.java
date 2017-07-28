@@ -167,7 +167,7 @@ public class EmployeeFactory {
          */
     private static float educateEmployee(Employee employee, Collection<Skill> skillSet) {
 
-        int roll = RandomUtils.randomIntWithin(1, 10);
+        int roll = RandomUtils.randomIntWithin(1, 11);
 
         switch (roll) {
             case 1:
@@ -182,10 +182,10 @@ public class EmployeeFactory {
             case 8:
                 return incrementSkill(skillSet);
             case 9:
-                return rollSpecial(employee);
             case 10:
-                return 1; //wasting time playing video games
+                return rollSpecial(employee);
             case 11:
+                return 1; //wasting time playing video games
             case 12:
             case 13:
 
