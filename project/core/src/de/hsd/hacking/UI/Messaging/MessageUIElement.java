@@ -45,7 +45,7 @@ public class MessageUIElement extends Table {
 
         this.add(img).pad(4).top();
         this.add(date).pad(4).top();
-        this.add(text).width(400).pad(4);
+        this.add(text).width(380).pad(4);
     }
 
     public Message getMessage() {

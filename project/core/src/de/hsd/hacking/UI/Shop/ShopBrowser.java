@@ -3,10 +3,8 @@ package de.hsd.hacking.UI.Shop;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
@@ -96,7 +94,7 @@ public class ShopBrowser extends Popup {
         content.setName("Shop");
 
         ScrollPane scroller = new ScrollPane(shopContainer = new Table());
-        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
         scroller.setFadeScrollBars(false);
 
         content.row();
@@ -109,7 +107,7 @@ public class ShopBrowser extends Popup {
         content.setName("Upgrades");
 
         ScrollPane scroller = new ScrollPane(upgradeContainer = new Table());
-        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
         scroller.setFadeScrollBars(false);
 
         content.row();
@@ -122,7 +120,7 @@ public class ShopBrowser extends Popup {
         content.setName("Finished");
 
         ScrollPane scroller = new ScrollPane(finishedContainer = new Table());
-        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
         scroller.setFadeScrollBars(false);
 
         content.row();

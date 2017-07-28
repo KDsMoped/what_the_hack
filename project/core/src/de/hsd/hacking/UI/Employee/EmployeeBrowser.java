@@ -75,7 +75,7 @@ public class EmployeeBrowser extends Popup {
         content.setName("Hire");
 
         ScrollPane scroller = new ScrollPane(openEmployeeContainer = new Table());
-        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
         scroller.setFadeScrollBars(false);
 
         content.row();
@@ -88,7 +88,7 @@ public class EmployeeBrowser extends Popup {
         content.setName("Team");
 
         ScrollPane scroller = new ScrollPane(hiredEmployeeContainer = new Table());
-        scroller.setStyle(Constants.ScrollPaneStyle());
+        scroller.setStyle(Constants.ScrollPaneStyleWin32());
         scroller.setFadeScrollBars(false);
 
         content.row();
