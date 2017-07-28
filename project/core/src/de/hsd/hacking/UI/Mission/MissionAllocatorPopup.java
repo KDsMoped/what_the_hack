@@ -2,15 +2,11 @@ package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
@@ -52,7 +48,7 @@ public class MissionAllocatorPopup extends Popup {
 
         Table missionContainer = new Table();
         ScrollPane missionScroller = new ScrollPane(missionContainer);
-        missionScroller.setStyle(Constants.ScrollPaneStyle());
+        missionScroller.setStyle(Constants.ScrollPaneStyleWin32());
         missionScroller.setFadeScrollBars(false);
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {

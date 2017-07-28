@@ -1,19 +1,16 @@
 package de.hsd.hacking.UI.Mission;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.Popup;
@@ -71,20 +68,20 @@ public class MissionBrowser extends Popup {
         // Add everything to the helper tables
         openMissionContainer = new Table();
         openMissionScroller = new ScrollPane(openMissionContainer);
-        openMissionScroller.setStyle(Constants.ScrollPaneStyle());
+        openMissionScroller.setStyle(Constants.ScrollPaneStyleWin32());
         openMissionScroller.setFadeScrollBars(false);
         openMissions.add(openMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         activeMissionsContainer = new Table();
         activeMissionScroller = new ScrollPane(activeMissionsContainer);
-        activeMissionScroller.setStyle(Constants.ScrollPaneStyle());
+        activeMissionScroller.setStyle(Constants.ScrollPaneStyleWin32());
         activeMissionScroller.setFadeScrollBars(false);
         activeMissions.add(activeMissionScroller).expand().fill().prefHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         completedMissionsContainer = new Table();
         completedMissionsScroller = new ScrollPane(completedMissionsContainer);
-        activeMissionScroller.setStyle(Constants.ScrollPaneStyle());
-        activeMissionScroller.setFadeScrollBars(false);
+        completedMissionsScroller.setStyle(Constants.ScrollPaneStyleWin32());
+        completedMissionsScroller.setFadeScrollBars(false);
         completedMissions.add(completedMissionsScroller).expand().fill().prefHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         refreshList();

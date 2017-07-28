@@ -103,7 +103,7 @@ public class EmployeeProfile extends Popup {
         viewport.setBackground(Assets.instance().table_border_patch);
 
         ScrollPane informationScroller = new ScrollPane(informationContainer);
-        informationScroller.setStyle(Constants.ScrollPaneStyle());
+        informationScroller.setStyle(Constants.ScrollPaneStyleWin32());
         informationScroller.setFadeScrollBars(false);
         informationContainer.pad(2);
 
