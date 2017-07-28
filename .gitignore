@@ -73,3 +73,7 @@ Thumbs.db
 
 # grade generated atlas and image files
 project/android/assets/img/
+
+# savegame
+project/android/assets/gametime
+project/android/assets/messagebar

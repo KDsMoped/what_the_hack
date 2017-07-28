@@ -52,6 +52,14 @@ public class ScreenManager {
         ((GameScreen)currentScreen).setSwipeUpAction(r);
     }
 
+    public static boolean isGameRunning() {
+        if (currentScreen.getClass() == GameScreen.class) {
+            return true;
+        }
+        else
+            return false;
+    }
+
     private static void initSingletons() {
         GameTime.instance = new GameTime();
         Team.setInstance(new Team());

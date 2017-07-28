@@ -24,6 +24,7 @@ import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
+import de.hsd.hacking.Data.SaveGameContainer;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
@@ -75,7 +76,6 @@ public class GameStage extends Stage implements EventListener{
 
     private List<Workspace> workspaces;
 
-
     private final MissionBrowser missionBrowser = new MissionBrowser();
 
     private Group foreground, background, ui, popups, overlay;
@@ -83,6 +83,8 @@ public class GameStage extends Stage implements EventListener{
     private static GameStage instance;
     private boolean employeesTouchable = true;
     private EmployeeBar employeeBar;
+
+    private SaveGameContainer saveGameContainer;
 
     public static GameStage instance() {
         return instance;
@@ -103,6 +105,7 @@ public class GameStage extends Stage implements EventListener{
         InitInterior();
         InitTeam();
         InitUI();
+        InitSaveGameList();
     }
 
     private void InitRootObjects() {
@@ -248,6 +251,11 @@ public class GameStage extends Stage implements EventListener{
         employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
 
         EquipmentManager.instance().initBasicEquipment();
+    }
+
+    private void InitSaveGameList() {
+        saveGameContainer = new SaveGameContainer();
+        saveGameContainer.messageBar = this.messageBar;
     }
 
     @Override
@@ -419,4 +427,8 @@ public class GameStage extends Stage implements EventListener{
     }
 
     public List<Workspace> getWorkspaces() {return workspaces; }
+
+    public SaveGameContainer getSaveGameContainer() {
+        return saveGameContainer;
+    }
 }

@@ -1368,8 +1368,8 @@ public final class Proto {
 
   }
 
-  public interface MessageManagerOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:what_the_hack.MessageManager)
+  public interface MessageBarOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.MessageBar)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1397,17 +1397,17 @@ public final class Proto {
         int index);
   }
   /**
-   * Protobuf type {@code what_the_hack.MessageManager}
+   * Protobuf type {@code what_the_hack.MessageBar}
    */
-  public  static final class MessageManager extends
+  public  static final class MessageBar extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:what_the_hack.MessageManager)
-      MessageManagerOrBuilder {
-    // Use MessageManager.newBuilder() to construct.
-    private MessageManager(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:what_the_hack.MessageBar)
+      MessageBarOrBuilder {
+    // Use MessageBar.newBuilder() to construct.
+    private MessageBar(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private MessageManager() {
+    private MessageBar() {
       messages_ = java.util.Collections.emptyList();
     }
 
@@ -1416,7 +1416,7 @@ public final class Proto {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private MessageManager(
+    private MessageBar(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1461,14 +1461,14 @@ public final class Proto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageManager_descriptor;
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageBar_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageManager_fieldAccessorTable
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageBar_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              de.hsd.hacking.Proto.MessageManager.class, de.hsd.hacking.Proto.MessageManager.Builder.class);
+              de.hsd.hacking.Proto.MessageBar.class, de.hsd.hacking.Proto.MessageBar.Builder.class);
     }
 
     public static final int MESSAGES_FIELD_NUMBER = 1;
@@ -1542,10 +1542,10 @@ public final class Proto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof de.hsd.hacking.Proto.MessageManager)) {
+      if (!(obj instanceof de.hsd.hacking.Proto.MessageBar)) {
         return super.equals(obj);
       }
-      de.hsd.hacking.Proto.MessageManager other = (de.hsd.hacking.Proto.MessageManager) obj;
+      de.hsd.hacking.Proto.MessageBar other = (de.hsd.hacking.Proto.MessageBar) obj;
 
       boolean result = true;
       result = result && getMessagesList()
@@ -1569,69 +1569,69 @@ public final class Proto {
       return hash;
     }
 
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(byte[] data)
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(java.io.InputStream input)
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseDelimitedFrom(java.io.InputStream input)
+    public static de.hsd.hacking.Proto.MessageBar parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseDelimitedFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static de.hsd.hacking.Proto.MessageManager parseFrom(
+    public static de.hsd.hacking.Proto.MessageBar parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1643,7 +1643,7 @@ public final class Proto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(de.hsd.hacking.Proto.MessageManager prototype) {
+    public static Builder newBuilder(de.hsd.hacking.Proto.MessageBar prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1658,25 +1658,25 @@ public final class Proto {
       return builder;
     }
     /**
-     * Protobuf type {@code what_the_hack.MessageManager}
+     * Protobuf type {@code what_the_hack.MessageBar}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:what_the_hack.MessageManager)
-        de.hsd.hacking.Proto.MessageManagerOrBuilder {
+        // @@protoc_insertion_point(builder_implements:what_the_hack.MessageBar)
+        de.hsd.hacking.Proto.MessageBarOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageManager_descriptor;
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageBar_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageManager_fieldAccessorTable
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageBar_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                de.hsd.hacking.Proto.MessageManager.class, de.hsd.hacking.Proto.MessageManager.Builder.class);
+                de.hsd.hacking.Proto.MessageBar.class, de.hsd.hacking.Proto.MessageBar.Builder.class);
       }
 
-      // Construct using de.hsd.hacking.Proto.MessageManager.newBuilder()
+      // Construct using de.hsd.hacking.Proto.MessageBar.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1705,23 +1705,23 @@ public final class Proto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageManager_descriptor;
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_MessageBar_descriptor;
       }
 
-      public de.hsd.hacking.Proto.MessageManager getDefaultInstanceForType() {
-        return de.hsd.hacking.Proto.MessageManager.getDefaultInstance();
+      public de.hsd.hacking.Proto.MessageBar getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.MessageBar.getDefaultInstance();
       }
 
-      public de.hsd.hacking.Proto.MessageManager build() {
-        de.hsd.hacking.Proto.MessageManager result = buildPartial();
+      public de.hsd.hacking.Proto.MessageBar build() {
+        de.hsd.hacking.Proto.MessageBar result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public de.hsd.hacking.Proto.MessageManager buildPartial() {
-        de.hsd.hacking.Proto.MessageManager result = new de.hsd.hacking.Proto.MessageManager(this);
+      public de.hsd.hacking.Proto.MessageBar buildPartial() {
+        de.hsd.hacking.Proto.MessageBar result = new de.hsd.hacking.Proto.MessageBar(this);
         int from_bitField0_ = bitField0_;
         if (messagesBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1763,16 +1763,16 @@ public final class Proto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof de.hsd.hacking.Proto.MessageManager) {
-          return mergeFrom((de.hsd.hacking.Proto.MessageManager)other);
+        if (other instanceof de.hsd.hacking.Proto.MessageBar) {
+          return mergeFrom((de.hsd.hacking.Proto.MessageBar)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(de.hsd.hacking.Proto.MessageManager other) {
-        if (other == de.hsd.hacking.Proto.MessageManager.getDefaultInstance()) return this;
+      public Builder mergeFrom(de.hsd.hacking.Proto.MessageBar other) {
+        if (other == de.hsd.hacking.Proto.MessageBar.getDefaultInstance()) return this;
         if (messagesBuilder_ == null) {
           if (!other.messages_.isEmpty()) {
             if (messages_.isEmpty()) {
@@ -1811,11 +1811,11 @@ public final class Proto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        de.hsd.hacking.Proto.MessageManager parsedMessage = null;
+        de.hsd.hacking.Proto.MessageBar parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (de.hsd.hacking.Proto.MessageManager) e.getUnfinishedMessage();
+          parsedMessage = (de.hsd.hacking.Proto.MessageBar) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2076,39 +2076,39 @@ public final class Proto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:what_the_hack.MessageManager)
+      // @@protoc_insertion_point(builder_scope:what_the_hack.MessageBar)
     }
 
-    // @@protoc_insertion_point(class_scope:what_the_hack.MessageManager)
-    private static final de.hsd.hacking.Proto.MessageManager DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:what_the_hack.MessageBar)
+    private static final de.hsd.hacking.Proto.MessageBar DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.MessageManager();
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.MessageBar();
     }
 
-    public static de.hsd.hacking.Proto.MessageManager getDefaultInstance() {
+    public static de.hsd.hacking.Proto.MessageBar getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<MessageManager>
-        PARSER = new com.google.protobuf.AbstractParser<MessageManager>() {
-      public MessageManager parsePartialFrom(
+    private static final com.google.protobuf.Parser<MessageBar>
+        PARSER = new com.google.protobuf.AbstractParser<MessageBar>() {
+      public MessageBar parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new MessageManager(input, extensionRegistry);
+          return new MessageBar(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<MessageManager> parser() {
+    public static com.google.protobuf.Parser<MessageBar> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<MessageManager> getParserForType() {
+    public com.google.protobuf.Parser<MessageBar> getParserForType() {
       return PARSER;
     }
 
-    public de.hsd.hacking.Proto.MessageManager getDefaultInstanceForType() {
+    public de.hsd.hacking.Proto.MessageBar getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2125,10 +2125,10 @@ public final class Proto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_what_the_hack_Message_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_what_the_hack_MessageManager_descriptor;
+    internal_static_what_the_hack_MessageBar_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_what_the_hack_MessageManager_fieldAccessorTable;
+      internal_static_what_the_hack_MessageBar_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2143,9 +2143,9 @@ public final class Proto {
       "ep\030\003 \001(\005\"\207\001\n\007Message\022\017\n\007message\030\001 \001(\t\022\014\n" +
       "\004date\030\002 \001(\005\022)\n\004type\030\003 \001(\0162\033.what_the_hac" +
       "k.Message.Type\"2\n\004Type\022\010\n\004INFO\020\000\022\013\n\007WARN" +
-      "ING\020\001\022\t\n\005ERROR\020\002\022\010\n\004HELP\020\003\":\n\016MessageMan" +
-      "ager\022(\n\010messages\030\001 \003(\0132\026.what_the_hack.M" +
-      "essageB\027\n\016de.hsd.hackingB\005Protob\006proto3"
+      "ING\020\001\022\t\n\005ERROR\020\002\022\010\n\004HELP\020\003\"6\n\nMessageBar" +
+      "\022(\n\010messages\030\001 \003(\0132\026.what_the_hack.Messa" +
+      "geB\027\n\016de.hsd.hackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2171,11 +2171,11 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Message_descriptor,
         new java.lang.String[] { "Message", "Date", "Type", });
-    internal_static_what_the_hack_MessageManager_descriptor =
+    internal_static_what_the_hack_MessageBar_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_what_the_hack_MessageManager_fieldAccessorTable = new
+    internal_static_what_the_hack_MessageBar_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_what_the_hack_MessageManager_descriptor,
+        internal_static_what_the_hack_MessageBar_descriptor,
         new java.lang.String[] { "Messages", });
   }
 

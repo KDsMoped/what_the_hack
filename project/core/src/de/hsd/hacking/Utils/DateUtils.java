@@ -27,4 +27,15 @@ public final class DateUtils {
 
         return date;
     }
+
+    /**
+     * converts an date object starting 1.1. to days
+     * @param date
+     * @return
+     */
+    public static int ConvertDateToDays(Date date) {
+        int days = (int)date.getTime() / (24 * 60 * 60 * 1000) + 2;
+
+        return days;
+    }
 }

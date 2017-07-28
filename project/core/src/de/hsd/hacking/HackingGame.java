@@ -24,7 +24,8 @@ public class HackingGame extends Game {
 	}
 
     public void pause () {
-        SaveGameManager.SaveGame();
+		if (ScreenManager.isGameRunning())
+        	SaveGameManager.SaveGame();
     }
 
     public void resume () {

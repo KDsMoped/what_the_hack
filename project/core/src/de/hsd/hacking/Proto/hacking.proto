@@ -24,6 +24,6 @@ message Message {
   }
 }
 
-message MessageManager {
+message MessageBar {
   repeated Message messages = 1;
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
+import com.google.protobuf.GeneratedMessageV3;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,13 +16,12 @@ import java.util.List;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Screens.ScreenManager;
+import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
 public final class SaveGameManager {
-    @Expose private static SaveGameContainer savedObjects = new SaveGameContainer() {
-    };
+    static Proto.MessageBar messageBar;
 
-    // TBD
     public static void LoadGame() {
         try {
             FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/gametime");
@@ -35,29 +35,43 @@ public final class SaveGameManager {
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/messagebar");
+            messageBar = Proto.MessageBar.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
-    // TBD
     public static boolean SaveGame() {
         boolean success = false;
 
         // Game Time
         Proto.Global.Builder gameTime = GameTime.instance.getData();
         Proto.Global gameTimeCompiled = gameTime.build();
+        SaveProto(gameTimeCompiled, "gametime");
 
+        SaveGameContainer container = GameStage.instance().getSaveGameContainer();
+        Proto.MessageBar messageBarCompiled = container.messageBar.Save();
+        SaveProto(messageBarCompiled, "messagebar");
+
+        return success;
+    }
+
+    private static void SaveProto(GeneratedMessageV3 message, String filename) {
         try {
-            FileOutputStream stream = new FileOutputStream(Gdx.files.getLocalStoragePath() + "/gametime");
-            gameTimeCompiled.writeTo(stream);
+            FileOutputStream stream = new FileOutputStream(Gdx.files.getLocalStoragePath() + "/" + filename);
+            message.writeTo(stream);
         }
         catch (Exception e) {
-            Gdx.app.error(Constants.TAG, "Error while saving.");
+            Gdx.app.error(Constants.TAG, "Error while saving " + filename);
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
-
-        SaveObject(savedObjects);
-
-        return success;
     }
 
     public static boolean SaveObject(Object obj) {
@@ -118,5 +132,9 @@ public final class SaveGameManager {
         }
 
         return c;
+    }
+
+    public static Proto.MessageBar.Builder getMessageBar() {
+        return messageBar.toBuilder();
     }
 }
