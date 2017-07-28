@@ -135,6 +135,9 @@ public final class SaveGameManager {
     }
 
     public static Proto.MessageBar.Builder getMessageBar() {
-        return messageBar.toBuilder();
+        if (messageBar != null)
+            return messageBar.toBuilder();
+        else
+            return null;
     }
 }
