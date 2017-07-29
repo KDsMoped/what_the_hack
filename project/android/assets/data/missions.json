@@ -237,7 +237,7 @@
     "name": "You have no power here",
     "description": "The %TOWN% %INSTITUTION% organizes a competition for hackers to find security vulnerabilities in their IT system.",
     "onSuccess": "You won the competition! After dropping some USB sticks with the exploit code it only took hours until you could control the test system. Piece of cake since they are still running on XP.",
-    "onFail": "",
+    "onFail": "You did some cool stuff but your competitors were even better.",
     "skill": [
       {
         "type": "Search",
@@ -253,7 +253,7 @@
       }
     ],
     "risk": 0,
-    "hardness": 1.3,
+    "hardness": 1.5,
     "duration": 5,
     "minLevel": 0,
     "maxLevel": 0
@@ -384,7 +384,7 @@
     "maxLevel": 0
   },
   {
-    "name": "",
+    "name": "I'm too broke for this ****.",
     "description": "You got a job offer at the %TOWN% film studios for a supernumerary role as an evil super hacker. Don't forget to bring some impressive equipment.",
     "onSuccess": "It's doubtful that this movie will receive much attention but at least the villain is convincing.",
     "onFail": "In front of the cameras you suddenly become stage fright and have to leave the set. Embarrassing!",
@@ -424,5 +424,55 @@
     "duration": 6,
     "minLevel": 0,
     "maxLevel": 0
+  },
+  {
+    "name": "1984",
+    "description": "You are contacted by agent %CONTACT_L%. The %COUNTRY% government develops a trojan that comprehensively spies on suspicious targets. They need you for developing some zero day exploits.",
+    "onSuccess": "The news report on mass imprisonment of journalists and members of oppositional movement. Certainly just a coincident.",
+    "onFail": "These modern operating systems really are a hard nut to crack.",
+    "skill": [
+      {
+        "type": "Crypto",
+        "value": 0
+      },
+      {
+        "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Network",
+        "value": 0
+      }
+    ],
+    "risk": 0.5,
+    "hardness": 1.3,
+    "duration": 5,
+    "minLevel": 3,
+    "maxLevel": 0
+  },
+  {
+    "name": "Hack me if you can",
+    "description": "The %TOWN% %UNIVERSITY% organizes a hackaton for fun and profit. Objective is to hack a fictional %INSTITUTION%.",
+    "onSuccess": "You compromised the %PW_APPLICATION% %INSTITUTION%",
+    "onFail": "",
+    "skill": [
+      {
+        "type": "Search",
+        "value": 0
+      },
+      {
+        "type": "Hardware",
+        "value": 0
+      },
+      {
+        "type": "Network",
+        "value": 0
+      }
+    ],
+    "risk": 0,
+    "hardness": 1.1,
+    "duration": 5,
+    "minLevel": 0,
+    "maxLevel": 5
   }
 ]

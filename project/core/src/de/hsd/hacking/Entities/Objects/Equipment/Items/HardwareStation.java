@@ -33,7 +33,7 @@ public class HardwareStation extends Equipment implements Upgradable {
 
     @Override
     public int getHardwareSkillBonus() {
-        return level * 5;
+        return level * 1;
     }
 
     @Override

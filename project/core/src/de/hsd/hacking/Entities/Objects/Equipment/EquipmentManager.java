@@ -33,7 +33,6 @@ public class EquipmentManager {
     private ArrayList<Callback> refreshEquipmentListener = new ArrayList<Callback>();
 
     private EquipmentManager() {
-        Gdx.app.log(Constants.TAG, "new equip manager.");
     }
 
     public void initBasicEquipment(){

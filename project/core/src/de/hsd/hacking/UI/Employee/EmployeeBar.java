@@ -3,6 +3,7 @@ package de.hsd.hacking.UI.Employee;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -86,6 +87,7 @@ public class EmployeeBar extends Group {
                 return GetSelected();
             }
         }));
+        //profilePopup.setTouchable(Touchable.enabled);
     }
 
     private void onDetailsClick(){
