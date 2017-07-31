@@ -12,6 +12,7 @@ import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Direction;
 
@@ -22,10 +23,11 @@ public class HardwareStation extends Equipment implements Upgradable {
 
     public HardwareStation(){
         super("Hardware Station", 300, null, true, Direction.DOWN, 0, Direction.DOWN);
+        data.setType(Proto.Equipment.EquipmentType.HardwareStation);
     }
 
     public void upgrade() {
-        level++;
+        data.setLevel(data.getLevel() + 1);
         team.updateResources();
     }
 
@@ -33,7 +35,7 @@ public class HardwareStation extends Equipment implements Upgradable {
 
     @Override
     public int getHardwareSkillBonus() {
-        return level * 1;
+        return data.getLevel() * 1;
     }
 
     @Override

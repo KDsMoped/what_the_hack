@@ -25,6 +25,7 @@ import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.SaveGameContainer;
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
@@ -228,6 +229,7 @@ public class GameStage extends Stage implements EventListener{
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                SaveGameManager.SaveGame();
                 ScreenManager.setMenuScreen();
                 AudioManager.instance().playUIButtonSound();
             }

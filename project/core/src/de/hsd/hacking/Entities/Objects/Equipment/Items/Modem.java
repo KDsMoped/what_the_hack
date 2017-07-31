@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
@@ -14,13 +15,14 @@ public class Modem extends Equipment implements Upgradable {
 
     public Modem() {
         super("Modem", 100, /*EquipmentAttributeType.BANDWIDTH, 100,*/ null, true, Direction.DOWN, 0, Direction.DOWN);
+        data.setType(Proto.Equipment.EquipmentType.Modem);
     }
 
     @Override
-    public int getBandwidthBonus() { return level * 100; }
+    public int getBandwidthBonus() { return data.getLevel() * 100; }
 
     public void upgrade() {
-        level++;
+        data.setLevel(data.getLevel() + 1);
         team.updateResources();
     }
 

@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Screens.ScreenManager;
@@ -23,6 +24,7 @@ import de.hsd.hacking.Utils.Constants;
 public final class SaveGameManager {
     static Proto.MessageBar messageBar;
     static Proto.MissionManager missionManager;
+    static Proto.EquipmentManager equipmentManager;
 
     public static void LoadGame() {
         try {
@@ -32,6 +34,7 @@ public final class SaveGameManager {
             Proto.Global.Builder builder = global.toBuilder();
             new GameTime(builder);
         }
+
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
@@ -57,6 +60,16 @@ public final class SaveGameManager {
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/equipmentmanager");
+            equipmentManager = Proto.EquipmentManager.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
     public static boolean SaveGame() {
@@ -73,6 +86,9 @@ public final class SaveGameManager {
 
         Proto.MissionManager missionManagerCompiled = MissionManager.instance().Save();
         SaveProto(missionManagerCompiled, "missionmanager");
+
+        Proto.EquipmentManager equipmentManagerCompiled = EquipmentManager.instance().Save();
+        SaveProto(equipmentManagerCompiled, "equipmentmanager");
 
         return success;
     }
@@ -159,6 +175,13 @@ public final class SaveGameManager {
     public static Proto.MissionManager.Builder getMissionManager() {
         if (missionManager != null)
             return missionManager.toBuilder();
+        else
+            return null;
+    }
+
+    public static Proto.EquipmentManager.Builder getEquipmentManager() {
+        if (equipmentManager != null)
+            return equipmentManager.toBuilder();
         else
             return null;
     }

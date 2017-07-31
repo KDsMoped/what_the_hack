@@ -6270,6 +6270,1621 @@ public final class Proto {
 
   }
 
+  public interface EquipmentOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.Equipment)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+     */
+    int getTypeValue();
+    /**
+     * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+     */
+    de.hsd.hacking.Proto.Equipment.EquipmentType getType();
+
+    /**
+     * <code>string name = 2;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>float price = 3;</code>
+     */
+    float getPrice();
+
+    /**
+     * <code>int32 level = 4;</code>
+     */
+    int getLevel();
+  }
+  /**
+   * Protobuf type {@code what_the_hack.Equipment}
+   */
+  public  static final class Equipment extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.Equipment)
+      EquipmentOrBuilder {
+    // Use Equipment.newBuilder() to construct.
+    private Equipment(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Equipment() {
+      type_ = 0;
+      name_ = "";
+      price_ = 0F;
+      level_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private Equipment(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 29: {
+
+              price_ = input.readFloat();
+              break;
+            }
+            case 32: {
+
+              level_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_Equipment_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_Equipment_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.Equipment.class, de.hsd.hacking.Proto.Equipment.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.Equipment.EquipmentType}
+     */
+    public enum EquipmentType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>CoffeeMachine = 0;</code>
+       */
+      CoffeeMachine(0),
+      /**
+       * <code>Computer = 1;</code>
+       */
+      Computer(1),
+      /**
+       * <code>HardwareStation = 2;</code>
+       */
+      HardwareStation(2),
+      /**
+       * <code>Modem = 3;</code>
+       */
+      Modem(3),
+      /**
+       * <code>Router = 4;</code>
+       */
+      Router(4),
+      /**
+       * <code>Server = 5;</code>
+       */
+      Server(5),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>CoffeeMachine = 0;</code>
+       */
+      public static final int CoffeeMachine_VALUE = 0;
+      /**
+       * <code>Computer = 1;</code>
+       */
+      public static final int Computer_VALUE = 1;
+      /**
+       * <code>HardwareStation = 2;</code>
+       */
+      public static final int HardwareStation_VALUE = 2;
+      /**
+       * <code>Modem = 3;</code>
+       */
+      public static final int Modem_VALUE = 3;
+      /**
+       * <code>Router = 4;</code>
+       */
+      public static final int Router_VALUE = 4;
+      /**
+       * <code>Server = 5;</code>
+       */
+      public static final int Server_VALUE = 5;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static EquipmentType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static EquipmentType forNumber(int value) {
+        switch (value) {
+          case 0: return CoffeeMachine;
+          case 1: return Computer;
+          case 2: return HardwareStation;
+          case 3: return Modem;
+          case 4: return Router;
+          case 5: return Server;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<EquipmentType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          EquipmentType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<EquipmentType>() {
+              public EquipmentType findValueByNumber(int number) {
+                return EquipmentType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.Equipment.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final EquipmentType[] VALUES = values();
+
+      public static EquipmentType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private EquipmentType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Equipment.EquipmentType)
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private int type_;
+    /**
+     * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+     */
+    public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+     */
+    public de.hsd.hacking.Proto.Equipment.EquipmentType getType() {
+      de.hsd.hacking.Proto.Equipment.EquipmentType result = de.hsd.hacking.Proto.Equipment.EquipmentType.valueOf(type_);
+      return result == null ? de.hsd.hacking.Proto.Equipment.EquipmentType.UNRECOGNIZED : result;
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 2;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRICE_FIELD_NUMBER = 3;
+    private float price_;
+    /**
+     * <code>float price = 3;</code>
+     */
+    public float getPrice() {
+      return price_;
+    }
+
+    public static final int LEVEL_FIELD_NUMBER = 4;
+    private int level_;
+    /**
+     * <code>int32 level = 4;</code>
+     */
+    public int getLevel() {
+      return level_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (type_ != de.hsd.hacking.Proto.Equipment.EquipmentType.CoffeeMachine.getNumber()) {
+        output.writeEnum(1, type_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (price_ != 0F) {
+        output.writeFloat(3, price_);
+      }
+      if (level_ != 0) {
+        output.writeInt32(4, level_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (type_ != de.hsd.hacking.Proto.Equipment.EquipmentType.CoffeeMachine.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (price_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, price_);
+      }
+      if (level_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, level_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.Equipment)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.Equipment other = (de.hsd.hacking.Proto.Equipment) obj;
+
+      boolean result = true;
+      result = result && type_ == other.type_;
+      result = result && getName()
+          .equals(other.getName());
+      result = result && (
+          java.lang.Float.floatToIntBits(getPrice())
+          == java.lang.Float.floatToIntBits(
+              other.getPrice()));
+      result = result && (getLevel()
+          == other.getLevel());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPrice());
+      hash = (37 * hash) + LEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + getLevel();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Equipment parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.Equipment prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.Equipment}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.Equipment)
+        de.hsd.hacking.Proto.EquipmentOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Equipment_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Equipment_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.Equipment.class, de.hsd.hacking.Proto.Equipment.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.Equipment.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        type_ = 0;
+
+        name_ = "";
+
+        price_ = 0F;
+
+        level_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Equipment_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.Equipment getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.Equipment.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.Equipment build() {
+        de.hsd.hacking.Proto.Equipment result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.Equipment buildPartial() {
+        de.hsd.hacking.Proto.Equipment result = new de.hsd.hacking.Proto.Equipment(this);
+        result.type_ = type_;
+        result.name_ = name_;
+        result.price_ = price_;
+        result.level_ = level_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.Equipment) {
+          return mergeFrom((de.hsd.hacking.Proto.Equipment)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.Equipment other) {
+        if (other == de.hsd.hacking.Proto.Equipment.getDefaultInstance()) return this;
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.getPrice() != 0F) {
+          setPrice(other.getPrice());
+        }
+        if (other.getLevel() != 0) {
+          setLevel(other.getLevel());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.Equipment parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.Equipment) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+       */
+      public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Equipment.EquipmentType getType() {
+        de.hsd.hacking.Proto.Equipment.EquipmentType result = de.hsd.hacking.Proto.Equipment.EquipmentType.valueOf(type_);
+        return result == null ? de.hsd.hacking.Proto.Equipment.EquipmentType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+       */
+      public Builder setType(de.hsd.hacking.Proto.Equipment.EquipmentType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Equipment.EquipmentType type = 1;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 2;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private float price_ ;
+      /**
+       * <code>float price = 3;</code>
+       */
+      public float getPrice() {
+        return price_;
+      }
+      /**
+       * <code>float price = 3;</code>
+       */
+      public Builder setPrice(float value) {
+        
+        price_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float price = 3;</code>
+       */
+      public Builder clearPrice() {
+        
+        price_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private int level_ ;
+      /**
+       * <code>int32 level = 4;</code>
+       */
+      public int getLevel() {
+        return level_;
+      }
+      /**
+       * <code>int32 level = 4;</code>
+       */
+      public Builder setLevel(int value) {
+        
+        level_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 level = 4;</code>
+       */
+      public Builder clearLevel() {
+        
+        level_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.Equipment)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.Equipment)
+    private static final de.hsd.hacking.Proto.Equipment DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.Equipment();
+    }
+
+    public static de.hsd.hacking.Proto.Equipment getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Equipment>
+        PARSER = new com.google.protobuf.AbstractParser<Equipment>() {
+      public Equipment parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Equipment(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Equipment> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Equipment> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.Equipment getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EquipmentManagerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.EquipmentManager)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    java.util.List<de.hsd.hacking.Proto.Equipment> 
+        getEquipmentList();
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    de.hsd.hacking.Proto.Equipment getEquipment(int index);
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    int getEquipmentCount();
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    java.util.List<? extends de.hsd.hacking.Proto.EquipmentOrBuilder> 
+        getEquipmentOrBuilderList();
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    de.hsd.hacking.Proto.EquipmentOrBuilder getEquipmentOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code what_the_hack.EquipmentManager}
+   */
+  public  static final class EquipmentManager extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.EquipmentManager)
+      EquipmentManagerOrBuilder {
+    // Use EquipmentManager.newBuilder() to construct.
+    private EquipmentManager(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EquipmentManager() {
+      equipment_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EquipmentManager(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                equipment_ = new java.util.ArrayList<de.hsd.hacking.Proto.Equipment>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              equipment_.add(
+                  input.readMessage(de.hsd.hacking.Proto.Equipment.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          equipment_ = java.util.Collections.unmodifiableList(equipment_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EquipmentManager_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EquipmentManager_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.EquipmentManager.class, de.hsd.hacking.Proto.EquipmentManager.Builder.class);
+    }
+
+    public static final int EQUIPMENT_FIELD_NUMBER = 1;
+    private java.util.List<de.hsd.hacking.Proto.Equipment> equipment_;
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    public java.util.List<de.hsd.hacking.Proto.Equipment> getEquipmentList() {
+      return equipment_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    public java.util.List<? extends de.hsd.hacking.Proto.EquipmentOrBuilder> 
+        getEquipmentOrBuilderList() {
+      return equipment_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    public int getEquipmentCount() {
+      return equipment_.size();
+    }
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    public de.hsd.hacking.Proto.Equipment getEquipment(int index) {
+      return equipment_.get(index);
+    }
+    /**
+     * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+     */
+    public de.hsd.hacking.Proto.EquipmentOrBuilder getEquipmentOrBuilder(
+        int index) {
+      return equipment_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < equipment_.size(); i++) {
+        output.writeMessage(1, equipment_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < equipment_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, equipment_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.EquipmentManager)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.EquipmentManager other = (de.hsd.hacking.Proto.EquipmentManager) obj;
+
+      boolean result = true;
+      result = result && getEquipmentList()
+          .equals(other.getEquipmentList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getEquipmentCount() > 0) {
+        hash = (37 * hash) + EQUIPMENT_FIELD_NUMBER;
+        hash = (53 * hash) + getEquipmentList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EquipmentManager parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.EquipmentManager prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.EquipmentManager}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.EquipmentManager)
+        de.hsd.hacking.Proto.EquipmentManagerOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EquipmentManager_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EquipmentManager_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.EquipmentManager.class, de.hsd.hacking.Proto.EquipmentManager.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.EquipmentManager.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getEquipmentFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (equipmentBuilder_ == null) {
+          equipment_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          equipmentBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EquipmentManager_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.EquipmentManager getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.EquipmentManager.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.EquipmentManager build() {
+        de.hsd.hacking.Proto.EquipmentManager result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.EquipmentManager buildPartial() {
+        de.hsd.hacking.Proto.EquipmentManager result = new de.hsd.hacking.Proto.EquipmentManager(this);
+        int from_bitField0_ = bitField0_;
+        if (equipmentBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            equipment_ = java.util.Collections.unmodifiableList(equipment_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.equipment_ = equipment_;
+        } else {
+          result.equipment_ = equipmentBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.EquipmentManager) {
+          return mergeFrom((de.hsd.hacking.Proto.EquipmentManager)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.EquipmentManager other) {
+        if (other == de.hsd.hacking.Proto.EquipmentManager.getDefaultInstance()) return this;
+        if (equipmentBuilder_ == null) {
+          if (!other.equipment_.isEmpty()) {
+            if (equipment_.isEmpty()) {
+              equipment_ = other.equipment_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureEquipmentIsMutable();
+              equipment_.addAll(other.equipment_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.equipment_.isEmpty()) {
+            if (equipmentBuilder_.isEmpty()) {
+              equipmentBuilder_.dispose();
+              equipmentBuilder_ = null;
+              equipment_ = other.equipment_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              equipmentBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEquipmentFieldBuilder() : null;
+            } else {
+              equipmentBuilder_.addAllMessages(other.equipment_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.EquipmentManager parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.EquipmentManager) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<de.hsd.hacking.Proto.Equipment> equipment_ =
+        java.util.Collections.emptyList();
+      private void ensureEquipmentIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          equipment_ = new java.util.ArrayList<de.hsd.hacking.Proto.Equipment>(equipment_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Equipment, de.hsd.hacking.Proto.Equipment.Builder, de.hsd.hacking.Proto.EquipmentOrBuilder> equipmentBuilder_;
+
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Equipment> getEquipmentList() {
+        if (equipmentBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(equipment_);
+        } else {
+          return equipmentBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public int getEquipmentCount() {
+        if (equipmentBuilder_ == null) {
+          return equipment_.size();
+        } else {
+          return equipmentBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Equipment getEquipment(int index) {
+        if (equipmentBuilder_ == null) {
+          return equipment_.get(index);
+        } else {
+          return equipmentBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder setEquipment(
+          int index, de.hsd.hacking.Proto.Equipment value) {
+        if (equipmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEquipmentIsMutable();
+          equipment_.set(index, value);
+          onChanged();
+        } else {
+          equipmentBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder setEquipment(
+          int index, de.hsd.hacking.Proto.Equipment.Builder builderForValue) {
+        if (equipmentBuilder_ == null) {
+          ensureEquipmentIsMutable();
+          equipment_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          equipmentBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder addEquipment(de.hsd.hacking.Proto.Equipment value) {
+        if (equipmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEquipmentIsMutable();
+          equipment_.add(value);
+          onChanged();
+        } else {
+          equipmentBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder addEquipment(
+          int index, de.hsd.hacking.Proto.Equipment value) {
+        if (equipmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEquipmentIsMutable();
+          equipment_.add(index, value);
+          onChanged();
+        } else {
+          equipmentBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder addEquipment(
+          de.hsd.hacking.Proto.Equipment.Builder builderForValue) {
+        if (equipmentBuilder_ == null) {
+          ensureEquipmentIsMutable();
+          equipment_.add(builderForValue.build());
+          onChanged();
+        } else {
+          equipmentBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder addEquipment(
+          int index, de.hsd.hacking.Proto.Equipment.Builder builderForValue) {
+        if (equipmentBuilder_ == null) {
+          ensureEquipmentIsMutable();
+          equipment_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          equipmentBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder addAllEquipment(
+          java.lang.Iterable<? extends de.hsd.hacking.Proto.Equipment> values) {
+        if (equipmentBuilder_ == null) {
+          ensureEquipmentIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, equipment_);
+          onChanged();
+        } else {
+          equipmentBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder clearEquipment() {
+        if (equipmentBuilder_ == null) {
+          equipment_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          equipmentBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public Builder removeEquipment(int index) {
+        if (equipmentBuilder_ == null) {
+          ensureEquipmentIsMutable();
+          equipment_.remove(index);
+          onChanged();
+        } else {
+          equipmentBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Equipment.Builder getEquipmentBuilder(
+          int index) {
+        return getEquipmentFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public de.hsd.hacking.Proto.EquipmentOrBuilder getEquipmentOrBuilder(
+          int index) {
+        if (equipmentBuilder_ == null) {
+          return equipment_.get(index);  } else {
+          return equipmentBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public java.util.List<? extends de.hsd.hacking.Proto.EquipmentOrBuilder> 
+           getEquipmentOrBuilderList() {
+        if (equipmentBuilder_ != null) {
+          return equipmentBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(equipment_);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Equipment.Builder addEquipmentBuilder() {
+        return getEquipmentFieldBuilder().addBuilder(
+            de.hsd.hacking.Proto.Equipment.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Equipment.Builder addEquipmentBuilder(
+          int index) {
+        return getEquipmentFieldBuilder().addBuilder(
+            index, de.hsd.hacking.Proto.Equipment.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Equipment equipment = 1;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Equipment.Builder> 
+           getEquipmentBuilderList() {
+        return getEquipmentFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Equipment, de.hsd.hacking.Proto.Equipment.Builder, de.hsd.hacking.Proto.EquipmentOrBuilder> 
+          getEquipmentFieldBuilder() {
+        if (equipmentBuilder_ == null) {
+          equipmentBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              de.hsd.hacking.Proto.Equipment, de.hsd.hacking.Proto.Equipment.Builder, de.hsd.hacking.Proto.EquipmentOrBuilder>(
+                  equipment_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          equipment_ = null;
+        }
+        return equipmentBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.EquipmentManager)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.EquipmentManager)
+    private static final de.hsd.hacking.Proto.EquipmentManager DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.EquipmentManager();
+    }
+
+    public static de.hsd.hacking.Proto.EquipmentManager getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EquipmentManager>
+        PARSER = new com.google.protobuf.AbstractParser<EquipmentManager>() {
+      public EquipmentManager parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EquipmentManager(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EquipmentManager> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EquipmentManager> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.EquipmentManager getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_what_the_hack_Global_descriptor;
   private static final 
@@ -6300,6 +7915,16 @@ public final class Proto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_what_the_hack_MissionManager_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_Equipment_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_Equipment_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_EquipmentManager_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_EquipmentManager_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6333,7 +7958,14 @@ public final class Proto {
       "\0132\026.what_the_hack.Mission\022,\n\014openMission" +
       "s\030\003 \003(\0132\026.what_the_hack.Mission\0221\n\021compl" +
       "etedMissions\030\004 \003(\0132\026.what_the_hack.Missi" +
-      "onB\027\n\016de.hsd.hackingB\005Protob\006proto3"
+      "on\"\327\001\n\tEquipment\0224\n\004type\030\001 \001(\0162&.what_th" +
+      "e_hack.Equipment.EquipmentType\022\014\n\004name\030\002" +
+      " \001(\t\022\r\n\005price\030\003 \001(\002\022\r\n\005level\030\004 \001(\005\"h\n\rEq" +
+      "uipmentType\022\021\n\rCoffeeMachine\020\000\022\014\n\010Comput" +
+      "er\020\001\022\023\n\017HardwareStation\020\002\022\t\n\005Modem\020\003\022\n\n\006" +
+      "Router\020\004\022\n\n\006Server\020\005\"?\n\020EquipmentManager",
+      "\022+\n\tequipment\030\001 \003(\0132\030.what_the_hack.Equi" +
+      "pmentB\027\n\016de.hsd.hackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6383,6 +8015,18 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MissionManager_descriptor,
         new java.lang.String[] { "CurrentMissionNumber", "ActiveMissions", "OpenMissions", "CompletedMissions", });
+    internal_static_what_the_hack_Equipment_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_what_the_hack_Equipment_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_Equipment_descriptor,
+        new java.lang.String[] { "Type", "Name", "Price", "Level", });
+    internal_static_what_the_hack_EquipmentManager_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_what_the_hack_EquipmentManager_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_EquipmentManager_descriptor,
+        new java.lang.String[] { "Equipment", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

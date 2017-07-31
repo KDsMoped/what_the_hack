@@ -60,7 +60,7 @@ public class ShopUIElement extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 AudioManager.instance().playUIButtonSound();
-                if(equipmentManager.buyItem(equipment) == 1) {}
+                if(equipmentManager.buyItem(equipment, true) == 1) {}
             }
         });
 

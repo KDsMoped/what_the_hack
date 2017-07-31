@@ -67,3 +67,22 @@ message MissionManager {
   repeated Mission openMissions = 3;
   repeated Mission completedMissions = 4;
 }
+
+message Equipment {
+  EquipmentType type = 1;
+  string name = 2;
+  float price = 3;
+  int32 level = 4;
+  enum EquipmentType {
+    CoffeeMachine = 0;
+    Computer = 1;
+    HardwareStation = 2;
+    Modem = 3;
+    Router = 4;
+    Server = 5;
+  }
+}
+
+message EquipmentManager {
+  repeated Equipment equipment = 1;
+}
