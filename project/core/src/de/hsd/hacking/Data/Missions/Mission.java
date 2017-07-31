@@ -3,11 +3,17 @@ package de.hsd.hacking.Data.Missions;
 import com.badlogic.gdx.math.MathUtils;
 import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Entities.Employees.Skill;
+import de.hsd.hacking.Entities.Employees.SkillType;
+import de.hsd.hacking.Proto;
 
 /**
  * Created by ju on 15.06.17.
@@ -17,39 +23,35 @@ import de.hsd.hacking.Entities.Employees.Skill;
  * This class represents a mission.
  */
 public class Mission implements EventSender {
-    @Expose
-    private String name, description, onSuccess, onFail;
-    @Expose
-    private int duration;
-    @Expose
-    private int difficulty;
-    @Expose
-    private float hardness = 1;
-    @Expose
-    private List<Skill> skill;
-    @Expose
-    private MissionOutcome outcome;
-    @Expose
-    private float risk;
-
-    //TODO: Implement minimum and maximun levels in MISSION Factory
-    @Expose
-    private int minLevel;
-    @Expose
-    private int maxLevel;
-
-
-    /**
-     * //Number that gets set when mission is started. To check if mission == mission.
-     */
-    @Expose
-    private int missionNumber;
-    @Expose
-    private boolean finished;
-    private boolean completed;
+    Proto.Mission.Builder data;
 
     public Mission() {
-        this.missionNumber = -1;
+        data = Proto.Mission.newBuilder();
+        data.setMissionNumber(-1);
+    }
+
+    public Mission(Proto.Mission.Builder builder) {
+        this.data = builder;
+    }
+
+    public Mission(MissionHolder holder) {
+        data = Proto.Mission.newBuilder();
+        data.setName(holder.getName());
+        data.setDescription(holder.getDescription());
+        data.setOnSuccess(holder.getOnSuccess());
+        data.setOnFail(holder.getOnFail());
+        data.setDuration(holder.getDuration());
+        data.setDifficulity(holder.getDifficulty());
+        data.setHardness(holder.getHardness());
+        for (SkillHolder h: holder.getSkill()) {
+            Proto.Skill.Builder skill = Proto.Skill.newBuilder();
+            skill.setType(h.getType());
+            skill.setValue(h.getValue());
+            data.addSkills(skill);
+        }
+        data.setRisk(holder.getRisk());
+        data.setMinLevel(holder.getMinLevel());
+        data.setMaxLevel(holder.getMaxLevel());
     }
 
     /**
@@ -63,7 +65,7 @@ public class Mission implements EventSender {
      * Abort the mission.
      */
     public void Abort() {
-        finished = true;
+        data.setFinished(true);
         notifyListeners(EventListener.EventType.MISSION_ABORTED);
     }
 
@@ -72,33 +74,6 @@ public class Mission implements EventSender {
      */
     public void Pause() {
 
-    }
-
-    /**
-     * Creates a copy of this mission object.
-     *
-     * @return Copy of this object.
-     */
-    public Mission Clone() {
-        Mission mission = new Mission();
-
-        mission.setName(name);
-        mission.setDescription(description);
-        mission.setSuccessText(onSuccess);
-        mission.setFailText(onFail);
-        mission.setDuration(duration);
-        mission.setDifficulty(difficulty);
-        mission.setSkill(skill);
-        mission.setOutcome(outcome);
-        mission.setRisk(risk);
-        mission.setMissionNumber(missionNumber);
-        mission.setFinished(finished);
-        mission.setCompleted(completed);
-        mission.setMinLevel(minLevel);
-        mission.setMaxLevel(maxLevel);
-        mission.setHardness(hardness);
-
-        return mission;
     }
 
     @Override
@@ -120,134 +95,149 @@ public class Mission implements EventSender {
     }
 
     public String getName() {
-        return name;
+        return data.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        data.setName(name);
     }
 
     public String getSuccessText() {
-        return onSuccess;
+        return data.getOnSuccess();
     }
 
     public String getFailText() {
-        return onFail;
+        return data.getOnFail();
     }
 
     public boolean hasFailText(){
-        return onFail.length() > 0;
+        return data.getOnFail().length() > 0;
     }
 
     public boolean hasSuccessText(){
-        return onSuccess.length() > 0;
+        return data.getOnSuccess().length() > 0;
     }
 
     public void setSuccessText(String onSuccess) {
-        this.onSuccess = onSuccess;
+        data.setOnSuccess(onSuccess);
     }
 
     public void setFailText(String onFail) {
-        this.onFail = onFail;
+        data.setOnFail(onFail);
     }
 
     public String getDescription() {
-        return description;
+        return data.getDescription();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        data.setDescription(description);
     }
 
     public int getDuration() {
-        return duration;
+        return data.getDuration();
     }
 
     public void setDuration(int duration) {
-        this.duration = duration;
+        data.setDuration(duration);
     }
 
     public int getDifficulty() {
-        return difficulty;
+        return data.getDifficulity();
     }
 
     public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
+        data.setDifficulity(difficulty);
     }
 
     public void setMinLevel(int level) {
-        this.minLevel = level;
+        data.setMinLevel(level);
     }
 
     public void setMaxLevel(int level) {
-        this.maxLevel = level;
+        data.setMaxLevel(level);
     }
 
     public int getMinLevel() {
-        return minLevel;
+        return data.getMinLevel();
     }
 
     public int getMaxLevel() {
 
-        if(maxLevel < 1) return Integer.MAX_VALUE;
-        return maxLevel;
+        if(data.getMaxLevel() < 1) return Integer.MAX_VALUE;
+        return data.getMaxLevel();
     }
 
     public List<Skill> getSkill() {
-        return skill;
+        List<Skill> lst = new ArrayList<Skill>();
+        for (Proto.Skill.Builder s:data.getSkillsBuilderList()) {
+            lst.add(new Skill(s));
+        }
+
+        return lst;
     }
 
     public void setSkill(List<Skill> skill) {
-        this.skill = skill;
-    }
-
-    public MissionOutcome getOutcome() {
-        return outcome;
-    }
-
-    public void setOutcome(MissionOutcome outcome) {
-        this.outcome = outcome;
+        for (Skill s:skill) {
+            data.clearSkills();
+            Proto.Skill.Builder proto = Proto.Skill.newBuilder();
+            proto.setValue(s.getValue());
+            proto.setType(s.getType().skillType);
+            data.addSkills(proto);
+        }
     }
 
     public float getRisk() {
-        return risk;
+        return data.getRisk();
     }
 
     public void setRisk(float risk) {
-        this.risk = risk;
+        data.setRisk(risk);
     }
 
 
-    public void setMissionNumber(int missionNumber1) {
-        this.missionNumber = missionNumber1;
+    public void setMissionNumber(int missionNumber) {
+        data.setMissionNumber(missionNumber);
     }
 
     public int getMissionNumber() {
-        return this.missionNumber;
+        return data.getMissionNumber();
     }
 
     public boolean isFinished() {
-        return finished;
+        return data.getFinished();
     }
 
-    public void setFinished(final boolean finished1) {
-        finished = finished1;
+    public void setFinished(final boolean finished) {
+        data.setFinished(finished);
     }
 
     public boolean isCompleted() {
-        return completed;
+        return data.getCompleted();
     }
 
-    public void setCompleted(boolean completed1) {
-        this.completed = completed1;
+    public void setCompleted(boolean completed) {
+        data.setCompleted(completed);
     }
 
 
     public float getHardness() {
-        return hardness;
+        return data.getHardness();
     }
 
     public void setHardness(float hardness) {
-        this.hardness = hardness;
+        data.setHardness(hardness);
+    }
+
+    public int getRewardMoney() {
+        return data.getRewardMoney();
+    }
+
+    public void setRewardMoney(int reward) {
+        data.setRewardMoney(reward);
+    }
+
+    public Proto.Mission getData() {
+        return data.build();
     }
 }

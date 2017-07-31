@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionHolder;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
@@ -21,7 +22,7 @@ public class DataLoader {
 
     private static DataLoader INSTANCE;
     private static NameHolder names;
-    private static ArrayList<Mission> missions;
+    private static ArrayList<MissionHolder> missions;
     private static MissionVariablesHolder missionVariables;
 
     public static DataLoader getInstance(){
@@ -48,7 +49,7 @@ public class DataLoader {
             Gdx.app.log(Constants.TAG, "MISSIONS JSON FILE DOESNT EXIST");
         }else{
             Gson gson = new Gson();
-            missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<Mission>>(){}.getType());
+            missions = gson.fromJson(m.reader(), new TypeToken<ArrayList<MissionHolder>>(){}.getType());
         }
 
         FileHandle variables = Gdx.files.internal("data/missionVariables.json");
@@ -85,11 +86,11 @@ public class DataLoader {
      */
     public Mission getNewMission(int level) {
 
-        Mission mission;
+        MissionHolder mission;
 
         do {
             mission = missions.get(RandomUtils.randomInt(missions.size()));
-        }while (mission.getMinLevel() > level || mission.getMaxLevel() < level);
+        }while ((mission.getMinLevel() > level || mission.getMaxLevel() < level) && mission.getMaxLevel() != 0);
 
 
         return mission.Clone();

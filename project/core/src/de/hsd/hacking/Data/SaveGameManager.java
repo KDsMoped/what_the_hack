@@ -13,6 +13,7 @@ import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Screens.ScreenManager;
@@ -21,6 +22,7 @@ import de.hsd.hacking.Utils.Constants;
 
 public final class SaveGameManager {
     static Proto.MessageBar messageBar;
+    static Proto.MissionManager missionManager;
 
     public static void LoadGame() {
         try {
@@ -45,6 +47,16 @@ public final class SaveGameManager {
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/missionmanager");
+            missionManager = Proto.MissionManager.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
     public static boolean SaveGame() {
@@ -58,6 +70,9 @@ public final class SaveGameManager {
         SaveGameContainer container = GameStage.instance().getSaveGameContainer();
         Proto.MessageBar messageBarCompiled = container.messageBar.Save();
         SaveProto(messageBarCompiled, "messagebar");
+
+        Proto.MissionManager missionManagerCompiled = MissionManager.instance().Save();
+        SaveProto(missionManagerCompiled, "missionmanager");
 
         return success;
     }
@@ -137,6 +152,13 @@ public final class SaveGameManager {
     public static Proto.MessageBar.Builder getMessageBar() {
         if (messageBar != null)
             return messageBar.toBuilder();
+        else
+            return null;
+    }
+
+    public static Proto.MissionManager.Builder getMissionManager() {
+        if (missionManager != null)
+            return missionManager.toBuilder();
         else
             return null;
     }

@@ -72,7 +72,7 @@ public class MissionStatusOverlay extends Group implements TimeChangedListener {
             missionNameLabel.setText(missionWorker.getMission().getName().substring(0, 8) + "...");
             for (MissionSkillRequirement req
                     : missionWorker1.getSkillRequirements()) {
-                Image icon = new Image(Assets.instance().getSkillIcon(req.getSkillType()));
+                Image icon = new Image(Assets.instance().getSkillIcon(req.getSkillType().skillType));
                 icon.setScaling(Scaling.none);
                 skillTable.add(icon).height(13).expandX().center().space(2f, 0, 2f, 0).pad(2f, 0, 2f, 0); //TODO richtiges Icon holen
                 //skillTable.add(bar).height(8).expandX().center().space(2f, 0 , 2f, 0).pad(2f, 0, 2f, 0); //TODO status übergeben
