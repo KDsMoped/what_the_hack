@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.io.File;
 
 import de.hsd.hacking.Assets.Assets;
 
@@ -55,6 +58,10 @@ public class MenuStage extends Stage {
                }
            }
         );
+        File f = new File(Gdx.files.getLocalStoragePath() + "/gametime");
+        if (!f.exists()) {
+            resumeButton.setVisible(false);
+        }
 
         TextButton newButton = new TextButton("New", Constants.TextButtonStyle());
         newButton.addListener(new ChangeListener() {
