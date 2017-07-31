@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
@@ -16,8 +19,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * This class is used to manage the missions in the game.
+ */
 public class MissionManager implements TimeChangedListener {
-
     private static final int MAX_ACTIVE_MISSIONS = 4;
     private static final int MAX_OPEN_MISSIONS = 12;
     private static final float REFRESH_RATE = 0.2f;
@@ -25,21 +30,19 @@ public class MissionManager implements TimeChangedListener {
     private static MissionManager instance;
     private int currentMissionNumber;
 
+    private ArrayList<Mission> activeMissions;
+    private ArrayList<Mission> openMissions;
+    private ArrayList<Mission> completedMissions;
+    private ArrayList<MissionWorker> runningMissions;
+    private ArrayList<Callback> refreshMissionListener = new ArrayList<Callback>();
+
+    private MessageManager messageManager;
+
     public static MissionManager instance() {
 
         if (instance == null) return new MissionManager();
         return instance;
     }
-
-    private ArrayList<Mission> activeMissions;
-    private ArrayList<Mission> openMissions;
-    private ArrayList<Mission> completedMissions;
-
-    private ArrayList<MissionWorker> runningMissions;
-
-    private ArrayList<Callback> refreshMissionListener = new ArrayList<Callback>();
-
-    private MessageManager messageManager;
 
     private MissionManager() {
         instance = this;
@@ -53,7 +56,9 @@ public class MissionManager implements TimeChangedListener {
 
         GameTime.instance.addTimeChangedListener(this);
 
-        fillOpenMissions();
+        Boolean loaded = Load();
+        if (!loaded)
+            fillOpenMissions();
     }
 
     /**
@@ -108,7 +113,7 @@ public class MissionManager implements TimeChangedListener {
         completedMissions.add(mission);
 //        mission.setOutcome(outcome);
 
-        int money = mission.getOutcome().rewardMoney;
+        int money = mission.getRewardMoney();
         String text;
 
         if (mission.hasSuccessText()) text = "Job '" + mission.getName() + "' completed! " + mission.getSuccessText() + " You've earned " + money + "$.";
@@ -327,5 +332,55 @@ public class MissionManager implements TimeChangedListener {
 
     public void setRunningMissions(ArrayList<MissionWorker> runningMissions) {
         this.runningMissions = runningMissions;
+    }
+
+    /**
+     * Save all the current missions
+     * @return Build Proto MissionManager object to write to disk.
+     */
+    public Proto.MissionManager Save() {
+        Proto.MissionManager.Builder builder = Proto.MissionManager.newBuilder();
+
+        builder.setCurrentMissionNumber(currentMissionNumber);
+
+        for (Mission mission: activeMissions) {
+            builder.addActiveMissions(mission.getData());
+        }
+
+        for (Mission mission: completedMissions) {
+            builder.addCompletedMissions(mission.getData());
+        }
+
+        for (Mission mission: openMissions) {
+            builder.addOpenMissions(mission.getData());
+        }
+
+        return builder.build();
+    }
+
+    /**
+     * Restores the missions from a previous game.
+     * @return True if missions where loaded.
+     */
+    public Boolean Load() {
+        Proto.MissionManager.Builder proto = SaveGameManager.getMissionManager();
+        if (proto != null) {
+            currentMissionNumber = proto.getCurrentMissionNumber();
+
+            for (Proto.Mission mission : proto.getOpenMissionsList()) {
+                openMissions.add(new Mission(mission.toBuilder()));
+            }
+
+            for (Proto.Mission mission : proto.getActiveMissionsList()) {
+                activeMissions.add(new Mission(mission.toBuilder()));
+            }
+
+            for (Proto.Mission mission : proto.getCompletedMissionsList()) {
+                completedMissions.add(new Mission(mission.toBuilder()));
+            }
+
+            return true;
+        }
+        return false;
     }
 }

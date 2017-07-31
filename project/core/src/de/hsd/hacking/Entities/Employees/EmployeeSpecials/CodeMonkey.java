@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.SkillType;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
 public class CodeMonkey extends EmployeeSpecial {
@@ -27,17 +28,17 @@ public class CodeMonkey extends EmployeeSpecial {
 
     @Override
     public boolean isApplicable() {
-        return employee.hasSkill(SkillType.Software);
+        return employee.hasSkill(Proto.Skill.SkillType.Software);
     }
 
     @Override
     public float getSkillRelativeFactor(SkillType type) {
 
-        if(type == SkillType.Software){
+        if(type.skillType == Proto.Skill.SkillType.Software){
             return 1.4f;
         }
 
-        if(type == SkillType.Social){
+        if(type.skillType == Proto.Skill.SkillType.Social){
             return 0.6f;
         }
 

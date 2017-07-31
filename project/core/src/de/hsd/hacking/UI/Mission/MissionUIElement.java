@@ -75,7 +75,7 @@ public class MissionUIElement extends Table {
         name.setFontScale(1.05f);
         time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
 
-        money = new Label("" + mission.getOutcome().rewardMoney, Constants.LabelStyle());
+        money = new Label("" + mission.getRewardMoney(), Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
 
 //        skills = new Label("", Constants.LabelStyle());
@@ -95,7 +95,7 @@ public class MissionUIElement extends Table {
         for (int i = 0; i < skill.size(); i++) {
             Skill s = skill.get(i);
 
-            Image icon = new Image(Assets.instance().getSkillIcon(s.getType()));
+            Image icon = new Image(Assets.instance().getSkillIcon(s.getType().skillType));
             Label text = new Label(s.getDisplayValue(false), Constants.LabelStyle());
 
             skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);

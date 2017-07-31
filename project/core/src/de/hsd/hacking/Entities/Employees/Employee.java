@@ -32,6 +32,7 @@ import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.*;
 
@@ -355,7 +356,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         String skills = "";
         for (Skill skill :
                 skillSet) {
-            skills += skill.getType().name() + " : " + skill.getValue() + "; ";
+            skills += skill.getType().skillType.name() + " : " + skill.getValue() + "; ";
         }
         return skills;
     }
@@ -526,7 +527,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             Skill skill = skillSet.get(i);
             if (skill.getType() == type) {
                 return evaluateSkill(skill);
-            } else if (skill.getType() == SkillType.All_Purpose) {
+            } else if (skill.getType().skillType == Proto.Skill.SkillType.All_Purpose) {
                 allPurpposeIndex = i;
             }
         }
@@ -700,9 +701,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @param type
      * @return
      */
-    public boolean hasSkill(SkillType type) {
+    public boolean hasSkill(Proto.Skill.SkillType type) {
         for (Skill skill : skillSet) {
-            if (skill.getType() == type) return true;
+            if (skill.getType().skillType == type) return true;
         }
 
         return false;

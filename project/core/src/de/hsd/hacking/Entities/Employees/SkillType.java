@@ -1,20 +1,25 @@
 package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.math.MathUtils;
+
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**
  * Created by Cuddl3s on 22.05.2017.
  */
 
-public enum SkillType {
+public class SkillType {
+    public Proto.Skill.SkillType skillType;
 
-    Social, Hardware, Software, Network, Crypto, Search, All_Purpose;
-
-    private static final SkillType[] VALUES = values();
+    private static final Proto.Skill.SkillType[] VALUES = Proto.Skill.SkillType.values();
     public static final int SIZE = VALUES.length;
 
-    public static SkillType getRandomSkill(Boolean allPurpose) {
+    public SkillType(Proto.Skill.SkillType skillType) {
+        this.skillType = skillType;
+    }
+
+    public static Proto.Skill.SkillType getRandomSkill(Boolean allPurpose) {
         if (allPurpose) {
             return VALUES[RandomUtils.randomInt(SIZE - 1)];
         }
@@ -25,7 +30,7 @@ public enum SkillType {
     }
 
     public String getDisplayName() {
-        switch (this) {
+        switch (this.skillType) {
             case Crypto:
                 return "Crypto";
             case Search:
@@ -41,7 +46,7 @@ public enum SkillType {
             case All_Purpose:
                 return "Allround";
             default:
-                return name();
+                return skillType.name();
         }
     }
 }

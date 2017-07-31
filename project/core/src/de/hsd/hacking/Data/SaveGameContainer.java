@@ -1,21 +1,12 @@
 package de.hsd.hacking.Data;
 
+import de.hsd.hacking.Data.Missions.MissionManager;
+import de.hsd.hacking.UI.Messaging.MessageBar;
+
 /**
- * Created by ju on 16.07.17.
+ * This class contains instances needed to save and load a game.
+ * @author Julian Geywitz
  */
-
 public class SaveGameContainer {
-    GameTime gameTime;
-
-    public SaveGameContainer() {
-
-    }
-
-    public GameTime getGameTime() {
-        return gameTime;
-    }
-
-    public void setGameTime(GameTime gameTime) {
-        this.gameTime = gameTime;
-    }
+    public MessageBar messageBar;
 }

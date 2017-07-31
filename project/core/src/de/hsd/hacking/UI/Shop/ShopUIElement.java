@@ -19,6 +19,7 @@ import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -59,7 +60,7 @@ public class ShopUIElement extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 AudioManager.instance().playUIButtonSound();
-                if(equipmentManager.buyItem(equipment) == 1) {}
+                if(equipmentManager.buyItem(equipment, true) == 1) {}
             }
         });
 
@@ -112,37 +113,37 @@ public class ShopUIElement extends Table {
             skillContent.row();
         }
         if(equipment.getAllPurposeSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.All_Purpose))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.All_Purpose))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("All-Purpose +" + Integer.toString(equipment.getAllPurposeSkillBonus()), Constants.LabelStyle())).left().expandX().fillX();
             skillContent.row();
         }
         if(equipment.getSocialSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.Social))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.Social))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("Social +" + Integer.toString(equipment.getSocialSkillBonus()), Constants.LabelStyle())).left().expand().fill();
             skillContent.row();
         }
         if(equipment.getCryptoSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.Crypto))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.Crypto))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("Crypto +" + Integer.toString(equipment.getCryptoSkillBonus()), Constants.LabelStyle())).left().expand().fill();
             skillContent.row();
         }
         if(equipment.getHardwareSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.Hardware))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.Hardware))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("Hardware +" + Integer.toString(equipment.getHardwareSkillBonus()), Constants.LabelStyle())).left().expand().fill();
             skillContent.row();
         }
         if(equipment.getSoftwareSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.Software))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.Software))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("Software +" + Integer.toString(equipment.getSoftwareSkillBonus()), Constants.LabelStyle())).left().expand().fill();
             skillContent.row();
         }
         if(equipment.getNetworkSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.Network))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.Network))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("Network +" + Integer.toString(equipment.getNetworkSkillBonus()), Constants.LabelStyle())).left().expand().fill();
             skillContent.row();
         }
         if(equipment.getSearchSkillBonus() > 0) {
-            skillContent.add(new Image(Assets.instance().getSkillIcon(SkillType.Search))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
+            skillContent.add(new Image(Assets.instance().getSkillIcon(Proto.Skill.SkillType.Search))).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padRight(5);
             skillContent.add(new Label("Search +" + Integer.toString(equipment.getSearchSkillBonus()), Constants.LabelStyle())).left().expand().fill();
             skillContent.row();
         }

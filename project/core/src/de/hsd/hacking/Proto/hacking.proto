@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package what_the_hack;
+
+option java_package = "de.hsd.hacking";
+option java_outer_classname = "Proto";
+
+message Global {
+  int32 day = 1;
+  float time = 2;
+  int32 currentStep = 3;
+}
+
+message Message {
+  string message = 1;
+  int32 date = 2;
+  Type type = 3;
+
+  enum Type {
+    INFO = 0;
+    WARNING = 1;
+    ERROR = 2;
+    HELP = 3;
+  }
+}
+
+message MessageBar {
+  repeated Message messages = 1;
+}
+
+message Skill {
+  int32 value = 1;
+  SkillType type = 2;
+
+  enum SkillType {
+    Social = 0;
+    Hardware = 1;
+    Software = 2;
+    Network = 3;
+    Crypto = 4;
+    Search = 5;
+    All_Purpose = 6;
+  }
+}
+
+message Mission {
+  int32 missionNumber = 1;
+  string name = 2;
+  string description = 3;
+  string onSuccess = 4;
+  string onFail = 5;
+  int32 duration = 6;
+  int32 difficulity = 7;
+  float hardness = 8;
+  float risk = 9;
+  bool completed = 10;
+  bool finished = 11;
+  int32 minLevel = 12;
+  int32 maxLevel = 13;
+  repeated Skill skills = 14;
+  int32 rewardMoney = 15;
+}
+
+message MissionManager {
+  int32 currentMissionNumber = 1;
+  repeated Mission activeMissions = 2;
+  repeated Mission openMissions = 3;
+  repeated Mission completedMissions = 4;
+}
+
+message Equipment {
+  EquipmentType type = 1;
+  string name = 2;
+  float price = 3;
+  int32 level = 4;
+  enum EquipmentType {
+    CoffeeMachine = 0;
+    Computer = 1;
+    HardwareStation = 2;
+    Modem = 3;
+    Router = 4;
+    Server = 5;
+  }
+}
+
+message EquipmentManager {
+  repeated Equipment equipment = 1;
+}

@@ -35,6 +35,8 @@ public class ScreenManager {
         if (!resumed)
             initSingletons();
 
+        Team.setInstance(new Team());
+
         currentScreen = new GameScreen(game);
         game.setScreen(currentScreen);
     }
@@ -48,6 +50,14 @@ public class ScreenManager {
 
     public static void setSwipeUpAction(Runnable r) {
         ((GameScreen)currentScreen).setSwipeUpAction(r);
+    }
+
+    public static boolean isGameRunning() {
+        if (currentScreen.getClass() == GameScreen.class) {
+            return true;
+        }
+        else
+            return false;
     }
 
     private static void initSingletons() {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.*;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -127,7 +128,7 @@ public class EmployeeFactory {
     private static void learnBasicSkillSet(Employee employee){
 
         ArrayList<Skill> skillSet = new ArrayList<Skill>();
-        skillSet.add(new Skill(SkillType.All_Purpose, 1));
+        skillSet.add(new Skill(Proto.Skill.SkillType.All_Purpose, 1));
         employee.setSkillSet(skillSet);
 
         //sending freshman to university
@@ -208,7 +209,7 @@ public class EmployeeFactory {
 
         if (skillSet.size() >= MAX_SKILL_NUMBER) return 0;
 
-        SkillType skillType;
+        Proto.Skill.SkillType skillType;
 
         do {
             skillType = SkillType.getRandomSkill(true);
@@ -226,9 +227,9 @@ public class EmployeeFactory {
      * @param type
      * @return
      */
-    private static boolean isUniqueSkill(Collection<Skill> skillSet, SkillType type) {
+    private static boolean isUniqueSkill(Collection<Skill> skillSet, Proto.Skill.SkillType type) {
         for (Skill skill : skillSet) {
-            if (skill.getType() == type) return false;
+            if (skill.getType().skillType == type) return false;
         }
         return true;
     }
@@ -242,7 +243,7 @@ public class EmployeeFactory {
     private static float incrementAllpurpose(Collection<Skill> skillSet) {
 
         for (Skill skill :skillSet) {
-            if (skill.getType()  != SkillType.All_Purpose) continue;
+            if (skill.getType().skillType  != Proto.Skill.SkillType.All_Purpose) continue;
 
             skill.incrementSkill();
             return COST_INCREMENT_ALLPURPOSE;
@@ -265,7 +266,7 @@ public class EmployeeFactory {
         Skill skill;
         do {
             skill = skillSet.toArray(new Skill[skillSet.size()])[RandomUtils.randomIntWithin(0, skillSet.size() - 1)];
-        }while (skill.getType() == SkillType.All_Purpose);
+        }while (skill.getType().skillType == Proto.Skill.SkillType.All_Purpose);
 
         skill.incrementSkill();
 

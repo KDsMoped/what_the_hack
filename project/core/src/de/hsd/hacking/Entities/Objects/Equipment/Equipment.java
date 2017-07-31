@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 import de.hsd.hacking.Entities.Team.Team;
@@ -13,16 +14,9 @@ import de.hsd.hacking.Entities.Team.Team;
  */
 
 public abstract class Equipment extends TouchableInteractableObject {
-
-    public enum EquipmentType {
-        COMPUTER, SWITCH, COFFEEMACHINE, MODEM, SERVER;
-    }
-
-    protected String name;
-    protected float price;
+    protected Proto.Equipment.Builder data;
     protected boolean isPurchased = false;
 
-    protected int level = 1;
     protected Team team;
 
     public Equipment(String name,
@@ -30,15 +24,20 @@ public abstract class Equipment extends TouchableInteractableObject {
                      TextureRegion drawableRegion,
                      boolean blocking, Direction occupyDirection, int occupyAmount, Direction facingDirection) {
         super(drawableRegion, blocking, occupyDirection, occupyAmount, facingDirection);
-        this.name = name;
-        setPrice(price);
+        this.data = Proto.Equipment.newBuilder();
+        data.setName(name);
+        data.setPrice(price);
+        data.setLevel(1);
         this.team = Team.instance();
     }
 
-    public int getLevel() { return level; }
+    public int getLevel() { return data.getLevel(); }
+    public void setLevel(int level) {
+        data.setLevel(level);
+    }
 
-    public void setPrice(float price) { this.price = price; }
-    public float getPrice() { return price*level;}
+    public void setPrice(float price) { data.setPrice(price); }
+    public float getPrice() { return data.getPrice() * data.getLevel();}
 
     // Bonuses
     public int getBandwidthBonus() { return 0; }
@@ -61,7 +60,10 @@ public abstract class Equipment extends TouchableInteractableObject {
 
     @Override
     public String getName()  {
-        return name;
+        return data.getName();
     }
 
+    public Proto.Equipment getData() {
+        return data.build();
+    }
 }

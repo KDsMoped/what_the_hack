@@ -11,6 +11,7 @@ import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -29,6 +30,7 @@ public class CoffeeMachine extends Equipment implements Upgradable {
 
     public CoffeeMachine(){
         super("Coffee Maker", 100, Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        this.data.setType(Proto.Equipment.EquipmentType.CoffeeMachine);
 
         Assets assets = Assets.instance();
         this.stillRegion = assets.coffeemachine.get(0);
@@ -37,14 +39,14 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     }
 
     public void upgrade() {
-        level++;
+        data.setLevel(data.getLevel() + 1);
         team.updateResources();
     }
 
     public int getMaxLevel() { return 5; }
 
     @Override
-    public int getAllPurposeSkillBonus() { return level * 1; }
+    public int getAllPurposeSkillBonus() { return data.getLevel() * 1; }
 
     @Override
     public void setPurchased(boolean isPurchased) {

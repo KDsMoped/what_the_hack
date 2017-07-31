@@ -14,30 +14,35 @@ import java.util.Date;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Callback.Callback;
+import de.hsd.hacking.Utils.DateUtils;
 
 
 /**
  * This class represents a message to the user.
  */
 public class Message{
-    public enum Type { INFO, WARNING, ERROR, HELP };
+    Proto.Message.Builder data;
 
-    @Expose private String text = "";
-    @Expose private Date date;
     // TODO EventListener serialization
     private ClickListener listener;
-    @Expose private Type type = Type.INFO;
 
     public Message() {
-
+        this.data = Proto.Message.newBuilder();
     }
 
-    public Message(String text, Date date, Type type, ClickListener listener) {
-        this.text = text;
-        this.date = date;
+    public Message(Proto.Message.Builder data) {
+        this.data = data;
+    }
+
+    public Message(String text, Date date, Proto.Message.Type type, ClickListener listener) {
+        this.data = Proto.Message.newBuilder();
+
+        data.setMessage(text);
+        data.setDate(DateUtils.ConvertDateToDays(date));
         this.listener = listener;
-        this.type = type;
+        data.setType(type);
     }
 
     public static TextureRegionDrawable GetTypeIcon(Message message) {
@@ -64,19 +69,19 @@ public class Message{
     }
 
     public String getText() {
-        return text;
+        return data.getMessage();
     }
 
     public void setText(String text) {
-        this.text = text;
+        data.setMessage(text);
     }
 
     public Date getDate() {
-        return date;
+        return DateUtils.ConvertDaysToDate(data.getDate());
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        data.setDate(DateUtils.ConvertDateToDays(date));
     }
 
     public ClickListener getListener() {
@@ -87,11 +92,15 @@ public class Message{
         this.listener = listener;
     }
 
-    public Type getType() {
-        return type;
+    public Proto.Message.Type getType() {
+        return data.getType();
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(Proto.Message.Type type) {
+        data.setType(type);
+    }
+
+    public Proto.Message.Builder getData() {
+        return data;
     }
 }
