@@ -118,6 +118,7 @@ public class MissionManager implements TimeChangedListener {
         messageManager.Info(text);
         Gdx.app.log(Constants.TAG, text);
 
+        Team.instance().updateResources();
         notifyRefreshListeners();
     }
 
@@ -136,6 +137,7 @@ public class MissionManager implements TimeChangedListener {
         messageManager.Info(failText);
         Gdx.app.log(Constants.TAG, failText);
 
+        Team.instance().updateResources();
         notifyRefreshListeners();
     }
 
@@ -150,6 +152,7 @@ public class MissionManager implements TimeChangedListener {
 //        completedMissions.add(mission);
 //        mission.setOutcome(outcome);
 
+        Team.instance().updateResources();
         notifyRefreshListeners();
 
         //TODO: Remove MissionWorkers
@@ -174,6 +177,8 @@ public class MissionManager implements TimeChangedListener {
         openMissions.remove(mission);
         activeMissions.add(mission);
         mission.Start();
+
+        Team.instance().updateResources();
         notifyRefreshListeners();
         createMissionWorker(mission);
     }
@@ -300,7 +305,7 @@ public class MissionManager implements TimeChangedListener {
 
     @Override
     public void weekChanged(int week) {
-
+        //TODO: Tell user about game progress
         Gdx.app.log(Constants.TAG, "Your game progress is: " + Team.instance().calcGameProgress());
         refreshOpenMissions();
     }

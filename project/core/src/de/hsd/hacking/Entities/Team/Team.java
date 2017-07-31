@@ -185,6 +185,10 @@ public class Team {
             newSearch += equipment.getSearchSkillBonus();
         }
 
+        for(Mission mission : MissionManager.instance().getActiveMissions()){
+            newBandwidth -= mission.getUsedBandwidth();
+        }
+
         resources.bandwidth = newBandwidth;
         resources.computationPower = newComputationPower;
         resources.skill.allPurpose = newAllPurpose;
@@ -194,6 +198,8 @@ public class Team {
         resources.skill.software = newSoftware;
         resources.skill.search = newSearch;
         resources.skill.social = newSocial;
+
+        //TODO: Add negative outcome if bandwidth is negative
     }
 
 

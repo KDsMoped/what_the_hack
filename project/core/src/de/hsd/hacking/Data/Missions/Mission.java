@@ -37,6 +37,8 @@ public class Mission implements EventSender {
     private int minLevel;
     @Expose
     private int maxLevel;
+    @Expose
+    private int usedBandwidth;
 
 
     /**
@@ -97,6 +99,7 @@ public class Mission implements EventSender {
         mission.setMinLevel(minLevel);
         mission.setMaxLevel(maxLevel);
         mission.setHardness(hardness);
+        mission.setUsedBandwidth(usedBandwidth);
 
         return mission;
     }
@@ -117,6 +120,14 @@ public class Mission implements EventSender {
         for (EventListener listener : listeners) {
             listener.OnEvent(type, this);
         }
+    }
+
+    public int getUsedBandwidth() {
+        return usedBandwidth;
+    }
+
+    public void setUsedBandwidth(int usedBandwidth) {
+        this.usedBandwidth = usedBandwidth;
     }
 
     public String getName() {

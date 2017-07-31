@@ -25,6 +25,8 @@ public final class MissionFactory {
     private static final float MISSION_REWARDMONEY_VARIANCE = 0.2f;
     private static final int MISSION_REWARDMONEY_FACTOR = 16;
     private static final int MISSION_BASE_POWER = 6;
+    private static final int MISSION_BANDWIDTH_BASE = 100;
+    private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.1f;
     private static final float SKILL_POWER_PER_DIFFICULTY = 2.5f;
     private static final float SKILL_DIFFICULTY_VARIANCE = 0.4f;
 
@@ -55,7 +57,7 @@ public final class MissionFactory {
         ReplacePlaceholders(mission);
         calcDurationVariance(mission);
         RandomSkillValues(mission, difficulty);
-
+        calcBandwidth(mission);
 
         generateOutcome(mission);
 
@@ -183,6 +185,10 @@ public final class MissionFactory {
      */
     public static int calcRewardMoney(Mission mission) {
         return (int) (mission.getDifficulty() * (1 + mission.getRisk()) * RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
+    }
+
+    public static void calcBandwidth(Mission mission) {
+        mission.setUsedBandwidth(((int) (mission.getDifficulty() * MISSION_BANDWIDTH_PER_DIFFICULTY)) * 100 + MISSION_BANDWIDTH_BASE);
     }
 
     /**
