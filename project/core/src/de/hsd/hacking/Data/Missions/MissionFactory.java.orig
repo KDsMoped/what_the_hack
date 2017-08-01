@@ -42,7 +42,10 @@ public final class MissionFactory {
         ReplacePlaceholders(mission);
         calcDurationVariance(mission);
         RandomSkillValues(mission, difficulty);
+<<<<<<< HEAD
         calcBandwidth(mission);
+=======
+>>>>>>> 0bc727c1fbe609d8acf8b64da7dc895654d610bc
 
         generateOutcome(mission);
 

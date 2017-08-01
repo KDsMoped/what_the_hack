@@ -4,43 +4,60 @@ import com.google.gson.annotations.Expose;
 
 import java.util.Comparator;
 
+import de.hsd.hacking.Data.Missions.SkillHolder;
+import de.hsd.hacking.Proto;
+
 /**
  * Created by Cuddl3s on 22.05.2017.
  */
 
 public class Skill implements Comparable<Skill>{
+    private Proto.Skill.Builder data;
 
-    @Expose private SkillType type;
-    @Expose private int value;
+    public Skill() {
+        this.data = Proto.Skill.newBuilder();
+    }
 
-    public Skill(SkillType type, int value){
-        this.type = type;
-        this.value = value;
+    public Skill(SkillHolder holder) {
+        this.data = Proto.Skill.newBuilder();
+
+        data.setValue(holder.getValue());
+        data.setType(holder.getType());
+    }
+
+    public Skill(Proto.Skill.Builder data) {
+        this.data = data;
+    }
+
+    public Skill(Proto.Skill.SkillType type, int value){
+        this.data = Proto.Skill.newBuilder();
+        this.data.setType(type);
+        this.data.setValue(value);
     }
 
     public SkillType getType() {
-        return type;
+        return new SkillType(data.getType());
     }
 
     public int getValue() {
-        return value;
+        return data.getValue();
     }
 
     public String getDisplayType(){
-        return type.getDisplayName();
+        return new SkillType(data.getType()).getDisplayName();
     }
 
     public String getDisplayText(){
 
-        if(value < 4 ) return "Newbie";
-        if(value <  6) return "Greenhorn";
-        if(value <  8) return "Beginner";
-        if(value < 10) return "Intermediate";
-        if(value < 12) return "Experienced";
-        if(value < 14) return "Professional";
-        if(value < 16) return "Master";
-        if(value < 18) return "Grand Master";
-        if(value < 20) return "Wizard";
+        if(data.getValue() < 4 ) return "Newbie";
+        if(data.getValue() <  6) return "Greenhorn";
+        if(data.getValue() <  8) return "Beginner";
+        if(data.getValue() < 10) return "Intermediate";
+        if(data.getValue() < 12) return "Experienced";
+        if(data.getValue() < 14) return "Professional";
+        if(data.getValue() < 16) return "Master";
+        if(data.getValue() < 18) return "Grand Master";
+        if(data.getValue() < 20) return "Wizard";
         return "God";
     }
 
@@ -48,20 +65,20 @@ public class Skill implements Comparable<Skill>{
 
         if(includeText) return getDisplayText() + " " + getDisplayValue(false) + "";
 
-        if(value < 10) return " " + String.valueOf(value);
-        else return String.valueOf(value);
+        if(data.getValue() < 10) return " " + String.valueOf(data.getValue());
+        else return String.valueOf(data.getValue());
     }
 
     public void setValue(int value) {
-        this.value = value;
+        data.setValue(value);
     }
 
     public void incrementSkill() {
-        value++;
+        data.setValue(data.getValue() + 1);
     }
 
     @Override
     public int compareTo(Skill o) {
-        return ((Integer) o.getValue()).compareTo(value);
+        return ((Integer) o.getValue()).compareTo(data.getValue());
     }
 }

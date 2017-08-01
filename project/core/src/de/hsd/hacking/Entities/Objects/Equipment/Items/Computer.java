@@ -14,6 +14,7 @@ import de.hsd.hacking.Entities.Employees.States.WaitingState;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Entities.Team.Workspace;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.Mission.MissionAllocatorPopup;
 import de.hsd.hacking.Utils.Callback.Callback;
@@ -42,6 +43,8 @@ public class Computer extends Equipment implements Upgradable {
 
     public Computer(String name, Workspace workspace) {
         super(name, 400, Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        this.data.setType(Proto.Equipment.EquipmentType.Computer);
+
         Assets assets = Assets.instance();
         this.stillRegion = assets.computer.get(0);
         this.animation = new Animation<TextureRegion>(.2f, assets.computer.get(1), assets.computer.get(2), assets.computer.get(3));
@@ -50,14 +53,14 @@ public class Computer extends Equipment implements Upgradable {
 
     //Upgrade functions
     public void upgrade() {
-        level++;
+        data.setLevel(data.getLevel() + 1);
         team.updateResources();
     }
 
     public int getMaxLevel() { return 5; }
 
     @Override
-    public int getComputationPowerBonus() { return level * 100; }
+    public int getComputationPowerBonus() { return data.getLevel() * 100; }
 
     @Override
     public void setPurchased(boolean isPurchased) {

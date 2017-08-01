@@ -18,6 +18,8 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Data.SaveGameManager;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -61,7 +63,7 @@ public class MessageBar extends Table implements EventListener{
     private float scrollDelta = INITIAL_WAIT;
     private Boolean finishedMessage = true;
     private Boolean scrollMessage = false;
-    private Boolean firstMessage = true;
+    private Boolean swipeConnected = false;
 
     public MessageBar() {
         messages = new ArrayList<Message>(MESSAGE_BUFFER);
@@ -71,6 +73,8 @@ public class MessageBar extends Table implements EventListener{
         initFullTable();
 
         this.add(compactView);
+
+        Load();
 
         MessageManager.instance().addListener(this);
     }
@@ -158,8 +162,10 @@ public class MessageBar extends Table implements EventListener{
                 int textLength = messages.get(compactPosition).getText().length();
                 compactType.setDrawable(Message.GetTypeIcon(messages.get(compactPosition)));
 
-                if (textLength > SCROLLING_TEXT_CHARS)
+                if (textLength > SCROLLING_TEXT_CHARS) {
                     compactText.setText(messages.get(compactPosition).getText().substring(textLength - SCROLLING_TEXT_CHARS, textLength));
+                    scrollPosition = textLength - SCROLLING_TEXT_CHARS;
+                }
                 else
                     compactText.setText(messages.get(compactPosition).getText());
             }
@@ -186,6 +192,18 @@ public class MessageBar extends Table implements EventListener{
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        // We need to add the swipe runnable here because in the constructor the gamescreen object is not ready yet
+        if (!swipeConnected) {
+            swipeConnected = true;
+
+            ScreenManager.setSwipeUpAction(new Runnable() {
+                @Override
+                public void run() {
+                    Show();
+                }
+            });
+        }
 
         if (visible || isShowing) {
             Scroll(delta);
@@ -227,19 +245,6 @@ public class MessageBar extends Table implements EventListener{
     @Override
     public void OnEvent(EventType type, Object sender) {
         if (type == EventType.MESSAGE_NEW) {
-
-            // We need to add the swipe runnable here because in the constructor the gamescreen object is not ready yet
-            if (firstMessage) {
-                firstMessage = false;
-
-                ScreenManager.setSwipeUpAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        Show();
-                    }
-                });
-            }
-
             NewMessage((Message) sender);
         }
     }
@@ -322,5 +327,27 @@ public class MessageBar extends Table implements EventListener{
 
     public Boolean getVisible() {
         return visible;
+    }
+
+    public Proto.MessageBar Save() {
+        Proto.MessageBar.Builder builder = Proto.MessageBar.newBuilder();
+
+        for (Message m: messages) {
+            builder.addMessages(m.getData().build());
+        }
+
+        return builder.build();
+    }
+
+    private void Load() {
+        if (SaveGameManager.getMessageBar() != null) {
+            for (Proto.Message m:SaveGameManager.getMessageBar().getMessagesList()) {
+                NewMessage(new Message(m.toBuilder()));
+
+                // hacky but jumps to the last message for compact view
+                ToggleView();
+                ToggleView();
+            }
+        }
     }
 }

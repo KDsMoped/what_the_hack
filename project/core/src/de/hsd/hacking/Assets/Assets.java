@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
 
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.SkillType;
+import de.hsd.hacking.Proto;
 
 /**
  * Created by Cuddl3s on 21.04.2017.
@@ -245,7 +245,7 @@ public class Assets {
         return desk_2;
     }
 
-    public TextureRegionDrawable getSkillIcon(SkillType skillType) {
+    public TextureRegionDrawable getSkillIcon(Proto.Skill.SkillType skillType) {
         switch (skillType) {
             case Social:
                 return  skill_icon_social;

@@ -47,7 +47,7 @@ public class Team {
         public Skill skill = new Skill();
 
         public int getSkillBonus(de.hsd.hacking.Entities.Employees.Skill s){
-            switch (s.getType()){
+            switch (s.getType().skillType){
                 case All_Purpose:   return skill.allPurpose;
                 case Software:   return skill.software;
                 case Social:   return skill.social;

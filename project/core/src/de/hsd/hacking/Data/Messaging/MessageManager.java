@@ -10,6 +10,7 @@ import java.util.List;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.DateUtils;
@@ -44,7 +45,7 @@ public class MessageManager implements EventSender{
      */
     public void Info(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
-        message.setType(Message.Type.INFO);
+        message.setType(Proto.Message.Type.INFO);
         this.message = message;
 
         notifyListeners(TYPE);
@@ -65,7 +66,7 @@ public class MessageManager implements EventSender{
      */
     public void Warning(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
-        message.setType(Message.Type.WARNING);
+        message.setType(Proto.Message.Type.WARNING);
         this.message = message;
 
         notifyListeners(TYPE);
@@ -86,7 +87,7 @@ public class MessageManager implements EventSender{
      */
     public void Error(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
-        message.setType(Message.Type.ERROR);
+        message.setType(Proto.Message.Type.ERROR);
         this.message = message;
 
         notifyListeners(TYPE);
@@ -99,7 +100,7 @@ public class MessageManager implements EventSender{
      */
     public void Help(String text, ClickListener listener) {
         Message message = CreateNewMessage(text, listener);
-        message.setType(Message.Type.HELP);
+        message.setType(Proto.Message.Type.HELP);
         this.message = message;
 
         notifyListeners(TYPE);

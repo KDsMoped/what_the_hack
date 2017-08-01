@@ -2,7 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://plugins.gradle.org/m2/" }
         jcenter()
     }
     dependencies {
@@ -10,7 +9,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'org.robovm:robovm-gradle-plugin:1.12.0'
         classpath "com.badlogicgames.gdx:gdx-tools:1.9.6"
-        classpath "gradle.plugin.com.google.protobuf:protobuf-gradle-plugin:0.8.1"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.1'
     }
 }
 
@@ -92,14 +91,23 @@ project(":html") {
 
 project(":core") {
     apply plugin: "java"
-
+    apply plugin: "com.google.protobuf"
 
     dependencies {
+        compile project(":gen")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile fileTree(dir: '../libs', include: '*.jar')
         compile 'com.google.code.gson:gson:2.8.0'
         compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
+        compile 'com.google.protobuf:protobuf-java:3.3.0'
+    }
+}
 
+project(":gen") {
+    apply plugin: "java"
+
+    dependencies {
+        compile 'com.google.protobuf:protobuf-java:3.3.0'
     }
 }
 

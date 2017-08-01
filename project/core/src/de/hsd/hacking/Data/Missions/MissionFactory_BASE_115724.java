@@ -25,10 +25,23 @@ public final class MissionFactory {
     private static final float MISSION_REWARDMONEY_VARIANCE = 0.2f;
     private static final int MISSION_REWARDMONEY_FACTOR = 16;
     private static final int MISSION_BASE_POWER = 6;
-    private static final int MISSION_BANDWIDTH_BASE = 100;
-    private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.1f;
     private static final float SKILL_POWER_PER_DIFFICULTY = 2.5f;
     private static final float SKILL_DIFFICULTY_VARIANCE = 0.4f;
+
+//    /**
+//     * Create a new random mission object. Name and description are read
+//     *
+//     * @return random Mission
+//     */
+//    public static Mission CreateRandomMission() {
+//        Mission mission = DataLoader.getInstance().getNewMission();
+////        mission.setDuration(2 + RandomUtils.randomInt(5));
+//        RandomSkillValues(mission, Team.instance().calcGameProgress());
+//        mission.setOutcome(RandomOutcome());
+//        ReplacePlaceholders(mission);
+//
+//        return mission;
+//    }
 
     /**
      * Create a new random mission object with the required skill values based on the given difficulty.
@@ -42,7 +55,7 @@ public final class MissionFactory {
         ReplacePlaceholders(mission);
         calcDurationVariance(mission);
         RandomSkillValues(mission, difficulty);
-        calcBandwidth(mission);
+
 
         generateOutcome(mission);
 
@@ -58,13 +71,55 @@ public final class MissionFactory {
         mission.setDuration(Math.max(MISSION_DURATION_MINIMUM, mission.getDuration() + RandomUtils.var(MISSION_DURATION_VARIANCE)));
     }
 
+
+//    /**
+//     * Create a new random mission object but choose the outcome on your own.
+//     *
+//     * @param outcome
+//     * @return Random mission with defined outcome.
+//     */
+//    public static Mission CreateRandomMission(MissionOutcome outcome) {
+//        de.hsd.hacking.Data.Missions.Mission mission = CreateRandomMission();
+//        mission.setOutcome(outcome);
+//
+//        return mission;
+//    }
+
+//    /**
+//     * Create a new random mission object but choose the skills on your own.
+//     *
+//     * @param skills
+//     * @return Random mission with defined skills.
+//     */
+//    public static Mission CreateRandomMission(List<Skill> skills) {
+//        de.hsd.hacking.Data.Missions.Mission mission = CreateRandomMission();
+//        mission.setSkill(skills);
+//
+//        return mission;
+//    }
+
+//    /**
+//     * Creates a new MissionOutcome object with random outcome.
+//     *
+//     * @return Random mission outcome object.
+//     */
+//    private static MissionOutcome RandomOutcome() {
+//        MissionOutcome outcome = new MissionOutcome();
+//
+//        return outcome;
+//    }
+
     /**
      * Generates an outcome with difficulty based rewardMoney
      *
      * @param mission
      */
     private static void generateOutcome(Mission mission) {
-        mission.setRewardMoney(MissionFactory.calcRewardMoney(mission));
+        MissionOutcome outcome = new MissionOutcome();
+
+        outcome.rewardMoney = MissionFactory.calcRewardMoney(mission);
+
+        mission.setOutcome(outcome);
     }
 
     /**
@@ -81,6 +136,13 @@ public final class MissionFactory {
         mission.setDifficulty(difficulty);
 
         float difficultyPerSkill = calcSkillDifficulty(difficulty, numSkills);
+
+//        Gdx.app.log("MissionFactory", " - - - - - - - NEW MISSION - - - - - - -");
+//        Gdx.app.log("MissionFactory", "base dif: " + baseDifficulty);
+//        Gdx.app.log("MissionFactory", "mission dif: " + difficulty);
+//        Gdx.app.log("MissionFactory", "numSkill: " + numSkills);
+//        Gdx.app.log("MissionFactory", "per skill dif: " + difficultyPerSkill);
+
         for (Skill s : skills) {
             s.setValue((int) (difficultyPerSkill * RandomUtils.mult_var(SKILL_DIFFICULTY_VARIANCE)));
         }
@@ -121,10 +183,6 @@ public final class MissionFactory {
      */
     public static int calcRewardMoney(Mission mission) {
         return (int) (mission.getDifficulty() * (1 + mission.getRisk()) * RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
-    }
-
-    public static void calcBandwidth(Mission mission) {
-        mission.setUsedBandwidth(((int) (mission.getDifficulty() * MISSION_BANDWIDTH_PER_DIFFICULTY)) * 100 + MISSION_BANDWIDTH_BASE);
     }
 
     /**

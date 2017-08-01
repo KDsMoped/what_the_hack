@@ -23,7 +23,42 @@ import de.hsd.hacking.Proto;
  * This class represents a mission.
  */
 public class Mission implements EventSender {
+<<<<<<< HEAD
+    @Expose
+    private String name, description, onSuccess, onFail;
+    @Expose
+    private int duration;
+    @Expose
+    private int difficulty;
+    @Expose
+    private float hardness = 1;
+    @Expose
+    private List<Skill> skill;
+    @Expose
+    private MissionOutcome outcome;
+    @Expose
+    private float risk;
+
+    //TODO: Implement minimum and maximun levels in MISSION Factory
+    @Expose
+    private int minLevel;
+    @Expose
+    private int maxLevel;
+    @Expose
+    private int usedBandwidth;
+
+
+    /**
+     * //Number that gets set when mission is started. To check if mission == mission.
+     */
+    @Expose
+    private int missionNumber;
+    @Expose
+    private boolean finished;
+    private boolean completed;
+=======
     Proto.Mission.Builder data;
+>>>>>>> 0bc727c1fbe609d8acf8b64da7dc895654d610bc
 
     public Mission() {
         data = Proto.Mission.newBuilder();
@@ -76,6 +111,37 @@ public class Mission implements EventSender {
 
     }
 
+<<<<<<< HEAD
+    /**
+     * Creates a copy of this mission object.
+     *
+     * @return Copy of this object.
+     */
+    public Mission Clone() {
+        Mission mission = new Mission();
+
+        mission.setName(name);
+        mission.setDescription(description);
+        mission.setSuccessText(onSuccess);
+        mission.setFailText(onFail);
+        mission.setDuration(duration);
+        mission.setDifficulty(difficulty);
+        mission.setSkill(skill);
+        mission.setOutcome(outcome);
+        mission.setRisk(risk);
+        mission.setMissionNumber(missionNumber);
+        mission.setFinished(finished);
+        mission.setCompleted(completed);
+        mission.setMinLevel(minLevel);
+        mission.setMaxLevel(maxLevel);
+        mission.setHardness(hardness);
+        mission.setUsedBandwidth(usedBandwidth);
+
+        return mission;
+    }
+
+=======
+>>>>>>> 0bc727c1fbe609d8acf8b64da7dc895654d610bc
     @Override
     public void addListener(EventListener listener) {
         listeners.add(listener);

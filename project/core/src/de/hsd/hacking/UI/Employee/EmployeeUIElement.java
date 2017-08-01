@@ -143,7 +143,7 @@ public class EmployeeUIElement extends Table {
     }
 
     private void skillsElement(Table skillsTable, Skill s){
-        Image icon = new Image(Assets.instance().getSkillIcon(s.getType()));
+        Image icon = new Image(Assets.instance().getSkillIcon(s.getType().skillType));
         Label skillText = new Label(s.getDisplayType(), Constants.LabelStyle());
         skillText.setAlignment(Align.left);
         Label skillNum = new Label(s.getDisplayValue(true), Constants.LabelStyle());

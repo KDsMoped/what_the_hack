@@ -7,6 +7,7 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 
 /**
@@ -17,21 +18,22 @@ public class Server extends Equipment implements Upgradable {
 
     public Server() {
         super("Server", 400, null, true, Direction.DOWN, 0, Direction.DOWN);
+        data.setType(Proto.Equipment.EquipmentType.Server);
     }
 
     public void upgrade() {
-        level++;
+        data.setLevel(data.getLevel() + 1);
         team.updateResources();
     }
 
     public int getMaxLevel() { return 5; }
 
     @Override
-    public int getBandwidthBonus() { return level * 100; }
+    public int getBandwidthBonus() { return data.getLevel() * 100; }
 
     @Override
     public int getComputationPowerBonus() {
-        return level * 50;
+        return data.getLevel() * 50;
     }
 
     @Override
