@@ -95,11 +95,11 @@ public class Mission implements EventSender {
     }
 
     public int getUsedBandwidth() {
-        return usedBandwidth;
+        return 100; //TODO: FIX values
     }
 
     public void setUsedBandwidth(int usedBandwidth) {
-        this.usedBandwidth = usedBandwidth;
+//        this.usedBandwidth = usedBandwidth;
     }
 
     public String getName() {

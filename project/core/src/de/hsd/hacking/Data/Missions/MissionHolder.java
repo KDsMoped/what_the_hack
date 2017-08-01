@@ -18,9 +18,18 @@ public class MissionHolder {
     private float risk;
     private int minLevel;
     private int maxLevel;
+    private int usedBandwidth;
 
     public MissionHolder() {
 
+    }
+
+    public int getUsedBandwidth() {
+        return usedBandwidth;
+    }
+
+    public void setUsedBandwidth(int usedBandwidth) {
+        this.usedBandwidth = usedBandwidth;
     }
 
     public String getName() {
