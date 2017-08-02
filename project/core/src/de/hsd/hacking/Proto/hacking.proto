@@ -93,8 +93,16 @@ message Employee {
   int32 salary = 3;
   int32 currentTileNumber = 4;
   int32 occupiedTileNumber = 5;
+
+  /**
+   * These are the score points currently used for this employees attributes.
+   */
   float usedScore = 6;
+  /**
+   * These are the score points available for leveling up.
+   */
   float freeScore = 7;
+
   bool isEmployed = 8;
   string hairColor = 9;
   string eyeColor = 10;
@@ -102,4 +110,31 @@ message Employee {
   string shirtColor = 12;
   string trouserColor = 13;
   string shoeColor = 14;
+  HairStyle hairStyle = 15;
+  Gender gender = 16;
+  repeated Skill skillSet = 17;
+  repeated EmployeeSpecial employeeSpecials = 18;
+
+  enum HairStyle {
+    CRAZY = 0;
+    NEAT = 1;
+    NERD = 2;
+    RASTA = 3;
+  }
+
+  enum Gender {
+    UNDECIDED = 0;
+    MALE = 1;
+    FEMALE = 2;
+  }
+}
+
+message EmployeeManager {
+  repeated Employee availableEmployees = 1;
+  repeated Employee hiredEmployees = 2;
+}
+
+message EmployeeSpecial {
+  int32 level = 1;
+  string special = 2;
 }

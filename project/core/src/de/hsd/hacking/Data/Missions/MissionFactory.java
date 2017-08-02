@@ -8,6 +8,7 @@ import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**
@@ -151,10 +152,10 @@ public final class MissionFactory {
 
         DataLoader dl = DataLoader.getInstance();
 
-        ReplacePlaceholder(mission, "%CONTACT%", dl.getNewFullName(Employee.Gender.UNDECIDED));
+        ReplacePlaceholder(mission, "%CONTACT%", dl.getNewFullName(Proto.Employee.Gender.UNDECIDED));
         ReplacePlaceholder(mission, "%CONTACT_L%", dl.getNewLastName());
-        ReplacePlaceholder(mission, "%CONTACT_M%", dl.getNewFullName(Employee.Gender.MALE));
-        ReplacePlaceholder(mission, "%CONTACT_F%", dl.getNewFullName(Employee.Gender.FEMALE));
+        ReplacePlaceholder(mission, "%CONTACT_M%", dl.getNewFullName(Proto.Employee.Gender.MALE));
+        ReplacePlaceholder(mission, "%CONTACT_F%", dl.getNewFullName(Proto.Employee.Gender.FEMALE));
         ReplacePlaceholder(mission, "%COMPANY%", dl.getNewCompanyName());
         ReplacePlaceholder(mission, "%PW_APPLICATION%", dl.getNewPasswordApplication());
         ReplacePlaceholder(mission, "%UNIVERSITY%", dl.getNewUniversityName());

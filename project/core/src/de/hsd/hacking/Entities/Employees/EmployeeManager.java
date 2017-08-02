@@ -3,12 +3,13 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.google.gson.annotations.Expose;
 
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
@@ -19,7 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class EmployeeManager implements TimeChangedListener {
-
+    private Proto.EmployeeManager.Builder data;
     private static final int MAX_AVAILABLE_EMPLOYEES = 16;
     private static final int AVAILABLE_EMPLOYEES_VARIANCE = 3;
     private static final float REFRESH_RATE = 0.15f;
@@ -32,8 +33,8 @@ public class EmployeeManager implements TimeChangedListener {
         return instance;
     }
 
-    @Expose private ArrayList<Employee> availableEmployees;
-    @Expose private ArrayList<Employee> hiredEmployees;
+    private ArrayList<Employee> availableEmployees;
+    private ArrayList<Employee> hiredEmployees;
 
     private ArrayList<Callback> refreshEmployeeListener = new ArrayList<Callback>();
 
@@ -50,7 +51,10 @@ public class EmployeeManager implements TimeChangedListener {
         messageManager = MessageManager.instance();
         GameTime.instance.addTimeChangedListener(this);
 
-        populateAvailableEmployees();
+        if (!Load()) {
+            populateAvailableEmployees();
+            initTeam();
+        }
     }
 
     /**
@@ -78,6 +82,11 @@ public class EmployeeManager implements TimeChangedListener {
         }
     }
 
+    public void initTeam() {
+        dismissAll();
+        employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE), false);
+    }
+
     /**
      * Adds as many new Employees to the available employees until the max number is reached.
      */
@@ -92,9 +101,9 @@ public class EmployeeManager implements TimeChangedListener {
      *
      * @param employees
      */
-    public void employ(Collection<Employee> employees) {
+    public void employ(Collection<Employee> employees, boolean pay) {
         for (Employee employee : employees) {
-            employ(employee);
+            employ(employee, pay);
         }
     }
 
@@ -103,7 +112,7 @@ public class EmployeeManager implements TimeChangedListener {
      *
      * @param employee
      */
-    public void employ(Employee employee) {
+    public void employ(Employee employee, Boolean pay) {
         if (hiredEmployees.contains(employee)) {
             Gdx.app.error(Constants.TAG, "Error: This employees is already hired!");
             return;
@@ -112,13 +121,17 @@ public class EmployeeManager implements TimeChangedListener {
             Gdx.app.log(Constants.TAG, "Warning: Exceeding max number of employees!");
             return;
         }
-        if (team.getMoney() < employee.getHiringCost()) {
-            Gdx.app.log(Constants.TAG, "You have no money to hire this employee!");
-            //TODO: Tell user about this.
-            return;
+
+        if (pay) {
+            if (team.getMoney() < employee.getHiringCost()) {
+                Gdx.app.log(Constants.TAG, "You have no money to hire this employee!");
+                //TODO: Tell user about this.
+                return;
+            }
+
+            team.reduceMoney(employee.getHiringCost());
         }
 
-        team.reduceMoney(employee.getHiringCost());
         availableEmployees.remove(employee);
         hiredEmployees.add(employee);
 
@@ -242,5 +255,45 @@ public class EmployeeManager implements TimeChangedListener {
 
     public static void setInstance(EmployeeManager instance) {
         EmployeeManager.instance = instance;
+    }
+
+    /**
+     * Save all the current missions
+     * @return Build Proto MissionManager object to write to disk.
+     */
+    public Proto.EmployeeManager Save() {
+        Proto.EmployeeManager.Builder builder = Proto.EmployeeManager.newBuilder();
+
+        for (Employee employee: hiredEmployees) {
+            builder.addHiredEmployees(employee.getData());
+        }
+
+        for (Employee employee: availableEmployees) {
+            builder.addAvailableEmployees(employee.getData());
+        }
+
+        return builder.build();
+    }
+
+    /**
+     * Restores the missions from a previous game.
+     * @return True if missions where loaded.
+     */
+    public Boolean Load() {
+        Proto.EmployeeManager.Builder proto = SaveGameManager.getEmployeeManager();
+        if (proto != null) {
+            for (Proto.Employee employee : proto.getHiredEmployeesList()) {
+                Employee e = new Employee(employee.toBuilder());
+                availableEmployees.add(e);
+                employ(e, false);
+            }
+
+            for (Proto.Employee employee : proto.getAvailableEmployeesList()) {
+                availableEmployees.add(new Employee(employee.toBuilder()));
+            }
+
+            return true;
+        }
+        return false;
     }
 }

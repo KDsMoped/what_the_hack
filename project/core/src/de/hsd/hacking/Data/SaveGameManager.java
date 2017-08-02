@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
+import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
@@ -25,6 +26,7 @@ public final class SaveGameManager {
     static Proto.MessageBar messageBar;
     static Proto.MissionManager missionManager;
     static Proto.EquipmentManager equipmentManager;
+    static Proto.EmployeeManager employeeManager;
 
     public static void LoadGame() {
         try {
@@ -70,6 +72,16 @@ public final class SaveGameManager {
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/employeemanager");
+            employeeManager = Proto.EmployeeManager.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
     public static boolean SaveGame() {
@@ -89,6 +101,9 @@ public final class SaveGameManager {
 
         Proto.EquipmentManager equipmentManagerCompiled = EquipmentManager.instance().Save();
         SaveProto(equipmentManagerCompiled, "equipmentmanager");
+
+        Proto.EmployeeManager employeeManagerCompiled = EmployeeManager.instance().Save();
+        SaveProto(employeeManagerCompiled, "employeemanager");
 
         return success;
     }
@@ -182,6 +197,13 @@ public final class SaveGameManager {
     public static Proto.EquipmentManager.Builder getEquipmentManager() {
         if (equipmentManager != null)
             return equipmentManager.toBuilder();
+        else
+            return null;
+    }
+
+    public static Proto.EmployeeManager.Builder getEmployeeManager() {
+        if (employeeManager != null)
+            return employeeManager.toBuilder();
         else
             return null;
     }

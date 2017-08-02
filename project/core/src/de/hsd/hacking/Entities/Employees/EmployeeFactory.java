@@ -10,6 +10,7 @@ import de.hsd.hacking.Utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * This creates Employees based on the players progress.
@@ -106,7 +107,7 @@ public class EmployeeFactory {
 
 //        float remainingScore = score;
 
-        Employee.Gender gender = Employee.Gender.random();
+        Proto.Employee.Gender gender = Employee.randomGender();
         freshman.setGender(gender);
         freshman.setName(DataLoader.getInstance().getNewName(gender));
 

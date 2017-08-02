@@ -1,6 +1,7 @@
 package de.hsd.hacking.Data;
 
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Proto;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class NameHolder {
         return surNamesFemale;
     }
 
-    public ArrayList<String> getSurNames(Employee.Gender gender) {
+    public ArrayList<String> getSurNames(Proto.Employee.Gender gender) {
         switch (gender) {
             case MALE:
                 return surNamesMale;

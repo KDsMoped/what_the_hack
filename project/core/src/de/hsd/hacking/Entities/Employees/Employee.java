@@ -1,5 +1,6 @@
 package de.hsd.hacking.Entities.Employees;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,9 +15,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.annotations.Expose;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
@@ -26,7 +29,13 @@ import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.CheapToHire;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.CodeMonkey;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.FastLearner;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.LuckyDevil;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
+import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Unreliable;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Entities.Team.Team;
@@ -45,18 +54,10 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CR
  * drawn by the tile it stands on. It has an animated visual representation and may interact with a computer to work
  * on a mission. It may have different skills and specials.
  *
- * @author Florian, Hendrik
+ * @author Florian, Hendrik, Julian
  */
 public class Employee extends Entity implements Comparable<Employee>, Touchable {
-
-    public enum Gender {
-        UNDECIDED, MALE, FEMALE;
-
-        static Gender random() {
-            if (RandomUtils.randomIntWithin(0, 1) == 0) return MALE;
-            else return FEMALE;
-        }
-    }
+    private Proto.Employee.Builder data;
 
     private final int BODY = 0;
     private final int HAIR = 1;
@@ -77,10 +78,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 //        }
 //    }
 
-    public enum HairStyle {
-        CRAZY, NEAT, NERD, RASTA
-    }
-
     //Graphics
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
@@ -92,18 +89,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private ShaderProgram shader;
     private AnimState animationState;
     private boolean flipped;
-    private boolean isEmployed;
-    private Gender gender;
 
     //Data
-    private String surName;
-    private String lastName;
-    private int salary;
     private ArrayList<Skill> skillSet;
     private float elapsedTime = MathUtils.random(3);
     private TileMovementProvider movementProvider;
-    private HairStyle hairStyle;
-    private String hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
 
     public de.hsd.hacking.Entities.Employees.States.EmployeeState getState() {
         return state;
@@ -114,19 +104,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private de.hsd.hacking.Entities.Employees.States.EmployeeState state;
     private Rectangle bounds;
 
-    private int currentTileNumber;
-    private int occupiedTileNumber;
-
     private ArrayList<EmployeeSpecial> employeeSpecials = new ArrayList<EmployeeSpecial>();
     private ArrayList<EmployeeSpecial> employeeSpecialsVisible = new ArrayList<EmployeeSpecial>();
-    /**
-     * These are the score points currently used for this employees attributes.
-     */
     private float usedScore;
-    /**
-     * These are the score points available for leveling up.
-     */
-    private float freeScore;
 
     private transient GameStage stage;
 
@@ -135,7 +115,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      */
     public Employee() {
         super(false, true, false);
-        init();
+        data = Proto.Employee.newBuilder();
+        init(false);
+    }
+
+    public Employee(Proto.Employee.Builder data) {
+        super(false, true, false);
+        this.data = data;
+        init(true);
     }
 
 //    /**
@@ -183,7 +170,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * Initializes this employee.
      */
-    private void init() {
+    private void init(boolean loaded) {
         this.stage = GameStage.instance();
         this.assets = Assets.instance();
         movementProvider = stage.getTileMap();
@@ -192,6 +179,40 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
         setUpAnimations();
+
+        if (!loaded) {
+            initColors();
+        }
+        else {
+            skillSet = new ArrayList<Skill>();
+            for (Proto.Skill.Builder builder: data.getSkillSetBuilderList()) {
+                skillSet.add(new Skill(builder));
+            }
+
+            for (Proto.EmployeeSpecial proto: data.getEmployeeSpecialsList()) {
+                try {
+                    Class<?> spec = Class.forName(proto.getSpecial());
+                    Constructor<?> constructor;
+                    Object instance;
+
+                    if (proto.getSpecial().equals("de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky")) {
+                        constructor = spec.getConstructor(Employee.class, int.class);
+                        instance = constructor.newInstance(this, proto.getLevel());
+                    }
+                    else {
+                        constructor = spec.getConstructor(Employee.class);
+                        instance = constructor.newInstance(this);
+                    }
+
+                    addEmployeeSpecial((EmployeeSpecial)instance);
+                }
+                catch (Exception e) {
+                    Gdx.app.error(Constants.TAG, e.toString());
+                    Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+                }
+            }
+        }
+
         setUpShader();
         debugRenderer = new ShapeRenderer();
     }
@@ -208,7 +229,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         startTile.setOccupyingEmployee(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
-        isEmployed = true;
+        data.setIsEmployed(true);
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onEmploy();
@@ -220,7 +241,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      */
     public void onDismiss() {
         state.cancel();
-        isEmployed = false;
+        data.setIsEmployed(false);
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onDismiss();
         }
@@ -240,21 +261,24 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     }
 
+    private void initColors() {
+        data.setHairColor(ColorHolder.HairColors.get(RandomUtils.randomInt(ColorHolder.HairColors.size())));
+        data.setSkinColor(ColorHolder.SkinColors.get(RandomUtils.randomInt(ColorHolder.SkinColors.size())));
+        data.setShirtColor(ColorHolder.ShirtColors.get(RandomUtils.randomInt(ColorHolder.ShirtColors.size())));
+        data.setTrouserColor(ColorHolder.TrouserColors.get(RandomUtils.randomInt(ColorHolder.TrouserColors.size())));
+        data.setEyeColor(ColorHolder.EyesColors.get(RandomUtils.randomInt(ColorHolder.EyesColors.size())));
+        data.setShoeColor(ColorHolder.ShoesColors.get(RandomUtils.randomInt(ColorHolder.ShoesColors.size())));
+    }
+
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;
-        hairColor = ColorHolder.HairColors.get(RandomUtils.randomInt(ColorHolder.HairColors.size()));
-        skinColor = ColorHolder.SkinColors.get(RandomUtils.randomInt(ColorHolder.SkinColors.size()));
-        shirtColor = ColorHolder.ShirtColors.get(RandomUtils.randomInt(ColorHolder.ShirtColors.size()));
-        trouserColor = ColorHolder.TrouserColors.get(RandomUtils.randomInt(ColorHolder.TrouserColors.size()));
-        eyeColor = ColorHolder.EyesColors.get(RandomUtils.randomInt(ColorHolder.EyesColors.size()));
-        shoeColor = ColorHolder.ShoesColors.get(RandomUtils.randomInt(ColorHolder.ShoesColors.size()));
         String fragmentShader = Shader.getFragmentShader(
-                Color.valueOf(hairColor),
-                Color.valueOf(skinColor),
-                Color.valueOf(shirtColor),
-                Color.valueOf(trouserColor),
-                Color.valueOf(eyeColor),
-                Color.valueOf(shoeColor));
+                Color.valueOf(data.getHairColor()),
+                Color.valueOf(data.getSkinColor()),
+                Color.valueOf(data.getShirtColor()),
+                Color.valueOf(data.getTrouserColor()),
+                Color.valueOf(data.getEyeColor()),
+                Color.valueOf(data.getShoeColor()));
         this.shader = new ShaderProgram(vertexShader, fragmentShader);
         if (!shader.isCompiled()) {
             throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
@@ -331,11 +355,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public void removeFromDrawingTile() {
-        movementProvider.getTile(currentTileNumber).removeEmployeeToDraw(this);
+        movementProvider.getTile(data.getCurrentTileNumber()).removeEmployeeToDraw(this);
     }
 
     public void removeFromOccupyingTile() {
-        movementProvider.getTile(occupiedTileNumber).setOccupyingEmployee(null);
+        movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
     }
 
     @Override
@@ -358,7 +382,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     @Override
     public String getName() {
-        return surName + " " + lastName;
+        return data.getName() + " " + data.getSurName();
     }
 
     public void resetElapsedTime() {
@@ -367,9 +391,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private void setUpAnimations() {
         this.animations = new Animation[AnimState.values().length][2];
-        int randHair = RandomUtils.randomInt(HairStyle.values().length);
-        this.hairStyle = HairStyle.values()[randHair];
-        Array<TextureRegion> hairframes = assets.getHairFrames(this.hairStyle);
+        int randHair = RandomUtils.randomInt(Proto.Employee.HairStyle.values().length - 1);
+        data.setHairStyle(Proto.Employee.HairStyle.values()[randHair]);
+        Array<TextureRegion> hairframes = assets.getHairFrames(data.getHairStyle());
 
         /* [1-3: Body Walkframes ]  */
         animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
@@ -474,13 +498,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     void setName(String first, String last) {
-        this.surName = first;
-        this.lastName = last;
+        data.setName(first);
+        data.setSurName(last);
     }
 
     void setName(String[] name) {
-        this.surName = name[0];
-        this.lastName = name[1];
+        data.setName(name[0]);
+        data.setSurName(name[1]);
     }
 
     public TileMovementProvider getMovementProvider() {
@@ -551,19 +575,19 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public int getCurrentTileNumber() {
-        return currentTileNumber;
+        return data.getCurrentTileNumber();
     }
 
     public void setCurrentTileNumber(int currentTileNumber) {
-        this.currentTileNumber = currentTileNumber;
+        data.setCurrentTileNumber(currentTileNumber);
     }
 
     public int getOccupiedTileNumber() {
-        return occupiedTileNumber;
+        return data.getOccupiedTileNumber();
     }
 
     public void setOccupiedTileNumber(int occupiedTileNumber) {
-        this.occupiedTileNumber = occupiedTileNumber;
+        data.setOccupiedTileNumber(occupiedTileNumber);
     }
 
     public void setState(EmployeeState state) {
@@ -579,12 +603,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         this.currentMission = currentMission;
     }
 
-    void setGender(Gender gender) {
-        this.gender = gender;
+    void setGender(Proto.Employee.Gender gender) {
+        data.setGender(gender);
     }
 
-    public Gender getGender() {
-        return gender;
+    public Proto.Employee.Gender getGender() {
+        return data.getGender();
     }
 
     void setSkillSet(ArrayList<Skill> skillset) {
@@ -603,7 +627,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     void setSalary(int salary) {
-        this.salary = salary;
+        data.setSalary(salary);
     }
 
     /**
@@ -621,11 +645,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             specialRelativeBonus *= s.getSalaryRelativeFactor();
         }
 
-        return (int) (salary * specialRelativeBonus) + specialAbsoluteBonus;
+        return (int) (data.getSalary() * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
     public String getSalaryText() {
-        return String.format("%03d", salary) + "$";
+        return String.format("%03d", data.getSalary()) + "$";
     }
 
     /**
@@ -643,7 +667,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             specialRelativeBonus *= s.getHiringCostRelativeFactor();
         }
 
-        return (int) (salary * 1.5f * GameTime.instance.getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
+        return (int) (data.getSalary() * 1.5f * GameTime.instance.getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
     public String getHiringCostText() {
@@ -660,13 +684,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
         if (!special.isApplicable()) return 0; //this special cannot be learned by this employee
 
-        if (isEmployed && !special.isLearnable()) return 0; //this special cannot be added to an employed employee
+        if (data.getIsEmployed() && !special.isLearnable()) return 0; //this special cannot be added to an employed employee
 
         for (EmployeeSpecial s : employeeSpecials) {
             if (s.getClass() == special.getClass()) return 0; //employee already has this special
         }
 
-        if (isEmployed) {
+        if (data.getIsEmployed()) {
             if (!special.isHidden())
                 MessageManager.instance().Info(getName() + " gained the '" + special.getDisplayName() + "' ability.");
         }
@@ -687,7 +711,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     }
 
     public boolean isEmployed() {
-        return isEmployed;
+        return data.getIsEmployed();
     }
 
     /**
@@ -748,7 +772,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @param score
      */
     public void incrementFreeScore(float score) {
-        freeScore += score;
+        data.setFreeScore(data.getFreeScore() + score);
         //Gdx.app.log(Constants.TAG, getName() + " gets " + score + " score points.");
     }
 
@@ -758,16 +782,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @param score
      */
     void useScore(float score) {
-        usedScore += score;
-        freeScore -= score;
+        data.setUsedScore(data.getUsedScore() + score);
+        data.setFreeScore(data.getFreeScore() - score);
     }
 
     public float getUsedScore() {
-        return usedScore;
+        return data.getUsedScore();
     }
 
     public float getFreeScore() {
-        return freeScore;
+        return data.getFreeScore();
     }
 
     public void onMissionCompleted() {
@@ -786,5 +810,30 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         incrementFreeScore(SCORE_MISSION_CRITICAL_SUCCESS);
 
         EmployeeFactory.levelUp(this);
+    }
+
+    public static Proto.Employee.Gender randomGender() {
+        if (RandomUtils.randomIntWithin(0, 1) == 0) return Proto.Employee.Gender.MALE;
+        else return Proto.Employee.Gender.FEMALE;
+    }
+
+    public Proto.Employee getData() {
+        data.clearSkillSet();
+
+        for (Skill skill: skillSet) {
+            data.addSkillSet(skill.getData().build());
+        }
+
+        for (EmployeeSpecial specialus: employeeSpecials) {
+            Proto.EmployeeSpecial.Builder builder = Proto.EmployeeSpecial.newBuilder();
+            builder.setSpecial(specialus.getClass().getName());
+
+            if (specialus.getClass() == Risky.class)
+                builder.setLevel(((Risky)specialus).getLevel());
+
+            data.addEmployeeSpecials(builder.build());
+        }
+
+        return data.build();
     }
 }
