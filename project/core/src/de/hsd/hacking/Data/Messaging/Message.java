@@ -1,9 +1,5 @@
 package de.hsd.hacking.Data.Messaging;
 
-/**
- * Created by ju on 06.07.17.
- */
-
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -18,13 +14,12 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.DateUtils;
 
-
 /**
  * This class represents a message to the user.
+ * @author Julian
  */
 public class Message{
     Proto.Message.Builder data;
-
     // TODO EventListener serialization
     private ClickListener listener;
 

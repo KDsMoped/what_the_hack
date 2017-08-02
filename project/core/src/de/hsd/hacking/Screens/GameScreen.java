@@ -12,9 +12,9 @@ import de.hsd.hacking.UI.General.SimpleGestureDetector;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by Cuddl3s on 24.05.2017.
+ * This class represents the game screen.
+ * @author Florian, Julian
  */
-
 class GameScreen implements Screen {
 
     private HackingGame game;

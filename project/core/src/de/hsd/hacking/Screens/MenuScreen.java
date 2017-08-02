@@ -9,9 +9,9 @@ import de.hsd.hacking.HackingGame;
 import de.hsd.hacking.Stages.MenuStage;
 
 /**
- * Created by Cuddl3s on 21.04.2017.
+ * This class represents the menu screen.
+ * @author Florian
  */
-
 class MenuScreen implements Screen {
 
     private final HackingGame game;

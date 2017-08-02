@@ -9,9 +9,9 @@ import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by ju on 09.07.17.
+ * This class is an ui element that displays a message.
+ * @author Julian
  */
-
 public class MessageUIElement extends Table {
     private Message message;
 

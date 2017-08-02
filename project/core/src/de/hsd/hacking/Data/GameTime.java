@@ -12,10 +12,11 @@ import de.hsd.hacking.Proto.Global;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by Cuddl3s on 27.06.2017.
+ * This class manages the game time.
+ * @author Florian Julian
  */
-
 public class GameTime extends Actor {
+    // all persistent data is in here
     Global.Builder data;
     public static GameTime instance;
 

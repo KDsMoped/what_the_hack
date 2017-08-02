@@ -6,11 +6,8 @@ import de.hsd.hacking.Utils.RandomUtils;
 import java.util.ArrayList;
 
 /**
- * Created by ju on 04.07.17.
- */
-
-/**
  * This class is a simple data holder for random company names.
+ * @author Florian, Julian
  */
 public class MissionVariablesHolder {
     private ArrayList<String> companyNames = new ArrayList<String>();

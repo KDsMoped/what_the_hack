@@ -1,11 +1,8 @@
 package de.hsd.hacking.Data;
 
 /**
- * Created by ju on 21.06.17.
- */
-
-/**
  * A generic event listener interface.
+ * @author Julian
  */
 public interface EventListener {
     /**
