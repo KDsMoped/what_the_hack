@@ -168,7 +168,7 @@
   },
   {
     "name": "Memeful intermezzo",
-    "description": "The monitoring screens at %COMPANY% suddenly started to display some dank memes. CEO %CONTACT% turns to you in desperate need of help.",
+    "description": "The monitoring screens at %COMPANY% suddenly started displaying some dank memes. CEO %CONTACT% turns to you in desperate need of help.",
     "onSuccess": "You did it! They were using Win XP and an old Flash version vulnerable to man in the middle attacks. Of course you saved the dankest memes for your private collection.",
     "onFail": "",
     "skill": [

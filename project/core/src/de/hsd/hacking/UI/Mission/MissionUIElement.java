@@ -32,7 +32,6 @@ public class MissionUIElement extends Table {
     private Mission mission;
 
     private Label name;
-    private Label time;
     private Label description, outcomeDescription;
     private Label money;
     private Table skills;
@@ -73,36 +72,53 @@ public class MissionUIElement extends Table {
         // create and setup all ui elements
         name = new Label(mission.getName(), Constants.LabelStyle());
         name.setFontScale(1.05f);
-        time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
 
         money = new Label("" + mission.getRewardMoney(), Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
 
-//        skills = new Label("", Constants.LabelStyle());
-        List<Skill> skill = mission.getSkill();
-//        skills.setWrap(true);
 
-//        for (int i = 0; i < skill.size(); i++) {
-//            Skill s = skill.get(i);
-//            if(i== 0) skills.setText(s.getType().name() + " " + s.getDisplayValue(false));
-//            else skills.setText(skills.getText() + " \n" + s.getType().name() + " " + s.getDisplayValue(false));
-//        }
+
+        //skill table in bottom left corner
+        List<Skill> skill = mission.getSkill();
 
         skills = new Table();
 //        skills.setDebug(true);
         skills.align(Align.left);
 
+        skills.add(new Label("Requirements:", Constants.LabelStyle())).left().colspan(4).padBottom(5).row();
+
+        //skills
         for (int i = 0; i < skill.size(); i++) {
             Skill s = skill.get(i);
 
             Image icon = new Image(Assets.instance().getSkillIcon(s.getType().skillType));
             Label text = new Label(s.getDisplayValue(false), Constants.LabelStyle());
+            text.setAlignment(Align.left);
 
-            skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);
-            skills.add(text).left().padLeft(3).padRight(28);
+            skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padLeft(5);
+            skills.add(text).left().fillX().padLeft(1).padRight(20);
         }
 
+        skills.row();
+        skills.add().padBottom(6).row();
+
+//        skills.add(new Label("Required Bandwidth:", Constants.LabelStyle())).left().colspan(4).padBottom(5);
+
+        //bandwidth requirements
+        Image icon = new Image(Assets.instance().bandwith_icon_black);
+        Label text = new Label(mission.getUsedBandwidth() + "", Constants.LabelStyle());
+        text.setAlignment(Align.left);
+
+        skills.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padLeft(5);
+        skills.add(text).left().fillX().padLeft(1).padRight(20);
+
         Image calendar = new Image(Assets.instance().ui_calendar);
+        Label time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
+        time.setAlignment(Align.left);
+
+        skills.add(calendar).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padLeft(5);
+        skills.add(time).left().fillX().padLeft(1).padRight(20);
+
 
         // Add mission name to main table
         add(name).expandX().fillX().left();
@@ -135,13 +151,13 @@ public class MissionUIElement extends Table {
         this.add(infoTable).expand().fill().left();
 
         // add all the infos to the info table
-        infoTable.add(skills).left().expand().fill().pad(5);
+        infoTable.add(skills).left().expand().fill().padBottom(5).padRight(5);
         infoTable.add(moneyTimeTable).expandY().fillY().padTop(1f);
 
         // setup moneyTimeTable
-        moneyTimeTable.add(calendar).right().padTop(-2);
-        moneyTimeTable.add(time).right().padLeft(3).padTop(1f);
-        moneyTimeTable.row().padTop(2f);
+//        moneyTimeTable.add(calendar).right().padTop(-2);
+//        moneyTimeTable.add(time).right().padLeft(3).padTop(1f);
+//        moneyTimeTable.row().padTop(2f);
         moneyTimeTable.add(money).right();
         moneyTimeTable.add(dollar).right();
         moneyTimeTable.row().padTop(2f);

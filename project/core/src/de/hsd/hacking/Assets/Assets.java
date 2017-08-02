@@ -63,7 +63,7 @@ public class Assets {
     public Array<TextureRegion> coffeemachine;
     public Array<TextureRegion> mainmenu_bg;
 
-    public TextureRegionDrawable bandwith_icon, money_icon, employees_icon;
+    public TextureRegionDrawable bandwith_icon, bandwith_icon_black, money_icon, employees_icon;
     public Array<TextureRegionDrawable> clock_icon;
     public Array<TextureRegionDrawable> loading_bar;
 
@@ -169,6 +169,7 @@ public class Assets {
 
 
         bandwith_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_bandwidth"));
+        bandwith_icon_black = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_bandwidth_black"));
         money_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_money"));
         employees_icon = new TextureRegionDrawable(ui_atlas.findRegion("statusbar_employees"));
         clock_icon = new Array<TextureRegionDrawable>();

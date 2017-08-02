@@ -94,6 +94,14 @@ public class Mission implements EventSender {
         }
     }
 
+    public int getUsedBandwidth() {
+        return 100; //TODO: FIX values
+    }
+
+    public void setUsedBandwidth(int usedBandwidth) {
+//        this.usedBandwidth = usedBandwidth;
+    }
+
     public String getName() {
         return data.getName();
     }

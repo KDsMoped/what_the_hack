@@ -87,7 +87,6 @@ public class EmployeeBar extends Group {
                 return GetSelected();
             }
         }));
-        //profilePopup.setTouchable(Touchable.enabled);
     }
 
     private void onDetailsClick(){
