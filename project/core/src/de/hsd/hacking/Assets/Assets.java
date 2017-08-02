@@ -15,10 +15,6 @@ import com.badlogic.gdx.audio.Sound;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Proto;
 
-/**
- * Created by Cuddl3s on 21.04.2017.
- */
-
 public class Assets {
 
     private static Assets instance;

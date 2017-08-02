@@ -1,23 +1,12 @@
 package de.hsd.hacking.Data.Messaging;
 
-/**
- * Created by ju on 06.07.17.
- */
-
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.google.gson.annotations.Expose;
-
 import java.util.Date;
 
 import de.hsd.hacking.Assets.Assets;
-import de.hsd.hacking.Data.EventListener;
-import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Proto;
-import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.DateUtils;
-
 
 /**
  * This class represents a message to the user.

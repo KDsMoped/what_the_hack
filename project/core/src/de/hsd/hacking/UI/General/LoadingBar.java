@@ -9,10 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Florian Kaulfersch on 12.07.2017.
- */
-
 public class LoadingBar extends Actor {
 
     private static final int SEGMENT_AMOUNT = 10;

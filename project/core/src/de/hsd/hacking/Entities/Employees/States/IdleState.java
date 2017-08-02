@@ -1,15 +1,10 @@
 package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
-
-/**
- * Created by Cuddl3s on 23.05.2017.
- */
 
 public class IdleState extends EmployeeState {
 

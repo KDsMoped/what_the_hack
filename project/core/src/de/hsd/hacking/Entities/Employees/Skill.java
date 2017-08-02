@@ -1,15 +1,7 @@
 package de.hsd.hacking.Entities.Employees;
 
-import com.google.gson.annotations.Expose;
-
-import java.util.Comparator;
-
 import de.hsd.hacking.Data.Missions.SkillHolder;
 import de.hsd.hacking.Proto;
-
-/**
- * Created by Cuddl3s on 22.05.2017.
- */
 
 public class Skill implements Comparable<Skill>{
     private Proto.Skill.Builder data;

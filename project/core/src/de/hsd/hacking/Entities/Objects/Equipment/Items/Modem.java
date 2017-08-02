@@ -7,10 +7,6 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
-/**
- * Created by domin on 14.06.2017.
- */
-
 public class Modem extends Equipment implements Upgradable {
 
     public Modem() {
@@ -28,7 +24,7 @@ public class Modem extends Equipment implements Upgradable {
 
     public int getMaxLevel() { return 5; }
 
-    public void onTouch() {};
+    public void onTouch() {}
 
     @Override
     public EmployeeState interact(Employee e) {

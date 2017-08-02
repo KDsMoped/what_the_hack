@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 
 import de.hsd.hacking.Data.ColorHolder;
 
-/**
- * Created by Cuddl3s on 04.06.2017.
- */
-
 public class Shader {
 
     public static final String vertexShader = "attribute vec4 a_position;    \n" +

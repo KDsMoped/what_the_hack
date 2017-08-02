@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.hsd.hacking.Utils.Direction;
 
-/**
- * Created by Cuddl3s on 20.06.2017.
- */
-
 public abstract class TouchableInteractableObject extends TouchableObject implements Interactable {
 
     private boolean occupied;

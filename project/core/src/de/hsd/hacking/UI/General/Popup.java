@@ -10,12 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
-import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -25,7 +21,6 @@ import de.hsd.hacking.Utils.Constants;
  * @author Julian
  */
 public abstract class Popup extends Group {
-    private final int POPUP_MARGIN_DEFAULT = 20;
     protected static final int SCROLLER_WIDTH = 420;
     protected static final int SCROLLER_HEIGHT = 195;
     protected static final int SCROLLER_ELEMENT_PADDING = 5;
@@ -44,6 +39,7 @@ public abstract class Popup extends Group {
      * We need the ui assets to display a beautiful popup window.
      */
     public Popup() {
+        int POPUP_MARGIN_DEFAULT = 20;
         init(POPUP_MARGIN_DEFAULT);
     }
 

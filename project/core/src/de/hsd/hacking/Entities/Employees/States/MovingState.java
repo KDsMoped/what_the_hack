@@ -1,11 +1,7 @@
 package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -14,10 +10,6 @@ import de.hsd.hacking.Entities.Objects.InteractableObject;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Utils.Constants;
-
-/**
- * Created by Cuddl3s on 24.05.2017.
- */
 
 public class MovingState extends EmployeeState {
 

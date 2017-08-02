@@ -11,10 +11,6 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 13.06.2017.
- */
-
 public abstract class TouchableObject extends Object implements Touchable {
 
     private boolean touched;

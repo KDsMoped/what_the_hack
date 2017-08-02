@@ -8,13 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Utils.Constants;
-
-/**
- * Created by ju on 28.06.17.
- */
 
 /**
  * An ui element that is able to switch content between tabs.

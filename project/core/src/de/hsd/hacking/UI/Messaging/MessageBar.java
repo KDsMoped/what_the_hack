@@ -31,18 +31,13 @@ import de.hsd.hacking.Utils.Constants;
 // TODO scroll down
 public class MessageBar extends Table implements EventListener{
     private final int COMPACT_HEIGHT = 21;
-    private final int FULL_HEIGHT = 200;
     private final int SCROLLING_TEXT_CHARS = 47;
-    private final float SCROLLING_SPEED = 0.2f;
     private final int INITIAL_WAIT = 1;
-    private final int FINAL_WAIT = 2;
     private final int MESSAGE_BUFFER = 100;
-    private final float ANIMATION_TIME = 0.5f;
 
     private Table compactView;
     private Label compactText;
     private Image compactType;
-    private Image compactArrow;
 
     private List<Message> messages;
     private int compactPosition = -1;
@@ -99,7 +94,7 @@ public class MessageBar extends Table implements EventListener{
         compactText = new Label("", Constants.TerminalLabelStyle());
         compactText.setWrap(false);
         compactText.setAlignment(Align.left);
-        compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
+        Image compactArrow = new Image(Assets.instance().ui_up_arrow_inverted);
         compactType = new Image();
 
         compactView.add(compactType).left().width(15);
@@ -138,6 +133,7 @@ public class MessageBar extends Table implements EventListener{
             compact = false;
 
             this.clearChildren();
+            int FULL_HEIGHT = 200;
             this.setHeight(FULL_HEIGHT);
             this.add(fullView);
 
@@ -205,13 +201,14 @@ public class MessageBar extends Table implements EventListener{
             });
         }
 
+        float ANIMATION_TIME = 0.5f;
         if (visible || isShowing) {
             Scroll(delta);
         }
         else if (isHiding) {
             showHideDelta += delta;
 
-            float progress = Math.min(1f, showHideDelta/ANIMATION_TIME);
+            float progress = Math.min(1f, showHideDelta/ ANIMATION_TIME);
             float interpol = Interpolation.sineOut.apply(progress);
 
             this.setPosition(0, -(COMPACT_HEIGHT * interpol));
@@ -227,7 +224,7 @@ public class MessageBar extends Table implements EventListener{
         if (isShowing) {
             showHideDelta += delta;
 
-            float progress = Math.min(1f, showHideDelta/ANIMATION_TIME);
+            float progress = Math.min(1f, showHideDelta/ ANIMATION_TIME);
             float interpol = Interpolation.sineOut.apply(progress);
 
             this.setPosition(0, -COMPACT_HEIGHT + (COMPACT_HEIGHT * interpol));
@@ -255,6 +252,7 @@ public class MessageBar extends Table implements EventListener{
         if (compact) {
             scrollDelta += delta;
 
+            int FINAL_WAIT = 2;
             if (scrollMessage) {
                 // if the message is new we wait INITIAL_WAIT before scrolling
                 if (scrollPosition == 0 && scrollDelta < INITIAL_WAIT) {
@@ -263,6 +261,7 @@ public class MessageBar extends Table implements EventListener{
                 // the initial wait is finished
                 else {
                     // Here we control the scrolling speed
+                    float SCROLLING_SPEED = 0.2f;
                     if (scrollDelta > SCROLLING_SPEED) {
                         scrollDelta = 0f;
 

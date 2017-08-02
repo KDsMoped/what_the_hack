@@ -3,10 +3,6 @@ package de.hsd.hacking.Utils;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * Created by Cuddl3s on 22.05.2017.
- */
-
 public class RandomIntPool {
 
     private LinkedList<Integer> numbers;

@@ -14,10 +14,6 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
-/**
- * Created by Cuddl3s on 21.05.2017.
- */
-
 public class DataLoader {
 
     private static DataLoader INSTANCE;

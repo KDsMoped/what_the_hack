@@ -18,10 +18,6 @@ import de.hsd.hacking.UI.General.TabbedView;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by domin on 28.06.2017.
- */
-
 public class ShopBrowser extends Popup {
 
     private static ShopBrowser instance = null;

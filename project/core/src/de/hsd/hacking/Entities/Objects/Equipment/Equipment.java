@@ -1,6 +1,5 @@
 package de.hsd.hacking.Entities.Objects.Equipment;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -8,10 +7,6 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 import de.hsd.hacking.Entities.Team.Team;
-
-/**
- * Created by domin on 31.05.2017.
- */
 
 public abstract class Equipment extends TouchableInteractableObject {
     protected Proto.Equipment.Builder data;

@@ -16,15 +16,9 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.MissionSkillRequirement;
-import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.General.LoadingBar;
-import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
-
-/**
- * Created by Cuddl3s on 12.07.2017.
- */
 
 public class MissionStatusOverlay extends Group implements TimeChangedListener {
 

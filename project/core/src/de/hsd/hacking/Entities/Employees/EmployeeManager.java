@@ -2,7 +2,6 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.google.gson.annotations.Expose;
 
 import de.hsd.hacking.Data.GameTime;

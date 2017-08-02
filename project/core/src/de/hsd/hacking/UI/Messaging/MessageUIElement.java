@@ -4,16 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 
-import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Utils.Constants;
-import de.hsd.hacking.Utils.DateUtils;
-
-/**
- * Created by ju on 09.07.17.
- */
 
 public class MessageUIElement extends Table {
     private Message message;

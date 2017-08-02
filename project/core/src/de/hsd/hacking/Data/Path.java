@@ -5,10 +5,6 @@ import java.util.List;
 
 import de.hsd.hacking.Entities.Tile;
 
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
-
 public class Path {
 
     private List<Tile> path;

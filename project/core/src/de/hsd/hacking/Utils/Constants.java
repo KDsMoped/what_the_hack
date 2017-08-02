@@ -12,10 +12,6 @@ import java.text.SimpleDateFormat;
 
 import de.hsd.hacking.Assets.Assets;
 
-/**
- * Created by Cuddl3s on 21.04.2017.
- */
-
 public class Constants {
 
     public static final String TAG = "HackingGame";

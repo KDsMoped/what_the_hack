@@ -3,10 +3,9 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Proto;
-import de.hsd.hacking.Utils.RandomUtils;
 
 /**
- * This employee special improves employees software skills while rducing social dice throws.
+ * This employee special improves employees software skills while reducing social dice throws.
  *
  * @author Hendrik
  */

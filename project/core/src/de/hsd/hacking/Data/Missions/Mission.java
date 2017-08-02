@@ -1,18 +1,11 @@
 package de.hsd.hacking.Data.Missions;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.google.gson.annotations.Expose;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Proto;
 
 /**

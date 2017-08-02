@@ -58,9 +58,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
-    private final int BODY = 0;
-    private final int HAIR = 1;
-
     private ShapeRenderer debugRenderer;
 
     private boolean touched;
@@ -110,8 +107,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private ArrayList<Skill> skillSet;
     private float elapsedTime = MathUtils.random(3);
     private TileMovementProvider movementProvider;
-    @Expose
-    private HairStyle hairStyle;
     @Expose
     private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
 
@@ -389,11 +384,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private void setUpAnimations() {
         this.animations = new Animation[AnimState.values().length][2];
         int randHair = RandomUtils.randomInt(HairStyle.values().length);
-        this.hairStyle = HairStyle.values()[randHair];
-        Array<TextureRegion> hairframes = assets.getHairFrames(this.hairStyle);
+        HairStyle hairStyle = HairStyle.values()[randHair];
+        Array<TextureRegion> hairframes = assets.getHairFrames(hairStyle);
 
         /* [1-3: Body Walkframes ]  */
+        int BODY = 0;
         animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
+        int HAIR = 1;
         animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.35f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
         /* [1-2: Body Idleframes ]  */
         animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(3));

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -22,16 +21,10 @@ import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 21.04.2017.
- */
-
 public class MenuStage extends Stage {
 
     public static final float VIEWPORT_WIDTH = 512f;
     public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
-
-    private Assets assets;
 
     private AudioManager audioManager;
 
@@ -42,7 +35,7 @@ public class MenuStage extends Stage {
     public MenuStage(){
         super(Gdx.app.getType() == Application.ApplicationType.Android ? new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
                 : new FitViewport(512f, 288f));
-        this.assets = Assets.instance();
+        Assets assets = Assets.instance();
         this.audioManager = AudioManager.instance();
 
         backgroundAnim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);

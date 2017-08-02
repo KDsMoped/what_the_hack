@@ -1,13 +1,7 @@
 package de.hsd.hacking.Entities.Employees;
 
-import com.badlogic.gdx.math.MathUtils;
-
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
-
-/**
- * Created by Cuddl3s on 22.05.2017.
- */
 
 public class SkillType {
     public Proto.Skill.SkillType skillType;

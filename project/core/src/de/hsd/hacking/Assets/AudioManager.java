@@ -1,9 +1,5 @@
 package de.hsd.hacking.Assets;
 
-/**
- * Created by domin on 22.07.2017.
- */
-
 public class AudioManager {
 
     private static AudioManager instance = null;

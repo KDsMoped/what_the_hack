@@ -1,6 +1,5 @@
 package de.hsd.hacking.Data;
 
-import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 
 /**

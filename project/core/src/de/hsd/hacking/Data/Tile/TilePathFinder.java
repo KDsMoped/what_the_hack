@@ -6,10 +6,6 @@ import de.hsd.hacking.Data.PathFinder;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
-
 public class TilePathFinder implements PathFinder {
 
     private de.hsd.hacking.Data.Tile.TileMap tileMap;

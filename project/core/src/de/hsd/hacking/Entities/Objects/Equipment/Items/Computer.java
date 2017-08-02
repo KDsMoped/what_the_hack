@@ -27,10 +27,6 @@ import de.hsd.hacking.Entities.Employees.States.MovingState;
 import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 06.06.2017.
- */
-
 public class Computer extends Equipment implements Upgradable {
 
     private TextureRegion stillRegion;

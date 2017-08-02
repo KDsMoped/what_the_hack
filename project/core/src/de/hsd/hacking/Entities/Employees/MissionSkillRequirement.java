@@ -1,9 +1,5 @@
 package de.hsd.hacking.Entities.Employees;
 
-/**
- * Created by Cuddl3s on 28.06.2017.
- */
-
 public class MissionSkillRequirement {
 
     private SkillType skill;

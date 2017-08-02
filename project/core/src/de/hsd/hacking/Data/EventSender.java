@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ju on 21.06.17.
- */
-
-/**
  * Generic event sender interface.
  */
 public interface EventSender {

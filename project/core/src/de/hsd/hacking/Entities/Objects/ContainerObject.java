@@ -8,10 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Direction;
 
-/**
- * Created by Cuddl3s on 06.06.2017.
- */
-
 public abstract class ContainerObject extends Object {
 
     private Object[] containedObjects;

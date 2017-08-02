@@ -3,21 +3,15 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
-import com.google.gson.annotations.Expose;
 import com.google.protobuf.GeneratedMessageV3;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
-import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
-import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -38,7 +32,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -48,7 +42,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -58,7 +52,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -68,13 +62,11 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
     }
 
-    public static boolean SaveGame() {
-        boolean success = false;
-
+    public static void SaveGame() {
         // Game Time
         Proto.Global.Builder gameTime = GameTime.instance.getData();
         Proto.Global gameTimeCompiled = gameTime.build();
@@ -89,8 +81,6 @@ public final class SaveGameManager {
 
         Proto.EquipmentManager equipmentManagerCompiled = EquipmentManager.instance().Save();
         SaveProto(equipmentManagerCompiled, "equipmentmanager");
-
-        return success;
     }
 
     private static void SaveProto(GeneratedMessageV3 message, String filename) {
@@ -101,7 +91,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error while saving " + filename);
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
     }
 
