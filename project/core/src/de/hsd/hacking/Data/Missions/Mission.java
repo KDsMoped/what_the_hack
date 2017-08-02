@@ -236,6 +236,17 @@ public class Mission implements EventSender {
         data.setRewardMoney(reward);
     }
 
+    /**
+     * Returns the name of the mission with a maximum length of characters.
+     * @return
+     */
+    public String getShortenedName(int maxLength){
+        String name = data.getName();
+
+        if (name.length() < maxLength) return name;
+        else return name.substring(0, maxLength - 3) + "...";
+    }
+
     public Proto.Mission getData() {
         return data.build();
     }

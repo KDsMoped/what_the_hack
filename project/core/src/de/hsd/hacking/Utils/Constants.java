@@ -27,7 +27,7 @@ public class Constants {
 
     public static final int MAX_EMPLOYEE_COUNT = 4;
     public static final int STARTING_TEAM_SIZE = 2;
-    public static final int STARTING_MONEY = 15000;
+    public static final int STARTING_MONEY = 8000;
 
     //UI
 

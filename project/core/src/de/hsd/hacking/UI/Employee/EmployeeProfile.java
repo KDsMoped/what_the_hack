@@ -196,7 +196,7 @@ public class EmployeeProfile extends Popup {
     public void show() {
         super.show();
 
-        fillInformationContainer();
+        if(employee.get() != null) fillInformationContainer();
     }
 
     @Override
