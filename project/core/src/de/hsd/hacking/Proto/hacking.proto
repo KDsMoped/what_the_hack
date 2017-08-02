@@ -86,3 +86,20 @@ message Equipment {
 message EquipmentManager {
   repeated Equipment equipment = 1;
 }
+
+message Employee {
+  string name = 1;
+  string surName = 2;
+  int32 salary = 3;
+  int32 currentTileNumber = 4;
+  int32 occupiedTileNumber = 5;
+  float usedScore = 6;
+  float freeScore = 7;
+  bool isEmployed = 8;
+  string hairColor = 9;
+  string eyeColor = 10;
+  string skinColor = 11;
+  string shirtColor = 12;
+  string trouserColor = 13;
+  string shoeColor = 14;
+}

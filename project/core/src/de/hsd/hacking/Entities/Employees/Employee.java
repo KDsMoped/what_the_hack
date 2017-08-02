@@ -96,24 +96,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     private Gender gender;
 
     //Data
-    @Expose
     private String surName;
-    @Expose
     private String lastName;
-    @Expose
-    private String description; // ? Needed ?
-    @Expose
     private int salary;
-    //    @Expose
-//    private EmployeeSkillLevel skillLevel;
-    @Expose
     private ArrayList<Skill> skillSet;
     private float elapsedTime = MathUtils.random(3);
     private TileMovementProvider movementProvider;
-    @Expose
     private HairStyle hairStyle;
-    @Expose
-    private Color hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
+    private String hairColor, eyeColor, skinColor, shirtColor, trouserColor, shoeColor;
 
     public de.hsd.hacking.Entities.Employees.States.EmployeeState getState() {
         return state;
@@ -121,7 +111,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private Mission currentMission;
 
-    @Expose
     private de.hsd.hacking.Entities.Employees.States.EmployeeState state;
     private Rectangle bounds;
 
@@ -253,13 +242,19 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;
+        hairColor = ColorHolder.HairColors.get(RandomUtils.randomInt(ColorHolder.HairColors.size()));
+        skinColor = ColorHolder.SkinColors.get(RandomUtils.randomInt(ColorHolder.SkinColors.size()));
+        shirtColor = ColorHolder.ShirtColors.get(RandomUtils.randomInt(ColorHolder.ShirtColors.size()));
+        trouserColor = ColorHolder.TrouserColors.get(RandomUtils.randomInt(ColorHolder.TrouserColors.size()));
+        eyeColor = ColorHolder.EyesColors.get(RandomUtils.randomInt(ColorHolder.EyesColors.size()));
+        shoeColor = ColorHolder.ShoesColors.get(RandomUtils.randomInt(ColorHolder.ShoesColors.size()));
         String fragmentShader = Shader.getFragmentShader(
-                Color.valueOf(ColorHolder.HairColors.get(RandomUtils.randomInt(ColorHolder.HairColors.size()))),
-                Color.valueOf(ColorHolder.SkinColors.get(RandomUtils.randomInt(ColorHolder.SkinColors.size()))),
-                Color.valueOf(ColorHolder.ShirtColors.get(RandomUtils.randomInt(ColorHolder.ShirtColors.size()))),
-                Color.valueOf(ColorHolder.TrouserColors.get(RandomUtils.randomInt(ColorHolder.TrouserColors.size()))),
-                Color.valueOf(ColorHolder.EyesColors.get(RandomUtils.randomInt(ColorHolder.EyesColors.size()))),
-                Color.valueOf(ColorHolder.ShoesColors.get(RandomUtils.randomInt(ColorHolder.ShoesColors.size()))));
+                Color.valueOf(hairColor),
+                Color.valueOf(skinColor),
+                Color.valueOf(shirtColor),
+                Color.valueOf(trouserColor),
+                Color.valueOf(eyeColor),
+                Color.valueOf(shoeColor));
         this.shader = new ShaderProgram(vertexShader, fragmentShader);
         if (!shader.isCompiled()) {
             throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());

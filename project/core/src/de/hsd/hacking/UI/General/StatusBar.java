@@ -1,28 +1,14 @@
 package de.hsd.hacking.UI.General;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.glutils.IndexArray;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.Timer;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import de.hsd.hacking.Assets.Assets;
@@ -159,7 +145,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
         bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
         employeesText.setText(Integer.toString(employees) + "/" + Constants.MAX_EMPLOYEE_COUNT);
-        dateText.setText(Constants.dateFormat.format(DateUtils.ConvertDaysToDate(date)));
+        dateText.setText(Constants.dateFormatBar.format(DateUtils.ConvertDaysToDate(date)));
     }
 
     /**
