@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * This creates Employees based on the players progress.
+ * This creates Employees based on the players progress. It creates their skill set and cares for automatic level up.
+ *
+ * @author Hendrik
  */
 public class EmployeeFactory {
 
@@ -168,7 +170,7 @@ public class EmployeeFactory {
          */
     private static float educateEmployee(Employee employee, Collection<Skill> skillSet) {
 
-        int roll = RandomUtils.randomIntWithin(1, 11);
+        int roll = RandomUtils.randomIntWithin(1, 12);
 
         switch (roll) {
             case 1:
@@ -181,13 +183,13 @@ public class EmployeeFactory {
             case 6:
             case 7:
             case 8:
-                return incrementSkill(skillSet);
             case 9:
+                return incrementSkill(skillSet);
             case 10:
-                return rollSpecial(employee);
             case 11:
-                return 1; //wasting time playing video games
+                return rollSpecial(employee);
             case 12:
+                return 1; //wasting time playing video games
             case 13:
 
                 //TODO: Implement more features for Employees!
@@ -287,7 +289,7 @@ public class EmployeeFactory {
             case 2:
                 return padawan.addEmployeeSpecial(new Risky(padawan, 1));
             case 3:
-                return padawan.addEmployeeSpecial(new Unreliable(padawan, 0.02f));
+                return padawan.addEmployeeSpecial(new Unreliable(padawan));
             case 4:
                 return padawan.addEmployeeSpecial(new CheapToHire(padawan));
             case 5:

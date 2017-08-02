@@ -21,6 +21,8 @@ import java.util.Collections;
 
 /**
  * This class is used to manage the missions in the game.
+ *
+ * @author Hendrik
  */
 public class MissionManager implements TimeChangedListener {
     private static final int MAX_ACTIVE_MISSIONS = 4;
@@ -156,9 +158,11 @@ public class MissionManager implements TimeChangedListener {
         activeMissions.remove(mission);
 //        completedMissions.add(mission);
 //        mission.setOutcome(outcome);
+        mission.Abort();
 
         Team.instance().updateResources();
         notifyRefreshListeners();
+
 
         //TODO: Remove MissionWorkers
     }

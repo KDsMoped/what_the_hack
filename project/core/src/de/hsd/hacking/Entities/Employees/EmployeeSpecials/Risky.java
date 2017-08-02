@@ -2,6 +2,11 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 
+/**
+ * This employee special makes critical fail and success rolls more likely.
+ *
+ * @author Hendrik
+ */
 public class Risky extends EmployeeSpecial {
 
     private int level;

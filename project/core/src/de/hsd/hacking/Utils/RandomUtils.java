@@ -7,9 +7,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Cuddl3s on 05.07.2017.
+ * Various utility functions for randomness based on Java RandomXS128.
+ *
+ * @author Florian, Hendrik
  */
-
 public class RandomUtils {
 
     private static RandomXS128 rand = new RandomXS128();

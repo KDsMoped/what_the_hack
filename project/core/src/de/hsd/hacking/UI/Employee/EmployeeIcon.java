@@ -1,6 +1,5 @@
 package de.hsd.hacking.UI.Employee;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,6 +8,11 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 
+/**
+ * This UI element displays an {@link Employee} like an icon.
+ *
+ * @author Hendrik
+ */
 public class EmployeeIcon extends Container<Actor>{
 
     private EmployeeProvider employee;

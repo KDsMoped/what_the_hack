@@ -3,7 +3,6 @@ package de.hsd.hacking.UI.Employee;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,6 +16,12 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 
+/**
+ * This is a UI Popup shown when an {@link Employee} is selected by the user. Displays name of employee and offers
+ * more details about it.
+ *
+ * @author Hendrik
+ */
 public class EmployeeBar extends Group {
 
     private Label nameLabel;

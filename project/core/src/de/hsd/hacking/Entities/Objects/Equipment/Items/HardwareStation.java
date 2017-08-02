@@ -22,7 +22,7 @@ public class HardwareStation extends Equipment implements Upgradable {
     private int state = 1;
 
     public HardwareStation(){
-        super("Hardware Station", 300, null, true, Direction.DOWN, 0, Direction.DOWN);
+        super("Hardware Station", 800, null, true, Direction.DOWN, 0, Direction.DOWN);
         data.setType(Proto.Equipment.EquipmentType.HardwareStation);
     }
 

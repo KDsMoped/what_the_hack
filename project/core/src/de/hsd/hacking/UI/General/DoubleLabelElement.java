@@ -9,6 +9,8 @@ import de.hsd.hacking.Utils.Provider.StringProvider;
 
 /**
  * A DoubleLabel displays two strings where the first on is aligned to the left and the second is aligned to the right.
+ *
+ * @author Hendrik
  */
 public class DoubleLabelElement extends Table {
 

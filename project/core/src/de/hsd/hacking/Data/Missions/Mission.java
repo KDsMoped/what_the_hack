@@ -16,11 +16,9 @@ import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Proto;
 
 /**
- * Created by ju on 15.06.17.
- */
-
-/**
  * This class represents a mission.
+ *
+ * @author Hendrik, Julian
  */
 public class Mission implements EventSender {
     Proto.Mission.Builder data;
@@ -95,11 +93,11 @@ public class Mission implements EventSender {
     }
 
     public int getUsedBandwidth() {
-        return 100; //TODO: FIX values
+        return data.getUsedBandwidth();
     }
 
     public void setUsedBandwidth(int usedBandwidth) {
-//        this.usedBandwidth = usedBandwidth;
+        data.setUsedBandwidth(usedBandwidth);
     }
 
     public String getName() {

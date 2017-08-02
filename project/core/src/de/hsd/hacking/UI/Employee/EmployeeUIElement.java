@@ -19,16 +19,20 @@ import de.hsd.hacking.Utils.Constants;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * This UI element shows all details about an {@link Employee}. Differs based on the kind of employee. Hired employees
+ * can be dismissed. Available employees can be hired.
+ *
+ * @author Hendrik
+ */
 public class EmployeeUIElement extends Table {
 
     private final Employee employee;
-//    private final EmployeeCallback onEmploy;
 
     private Label money;
 
     public EmployeeUIElement(Employee employee) {
         this.employee = employee;
-//        this.onEmploy = onEmploy;
 
         initTable();
     }
@@ -156,19 +160,6 @@ public class EmployeeUIElement extends Table {
         skillsTable.add(icon).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13);
         skillsTable.add(skillText).expandX().left().padLeft(5);
         skillsTable.add(skillNum).right().expandX().padRight(6);
-    }
-
-    private void tableElements(Table table, Actor left, Actor right){
-        table.add(left).left().expandX();
-        table.add(right).right().expandX().padBottom(3).padRight(15);
-        table.row();
-    }
-
-    private void tableElements(Table table, Actor left, Actor center, Actor right){
-        table.add(left).left().expandX();
-        table.add(center).expandX();
-        table.add(right).right().expandX().padBottom(3).padRight(15);
-        table.row();
     }
 
     @Override

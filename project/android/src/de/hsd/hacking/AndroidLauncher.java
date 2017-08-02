@@ -10,6 +10,11 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import de.hsd.hacking.HackingGame;
 
+/**
+ * Entry point for android application.
+ *
+ * @author Florian
+ */
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {

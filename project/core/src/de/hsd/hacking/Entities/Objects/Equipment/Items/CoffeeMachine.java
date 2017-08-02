@@ -29,7 +29,7 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     private int state = 1;
 
     public CoffeeMachine(){
-        super("Coffee Maker", 100, Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        super("Coffee Maker", 1500, Assets.instance().coffeemachine.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         this.data.setType(Proto.Equipment.EquipmentType.CoffeeMachine);
 
         Assets assets = Assets.instance();

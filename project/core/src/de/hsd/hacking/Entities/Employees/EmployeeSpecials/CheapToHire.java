@@ -2,6 +2,11 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 
+/**
+ * This employee special makes employees cheaper in initial hiring cost.
+ *
+ * @author Hendrik
+ */
 public class CheapToHire extends EmployeeSpecial {
 
     public CheapToHire(Employee employee) {

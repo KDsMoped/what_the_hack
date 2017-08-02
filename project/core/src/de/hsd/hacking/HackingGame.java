@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
-import de.hsd.hacking.Utils.Constants;
 
 public class HackingGame extends Game {
 

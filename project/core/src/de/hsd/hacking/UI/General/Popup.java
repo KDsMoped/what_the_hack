@@ -20,11 +20,9 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by ju on 14.06.17.
- */
-
-/**
  * Abstract class for a general purpose popup window.
+ *
+ * @author Julian
  */
 public abstract class Popup extends Group {
     private final int POPUP_MARGIN_DEFAULT = 20;
