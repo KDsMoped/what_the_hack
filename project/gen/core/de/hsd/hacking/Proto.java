@@ -2906,6 +2906,11 @@ public final class Proto {
      * <code>int32 rewardMoney = 15;</code>
      */
     int getRewardMoney();
+
+    /**
+     * <code>int32 usedBandwidth = 16;</code>
+     */
+    int getUsedBandwidth();
   }
   /**
    * Protobuf type {@code what_the_hack.Mission}
@@ -2934,6 +2939,7 @@ public final class Proto {
       maxLevel_ = 0;
       skills_ = java.util.Collections.emptyList();
       rewardMoney_ = 0;
+      usedBandwidth_ = 0;
     }
 
     @java.lang.Override
@@ -3042,6 +3048,11 @@ public final class Proto {
             case 120: {
 
               rewardMoney_ = input.readInt32();
+              break;
+            }
+            case 128: {
+
+              usedBandwidth_ = input.readInt32();
               break;
             }
           }
@@ -3332,6 +3343,15 @@ public final class Proto {
       return rewardMoney_;
     }
 
+    public static final int USEDBANDWIDTH_FIELD_NUMBER = 16;
+    private int usedBandwidth_;
+    /**
+     * <code>int32 usedBandwidth = 16;</code>
+     */
+    public int getUsedBandwidth() {
+      return usedBandwidth_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3388,6 +3408,9 @@ public final class Proto {
       }
       if (rewardMoney_ != 0) {
         output.writeInt32(15, rewardMoney_);
+      }
+      if (usedBandwidth_ != 0) {
+        output.writeInt32(16, usedBandwidth_);
       }
     }
 
@@ -3452,6 +3475,10 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(15, rewardMoney_);
       }
+      if (usedBandwidth_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(16, usedBandwidth_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -3502,6 +3529,8 @@ public final class Proto {
           .equals(other.getSkillsList());
       result = result && (getRewardMoney()
           == other.getRewardMoney());
+      result = result && (getUsedBandwidth()
+          == other.getUsedBandwidth());
       return result;
     }
 
@@ -3548,6 +3577,8 @@ public final class Proto {
       }
       hash = (37 * hash) + REWARDMONEY_FIELD_NUMBER;
       hash = (53 * hash) + getRewardMoney();
+      hash = (37 * hash) + USEDBANDWIDTH_FIELD_NUMBER;
+      hash = (53 * hash) + getUsedBandwidth();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3712,6 +3743,8 @@ public final class Proto {
         }
         rewardMoney_ = 0;
 
+        usedBandwidth_ = 0;
+
         return this;
       }
 
@@ -3759,6 +3792,7 @@ public final class Proto {
           result.skills_ = skillsBuilder_.build();
         }
         result.rewardMoney_ = rewardMoney_;
+        result.usedBandwidth_ = usedBandwidth_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3872,6 +3906,9 @@ public final class Proto {
         }
         if (other.getRewardMoney() != 0) {
           setRewardMoney(other.getRewardMoney());
+        }
+        if (other.getUsedBandwidth() != 0) {
+          setUsedBandwidth(other.getUsedBandwidth());
         }
         onChanged();
         return this;
@@ -4672,6 +4709,32 @@ public final class Proto {
       public Builder clearRewardMoney() {
         
         rewardMoney_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int usedBandwidth_ ;
+      /**
+       * <code>int32 usedBandwidth = 16;</code>
+       */
+      public int getUsedBandwidth() {
+        return usedBandwidth_;
+      }
+      /**
+       * <code>int32 usedBandwidth = 16;</code>
+       */
+      public Builder setUsedBandwidth(int value) {
+        
+        usedBandwidth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 usedBandwidth = 16;</code>
+       */
+      public Builder clearUsedBandwidth() {
+        
+        usedBandwidth_ = 0;
         onChanged();
         return this;
       }
@@ -12704,7 +12767,7 @@ public final class Proto {
       "\0162\036.what_the_hack.Skill.SkillType\"i\n\tSki" +
       "llType\022\n\n\006Social\020\000\022\014\n\010Hardware\020\001\022\014\n\010Soft",
       "ware\020\002\022\013\n\007Network\020\003\022\n\n\006Crypto\020\004\022\n\n\006Searc" +
-      "h\020\005\022\017\n\013All_Purpose\020\006\"\261\002\n\007Mission\022\025\n\rmiss" +
+      "h\020\005\022\017\n\013All_Purpose\020\006\"\310\002\n\007Mission\022\025\n\rmiss" +
       "ionNumber\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\023\n\013descrip" +
       "tion\030\003 \001(\t\022\021\n\tonSuccess\030\004 \001(\t\022\016\n\006onFail\030" +
       "\005 \001(\t\022\020\n\010duration\030\006 \001(\005\022\023\n\013difficulity\030\007" +
@@ -12712,39 +12775,39 @@ public final class Proto {
       "completed\030\n \001(\010\022\020\n\010finished\030\013 \001(\010\022\020\n\010min" +
       "Level\030\014 \001(\005\022\020\n\010maxLevel\030\r \001(\005\022$\n\006skills\030" +
       "\016 \003(\0132\024.what_the_hack.Skill\022\023\n\013rewardMon" +
-      "ey\030\017 \001(\005\"\277\001\n\016MissionManager\022\034\n\024currentMi",
-      "ssionNumber\030\001 \001(\005\022.\n\016activeMissions\030\002 \003(" +
-      "\0132\026.what_the_hack.Mission\022,\n\014openMission" +
-      "s\030\003 \003(\0132\026.what_the_hack.Mission\0221\n\021compl" +
-      "etedMissions\030\004 \003(\0132\026.what_the_hack.Missi" +
-      "on\"\327\001\n\tEquipment\0224\n\004type\030\001 \001(\0162&.what_th" +
-      "e_hack.Equipment.EquipmentType\022\014\n\004name\030\002" +
-      " \001(\t\022\r\n\005price\030\003 \001(\002\022\r\n\005level\030\004 \001(\005\"h\n\rEq" +
-      "uipmentType\022\021\n\rCoffeeMachine\020\000\022\014\n\010Comput" +
-      "er\020\001\022\023\n\017HardwareStation\020\002\022\t\n\005Modem\020\003\022\n\n\006" +
-      "Router\020\004\022\n\n\006Server\020\005\"?\n\020EquipmentManager",
-      "\022+\n\tequipment\030\001 \003(\0132\030.what_the_hack.Equi" +
-      "pment\"\315\004\n\010Employee\022\014\n\004name\030\001 \001(\t\022\017\n\007surN" +
-      "ame\030\002 \001(\t\022\016\n\006salary\030\003 \001(\005\022\031\n\021currentTile" +
-      "Number\030\004 \001(\005\022\032\n\022occupiedTileNumber\030\005 \001(\005" +
-      "\022\021\n\tusedScore\030\006 \001(\002\022\021\n\tfreeScore\030\007 \001(\002\022\022" +
-      "\n\nisEmployed\030\010 \001(\010\022\021\n\thairColor\030\t \001(\t\022\020\n" +
-      "\010eyeColor\030\n \001(\t\022\021\n\tskinColor\030\013 \001(\t\022\022\n\nsh" +
-      "irtColor\030\014 \001(\t\022\024\n\014trouserColor\030\r \001(\t\022\021\n\t" +
-      "shoeColor\030\016 \001(\t\0224\n\thairStyle\030\017 \001(\0162!.wha" +
-      "t_the_hack.Employee.HairStyle\022.\n\006gender\030",
-      "\020 \001(\0162\036.what_the_hack.Employee.Gender\022&\n" +
-      "\010skillSet\030\021 \003(\0132\024.what_the_hack.Skill\0228\n" +
-      "\020employeeSpecials\030\022 \003(\0132\036.what_the_hack." +
-      "EmployeeSpecial\"5\n\tHairStyle\022\t\n\005CRAZY\020\000\022" +
-      "\010\n\004NEAT\020\001\022\010\n\004NERD\020\002\022\t\n\005RASTA\020\003\"-\n\006Gender" +
-      "\022\r\n\tUNDECIDED\020\000\022\010\n\004MALE\020\001\022\n\n\006FEMALE\020\002\"w\n" +
-      "\017EmployeeManager\0223\n\022availableEmployees\030\001" +
-      " \003(\0132\027.what_the_hack.Employee\022/\n\016hiredEm" +
-      "ployees\030\002 \003(\0132\027.what_the_hack.Employee\"1" +
-      "\n\017EmployeeSpecial\022\r\n\005level\030\001 \001(\005\022\017\n\007spec",
-      "ial\030\002 \001(\tB\027\n\016de.hsd.hackingB\005Protob\006prot" +
-      "o3"
+      "ey\030\017 \001(\005\022\025\n\rusedBandwidth\030\020 \001(\005\"\277\001\n\016Miss",
+      "ionManager\022\034\n\024currentMissionNumber\030\001 \001(\005" +
+      "\022.\n\016activeMissions\030\002 \003(\0132\026.what_the_hack" +
+      ".Mission\022,\n\014openMissions\030\003 \003(\0132\026.what_th" +
+      "e_hack.Mission\0221\n\021completedMissions\030\004 \003(" +
+      "\0132\026.what_the_hack.Mission\"\327\001\n\tEquipment\022" +
+      "4\n\004type\030\001 \001(\0162&.what_the_hack.Equipment." +
+      "EquipmentType\022\014\n\004name\030\002 \001(\t\022\r\n\005price\030\003 \001" +
+      "(\002\022\r\n\005level\030\004 \001(\005\"h\n\rEquipmentType\022\021\n\rCo" +
+      "ffeeMachine\020\000\022\014\n\010Computer\020\001\022\023\n\017HardwareS" +
+      "tation\020\002\022\t\n\005Modem\020\003\022\n\n\006Router\020\004\022\n\n\006Serve",
+      "r\020\005\"?\n\020EquipmentManager\022+\n\tequipment\030\001 \003" +
+      "(\0132\030.what_the_hack.Equipment\"\315\004\n\010Employe" +
+      "e\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030\002 \001(\t\022\016\n\006sala" +
+      "ry\030\003 \001(\005\022\031\n\021currentTileNumber\030\004 \001(\005\022\032\n\022o" +
+      "ccupiedTileNumber\030\005 \001(\005\022\021\n\tusedScore\030\006 \001" +
+      "(\002\022\021\n\tfreeScore\030\007 \001(\002\022\022\n\nisEmployed\030\010 \001(" +
+      "\010\022\021\n\thairColor\030\t \001(\t\022\020\n\010eyeColor\030\n \001(\t\022\021" +
+      "\n\tskinColor\030\013 \001(\t\022\022\n\nshirtColor\030\014 \001(\t\022\024\n" +
+      "\014trouserColor\030\r \001(\t\022\021\n\tshoeColor\030\016 \001(\t\0224" +
+      "\n\thairStyle\030\017 \001(\0162!.what_the_hack.Employ",
+      "ee.HairStyle\022.\n\006gender\030\020 \001(\0162\036.what_the_" +
+      "hack.Employee.Gender\022&\n\010skillSet\030\021 \003(\0132\024" +
+      ".what_the_hack.Skill\0228\n\020employeeSpecials" +
+      "\030\022 \003(\0132\036.what_the_hack.EmployeeSpecial\"5" +
+      "\n\tHairStyle\022\t\n\005CRAZY\020\000\022\010\n\004NEAT\020\001\022\010\n\004NERD" +
+      "\020\002\022\t\n\005RASTA\020\003\"-\n\006Gender\022\r\n\tUNDECIDED\020\000\022\010" +
+      "\n\004MALE\020\001\022\n\n\006FEMALE\020\002\"w\n\017EmployeeManager\022" +
+      "3\n\022availableEmployees\030\001 \003(\0132\027.what_the_h" +
+      "ack.Employee\022/\n\016hiredEmployees\030\002 \003(\0132\027.w" +
+      "hat_the_hack.Employee\"1\n\017EmployeeSpecial",
+      "\022\r\n\005level\030\001 \001(\005\022\017\n\007special\030\002 \001(\tB\027\n\016de.h" +
+      "sd.hackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12787,7 +12850,7 @@ public final class Proto {
     internal_static_what_the_hack_Mission_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Mission_descriptor,
-        new java.lang.String[] { "MissionNumber", "Name", "Description", "OnSuccess", "OnFail", "Duration", "Difficulity", "Hardness", "Risk", "Completed", "Finished", "MinLevel", "MaxLevel", "Skills", "RewardMoney", });
+        new java.lang.String[] { "MissionNumber", "Name", "Description", "OnSuccess", "OnFail", "Duration", "Difficulity", "Hardness", "Risk", "Completed", "Finished", "MinLevel", "MaxLevel", "Skills", "RewardMoney", "UsedBandwidth", });
     internal_static_what_the_hack_MissionManager_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_what_the_hack_MissionManager_fieldAccessorTable = new

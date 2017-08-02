@@ -2,6 +2,11 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 
+/**
+ * This employee special improves employees chance for a critical success roll.
+ *
+ * @author Hendrik
+ */
 public class LuckyDevil extends EmployeeSpecial {
 
     /**
@@ -23,7 +28,7 @@ public class LuckyDevil extends EmployeeSpecial {
 
     @Override
     public String getDescription() {
-        return "Wins every game of poker." ;
+        return "Wins every game of poker.";
     }
 
 

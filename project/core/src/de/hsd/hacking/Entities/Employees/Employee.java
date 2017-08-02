@@ -50,7 +50,7 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CO
 import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CRITICAL_SUCCESS;
 
 /**
- * An Employee is an Entity that ist created by the EmployeeFactory, hired and dismissed by the EmployeeManager and
+ * An Employee is an Entity that ist created by the (@Link EmployeeFactory), hired and dismissed by the EmployeeManager and
  * drawn by the tile it stands on. It has an animated visual representation and may interact with a computer to work
  * on a mission. It may have different skills and specials.
  *
@@ -106,7 +106,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
 
     private ArrayList<EmployeeSpecial> employeeSpecials = new ArrayList<EmployeeSpecial>();
     private ArrayList<EmployeeSpecial> employeeSpecialsVisible = new ArrayList<EmployeeSpecial>();
-    private float usedScore;
 
     private transient GameStage stage;
 
@@ -270,6 +269,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         data.setShoeColor(ColorHolder.ShoesColors.get(RandomUtils.randomInt(ColorHolder.ShoesColors.size())));
     }
 
+    /**
+     * Initializes the shader for this employee.
+     */
     private void setUpShader() {
         String vertexShader = Shader.vertexShader;
         String fragmentShader = Shader.getFragmentShader(
@@ -285,6 +287,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
+    /**
+     * Flipps the employee sprite according to view direction.
+     * @param toRight
+     */
     public void flipHorizontal(boolean toRight) {
         this.flipped = toRight;
     }
@@ -310,6 +316,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         }
     }
 
+    /**
+     * Draws this employee at a desired position on the screen. Used to draw employee icons in UI.
+     * @param batch
+     * @param pos
+     */
     public void drawAt(Batch batch, Vector2 pos) {
         drawAt(batch, 1f, pos, false, true, AnimState.IDLE);
     }
@@ -380,6 +391,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return skills;
     }
 
+    /**
+     * Returns this employees full name.
+     * @return
+     */
     @Override
     public String getName() {
         return data.getName() + " " + data.getSurName();
@@ -590,6 +605,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         data.setOccupiedTileNumber(occupiedTileNumber);
     }
 
+    /**
+     * Makes this employee enter the given state.
+     * @param state
+     */
     public void setState(EmployeeState state) {
         this.state = state;
         this.state.enter();
@@ -648,6 +667,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         return (int) (data.getSalary() * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
+    /**
+     * Returns the salary of this employee in readable string format.
+     * @return
+     */
     public String getSalaryText() {
         return String.format("%03d", data.getSalary()) + "$";
     }

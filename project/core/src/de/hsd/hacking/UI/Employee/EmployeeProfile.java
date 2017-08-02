@@ -26,7 +26,9 @@ import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 import de.hsd.hacking.Utils.Provider.StringProvider;
 
 /**
- * A popup that displays the values of an employee.
+ * A popup that displays the values of an {@link Employee}.
+ *
+ * @author Hendrik
  */
 public class EmployeeProfile extends Popup {
 

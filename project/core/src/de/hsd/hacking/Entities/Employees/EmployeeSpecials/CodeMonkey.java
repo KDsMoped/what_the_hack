@@ -5,6 +5,11 @@ import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
+/**
+ * This employee special improves employees software skills while rducing social dice throws.
+ *
+ * @author Hendrik
+ */
 public class CodeMonkey extends EmployeeSpecial {
 
     public CodeMonkey(Employee employee) {

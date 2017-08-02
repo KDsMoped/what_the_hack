@@ -15,6 +15,12 @@ import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Callback.MissionCallback;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * This UI element shows a dialogue in which the user can choose a {@link Mission} for an
+ * {@link de.hsd.hacking.Entities.Employees.Employee} to work on.
+ *
+ * @author Hendrik
+ */
 public class MissionAllocatorPopup extends Popup {
 
     private MissionCallback onSelectMission;

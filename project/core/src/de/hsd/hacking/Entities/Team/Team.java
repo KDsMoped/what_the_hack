@@ -232,8 +232,8 @@ public class Team {
         float result = 1;
 
         result += resources.money * 0.00001f;
-        result += resources.bandwidth * 0.005f;
-        result += resources.computationPower * 0.003f;
+//        result += resources.bandwidth * 0.005f;
+//        result += resources.computationPower * 0.003f;
 
         for (Mission m : MissionManager.instance().getCompletedMissions()) {
             result += (m.getDifficulty() * (1 + m.getRisk())) * 0.2f;

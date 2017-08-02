@@ -7,6 +7,11 @@ import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.SkillType;
 
+/**
+ * Employee specials are held by an employee and alter his skills and behaviour in different ways. Needs to be extended.
+ *
+ * @author Hendrik
+ */
 public abstract class EmployeeSpecial extends Actor implements TimeChangedListener {
 
     protected final Employee employee;

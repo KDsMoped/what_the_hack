@@ -59,6 +59,7 @@ message Mission {
   int32 maxLevel = 13;
   repeated Skill skills = 14;
   int32 rewardMoney = 15;
+  int32 usedBandwidth = 16;
 }
 
 message MissionManager {

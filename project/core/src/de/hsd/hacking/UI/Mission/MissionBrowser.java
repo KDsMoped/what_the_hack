@@ -19,11 +19,9 @@ import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by ju on 22.06.17.
- */
-
-/**
  * Popup mission browser for open and active missions.
+ *
+ * @author Julian
  */
 public class MissionBrowser extends Popup {
     private Table openMissions, activeMissions, completedMissions;

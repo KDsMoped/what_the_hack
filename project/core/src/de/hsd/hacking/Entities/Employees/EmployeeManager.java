@@ -19,6 +19,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * The EmployeeManager holds lists of {@link Employee}s separated in available employees (the ones you can hire) and
+ * hire employees (the ones in your team).
+ *
+ * @author Hendrik
+ */
 public class EmployeeManager implements TimeChangedListener {
     private Proto.EmployeeManager.Builder data;
     private static final int MAX_AVAILABLE_EMPLOYEES = 16;

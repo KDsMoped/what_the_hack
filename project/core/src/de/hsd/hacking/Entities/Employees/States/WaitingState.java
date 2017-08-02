@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * This employee state lets the employee wait for a next action to be done.
+ *
+ * @author Hendrik
+ */
 public class WaitingState extends EmployeeState {
 
 //    private boolean finished;

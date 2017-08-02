@@ -21,12 +21,9 @@ import de.hsd.hacking.Entities.Employees.Skill;
 import java.util.List;
 
 /**
- * Created by ju on 22.06.17.
- */
-// TODO Employee icons
-
-/**
  * UI element to display a mission.
+ *
+ * @author Julian, Hendrik
  */
 public class MissionUIElement extends Table {
     private Mission mission;

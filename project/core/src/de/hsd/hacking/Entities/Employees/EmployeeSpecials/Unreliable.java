@@ -7,15 +7,20 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * This employee special makes an employee leave the team randomly at a small chance.
+ *
+ * @author Hendrik
+ */
 public class Unreliable extends EmployeeSpecial {
 
-    private float chance;
+    private static final float chance = 0.02f;
 
 
-    public Unreliable(Employee employee, float chance) {
+    public Unreliable(Employee employee) {
         super(employee);
 
-        this.chance = chance;
+//        this.chance = chance;
     }
 
     @Override

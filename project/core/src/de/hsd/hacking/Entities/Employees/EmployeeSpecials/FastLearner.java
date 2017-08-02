@@ -2,6 +2,11 @@ package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
 import de.hsd.hacking.Entities.Employees.Employee;
 
+/**
+ * This employee special improves employees learning ability by offering some extra score points for completed missions.
+ *
+ * @author Hendrik
+ */
 public class FastLearner extends EmployeeSpecial {
 
     public FastLearner(Employee employee) {
