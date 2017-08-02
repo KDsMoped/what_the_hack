@@ -8,7 +8,6 @@ import de.hsd.hacking.Entities.Employees.Employee;
  * @author Hendrik
  */
 public class Risky extends EmployeeSpecial {
-
     private int level;
 
     /**
@@ -54,5 +53,13 @@ public class Risky extends EmployeeSpecial {
     public float getScoreCost() {
 
         return 0;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

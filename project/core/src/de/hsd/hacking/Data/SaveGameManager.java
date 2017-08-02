@@ -3,15 +3,22 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
 import com.google.protobuf.GeneratedMessageV3;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.List;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
+import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
+import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
+import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -19,6 +26,7 @@ public final class SaveGameManager {
     static Proto.MessageBar messageBar;
     static Proto.MissionManager missionManager;
     static Proto.EquipmentManager equipmentManager;
+    static Proto.EmployeeManager employeeManager;
 
     public static void LoadGame() {
         try {
@@ -32,7 +40,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
 
         try {
@@ -42,7 +50,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
 
         try {
@@ -52,7 +60,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
 
         try {
@@ -62,11 +70,23 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/employeemanager");
+            employeeManager = Proto.EmployeeManager.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
     }
 
-    public static void SaveGame() {
+    public static boolean SaveGame() {
+        boolean success = false;
+
         // Game Time
         Proto.Global.Builder gameTime = GameTime.instance.getData();
         Proto.Global gameTimeCompiled = gameTime.build();
@@ -81,6 +101,11 @@ public final class SaveGameManager {
 
         Proto.EquipmentManager equipmentManagerCompiled = EquipmentManager.instance().Save();
         SaveProto(equipmentManagerCompiled, "equipmentmanager");
+
+        Proto.EmployeeManager employeeManagerCompiled = EmployeeManager.instance().Save();
+        SaveProto(employeeManagerCompiled, "employeemanager");
+
+        return success;
     }
 
     private static void SaveProto(GeneratedMessageV3 message, String filename) {
@@ -91,7 +116,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error while saving " + filename);
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
     }
 
@@ -172,6 +197,13 @@ public final class SaveGameManager {
     public static Proto.EquipmentManager.Builder getEquipmentManager() {
         if (equipmentManager != null)
             return equipmentManager.toBuilder();
+        else
+            return null;
+    }
+
+    public static Proto.EmployeeManager.Builder getEmployeeManager() {
+        if (employeeManager != null)
+            return employeeManager.toBuilder();
         else
             return null;
     }

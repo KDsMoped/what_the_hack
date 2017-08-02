@@ -2,9 +2,13 @@ package de.hsd.hacking.Data.Missions;
 
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
+import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**
@@ -17,12 +21,12 @@ public final class MissionFactory {
     private static final float MISSION_DIFFICULTY_VARIANCE = 0.15f;
     private static final int MISSION_DURATION_MINIMUM = 2;
     private static final int MISSION_DURATION_VARIANCE = 1;
-    private static final float MISSION_REWARDMONEY_VARIANCE = 0.1f;
-    private static final int MISSION_REWARDMONEY_FACTOR = 14;
+    private static final float MISSION_REWARDMONEY_VARIANCE = 0.15f;
+    private static final int MISSION_REWARDMONEY_FACTOR = 16;
     private static final int MISSION_BASE_POWER = 16;
     private static final int MISSION_BANDWIDTH_BASE = 100;
     private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.1f;
-    private static final float SKILL_POWER_PER_DIFFICULTY = 3.6f;
+    private static final float SKILL_POWER_PER_DIFFICULTY = 2.5f;
     private static final float SKILL_DIFFICULTY_VARIANCE = 0.3f;
 
     /**
@@ -146,10 +150,10 @@ public final class MissionFactory {
 
         DataLoader dl = DataLoader.getInstance();
 
-        ReplacePlaceholder(mission, "%CONTACT%", dl.getNewFullName(Employee.Gender.UNDECIDED));
+        ReplacePlaceholder(mission, "%CONTACT%", dl.getNewFullName(Proto.Employee.Gender.UNDECIDED));
         ReplacePlaceholder(mission, "%CONTACT_L%", dl.getNewLastName());
-        ReplacePlaceholder(mission, "%CONTACT_M%", dl.getNewFullName(Employee.Gender.MALE));
-        ReplacePlaceholder(mission, "%CONTACT_F%", dl.getNewFullName(Employee.Gender.FEMALE));
+        ReplacePlaceholder(mission, "%CONTACT_M%", dl.getNewFullName(Proto.Employee.Gender.MALE));
+        ReplacePlaceholder(mission, "%CONTACT_F%", dl.getNewFullName(Proto.Employee.Gender.FEMALE));
         ReplacePlaceholder(mission, "%COMPANY%", dl.getNewCompanyName());
         ReplacePlaceholder(mission, "%PW_APPLICATION%", dl.getNewPasswordApplication());
         ReplacePlaceholder(mission, "%UNIVERSITY%", dl.getNewUniversityName());

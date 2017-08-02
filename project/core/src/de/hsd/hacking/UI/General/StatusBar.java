@@ -133,7 +133,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         moneyText.setText(String.format(Locale.GERMAN, "%05d", displayedMoney));
         bandwidthText.setText(String.format(Locale.GERMAN, "%04d", displayedBandwidth));
         employeesText.setText(Integer.toString(employees) + "/" + Constants.MAX_EMPLOYEE_COUNT);
-        dateText.setText(Constants.dateFormat.format(DateUtils.ConvertDaysToDate(date)));
+        dateText.setText(Constants.dateFormatBar.format(DateUtils.ConvertDaysToDate(date)));
     }
 
     /**

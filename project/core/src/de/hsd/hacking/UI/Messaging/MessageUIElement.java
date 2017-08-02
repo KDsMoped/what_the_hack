@@ -8,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * Created by ju on 09.07.17.
+ */
+
 public class MessageUIElement extends Table {
     private Message message;
 
@@ -31,7 +35,7 @@ public class MessageUIElement extends Table {
 
         Image img = new Image(Message.GetTypeIcon(message));
 
-        Label date = new Label(Constants.dateFormat.format(message.getDate()), Constants.TerminalLabelStyle());
+        Label date = new Label(Constants.dateFormatMessage.format(message.getDate()), Constants.TerminalLabelStyle());
 
         Label text = new Label(message.getText(), Constants.TerminalLabelStyle());
         text.setWrap(true);

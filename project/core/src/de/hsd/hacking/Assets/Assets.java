@@ -220,7 +220,7 @@ public class Assets {
 
     }
 
-    public Array<TextureRegion> getHairFrames(Employee.HairStyle hairStyle) {
+    public Array<TextureRegion> getHairFrames(Proto.Employee.HairStyle hairStyle) {
         switch (hairStyle) {
             case CRAZY:
                 return hair_01;

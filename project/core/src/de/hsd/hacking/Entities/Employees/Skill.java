@@ -73,4 +73,8 @@ public class Skill implements Comparable<Skill>{
     public int compareTo(Skill o) {
         return ((Integer) o.getValue()).compareTo(data.getValue());
     }
+
+    public Proto.Skill.Builder getData() {
+        return this.data;
+    }
 }

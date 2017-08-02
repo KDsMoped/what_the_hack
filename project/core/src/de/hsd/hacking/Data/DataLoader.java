@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionHolder;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -62,13 +63,13 @@ public class DataLoader {
         return RandomUtils.randomElement(names.getLastNames());
     }
 
-    public String getNewFullName(Employee.Gender gender){
+    public String getNewFullName(Proto.Employee.Gender gender){
         String[] name = getNewName(gender);
 
         return name[0] + " " + name [1];
     }
 
-    public String[] getNewName(Employee.Gender gender){
+    public String[] getNewName(Proto.Employee.Gender gender){
         String surName = RandomUtils.randomElement(names.getSurNames(gender));
         String lastName = RandomUtils.randomElement(names.getLastNames());
 

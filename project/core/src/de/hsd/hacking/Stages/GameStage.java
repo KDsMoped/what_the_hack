@@ -242,9 +242,6 @@ public class GameStage extends Stage implements EventListener{
         employeeManager = EmployeeManager.instance();
         team = Team.instance();
 
-        employeeManager.dismissAll();
-        employeeManager.employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE));
-
         EquipmentManager.instance().initBasicEquipment();
     }
 

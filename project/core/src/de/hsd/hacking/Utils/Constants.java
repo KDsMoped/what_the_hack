@@ -41,7 +41,8 @@ public class Constants {
     /**
      * The date format we want for the ui.
      */
-    public static final DateFormat dateFormat = new SimpleDateFormat("dd MMM");
+    public static final DateFormat dateFormatBar = new SimpleDateFormat("dd MMM");
+    public static final DateFormat dateFormatMessage = new SimpleDateFormat("dd.MM");
 
     public static Skin UiSkin() {
         if (uiSkin == null) {

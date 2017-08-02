@@ -7948,6 +7948,4750 @@ public final class Proto {
 
   }
 
+  public interface EmployeeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.Employee)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>string surName = 2;</code>
+     */
+    java.lang.String getSurName();
+    /**
+     * <code>string surName = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSurNameBytes();
+
+    /**
+     * <code>int32 salary = 3;</code>
+     */
+    int getSalary();
+
+    /**
+     * <code>int32 currentTileNumber = 4;</code>
+     */
+    int getCurrentTileNumber();
+
+    /**
+     * <code>int32 occupiedTileNumber = 5;</code>
+     */
+    int getOccupiedTileNumber();
+
+    /**
+     * <pre>
+     **
+     * These are the score points currently used for this employees attributes.
+     * </pre>
+     *
+     * <code>float usedScore = 6;</code>
+     */
+    float getUsedScore();
+
+    /**
+     * <pre>
+     **
+     * These are the score points available for leveling up.
+     * </pre>
+     *
+     * <code>float freeScore = 7;</code>
+     */
+    float getFreeScore();
+
+    /**
+     * <code>bool isEmployed = 8;</code>
+     */
+    boolean getIsEmployed();
+
+    /**
+     * <code>string hairColor = 9;</code>
+     */
+    java.lang.String getHairColor();
+    /**
+     * <code>string hairColor = 9;</code>
+     */
+    com.google.protobuf.ByteString
+        getHairColorBytes();
+
+    /**
+     * <code>string eyeColor = 10;</code>
+     */
+    java.lang.String getEyeColor();
+    /**
+     * <code>string eyeColor = 10;</code>
+     */
+    com.google.protobuf.ByteString
+        getEyeColorBytes();
+
+    /**
+     * <code>string skinColor = 11;</code>
+     */
+    java.lang.String getSkinColor();
+    /**
+     * <code>string skinColor = 11;</code>
+     */
+    com.google.protobuf.ByteString
+        getSkinColorBytes();
+
+    /**
+     * <code>string shirtColor = 12;</code>
+     */
+    java.lang.String getShirtColor();
+    /**
+     * <code>string shirtColor = 12;</code>
+     */
+    com.google.protobuf.ByteString
+        getShirtColorBytes();
+
+    /**
+     * <code>string trouserColor = 13;</code>
+     */
+    java.lang.String getTrouserColor();
+    /**
+     * <code>string trouserColor = 13;</code>
+     */
+    com.google.protobuf.ByteString
+        getTrouserColorBytes();
+
+    /**
+     * <code>string shoeColor = 14;</code>
+     */
+    java.lang.String getShoeColor();
+    /**
+     * <code>string shoeColor = 14;</code>
+     */
+    com.google.protobuf.ByteString
+        getShoeColorBytes();
+
+    /**
+     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     */
+    int getHairStyleValue();
+    /**
+     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     */
+    de.hsd.hacking.Proto.Employee.HairStyle getHairStyle();
+
+    /**
+     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     */
+    int getGenderValue();
+    /**
+     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     */
+    de.hsd.hacking.Proto.Employee.Gender getGender();
+
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    java.util.List<de.hsd.hacking.Proto.Skill> 
+        getSkillSetList();
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    de.hsd.hacking.Proto.Skill getSkillSet(int index);
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    int getSkillSetCount();
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    java.util.List<? extends de.hsd.hacking.Proto.SkillOrBuilder> 
+        getSkillSetOrBuilderList();
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    de.hsd.hacking.Proto.SkillOrBuilder getSkillSetOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> 
+        getEmployeeSpecialsList();
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeSpecial getEmployeeSpecials(int index);
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    int getEmployeeSpecialsCount();
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    java.util.List<? extends de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
+        getEmployeeSpecialsOrBuilderList();
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code what_the_hack.Employee}
+   */
+  public  static final class Employee extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.Employee)
+      EmployeeOrBuilder {
+    // Use Employee.newBuilder() to construct.
+    private Employee(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Employee() {
+      name_ = "";
+      surName_ = "";
+      salary_ = 0;
+      currentTileNumber_ = 0;
+      occupiedTileNumber_ = 0;
+      usedScore_ = 0F;
+      freeScore_ = 0F;
+      isEmployed_ = false;
+      hairColor_ = "";
+      eyeColor_ = "";
+      skinColor_ = "";
+      shirtColor_ = "";
+      trouserColor_ = "";
+      shoeColor_ = "";
+      hairStyle_ = 0;
+      gender_ = 0;
+      skillSet_ = java.util.Collections.emptyList();
+      employeeSpecials_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private Employee(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              surName_ = s;
+              break;
+            }
+            case 24: {
+
+              salary_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              currentTileNumber_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              occupiedTileNumber_ = input.readInt32();
+              break;
+            }
+            case 53: {
+
+              usedScore_ = input.readFloat();
+              break;
+            }
+            case 61: {
+
+              freeScore_ = input.readFloat();
+              break;
+            }
+            case 64: {
+
+              isEmployed_ = input.readBool();
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              hairColor_ = s;
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              eyeColor_ = s;
+              break;
+            }
+            case 90: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              skinColor_ = s;
+              break;
+            }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              shirtColor_ = s;
+              break;
+            }
+            case 106: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              trouserColor_ = s;
+              break;
+            }
+            case 114: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              shoeColor_ = s;
+              break;
+            }
+            case 120: {
+              int rawValue = input.readEnum();
+
+              hairStyle_ = rawValue;
+              break;
+            }
+            case 128: {
+              int rawValue = input.readEnum();
+
+              gender_ = rawValue;
+              break;
+            }
+            case 138: {
+              if (!((mutable_bitField0_ & 0x00010000) == 0x00010000)) {
+                skillSet_ = new java.util.ArrayList<de.hsd.hacking.Proto.Skill>();
+                mutable_bitField0_ |= 0x00010000;
+              }
+              skillSet_.add(
+                  input.readMessage(de.hsd.hacking.Proto.Skill.parser(), extensionRegistry));
+              break;
+            }
+            case 146: {
+              if (!((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+                employeeSpecials_ = new java.util.ArrayList<de.hsd.hacking.Proto.EmployeeSpecial>();
+                mutable_bitField0_ |= 0x00020000;
+              }
+              employeeSpecials_.add(
+                  input.readMessage(de.hsd.hacking.Proto.EmployeeSpecial.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00010000) == 0x00010000)) {
+          skillSet_ = java.util.Collections.unmodifiableList(skillSet_);
+        }
+        if (((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+          employeeSpecials_ = java.util.Collections.unmodifiableList(employeeSpecials_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_Employee_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_Employee_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.Employee.class, de.hsd.hacking.Proto.Employee.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.Employee.HairStyle}
+     */
+    public enum HairStyle
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>CRAZY = 0;</code>
+       */
+      CRAZY(0),
+      /**
+       * <code>NEAT = 1;</code>
+       */
+      NEAT(1),
+      /**
+       * <code>NERD = 2;</code>
+       */
+      NERD(2),
+      /**
+       * <code>RASTA = 3;</code>
+       */
+      RASTA(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>CRAZY = 0;</code>
+       */
+      public static final int CRAZY_VALUE = 0;
+      /**
+       * <code>NEAT = 1;</code>
+       */
+      public static final int NEAT_VALUE = 1;
+      /**
+       * <code>NERD = 2;</code>
+       */
+      public static final int NERD_VALUE = 2;
+      /**
+       * <code>RASTA = 3;</code>
+       */
+      public static final int RASTA_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static HairStyle valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static HairStyle forNumber(int value) {
+        switch (value) {
+          case 0: return CRAZY;
+          case 1: return NEAT;
+          case 2: return NERD;
+          case 3: return RASTA;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<HairStyle>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          HairStyle> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<HairStyle>() {
+              public HairStyle findValueByNumber(int number) {
+                return HairStyle.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final HairStyle[] VALUES = values();
+
+      public static HairStyle valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private HairStyle(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.HairStyle)
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.Employee.Gender}
+     */
+    public enum Gender
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>UNDECIDED = 0;</code>
+       */
+      UNDECIDED(0),
+      /**
+       * <code>MALE = 1;</code>
+       */
+      MALE(1),
+      /**
+       * <code>FEMALE = 2;</code>
+       */
+      FEMALE(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>UNDECIDED = 0;</code>
+       */
+      public static final int UNDECIDED_VALUE = 0;
+      /**
+       * <code>MALE = 1;</code>
+       */
+      public static final int MALE_VALUE = 1;
+      /**
+       * <code>FEMALE = 2;</code>
+       */
+      public static final int FEMALE_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Gender valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static Gender forNumber(int value) {
+        switch (value) {
+          case 0: return UNDECIDED;
+          case 1: return MALE;
+          case 2: return FEMALE;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Gender>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Gender> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Gender>() {
+              public Gender findValueByNumber(int number) {
+                return Gender.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final Gender[] VALUES = values();
+
+      public static Gender valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Gender(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.Gender)
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SURNAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object surName_;
+    /**
+     * <code>string surName = 2;</code>
+     */
+    public java.lang.String getSurName() {
+      java.lang.Object ref = surName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        surName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string surName = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSurNameBytes() {
+      java.lang.Object ref = surName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        surName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SALARY_FIELD_NUMBER = 3;
+    private int salary_;
+    /**
+     * <code>int32 salary = 3;</code>
+     */
+    public int getSalary() {
+      return salary_;
+    }
+
+    public static final int CURRENTTILENUMBER_FIELD_NUMBER = 4;
+    private int currentTileNumber_;
+    /**
+     * <code>int32 currentTileNumber = 4;</code>
+     */
+    public int getCurrentTileNumber() {
+      return currentTileNumber_;
+    }
+
+    public static final int OCCUPIEDTILENUMBER_FIELD_NUMBER = 5;
+    private int occupiedTileNumber_;
+    /**
+     * <code>int32 occupiedTileNumber = 5;</code>
+     */
+    public int getOccupiedTileNumber() {
+      return occupiedTileNumber_;
+    }
+
+    public static final int USEDSCORE_FIELD_NUMBER = 6;
+    private float usedScore_;
+    /**
+     * <pre>
+     **
+     * These are the score points currently used for this employees attributes.
+     * </pre>
+     *
+     * <code>float usedScore = 6;</code>
+     */
+    public float getUsedScore() {
+      return usedScore_;
+    }
+
+    public static final int FREESCORE_FIELD_NUMBER = 7;
+    private float freeScore_;
+    /**
+     * <pre>
+     **
+     * These are the score points available for leveling up.
+     * </pre>
+     *
+     * <code>float freeScore = 7;</code>
+     */
+    public float getFreeScore() {
+      return freeScore_;
+    }
+
+    public static final int ISEMPLOYED_FIELD_NUMBER = 8;
+    private boolean isEmployed_;
+    /**
+     * <code>bool isEmployed = 8;</code>
+     */
+    public boolean getIsEmployed() {
+      return isEmployed_;
+    }
+
+    public static final int HAIRCOLOR_FIELD_NUMBER = 9;
+    private volatile java.lang.Object hairColor_;
+    /**
+     * <code>string hairColor = 9;</code>
+     */
+    public java.lang.String getHairColor() {
+      java.lang.Object ref = hairColor_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        hairColor_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string hairColor = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getHairColorBytes() {
+      java.lang.Object ref = hairColor_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        hairColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EYECOLOR_FIELD_NUMBER = 10;
+    private volatile java.lang.Object eyeColor_;
+    /**
+     * <code>string eyeColor = 10;</code>
+     */
+    public java.lang.String getEyeColor() {
+      java.lang.Object ref = eyeColor_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        eyeColor_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string eyeColor = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEyeColorBytes() {
+      java.lang.Object ref = eyeColor_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        eyeColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SKINCOLOR_FIELD_NUMBER = 11;
+    private volatile java.lang.Object skinColor_;
+    /**
+     * <code>string skinColor = 11;</code>
+     */
+    public java.lang.String getSkinColor() {
+      java.lang.Object ref = skinColor_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        skinColor_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string skinColor = 11;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSkinColorBytes() {
+      java.lang.Object ref = skinColor_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        skinColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SHIRTCOLOR_FIELD_NUMBER = 12;
+    private volatile java.lang.Object shirtColor_;
+    /**
+     * <code>string shirtColor = 12;</code>
+     */
+    public java.lang.String getShirtColor() {
+      java.lang.Object ref = shirtColor_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        shirtColor_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string shirtColor = 12;</code>
+     */
+    public com.google.protobuf.ByteString
+        getShirtColorBytes() {
+      java.lang.Object ref = shirtColor_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        shirtColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TROUSERCOLOR_FIELD_NUMBER = 13;
+    private volatile java.lang.Object trouserColor_;
+    /**
+     * <code>string trouserColor = 13;</code>
+     */
+    public java.lang.String getTrouserColor() {
+      java.lang.Object ref = trouserColor_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        trouserColor_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string trouserColor = 13;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTrouserColorBytes() {
+      java.lang.Object ref = trouserColor_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        trouserColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SHOECOLOR_FIELD_NUMBER = 14;
+    private volatile java.lang.Object shoeColor_;
+    /**
+     * <code>string shoeColor = 14;</code>
+     */
+    public java.lang.String getShoeColor() {
+      java.lang.Object ref = shoeColor_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        shoeColor_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string shoeColor = 14;</code>
+     */
+    public com.google.protobuf.ByteString
+        getShoeColorBytes() {
+      java.lang.Object ref = shoeColor_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        shoeColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int HAIRSTYLE_FIELD_NUMBER = 15;
+    private int hairStyle_;
+    /**
+     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     */
+    public int getHairStyleValue() {
+      return hairStyle_;
+    }
+    /**
+     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     */
+    public de.hsd.hacking.Proto.Employee.HairStyle getHairStyle() {
+      de.hsd.hacking.Proto.Employee.HairStyle result = de.hsd.hacking.Proto.Employee.HairStyle.valueOf(hairStyle_);
+      return result == null ? de.hsd.hacking.Proto.Employee.HairStyle.UNRECOGNIZED : result;
+    }
+
+    public static final int GENDER_FIELD_NUMBER = 16;
+    private int gender_;
+    /**
+     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     */
+    public int getGenderValue() {
+      return gender_;
+    }
+    /**
+     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     */
+    public de.hsd.hacking.Proto.Employee.Gender getGender() {
+      de.hsd.hacking.Proto.Employee.Gender result = de.hsd.hacking.Proto.Employee.Gender.valueOf(gender_);
+      return result == null ? de.hsd.hacking.Proto.Employee.Gender.UNRECOGNIZED : result;
+    }
+
+    public static final int SKILLSET_FIELD_NUMBER = 17;
+    private java.util.List<de.hsd.hacking.Proto.Skill> skillSet_;
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    public java.util.List<de.hsd.hacking.Proto.Skill> getSkillSetList() {
+      return skillSet_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    public java.util.List<? extends de.hsd.hacking.Proto.SkillOrBuilder> 
+        getSkillSetOrBuilderList() {
+      return skillSet_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    public int getSkillSetCount() {
+      return skillSet_.size();
+    }
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    public de.hsd.hacking.Proto.Skill getSkillSet(int index) {
+      return skillSet_.get(index);
+    }
+    /**
+     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     */
+    public de.hsd.hacking.Proto.SkillOrBuilder getSkillSetOrBuilder(
+        int index) {
+      return skillSet_.get(index);
+    }
+
+    public static final int EMPLOYEESPECIALS_FIELD_NUMBER = 18;
+    private java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> employeeSpecials_;
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    public java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> getEmployeeSpecialsList() {
+      return employeeSpecials_;
+    }
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    public java.util.List<? extends de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
+        getEmployeeSpecialsOrBuilderList() {
+      return employeeSpecials_;
+    }
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    public int getEmployeeSpecialsCount() {
+      return employeeSpecials_.size();
+    }
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeSpecial getEmployeeSpecials(int index) {
+      return employeeSpecials_.get(index);
+    }
+    /**
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
+        int index) {
+      return employeeSpecials_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+      }
+      if (!getSurNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, surName_);
+      }
+      if (salary_ != 0) {
+        output.writeInt32(3, salary_);
+      }
+      if (currentTileNumber_ != 0) {
+        output.writeInt32(4, currentTileNumber_);
+      }
+      if (occupiedTileNumber_ != 0) {
+        output.writeInt32(5, occupiedTileNumber_);
+      }
+      if (usedScore_ != 0F) {
+        output.writeFloat(6, usedScore_);
+      }
+      if (freeScore_ != 0F) {
+        output.writeFloat(7, freeScore_);
+      }
+      if (isEmployed_ != false) {
+        output.writeBool(8, isEmployed_);
+      }
+      if (!getHairColorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, hairColor_);
+      }
+      if (!getEyeColorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, eyeColor_);
+      }
+      if (!getSkinColorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, skinColor_);
+      }
+      if (!getShirtColorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, shirtColor_);
+      }
+      if (!getTrouserColorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, trouserColor_);
+      }
+      if (!getShoeColorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 14, shoeColor_);
+      }
+      if (hairStyle_ != de.hsd.hacking.Proto.Employee.HairStyle.CRAZY.getNumber()) {
+        output.writeEnum(15, hairStyle_);
+      }
+      if (gender_ != de.hsd.hacking.Proto.Employee.Gender.UNDECIDED.getNumber()) {
+        output.writeEnum(16, gender_);
+      }
+      for (int i = 0; i < skillSet_.size(); i++) {
+        output.writeMessage(17, skillSet_.get(i));
+      }
+      for (int i = 0; i < employeeSpecials_.size(); i++) {
+        output.writeMessage(18, employeeSpecials_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+      }
+      if (!getSurNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, surName_);
+      }
+      if (salary_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, salary_);
+      }
+      if (currentTileNumber_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, currentTileNumber_);
+      }
+      if (occupiedTileNumber_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, occupiedTileNumber_);
+      }
+      if (usedScore_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, usedScore_);
+      }
+      if (freeScore_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(7, freeScore_);
+      }
+      if (isEmployed_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(8, isEmployed_);
+      }
+      if (!getHairColorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, hairColor_);
+      }
+      if (!getEyeColorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, eyeColor_);
+      }
+      if (!getSkinColorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, skinColor_);
+      }
+      if (!getShirtColorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, shirtColor_);
+      }
+      if (!getTrouserColorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, trouserColor_);
+      }
+      if (!getShoeColorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, shoeColor_);
+      }
+      if (hairStyle_ != de.hsd.hacking.Proto.Employee.HairStyle.CRAZY.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(15, hairStyle_);
+      }
+      if (gender_ != de.hsd.hacking.Proto.Employee.Gender.UNDECIDED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(16, gender_);
+      }
+      for (int i = 0; i < skillSet_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(17, skillSet_.get(i));
+      }
+      for (int i = 0; i < employeeSpecials_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(18, employeeSpecials_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.Employee)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.Employee other = (de.hsd.hacking.Proto.Employee) obj;
+
+      boolean result = true;
+      result = result && getName()
+          .equals(other.getName());
+      result = result && getSurName()
+          .equals(other.getSurName());
+      result = result && (getSalary()
+          == other.getSalary());
+      result = result && (getCurrentTileNumber()
+          == other.getCurrentTileNumber());
+      result = result && (getOccupiedTileNumber()
+          == other.getOccupiedTileNumber());
+      result = result && (
+          java.lang.Float.floatToIntBits(getUsedScore())
+          == java.lang.Float.floatToIntBits(
+              other.getUsedScore()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getFreeScore())
+          == java.lang.Float.floatToIntBits(
+              other.getFreeScore()));
+      result = result && (getIsEmployed()
+          == other.getIsEmployed());
+      result = result && getHairColor()
+          .equals(other.getHairColor());
+      result = result && getEyeColor()
+          .equals(other.getEyeColor());
+      result = result && getSkinColor()
+          .equals(other.getSkinColor());
+      result = result && getShirtColor()
+          .equals(other.getShirtColor());
+      result = result && getTrouserColor()
+          .equals(other.getTrouserColor());
+      result = result && getShoeColor()
+          .equals(other.getShoeColor());
+      result = result && hairStyle_ == other.hairStyle_;
+      result = result && gender_ == other.gender_;
+      result = result && getSkillSetList()
+          .equals(other.getSkillSetList());
+      result = result && getEmployeeSpecialsList()
+          .equals(other.getEmployeeSpecialsList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + SURNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getSurName().hashCode();
+      hash = (37 * hash) + SALARY_FIELD_NUMBER;
+      hash = (53 * hash) + getSalary();
+      hash = (37 * hash) + CURRENTTILENUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getCurrentTileNumber();
+      hash = (37 * hash) + OCCUPIEDTILENUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getOccupiedTileNumber();
+      hash = (37 * hash) + USEDSCORE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getUsedScore());
+      hash = (37 * hash) + FREESCORE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFreeScore());
+      hash = (37 * hash) + ISEMPLOYED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsEmployed());
+      hash = (37 * hash) + HAIRCOLOR_FIELD_NUMBER;
+      hash = (53 * hash) + getHairColor().hashCode();
+      hash = (37 * hash) + EYECOLOR_FIELD_NUMBER;
+      hash = (53 * hash) + getEyeColor().hashCode();
+      hash = (37 * hash) + SKINCOLOR_FIELD_NUMBER;
+      hash = (53 * hash) + getSkinColor().hashCode();
+      hash = (37 * hash) + SHIRTCOLOR_FIELD_NUMBER;
+      hash = (53 * hash) + getShirtColor().hashCode();
+      hash = (37 * hash) + TROUSERCOLOR_FIELD_NUMBER;
+      hash = (53 * hash) + getTrouserColor().hashCode();
+      hash = (37 * hash) + SHOECOLOR_FIELD_NUMBER;
+      hash = (53 * hash) + getShoeColor().hashCode();
+      hash = (37 * hash) + HAIRSTYLE_FIELD_NUMBER;
+      hash = (53 * hash) + hairStyle_;
+      hash = (37 * hash) + GENDER_FIELD_NUMBER;
+      hash = (53 * hash) + gender_;
+      if (getSkillSetCount() > 0) {
+        hash = (37 * hash) + SKILLSET_FIELD_NUMBER;
+        hash = (53 * hash) + getSkillSetList().hashCode();
+      }
+      if (getEmployeeSpecialsCount() > 0) {
+        hash = (37 * hash) + EMPLOYEESPECIALS_FIELD_NUMBER;
+        hash = (53 * hash) + getEmployeeSpecialsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Employee parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Employee parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Employee parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.Employee prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.Employee}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.Employee)
+        de.hsd.hacking.Proto.EmployeeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Employee_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Employee_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.Employee.class, de.hsd.hacking.Proto.Employee.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.Employee.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSkillSetFieldBuilder();
+          getEmployeeSpecialsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+
+        surName_ = "";
+
+        salary_ = 0;
+
+        currentTileNumber_ = 0;
+
+        occupiedTileNumber_ = 0;
+
+        usedScore_ = 0F;
+
+        freeScore_ = 0F;
+
+        isEmployed_ = false;
+
+        hairColor_ = "";
+
+        eyeColor_ = "";
+
+        skinColor_ = "";
+
+        shirtColor_ = "";
+
+        trouserColor_ = "";
+
+        shoeColor_ = "";
+
+        hairStyle_ = 0;
+
+        gender_ = 0;
+
+        if (skillSetBuilder_ == null) {
+          skillSet_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00010000);
+        } else {
+          skillSetBuilder_.clear();
+        }
+        if (employeeSpecialsBuilder_ == null) {
+          employeeSpecials_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00020000);
+        } else {
+          employeeSpecialsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Employee_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.Employee getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.Employee.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.Employee build() {
+        de.hsd.hacking.Proto.Employee result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.Employee buildPartial() {
+        de.hsd.hacking.Proto.Employee result = new de.hsd.hacking.Proto.Employee(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.name_ = name_;
+        result.surName_ = surName_;
+        result.salary_ = salary_;
+        result.currentTileNumber_ = currentTileNumber_;
+        result.occupiedTileNumber_ = occupiedTileNumber_;
+        result.usedScore_ = usedScore_;
+        result.freeScore_ = freeScore_;
+        result.isEmployed_ = isEmployed_;
+        result.hairColor_ = hairColor_;
+        result.eyeColor_ = eyeColor_;
+        result.skinColor_ = skinColor_;
+        result.shirtColor_ = shirtColor_;
+        result.trouserColor_ = trouserColor_;
+        result.shoeColor_ = shoeColor_;
+        result.hairStyle_ = hairStyle_;
+        result.gender_ = gender_;
+        if (skillSetBuilder_ == null) {
+          if (((bitField0_ & 0x00010000) == 0x00010000)) {
+            skillSet_ = java.util.Collections.unmodifiableList(skillSet_);
+            bitField0_ = (bitField0_ & ~0x00010000);
+          }
+          result.skillSet_ = skillSet_;
+        } else {
+          result.skillSet_ = skillSetBuilder_.build();
+        }
+        if (employeeSpecialsBuilder_ == null) {
+          if (((bitField0_ & 0x00020000) == 0x00020000)) {
+            employeeSpecials_ = java.util.Collections.unmodifiableList(employeeSpecials_);
+            bitField0_ = (bitField0_ & ~0x00020000);
+          }
+          result.employeeSpecials_ = employeeSpecials_;
+        } else {
+          result.employeeSpecials_ = employeeSpecialsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.Employee) {
+          return mergeFrom((de.hsd.hacking.Proto.Employee)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.Employee other) {
+        if (other == de.hsd.hacking.Proto.Employee.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getSurName().isEmpty()) {
+          surName_ = other.surName_;
+          onChanged();
+        }
+        if (other.getSalary() != 0) {
+          setSalary(other.getSalary());
+        }
+        if (other.getCurrentTileNumber() != 0) {
+          setCurrentTileNumber(other.getCurrentTileNumber());
+        }
+        if (other.getOccupiedTileNumber() != 0) {
+          setOccupiedTileNumber(other.getOccupiedTileNumber());
+        }
+        if (other.getUsedScore() != 0F) {
+          setUsedScore(other.getUsedScore());
+        }
+        if (other.getFreeScore() != 0F) {
+          setFreeScore(other.getFreeScore());
+        }
+        if (other.getIsEmployed() != false) {
+          setIsEmployed(other.getIsEmployed());
+        }
+        if (!other.getHairColor().isEmpty()) {
+          hairColor_ = other.hairColor_;
+          onChanged();
+        }
+        if (!other.getEyeColor().isEmpty()) {
+          eyeColor_ = other.eyeColor_;
+          onChanged();
+        }
+        if (!other.getSkinColor().isEmpty()) {
+          skinColor_ = other.skinColor_;
+          onChanged();
+        }
+        if (!other.getShirtColor().isEmpty()) {
+          shirtColor_ = other.shirtColor_;
+          onChanged();
+        }
+        if (!other.getTrouserColor().isEmpty()) {
+          trouserColor_ = other.trouserColor_;
+          onChanged();
+        }
+        if (!other.getShoeColor().isEmpty()) {
+          shoeColor_ = other.shoeColor_;
+          onChanged();
+        }
+        if (other.hairStyle_ != 0) {
+          setHairStyleValue(other.getHairStyleValue());
+        }
+        if (other.gender_ != 0) {
+          setGenderValue(other.getGenderValue());
+        }
+        if (skillSetBuilder_ == null) {
+          if (!other.skillSet_.isEmpty()) {
+            if (skillSet_.isEmpty()) {
+              skillSet_ = other.skillSet_;
+              bitField0_ = (bitField0_ & ~0x00010000);
+            } else {
+              ensureSkillSetIsMutable();
+              skillSet_.addAll(other.skillSet_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.skillSet_.isEmpty()) {
+            if (skillSetBuilder_.isEmpty()) {
+              skillSetBuilder_.dispose();
+              skillSetBuilder_ = null;
+              skillSet_ = other.skillSet_;
+              bitField0_ = (bitField0_ & ~0x00010000);
+              skillSetBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSkillSetFieldBuilder() : null;
+            } else {
+              skillSetBuilder_.addAllMessages(other.skillSet_);
+            }
+          }
+        }
+        if (employeeSpecialsBuilder_ == null) {
+          if (!other.employeeSpecials_.isEmpty()) {
+            if (employeeSpecials_.isEmpty()) {
+              employeeSpecials_ = other.employeeSpecials_;
+              bitField0_ = (bitField0_ & ~0x00020000);
+            } else {
+              ensureEmployeeSpecialsIsMutable();
+              employeeSpecials_.addAll(other.employeeSpecials_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.employeeSpecials_.isEmpty()) {
+            if (employeeSpecialsBuilder_.isEmpty()) {
+              employeeSpecialsBuilder_.dispose();
+              employeeSpecialsBuilder_ = null;
+              employeeSpecials_ = other.employeeSpecials_;
+              bitField0_ = (bitField0_ & ~0x00020000);
+              employeeSpecialsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEmployeeSpecialsFieldBuilder() : null;
+            } else {
+              employeeSpecialsBuilder_.addAllMessages(other.employeeSpecials_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.Employee parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.Employee) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object surName_ = "";
+      /**
+       * <code>string surName = 2;</code>
+       */
+      public java.lang.String getSurName() {
+        java.lang.Object ref = surName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          surName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string surName = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSurNameBytes() {
+        java.lang.Object ref = surName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          surName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string surName = 2;</code>
+       */
+      public Builder setSurName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        surName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string surName = 2;</code>
+       */
+      public Builder clearSurName() {
+        
+        surName_ = getDefaultInstance().getSurName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string surName = 2;</code>
+       */
+      public Builder setSurNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        surName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int salary_ ;
+      /**
+       * <code>int32 salary = 3;</code>
+       */
+      public int getSalary() {
+        return salary_;
+      }
+      /**
+       * <code>int32 salary = 3;</code>
+       */
+      public Builder setSalary(int value) {
+        
+        salary_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 salary = 3;</code>
+       */
+      public Builder clearSalary() {
+        
+        salary_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int currentTileNumber_ ;
+      /**
+       * <code>int32 currentTileNumber = 4;</code>
+       */
+      public int getCurrentTileNumber() {
+        return currentTileNumber_;
+      }
+      /**
+       * <code>int32 currentTileNumber = 4;</code>
+       */
+      public Builder setCurrentTileNumber(int value) {
+        
+        currentTileNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 currentTileNumber = 4;</code>
+       */
+      public Builder clearCurrentTileNumber() {
+        
+        currentTileNumber_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int occupiedTileNumber_ ;
+      /**
+       * <code>int32 occupiedTileNumber = 5;</code>
+       */
+      public int getOccupiedTileNumber() {
+        return occupiedTileNumber_;
+      }
+      /**
+       * <code>int32 occupiedTileNumber = 5;</code>
+       */
+      public Builder setOccupiedTileNumber(int value) {
+        
+        occupiedTileNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 occupiedTileNumber = 5;</code>
+       */
+      public Builder clearOccupiedTileNumber() {
+        
+        occupiedTileNumber_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float usedScore_ ;
+      /**
+       * <pre>
+       **
+       * These are the score points currently used for this employees attributes.
+       * </pre>
+       *
+       * <code>float usedScore = 6;</code>
+       */
+      public float getUsedScore() {
+        return usedScore_;
+      }
+      /**
+       * <pre>
+       **
+       * These are the score points currently used for this employees attributes.
+       * </pre>
+       *
+       * <code>float usedScore = 6;</code>
+       */
+      public Builder setUsedScore(float value) {
+        
+        usedScore_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       **
+       * These are the score points currently used for this employees attributes.
+       * </pre>
+       *
+       * <code>float usedScore = 6;</code>
+       */
+      public Builder clearUsedScore() {
+        
+        usedScore_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float freeScore_ ;
+      /**
+       * <pre>
+       **
+       * These are the score points available for leveling up.
+       * </pre>
+       *
+       * <code>float freeScore = 7;</code>
+       */
+      public float getFreeScore() {
+        return freeScore_;
+      }
+      /**
+       * <pre>
+       **
+       * These are the score points available for leveling up.
+       * </pre>
+       *
+       * <code>float freeScore = 7;</code>
+       */
+      public Builder setFreeScore(float value) {
+        
+        freeScore_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       **
+       * These are the score points available for leveling up.
+       * </pre>
+       *
+       * <code>float freeScore = 7;</code>
+       */
+      public Builder clearFreeScore() {
+        
+        freeScore_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private boolean isEmployed_ ;
+      /**
+       * <code>bool isEmployed = 8;</code>
+       */
+      public boolean getIsEmployed() {
+        return isEmployed_;
+      }
+      /**
+       * <code>bool isEmployed = 8;</code>
+       */
+      public Builder setIsEmployed(boolean value) {
+        
+        isEmployed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isEmployed = 8;</code>
+       */
+      public Builder clearIsEmployed() {
+        
+        isEmployed_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object hairColor_ = "";
+      /**
+       * <code>string hairColor = 9;</code>
+       */
+      public java.lang.String getHairColor() {
+        java.lang.Object ref = hairColor_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          hairColor_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string hairColor = 9;</code>
+       */
+      public com.google.protobuf.ByteString
+          getHairColorBytes() {
+        java.lang.Object ref = hairColor_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          hairColor_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string hairColor = 9;</code>
+       */
+      public Builder setHairColor(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        hairColor_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string hairColor = 9;</code>
+       */
+      public Builder clearHairColor() {
+        
+        hairColor_ = getDefaultInstance().getHairColor();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string hairColor = 9;</code>
+       */
+      public Builder setHairColorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        hairColor_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object eyeColor_ = "";
+      /**
+       * <code>string eyeColor = 10;</code>
+       */
+      public java.lang.String getEyeColor() {
+        java.lang.Object ref = eyeColor_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          eyeColor_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string eyeColor = 10;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEyeColorBytes() {
+        java.lang.Object ref = eyeColor_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          eyeColor_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string eyeColor = 10;</code>
+       */
+      public Builder setEyeColor(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        eyeColor_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string eyeColor = 10;</code>
+       */
+      public Builder clearEyeColor() {
+        
+        eyeColor_ = getDefaultInstance().getEyeColor();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string eyeColor = 10;</code>
+       */
+      public Builder setEyeColorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        eyeColor_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object skinColor_ = "";
+      /**
+       * <code>string skinColor = 11;</code>
+       */
+      public java.lang.String getSkinColor() {
+        java.lang.Object ref = skinColor_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          skinColor_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string skinColor = 11;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSkinColorBytes() {
+        java.lang.Object ref = skinColor_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          skinColor_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string skinColor = 11;</code>
+       */
+      public Builder setSkinColor(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        skinColor_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string skinColor = 11;</code>
+       */
+      public Builder clearSkinColor() {
+        
+        skinColor_ = getDefaultInstance().getSkinColor();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string skinColor = 11;</code>
+       */
+      public Builder setSkinColorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        skinColor_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object shirtColor_ = "";
+      /**
+       * <code>string shirtColor = 12;</code>
+       */
+      public java.lang.String getShirtColor() {
+        java.lang.Object ref = shirtColor_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          shirtColor_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string shirtColor = 12;</code>
+       */
+      public com.google.protobuf.ByteString
+          getShirtColorBytes() {
+        java.lang.Object ref = shirtColor_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          shirtColor_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string shirtColor = 12;</code>
+       */
+      public Builder setShirtColor(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        shirtColor_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shirtColor = 12;</code>
+       */
+      public Builder clearShirtColor() {
+        
+        shirtColor_ = getDefaultInstance().getShirtColor();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shirtColor = 12;</code>
+       */
+      public Builder setShirtColorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        shirtColor_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object trouserColor_ = "";
+      /**
+       * <code>string trouserColor = 13;</code>
+       */
+      public java.lang.String getTrouserColor() {
+        java.lang.Object ref = trouserColor_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          trouserColor_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string trouserColor = 13;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTrouserColorBytes() {
+        java.lang.Object ref = trouserColor_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          trouserColor_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string trouserColor = 13;</code>
+       */
+      public Builder setTrouserColor(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        trouserColor_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string trouserColor = 13;</code>
+       */
+      public Builder clearTrouserColor() {
+        
+        trouserColor_ = getDefaultInstance().getTrouserColor();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string trouserColor = 13;</code>
+       */
+      public Builder setTrouserColorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        trouserColor_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object shoeColor_ = "";
+      /**
+       * <code>string shoeColor = 14;</code>
+       */
+      public java.lang.String getShoeColor() {
+        java.lang.Object ref = shoeColor_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          shoeColor_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string shoeColor = 14;</code>
+       */
+      public com.google.protobuf.ByteString
+          getShoeColorBytes() {
+        java.lang.Object ref = shoeColor_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          shoeColor_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string shoeColor = 14;</code>
+       */
+      public Builder setShoeColor(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        shoeColor_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shoeColor = 14;</code>
+       */
+      public Builder clearShoeColor() {
+        
+        shoeColor_ = getDefaultInstance().getShoeColor();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shoeColor = 14;</code>
+       */
+      public Builder setShoeColorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        shoeColor_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int hairStyle_ = 0;
+      /**
+       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       */
+      public int getHairStyleValue() {
+        return hairStyle_;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       */
+      public Builder setHairStyleValue(int value) {
+        hairStyle_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.HairStyle getHairStyle() {
+        de.hsd.hacking.Proto.Employee.HairStyle result = de.hsd.hacking.Proto.Employee.HairStyle.valueOf(hairStyle_);
+        return result == null ? de.hsd.hacking.Proto.Employee.HairStyle.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       */
+      public Builder setHairStyle(de.hsd.hacking.Proto.Employee.HairStyle value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        hairStyle_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       */
+      public Builder clearHairStyle() {
+        
+        hairStyle_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int gender_ = 0;
+      /**
+       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       */
+      public int getGenderValue() {
+        return gender_;
+      }
+      /**
+       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       */
+      public Builder setGenderValue(int value) {
+        gender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Gender getGender() {
+        de.hsd.hacking.Proto.Employee.Gender result = de.hsd.hacking.Proto.Employee.Gender.valueOf(gender_);
+        return result == null ? de.hsd.hacking.Proto.Employee.Gender.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       */
+      public Builder setGender(de.hsd.hacking.Proto.Employee.Gender value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        gender_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       */
+      public Builder clearGender() {
+        
+        gender_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<de.hsd.hacking.Proto.Skill> skillSet_ =
+        java.util.Collections.emptyList();
+      private void ensureSkillSetIsMutable() {
+        if (!((bitField0_ & 0x00010000) == 0x00010000)) {
+          skillSet_ = new java.util.ArrayList<de.hsd.hacking.Proto.Skill>(skillSet_);
+          bitField0_ |= 0x00010000;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Skill, de.hsd.hacking.Proto.Skill.Builder, de.hsd.hacking.Proto.SkillOrBuilder> skillSetBuilder_;
+
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Skill> getSkillSetList() {
+        if (skillSetBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(skillSet_);
+        } else {
+          return skillSetBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public int getSkillSetCount() {
+        if (skillSetBuilder_ == null) {
+          return skillSet_.size();
+        } else {
+          return skillSetBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public de.hsd.hacking.Proto.Skill getSkillSet(int index) {
+        if (skillSetBuilder_ == null) {
+          return skillSet_.get(index);
+        } else {
+          return skillSetBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder setSkillSet(
+          int index, de.hsd.hacking.Proto.Skill value) {
+        if (skillSetBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSkillSetIsMutable();
+          skillSet_.set(index, value);
+          onChanged();
+        } else {
+          skillSetBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder setSkillSet(
+          int index, de.hsd.hacking.Proto.Skill.Builder builderForValue) {
+        if (skillSetBuilder_ == null) {
+          ensureSkillSetIsMutable();
+          skillSet_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          skillSetBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder addSkillSet(de.hsd.hacking.Proto.Skill value) {
+        if (skillSetBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSkillSetIsMutable();
+          skillSet_.add(value);
+          onChanged();
+        } else {
+          skillSetBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder addSkillSet(
+          int index, de.hsd.hacking.Proto.Skill value) {
+        if (skillSetBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSkillSetIsMutable();
+          skillSet_.add(index, value);
+          onChanged();
+        } else {
+          skillSetBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder addSkillSet(
+          de.hsd.hacking.Proto.Skill.Builder builderForValue) {
+        if (skillSetBuilder_ == null) {
+          ensureSkillSetIsMutable();
+          skillSet_.add(builderForValue.build());
+          onChanged();
+        } else {
+          skillSetBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder addSkillSet(
+          int index, de.hsd.hacking.Proto.Skill.Builder builderForValue) {
+        if (skillSetBuilder_ == null) {
+          ensureSkillSetIsMutable();
+          skillSet_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          skillSetBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder addAllSkillSet(
+          java.lang.Iterable<? extends de.hsd.hacking.Proto.Skill> values) {
+        if (skillSetBuilder_ == null) {
+          ensureSkillSetIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, skillSet_);
+          onChanged();
+        } else {
+          skillSetBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder clearSkillSet() {
+        if (skillSetBuilder_ == null) {
+          skillSet_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00010000);
+          onChanged();
+        } else {
+          skillSetBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public Builder removeSkillSet(int index) {
+        if (skillSetBuilder_ == null) {
+          ensureSkillSetIsMutable();
+          skillSet_.remove(index);
+          onChanged();
+        } else {
+          skillSetBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public de.hsd.hacking.Proto.Skill.Builder getSkillSetBuilder(
+          int index) {
+        return getSkillSetFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public de.hsd.hacking.Proto.SkillOrBuilder getSkillSetOrBuilder(
+          int index) {
+        if (skillSetBuilder_ == null) {
+          return skillSet_.get(index);  } else {
+          return skillSetBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public java.util.List<? extends de.hsd.hacking.Proto.SkillOrBuilder> 
+           getSkillSetOrBuilderList() {
+        if (skillSetBuilder_ != null) {
+          return skillSetBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(skillSet_);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public de.hsd.hacking.Proto.Skill.Builder addSkillSetBuilder() {
+        return getSkillSetFieldBuilder().addBuilder(
+            de.hsd.hacking.Proto.Skill.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public de.hsd.hacking.Proto.Skill.Builder addSkillSetBuilder(
+          int index) {
+        return getSkillSetFieldBuilder().addBuilder(
+            index, de.hsd.hacking.Proto.Skill.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Skill.Builder> 
+           getSkillSetBuilderList() {
+        return getSkillSetFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Skill, de.hsd.hacking.Proto.Skill.Builder, de.hsd.hacking.Proto.SkillOrBuilder> 
+          getSkillSetFieldBuilder() {
+        if (skillSetBuilder_ == null) {
+          skillSetBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              de.hsd.hacking.Proto.Skill, de.hsd.hacking.Proto.Skill.Builder, de.hsd.hacking.Proto.SkillOrBuilder>(
+                  skillSet_,
+                  ((bitField0_ & 0x00010000) == 0x00010000),
+                  getParentForChildren(),
+                  isClean());
+          skillSet_ = null;
+        }
+        return skillSetBuilder_;
+      }
+
+      private java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> employeeSpecials_ =
+        java.util.Collections.emptyList();
+      private void ensureEmployeeSpecialsIsMutable() {
+        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
+          employeeSpecials_ = new java.util.ArrayList<de.hsd.hacking.Proto.EmployeeSpecial>(employeeSpecials_);
+          bitField0_ |= 0x00020000;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.EmployeeSpecial, de.hsd.hacking.Proto.EmployeeSpecial.Builder, de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> employeeSpecialsBuilder_;
+
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> getEmployeeSpecialsList() {
+        if (employeeSpecialsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(employeeSpecials_);
+        } else {
+          return employeeSpecialsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public int getEmployeeSpecialsCount() {
+        if (employeeSpecialsBuilder_ == null) {
+          return employeeSpecials_.size();
+        } else {
+          return employeeSpecialsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeSpecial getEmployeeSpecials(int index) {
+        if (employeeSpecialsBuilder_ == null) {
+          return employeeSpecials_.get(index);
+        } else {
+          return employeeSpecialsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder setEmployeeSpecials(
+          int index, de.hsd.hacking.Proto.EmployeeSpecial value) {
+        if (employeeSpecialsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.set(index, value);
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder setEmployeeSpecials(
+          int index, de.hsd.hacking.Proto.EmployeeSpecial.Builder builderForValue) {
+        if (employeeSpecialsBuilder_ == null) {
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder addEmployeeSpecials(de.hsd.hacking.Proto.EmployeeSpecial value) {
+        if (employeeSpecialsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.add(value);
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder addEmployeeSpecials(
+          int index, de.hsd.hacking.Proto.EmployeeSpecial value) {
+        if (employeeSpecialsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.add(index, value);
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder addEmployeeSpecials(
+          de.hsd.hacking.Proto.EmployeeSpecial.Builder builderForValue) {
+        if (employeeSpecialsBuilder_ == null) {
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.add(builderForValue.build());
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder addEmployeeSpecials(
+          int index, de.hsd.hacking.Proto.EmployeeSpecial.Builder builderForValue) {
+        if (employeeSpecialsBuilder_ == null) {
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder addAllEmployeeSpecials(
+          java.lang.Iterable<? extends de.hsd.hacking.Proto.EmployeeSpecial> values) {
+        if (employeeSpecialsBuilder_ == null) {
+          ensureEmployeeSpecialsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, employeeSpecials_);
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder clearEmployeeSpecials() {
+        if (employeeSpecialsBuilder_ == null) {
+          employeeSpecials_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00020000);
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public Builder removeEmployeeSpecials(int index) {
+        if (employeeSpecialsBuilder_ == null) {
+          ensureEmployeeSpecialsIsMutable();
+          employeeSpecials_.remove(index);
+          onChanged();
+        } else {
+          employeeSpecialsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeSpecial.Builder getEmployeeSpecialsBuilder(
+          int index) {
+        return getEmployeeSpecialsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
+          int index) {
+        if (employeeSpecialsBuilder_ == null) {
+          return employeeSpecials_.get(index);  } else {
+          return employeeSpecialsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public java.util.List<? extends de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
+           getEmployeeSpecialsOrBuilderList() {
+        if (employeeSpecialsBuilder_ != null) {
+          return employeeSpecialsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(employeeSpecials_);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeSpecial.Builder addEmployeeSpecialsBuilder() {
+        return getEmployeeSpecialsFieldBuilder().addBuilder(
+            de.hsd.hacking.Proto.EmployeeSpecial.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeSpecial.Builder addEmployeeSpecialsBuilder(
+          int index) {
+        return getEmployeeSpecialsFieldBuilder().addBuilder(
+            index, de.hsd.hacking.Proto.EmployeeSpecial.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.EmployeeSpecial.Builder> 
+           getEmployeeSpecialsBuilderList() {
+        return getEmployeeSpecialsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.EmployeeSpecial, de.hsd.hacking.Proto.EmployeeSpecial.Builder, de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
+          getEmployeeSpecialsFieldBuilder() {
+        if (employeeSpecialsBuilder_ == null) {
+          employeeSpecialsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              de.hsd.hacking.Proto.EmployeeSpecial, de.hsd.hacking.Proto.EmployeeSpecial.Builder, de.hsd.hacking.Proto.EmployeeSpecialOrBuilder>(
+                  employeeSpecials_,
+                  ((bitField0_ & 0x00020000) == 0x00020000),
+                  getParentForChildren(),
+                  isClean());
+          employeeSpecials_ = null;
+        }
+        return employeeSpecialsBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.Employee)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.Employee)
+    private static final de.hsd.hacking.Proto.Employee DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.Employee();
+    }
+
+    public static de.hsd.hacking.Proto.Employee getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Employee>
+        PARSER = new com.google.protobuf.AbstractParser<Employee>() {
+      public Employee parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Employee(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Employee> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Employee> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.Employee getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EmployeeManagerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.EmployeeManager)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    java.util.List<de.hsd.hacking.Proto.Employee> 
+        getAvailableEmployeesList();
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    de.hsd.hacking.Proto.Employee getAvailableEmployees(int index);
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    int getAvailableEmployeesCount();
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    java.util.List<? extends de.hsd.hacking.Proto.EmployeeOrBuilder> 
+        getAvailableEmployeesOrBuilderList();
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeOrBuilder getAvailableEmployeesOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    java.util.List<de.hsd.hacking.Proto.Employee> 
+        getHiredEmployeesList();
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    de.hsd.hacking.Proto.Employee getHiredEmployees(int index);
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    int getHiredEmployeesCount();
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    java.util.List<? extends de.hsd.hacking.Proto.EmployeeOrBuilder> 
+        getHiredEmployeesOrBuilderList();
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeOrBuilder getHiredEmployeesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code what_the_hack.EmployeeManager}
+   */
+  public  static final class EmployeeManager extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.EmployeeManager)
+      EmployeeManagerOrBuilder {
+    // Use EmployeeManager.newBuilder() to construct.
+    private EmployeeManager(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EmployeeManager() {
+      availableEmployees_ = java.util.Collections.emptyList();
+      hiredEmployees_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EmployeeManager(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                availableEmployees_ = new java.util.ArrayList<de.hsd.hacking.Proto.Employee>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              availableEmployees_.add(
+                  input.readMessage(de.hsd.hacking.Proto.Employee.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                hiredEmployees_ = new java.util.ArrayList<de.hsd.hacking.Proto.Employee>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              hiredEmployees_.add(
+                  input.readMessage(de.hsd.hacking.Proto.Employee.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          availableEmployees_ = java.util.Collections.unmodifiableList(availableEmployees_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          hiredEmployees_ = java.util.Collections.unmodifiableList(hiredEmployees_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeManager_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeManager_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.EmployeeManager.class, de.hsd.hacking.Proto.EmployeeManager.Builder.class);
+    }
+
+    public static final int AVAILABLEEMPLOYEES_FIELD_NUMBER = 1;
+    private java.util.List<de.hsd.hacking.Proto.Employee> availableEmployees_;
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    public java.util.List<de.hsd.hacking.Proto.Employee> getAvailableEmployeesList() {
+      return availableEmployees_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    public java.util.List<? extends de.hsd.hacking.Proto.EmployeeOrBuilder> 
+        getAvailableEmployeesOrBuilderList() {
+      return availableEmployees_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    public int getAvailableEmployeesCount() {
+      return availableEmployees_.size();
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    public de.hsd.hacking.Proto.Employee getAvailableEmployees(int index) {
+      return availableEmployees_.get(index);
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeOrBuilder getAvailableEmployeesOrBuilder(
+        int index) {
+      return availableEmployees_.get(index);
+    }
+
+    public static final int HIREDEMPLOYEES_FIELD_NUMBER = 2;
+    private java.util.List<de.hsd.hacking.Proto.Employee> hiredEmployees_;
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    public java.util.List<de.hsd.hacking.Proto.Employee> getHiredEmployeesList() {
+      return hiredEmployees_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    public java.util.List<? extends de.hsd.hacking.Proto.EmployeeOrBuilder> 
+        getHiredEmployeesOrBuilderList() {
+      return hiredEmployees_;
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    public int getHiredEmployeesCount() {
+      return hiredEmployees_.size();
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    public de.hsd.hacking.Proto.Employee getHiredEmployees(int index) {
+      return hiredEmployees_.get(index);
+    }
+    /**
+     * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeOrBuilder getHiredEmployeesOrBuilder(
+        int index) {
+      return hiredEmployees_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < availableEmployees_.size(); i++) {
+        output.writeMessage(1, availableEmployees_.get(i));
+      }
+      for (int i = 0; i < hiredEmployees_.size(); i++) {
+        output.writeMessage(2, hiredEmployees_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < availableEmployees_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, availableEmployees_.get(i));
+      }
+      for (int i = 0; i < hiredEmployees_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, hiredEmployees_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.EmployeeManager)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.EmployeeManager other = (de.hsd.hacking.Proto.EmployeeManager) obj;
+
+      boolean result = true;
+      result = result && getAvailableEmployeesList()
+          .equals(other.getAvailableEmployeesList());
+      result = result && getHiredEmployeesList()
+          .equals(other.getHiredEmployeesList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getAvailableEmployeesCount() > 0) {
+        hash = (37 * hash) + AVAILABLEEMPLOYEES_FIELD_NUMBER;
+        hash = (53 * hash) + getAvailableEmployeesList().hashCode();
+      }
+      if (getHiredEmployeesCount() > 0) {
+        hash = (37 * hash) + HIREDEMPLOYEES_FIELD_NUMBER;
+        hash = (53 * hash) + getHiredEmployeesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeManager parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.EmployeeManager prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.EmployeeManager}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.EmployeeManager)
+        de.hsd.hacking.Proto.EmployeeManagerOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeManager_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeManager_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.EmployeeManager.class, de.hsd.hacking.Proto.EmployeeManager.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.EmployeeManager.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getAvailableEmployeesFieldBuilder();
+          getHiredEmployeesFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (availableEmployeesBuilder_ == null) {
+          availableEmployees_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          availableEmployeesBuilder_.clear();
+        }
+        if (hiredEmployeesBuilder_ == null) {
+          hiredEmployees_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          hiredEmployeesBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeManager_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.EmployeeManager getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.EmployeeManager.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.EmployeeManager build() {
+        de.hsd.hacking.Proto.EmployeeManager result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.EmployeeManager buildPartial() {
+        de.hsd.hacking.Proto.EmployeeManager result = new de.hsd.hacking.Proto.EmployeeManager(this);
+        int from_bitField0_ = bitField0_;
+        if (availableEmployeesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            availableEmployees_ = java.util.Collections.unmodifiableList(availableEmployees_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.availableEmployees_ = availableEmployees_;
+        } else {
+          result.availableEmployees_ = availableEmployeesBuilder_.build();
+        }
+        if (hiredEmployeesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            hiredEmployees_ = java.util.Collections.unmodifiableList(hiredEmployees_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.hiredEmployees_ = hiredEmployees_;
+        } else {
+          result.hiredEmployees_ = hiredEmployeesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.EmployeeManager) {
+          return mergeFrom((de.hsd.hacking.Proto.EmployeeManager)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.EmployeeManager other) {
+        if (other == de.hsd.hacking.Proto.EmployeeManager.getDefaultInstance()) return this;
+        if (availableEmployeesBuilder_ == null) {
+          if (!other.availableEmployees_.isEmpty()) {
+            if (availableEmployees_.isEmpty()) {
+              availableEmployees_ = other.availableEmployees_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureAvailableEmployeesIsMutable();
+              availableEmployees_.addAll(other.availableEmployees_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.availableEmployees_.isEmpty()) {
+            if (availableEmployeesBuilder_.isEmpty()) {
+              availableEmployeesBuilder_.dispose();
+              availableEmployeesBuilder_ = null;
+              availableEmployees_ = other.availableEmployees_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              availableEmployeesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getAvailableEmployeesFieldBuilder() : null;
+            } else {
+              availableEmployeesBuilder_.addAllMessages(other.availableEmployees_);
+            }
+          }
+        }
+        if (hiredEmployeesBuilder_ == null) {
+          if (!other.hiredEmployees_.isEmpty()) {
+            if (hiredEmployees_.isEmpty()) {
+              hiredEmployees_ = other.hiredEmployees_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureHiredEmployeesIsMutable();
+              hiredEmployees_.addAll(other.hiredEmployees_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.hiredEmployees_.isEmpty()) {
+            if (hiredEmployeesBuilder_.isEmpty()) {
+              hiredEmployeesBuilder_.dispose();
+              hiredEmployeesBuilder_ = null;
+              hiredEmployees_ = other.hiredEmployees_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              hiredEmployeesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getHiredEmployeesFieldBuilder() : null;
+            } else {
+              hiredEmployeesBuilder_.addAllMessages(other.hiredEmployees_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.EmployeeManager parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.EmployeeManager) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<de.hsd.hacking.Proto.Employee> availableEmployees_ =
+        java.util.Collections.emptyList();
+      private void ensureAvailableEmployeesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          availableEmployees_ = new java.util.ArrayList<de.hsd.hacking.Proto.Employee>(availableEmployees_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Employee, de.hsd.hacking.Proto.Employee.Builder, de.hsd.hacking.Proto.EmployeeOrBuilder> availableEmployeesBuilder_;
+
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Employee> getAvailableEmployeesList() {
+        if (availableEmployeesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(availableEmployees_);
+        } else {
+          return availableEmployeesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public int getAvailableEmployeesCount() {
+        if (availableEmployeesBuilder_ == null) {
+          return availableEmployees_.size();
+        } else {
+          return availableEmployeesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Employee getAvailableEmployees(int index) {
+        if (availableEmployeesBuilder_ == null) {
+          return availableEmployees_.get(index);
+        } else {
+          return availableEmployeesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder setAvailableEmployees(
+          int index, de.hsd.hacking.Proto.Employee value) {
+        if (availableEmployeesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.set(index, value);
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder setAvailableEmployees(
+          int index, de.hsd.hacking.Proto.Employee.Builder builderForValue) {
+        if (availableEmployeesBuilder_ == null) {
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder addAvailableEmployees(de.hsd.hacking.Proto.Employee value) {
+        if (availableEmployeesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.add(value);
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder addAvailableEmployees(
+          int index, de.hsd.hacking.Proto.Employee value) {
+        if (availableEmployeesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.add(index, value);
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder addAvailableEmployees(
+          de.hsd.hacking.Proto.Employee.Builder builderForValue) {
+        if (availableEmployeesBuilder_ == null) {
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.add(builderForValue.build());
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder addAvailableEmployees(
+          int index, de.hsd.hacking.Proto.Employee.Builder builderForValue) {
+        if (availableEmployeesBuilder_ == null) {
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder addAllAvailableEmployees(
+          java.lang.Iterable<? extends de.hsd.hacking.Proto.Employee> values) {
+        if (availableEmployeesBuilder_ == null) {
+          ensureAvailableEmployeesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, availableEmployees_);
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder clearAvailableEmployees() {
+        if (availableEmployeesBuilder_ == null) {
+          availableEmployees_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public Builder removeAvailableEmployees(int index) {
+        if (availableEmployeesBuilder_ == null) {
+          ensureAvailableEmployeesIsMutable();
+          availableEmployees_.remove(index);
+          onChanged();
+        } else {
+          availableEmployeesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Builder getAvailableEmployeesBuilder(
+          int index) {
+        return getAvailableEmployeesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeOrBuilder getAvailableEmployeesOrBuilder(
+          int index) {
+        if (availableEmployeesBuilder_ == null) {
+          return availableEmployees_.get(index);  } else {
+          return availableEmployeesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public java.util.List<? extends de.hsd.hacking.Proto.EmployeeOrBuilder> 
+           getAvailableEmployeesOrBuilderList() {
+        if (availableEmployeesBuilder_ != null) {
+          return availableEmployeesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(availableEmployees_);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Builder addAvailableEmployeesBuilder() {
+        return getAvailableEmployeesFieldBuilder().addBuilder(
+            de.hsd.hacking.Proto.Employee.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Builder addAvailableEmployeesBuilder(
+          int index) {
+        return getAvailableEmployeesFieldBuilder().addBuilder(
+            index, de.hsd.hacking.Proto.Employee.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee availableEmployees = 1;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Employee.Builder> 
+           getAvailableEmployeesBuilderList() {
+        return getAvailableEmployeesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Employee, de.hsd.hacking.Proto.Employee.Builder, de.hsd.hacking.Proto.EmployeeOrBuilder> 
+          getAvailableEmployeesFieldBuilder() {
+        if (availableEmployeesBuilder_ == null) {
+          availableEmployeesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              de.hsd.hacking.Proto.Employee, de.hsd.hacking.Proto.Employee.Builder, de.hsd.hacking.Proto.EmployeeOrBuilder>(
+                  availableEmployees_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          availableEmployees_ = null;
+        }
+        return availableEmployeesBuilder_;
+      }
+
+      private java.util.List<de.hsd.hacking.Proto.Employee> hiredEmployees_ =
+        java.util.Collections.emptyList();
+      private void ensureHiredEmployeesIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          hiredEmployees_ = new java.util.ArrayList<de.hsd.hacking.Proto.Employee>(hiredEmployees_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Employee, de.hsd.hacking.Proto.Employee.Builder, de.hsd.hacking.Proto.EmployeeOrBuilder> hiredEmployeesBuilder_;
+
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Employee> getHiredEmployeesList() {
+        if (hiredEmployeesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(hiredEmployees_);
+        } else {
+          return hiredEmployeesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public int getHiredEmployeesCount() {
+        if (hiredEmployeesBuilder_ == null) {
+          return hiredEmployees_.size();
+        } else {
+          return hiredEmployeesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public de.hsd.hacking.Proto.Employee getHiredEmployees(int index) {
+        if (hiredEmployeesBuilder_ == null) {
+          return hiredEmployees_.get(index);
+        } else {
+          return hiredEmployeesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder setHiredEmployees(
+          int index, de.hsd.hacking.Proto.Employee value) {
+        if (hiredEmployeesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.set(index, value);
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder setHiredEmployees(
+          int index, de.hsd.hacking.Proto.Employee.Builder builderForValue) {
+        if (hiredEmployeesBuilder_ == null) {
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder addHiredEmployees(de.hsd.hacking.Proto.Employee value) {
+        if (hiredEmployeesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.add(value);
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder addHiredEmployees(
+          int index, de.hsd.hacking.Proto.Employee value) {
+        if (hiredEmployeesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.add(index, value);
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder addHiredEmployees(
+          de.hsd.hacking.Proto.Employee.Builder builderForValue) {
+        if (hiredEmployeesBuilder_ == null) {
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.add(builderForValue.build());
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder addHiredEmployees(
+          int index, de.hsd.hacking.Proto.Employee.Builder builderForValue) {
+        if (hiredEmployeesBuilder_ == null) {
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder addAllHiredEmployees(
+          java.lang.Iterable<? extends de.hsd.hacking.Proto.Employee> values) {
+        if (hiredEmployeesBuilder_ == null) {
+          ensureHiredEmployeesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, hiredEmployees_);
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder clearHiredEmployees() {
+        if (hiredEmployeesBuilder_ == null) {
+          hiredEmployees_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public Builder removeHiredEmployees(int index) {
+        if (hiredEmployeesBuilder_ == null) {
+          ensureHiredEmployeesIsMutable();
+          hiredEmployees_.remove(index);
+          onChanged();
+        } else {
+          hiredEmployeesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Builder getHiredEmployeesBuilder(
+          int index) {
+        return getHiredEmployeesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeOrBuilder getHiredEmployeesOrBuilder(
+          int index) {
+        if (hiredEmployeesBuilder_ == null) {
+          return hiredEmployees_.get(index);  } else {
+          return hiredEmployeesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public java.util.List<? extends de.hsd.hacking.Proto.EmployeeOrBuilder> 
+           getHiredEmployeesOrBuilderList() {
+        if (hiredEmployeesBuilder_ != null) {
+          return hiredEmployeesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(hiredEmployees_);
+        }
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Builder addHiredEmployeesBuilder() {
+        return getHiredEmployeesFieldBuilder().addBuilder(
+            de.hsd.hacking.Proto.Employee.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.Builder addHiredEmployeesBuilder(
+          int index) {
+        return getHiredEmployeesFieldBuilder().addBuilder(
+            index, de.hsd.hacking.Proto.Employee.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .what_the_hack.Employee hiredEmployees = 2;</code>
+       */
+      public java.util.List<de.hsd.hacking.Proto.Employee.Builder> 
+           getHiredEmployeesBuilderList() {
+        return getHiredEmployeesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          de.hsd.hacking.Proto.Employee, de.hsd.hacking.Proto.Employee.Builder, de.hsd.hacking.Proto.EmployeeOrBuilder> 
+          getHiredEmployeesFieldBuilder() {
+        if (hiredEmployeesBuilder_ == null) {
+          hiredEmployeesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              de.hsd.hacking.Proto.Employee, de.hsd.hacking.Proto.Employee.Builder, de.hsd.hacking.Proto.EmployeeOrBuilder>(
+                  hiredEmployees_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          hiredEmployees_ = null;
+        }
+        return hiredEmployeesBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.EmployeeManager)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.EmployeeManager)
+    private static final de.hsd.hacking.Proto.EmployeeManager DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.EmployeeManager();
+    }
+
+    public static de.hsd.hacking.Proto.EmployeeManager getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EmployeeManager>
+        PARSER = new com.google.protobuf.AbstractParser<EmployeeManager>() {
+      public EmployeeManager parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EmployeeManager(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EmployeeManager> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EmployeeManager> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.EmployeeManager getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EmployeeSpecialOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.EmployeeSpecial)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 level = 1;</code>
+     */
+    int getLevel();
+
+    /**
+     * <code>string special = 2;</code>
+     */
+    java.lang.String getSpecial();
+    /**
+     * <code>string special = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSpecialBytes();
+  }
+  /**
+   * Protobuf type {@code what_the_hack.EmployeeSpecial}
+   */
+  public  static final class EmployeeSpecial extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.EmployeeSpecial)
+      EmployeeSpecialOrBuilder {
+    // Use EmployeeSpecial.newBuilder() to construct.
+    private EmployeeSpecial(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EmployeeSpecial() {
+      level_ = 0;
+      special_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EmployeeSpecial(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              level_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              special_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeSpecial_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeSpecial_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.EmployeeSpecial.class, de.hsd.hacking.Proto.EmployeeSpecial.Builder.class);
+    }
+
+    public static final int LEVEL_FIELD_NUMBER = 1;
+    private int level_;
+    /**
+     * <code>int32 level = 1;</code>
+     */
+    public int getLevel() {
+      return level_;
+    }
+
+    public static final int SPECIAL_FIELD_NUMBER = 2;
+    private volatile java.lang.Object special_;
+    /**
+     * <code>string special = 2;</code>
+     */
+    public java.lang.String getSpecial() {
+      java.lang.Object ref = special_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        special_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string special = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSpecialBytes() {
+      java.lang.Object ref = special_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        special_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (level_ != 0) {
+        output.writeInt32(1, level_);
+      }
+      if (!getSpecialBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, special_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (level_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, level_);
+      }
+      if (!getSpecialBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, special_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.EmployeeSpecial)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.EmployeeSpecial other = (de.hsd.hacking.Proto.EmployeeSpecial) obj;
+
+      boolean result = true;
+      result = result && (getLevel()
+          == other.getLevel());
+      result = result && getSpecial()
+          .equals(other.getSpecial());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + getLevel();
+      hash = (37 * hash) + SPECIAL_FIELD_NUMBER;
+      hash = (53 * hash) + getSpecial().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeSpecial parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.EmployeeSpecial prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.EmployeeSpecial}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.EmployeeSpecial)
+        de.hsd.hacking.Proto.EmployeeSpecialOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeSpecial_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeSpecial_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.EmployeeSpecial.class, de.hsd.hacking.Proto.EmployeeSpecial.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.EmployeeSpecial.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        level_ = 0;
+
+        special_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeSpecial_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.EmployeeSpecial getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.EmployeeSpecial.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.EmployeeSpecial build() {
+        de.hsd.hacking.Proto.EmployeeSpecial result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.EmployeeSpecial buildPartial() {
+        de.hsd.hacking.Proto.EmployeeSpecial result = new de.hsd.hacking.Proto.EmployeeSpecial(this);
+        result.level_ = level_;
+        result.special_ = special_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.EmployeeSpecial) {
+          return mergeFrom((de.hsd.hacking.Proto.EmployeeSpecial)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.EmployeeSpecial other) {
+        if (other == de.hsd.hacking.Proto.EmployeeSpecial.getDefaultInstance()) return this;
+        if (other.getLevel() != 0) {
+          setLevel(other.getLevel());
+        }
+        if (!other.getSpecial().isEmpty()) {
+          special_ = other.special_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.EmployeeSpecial parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.EmployeeSpecial) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int level_ ;
+      /**
+       * <code>int32 level = 1;</code>
+       */
+      public int getLevel() {
+        return level_;
+      }
+      /**
+       * <code>int32 level = 1;</code>
+       */
+      public Builder setLevel(int value) {
+        
+        level_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 level = 1;</code>
+       */
+      public Builder clearLevel() {
+        
+        level_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object special_ = "";
+      /**
+       * <code>string special = 2;</code>
+       */
+      public java.lang.String getSpecial() {
+        java.lang.Object ref = special_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          special_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string special = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSpecialBytes() {
+        java.lang.Object ref = special_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          special_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string special = 2;</code>
+       */
+      public Builder setSpecial(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        special_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string special = 2;</code>
+       */
+      public Builder clearSpecial() {
+        
+        special_ = getDefaultInstance().getSpecial();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string special = 2;</code>
+       */
+      public Builder setSpecialBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        special_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.EmployeeSpecial)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.EmployeeSpecial)
+    private static final de.hsd.hacking.Proto.EmployeeSpecial DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.EmployeeSpecial();
+    }
+
+    public static de.hsd.hacking.Proto.EmployeeSpecial getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EmployeeSpecial>
+        PARSER = new com.google.protobuf.AbstractParser<EmployeeSpecial>() {
+      public EmployeeSpecial parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EmployeeSpecial(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EmployeeSpecial> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EmployeeSpecial> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.EmployeeSpecial getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_what_the_hack_Global_descriptor;
   private static final 
@@ -7988,6 +12732,21 @@ public final class Proto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_what_the_hack_EquipmentManager_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_Employee_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_Employee_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_EmployeeManager_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_EmployeeManager_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_EmployeeSpecial_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_EmployeeSpecial_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -8028,8 +12787,27 @@ public final class Proto {
       "ffeeMachine\020\000\022\014\n\010Computer\020\001\022\023\n\017HardwareS" +
       "tation\020\002\022\t\n\005Modem\020\003\022\n\n\006Router\020\004\022\n\n\006Serve",
       "r\020\005\"?\n\020EquipmentManager\022+\n\tequipment\030\001 \003" +
-      "(\0132\030.what_the_hack.EquipmentB\027\n\016de.hsd.h" +
-      "ackingB\005Protob\006proto3"
+      "(\0132\030.what_the_hack.Equipment\"\315\004\n\010Employe" +
+      "e\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030\002 \001(\t\022\016\n\006sala" +
+      "ry\030\003 \001(\005\022\031\n\021currentTileNumber\030\004 \001(\005\022\032\n\022o" +
+      "ccupiedTileNumber\030\005 \001(\005\022\021\n\tusedScore\030\006 \001" +
+      "(\002\022\021\n\tfreeScore\030\007 \001(\002\022\022\n\nisEmployed\030\010 \001(" +
+      "\010\022\021\n\thairColor\030\t \001(\t\022\020\n\010eyeColor\030\n \001(\t\022\021" +
+      "\n\tskinColor\030\013 \001(\t\022\022\n\nshirtColor\030\014 \001(\t\022\024\n" +
+      "\014trouserColor\030\r \001(\t\022\021\n\tshoeColor\030\016 \001(\t\0224" +
+      "\n\thairStyle\030\017 \001(\0162!.what_the_hack.Employ",
+      "ee.HairStyle\022.\n\006gender\030\020 \001(\0162\036.what_the_" +
+      "hack.Employee.Gender\022&\n\010skillSet\030\021 \003(\0132\024" +
+      ".what_the_hack.Skill\0228\n\020employeeSpecials" +
+      "\030\022 \003(\0132\036.what_the_hack.EmployeeSpecial\"5" +
+      "\n\tHairStyle\022\t\n\005CRAZY\020\000\022\010\n\004NEAT\020\001\022\010\n\004NERD" +
+      "\020\002\022\t\n\005RASTA\020\003\"-\n\006Gender\022\r\n\tUNDECIDED\020\000\022\010" +
+      "\n\004MALE\020\001\022\n\n\006FEMALE\020\002\"w\n\017EmployeeManager\022" +
+      "3\n\022availableEmployees\030\001 \003(\0132\027.what_the_h" +
+      "ack.Employee\022/\n\016hiredEmployees\030\002 \003(\0132\027.w" +
+      "hat_the_hack.Employee\"1\n\017EmployeeSpecial",
+      "\022\r\n\005level\030\001 \001(\005\022\017\n\007special\030\002 \001(\tB\027\n\016de.h" +
+      "sd.hackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8091,6 +12869,24 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_EquipmentManager_descriptor,
         new java.lang.String[] { "Equipment", });
+    internal_static_what_the_hack_Employee_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_what_the_hack_Employee_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_Employee_descriptor,
+        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "HairStyle", "Gender", "SkillSet", "EmployeeSpecials", });
+    internal_static_what_the_hack_EmployeeManager_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_what_the_hack_EmployeeManager_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_EmployeeManager_descriptor,
+        new java.lang.String[] { "AvailableEmployees", "HiredEmployees", });
+    internal_static_what_the_hack_EmployeeSpecial_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_what_the_hack_EmployeeSpecial_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_EmployeeSpecial_descriptor,
+        new java.lang.String[] { "Level", "Special", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
