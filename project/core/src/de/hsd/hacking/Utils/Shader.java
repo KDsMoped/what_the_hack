@@ -25,6 +25,8 @@ public class Shader {
             "varying vec4 v_color;\n" +
             "varying vec2 v_texCoords;\n" +
             "uniform sampler2D u_texture;\n" +
+            "uniform int sel;\n" +
+            "uniform vec2 u_viewportInverse; \n" +
             "void main()                                  \n" +
             "{                                            \n" +
             "vec4 color = texture2D(u_texture, v_texCoords).rgba; \n" +
@@ -47,7 +49,16 @@ public class Shader {
             "else if (color.r == {{eyeold}} && color.g == {{eyeold}} && color.b == {{eyeold}}){ \n" +
             "newColor = vec4({{eye}}, 1.0); \n" +
             "} \n" +
-            "}" +
+            "}else{ \n" +
+            "if (sel == 1) { \n" +
+            "if (texture2D(u_texture, vec2(v_texCoords.x + 1.0 * u_viewportInverse.x, v_texCoords.y) ).a > 0.0 || " +
+            "texture2D(u_texture, vec2(v_texCoords.x - 1.0 * u_viewportInverse.x, v_texCoords.y)).a > 0.0 ||" +
+            "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y + 1.0 * u_viewportInverse.y)).a > 0.0 || " +
+            "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y - 1.0 * u_viewportInverse.y)).a > 0.0) { \n" +
+            "newColor = vec4(1.0, 1.0, 1.0, 1.0); \n" +
+            "} \n" +
+            "} \n" +
+            "} \n" +
             "  gl_FragColor = newColor * v_color;\n" +
             "}";
 
@@ -61,11 +72,11 @@ public class Shader {
         "void main()                                  \n" +
         "{                                            \n" +
             "vec4 color = texture2D(u_texture, v_texCoords); \n" +
-            "if (color.a == 0.0){ \n" +
-                "if (texture2D(u_texture, vec2(v_texCoords.x + 1.0 * u_viewportInverse.x, v_texCoords.y) ).a > 0.0 || " +
-                    "texture2D(u_texture, vec2(v_texCoords.x - 1.0 * u_viewportInverse.x, v_texCoords.y)).a > 0.0 ||" +
-                    "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y + 1.0 * u_viewportInverse.y)).a > 0.0 || " +
-                    "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y - 1.0 * u_viewportInverse.y)).a > 0.0) {" +
+            "if (color.a < 1.0){ \n" +
+                "if (texture2D(u_texture, vec2(v_texCoords.x + u_viewportInverse.x, v_texCoords.y) ).a > 0.0 || " +
+                    "texture2D(u_texture, vec2(v_texCoords.x - u_viewportInverse.x, v_texCoords.y)).a > 0.0 ||" +
+                    "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y + u_viewportInverse.y)).a > 0.0 || " +
+                    "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y - u_viewportInverse.y)).a > 0.0) {" +
                         "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0); \n" +
                 "} else {" +
                     "gl_FragColor = color;" +

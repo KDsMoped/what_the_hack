@@ -293,11 +293,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         if (!colorShader.isCompiled()) {
             throw new GdxRuntimeException("Couldn't compile colorShader: " + colorShader.getLog());
         }
-
-        this.outlineShader = new ShaderProgram(Shader.VERTEX_SHADER, Shader.OUTLINE_FRAGMENT_SHADER);
-        if (!outlineShader.isCompiled()){
-            throw new GdxRuntimeException("Couldn't compile colorShader: " + outlineShader.getLog());
-        }
     }
 
     /**
@@ -343,33 +338,26 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         Vector2 pixelPosition = clampToPixels(pos);
         TextureRegion frame = animations[_animationState.ordinal()][SHADOW].getKeyFrame(elapsedTime, true);
         batch.draw(frame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
-
         batch.end();
-        fbo.begin();
-        Gdx.gl.glClearColor(0, 0, 0, 0);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        colorShader.begin();
+
+        if (selected && !icon) {
+            colorShader.setUniformi("sel", 1);
+            colorShader.setUniformf("u_viewportInverse", new Vector2(1f / Constants.VIEWPORT_WIDTH, 1f / Constants.VIEWPORT_HEIGHT));
+        } else {
+            colorShader.setUniformi("sel", 0);
+        }
+        colorShader.end();
+
+        batch.begin();
         batch.setShader(colorShader);
-        batch.begin();
+        TextureRegion charFrame = animations[_animationState.ordinal()][BODY].getKeyFrame(elapsedTime, true);
+        batch.draw(charFrame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
 
-        for (int i = 1; i < 3; i++) {
-            TextureRegion charFrame = animations[_animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
-            batch.draw(charFrame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
-        }
         batch.setShader(null);
-        batch.end();
-        fbo.end();
-
-        if (selected){
-            batch.setShader(outlineShader);
-        }
-        batch.begin();
-        batch.draw(frameBufferTextureRegion, 0 ,0);
 
         for (EmployeeSpecial special : employeeSpecials) {
             special.draw(batch, parentAlpha);
-        }
-        if (selected){
-            batch.setShader(null);
         }
     }
 

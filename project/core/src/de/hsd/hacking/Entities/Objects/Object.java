@@ -23,7 +23,7 @@ public abstract class Object extends Entity {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (drawableRegion != null){
-            batch.draw(drawableRegion, getPosition().x, getPosition().y);
+            batch.draw(drawableRegion, getPosition().x, getPosition().y, drawableRegion.getRegionWidth(), drawableRegion.getRegionHeight());
         }
     }
 
