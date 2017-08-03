@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Entities.Employees.Skill;
 
@@ -26,7 +27,7 @@ import java.util.List;
 public class MissionUIElement extends Table {
     private Mission mission;
 
-    private TextButton actionButton;
+    private AudioTextButton actionButton;
 
     private String buttonText;
     private Boolean showDescription;
@@ -152,14 +153,8 @@ public class MissionUIElement extends Table {
 
 
         if (buttonText != null && !buttonText.equals("")) {
-            actionButton = new TextButton(buttonText, Constants.TextButtonStyle());
+            actionButton = new AudioTextButton(buttonText, Constants.TextButtonStyle());
             actionButton.addListener(buttonListener);
-            actionButton.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    AudioManager.instance().playUIButtonSound();
-                }
-            });
             moneyTimeTable.add(actionButton).width(70).right().colspan(2);
         }
     }
@@ -185,7 +180,7 @@ public class MissionUIElement extends Table {
         return actionButton;
     }
 
-    public void setActionButton(TextButton actionButton) {
+    public void setActionButton(AudioTextButton actionButton) {
         this.actionButton = actionButton;
     }
 

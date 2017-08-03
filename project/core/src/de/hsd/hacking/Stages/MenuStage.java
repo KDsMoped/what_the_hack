@@ -49,7 +49,8 @@ public class MenuStage extends Stage {
         resumeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
-                GameManager.instance().loadGame();
+                   GameManager.instance().loadGame();
+                   AudioManager.instance().playMenuButtonSound();
                }
            }
         );
@@ -63,6 +64,7 @@ public class MenuStage extends Stage {
                                @Override
                                public void changed(ChangeEvent event, Actor actor) {
                                    GameManager.instance().newGame();
+                                   AudioManager.instance().playMenuButtonSound();
                                }
                            }
         );

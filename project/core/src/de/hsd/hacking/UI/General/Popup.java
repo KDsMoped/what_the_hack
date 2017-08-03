@@ -27,7 +27,7 @@ public abstract class Popup extends Group {
 
     protected Table mainTable = new Table();
     protected Table noBackgroundClick = new Table();
-    protected TextButton closeButton;
+    protected AudioTextButton closeButton;
 
     private VerticalGroup content = new VerticalGroup();
 
@@ -58,12 +58,11 @@ public abstract class Popup extends Group {
         mainTable.setVisible(false);
 
         // Setup close button
-        closeButton = new TextButton("X", Constants.TextButtonStyle());
+        closeButton = new AudioTextButton("X", Constants.TextButtonStyle());
         closeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 close();
-                AudioManager.instance().playUIButtonSound();
             }
         });
         closeButton.align(Align.center);

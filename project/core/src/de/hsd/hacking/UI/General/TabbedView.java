@@ -33,14 +33,13 @@ public class TabbedView extends Table {
         Table buttonHolder = new Table();
 
         for (Actor a:views) {
-            TextButton tabSwitcher = new TextButton(" " + a.getName() + " ", Constants.TabButtonStyle());
+            AudioTextButton tabSwitcher = new AudioTextButton(" " + a.getName() + " ", Constants.TabButtonStyle());
             buttons.add(tabSwitcher);
             tabSwitcher.setName(a.getName());
             tabSwitcher.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     SwitchTab(actor);
-                    AudioManager.instance().playUIButtonSound();
                 }
             });
 

@@ -32,7 +32,6 @@ public class GameManager {
     public void exitGame(){
         SaveGameManager.SaveGame();
         ScreenManager.setMenuScreen();
-        AudioManager.instance().playUIButtonSound();
         AudioManager.instance().stopMusic();
 
         //destroy manager instances
@@ -45,8 +44,6 @@ public class GameManager {
     }
 
     public void newGame(){
-        AudioManager.instance().playMenuButtonSound();
-
         createManagerInstances();
         loadManagerDefaultData();
 
@@ -54,7 +51,6 @@ public class GameManager {
     }
 
     public void loadGame(){
-        AudioManager.instance().playMenuButtonSound();
         SaveGameManager.LoadGame();
 
         createManagerInstances();

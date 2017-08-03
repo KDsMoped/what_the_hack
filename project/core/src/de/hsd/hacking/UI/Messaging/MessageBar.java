@@ -119,6 +119,9 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
 
     /**
      * Show the MessageBar if not visible already.
+     * Plays a Notification sound if notify is true.
+     *
+     * @param notify Whether to play a notification sound
      */
     public void Show(boolean notify) {
         if (visible)

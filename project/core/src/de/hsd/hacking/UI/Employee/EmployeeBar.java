@@ -13,6 +13,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.TeamManager;
+import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 
@@ -59,12 +60,11 @@ public class EmployeeBar extends Group {
         Table buttonRow = new Table();
         table.add(buttonRow).fill().expand().pad(2, 30, 2, 30).row();
 
-        TextButton detailsButton = new TextButton("Details", Constants.TextButtonStyle());
+        AudioTextButton detailsButton = new AudioTextButton("Details", Constants.TextButtonStyle());
         detailsButton.addListener(new ChangeListener() {
                                       @Override
                                       public void changed(ChangeEvent event, Actor actor) {
                                           onDetailsClick();
-                                          AudioManager.instance().playUIButtonSound();
                                       }
                                   });
 
@@ -73,7 +73,7 @@ public class EmployeeBar extends Group {
 //        table.add(detailsButton).fill().expand().pad(2, 30, 2, 4);
         buttonRow.add(detailsButton).fill().expand().padRight(8);
 
-        TextButton deselectButton = new TextButton("X", Constants.TextButtonStyle());
+        AudioTextButton deselectButton = new AudioTextButton("X", Constants.TextButtonStyle());
         deselectButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {onDeselectClick();

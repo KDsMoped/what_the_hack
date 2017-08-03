@@ -31,6 +31,7 @@ import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.GameManager;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
+import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.UI.Mission.MissionStatusOverlay;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -178,13 +179,12 @@ public class GameStage extends Stage implements EventListener{
         //Init Shop button
         final ShopBrowser shopBrowser = ShopBrowser.instance();
         shopBrowser.init();
-        TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
+        AudioTextButton shopButton = new AudioTextButton("Shop", Constants.TextButtonStyle());
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 TeamManager.instance().deselectEmployee();
                 shopBrowser.toggleView();
-                AudioManager.instance().playUIButtonSound();
             }
         });
         shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
@@ -193,13 +193,12 @@ public class GameStage extends Stage implements EventListener{
 
 
         //Init Missions button
-        TextButton jobsButton = new TextButton("Jobs", Constants.TextButtonStyle());
+        AudioTextButton jobsButton = new AudioTextButton("Jobs", Constants.TextButtonStyle());
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 TeamManager.instance().deselectEmployee();
                 missionBrowser.toggleView();
-                AudioManager.instance().playUIButtonSound();
             }
         });
         jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight - buttonSpacing, 100, buttonHeight);
@@ -207,13 +206,12 @@ public class GameStage extends Stage implements EventListener{
 
         //Init Recruitment button
         final EmployeeBrowser employeeBrowser = new EmployeeBrowser();
-        TextButton recruitmentButton = new TextButton("Team", Constants.TextButtonStyle());
+        AudioTextButton recruitmentButton = new AudioTextButton("Team", Constants.TextButtonStyle());
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 TeamManager.instance().deselectEmployee();
                 employeeBrowser.toggleView();
-                AudioManager.instance().playUIButtonSound();
             }
         });
         recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
@@ -221,7 +219,7 @@ public class GameStage extends Stage implements EventListener{
         popups.addActor(employeeBrowser);
 
         //Init Exit button
-        TextButton exitButton = new TextButton("Exit", Constants.TextButtonStyle());
+        AudioTextButton exitButton = new AudioTextButton("Exit", Constants.TextButtonStyle());
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

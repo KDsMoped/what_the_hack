@@ -18,6 +18,12 @@ import de.hsd.hacking.UI.General.TabbedView;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * The ShopBrowser is an UI element that shows all {@link Equipment}s you have in your {@link EquipmentManager} and those available for purchase.
+ *
+ * @author Dominik
+ */
+
 public class ShopBrowser extends Popup {
 
     private static ShopBrowser instance = null;
@@ -25,10 +31,16 @@ public class ShopBrowser extends Popup {
     private Table shopContainer, upgradeContainer, finishedContainer;
     private EquipmentManager equipmentManager;
 
+    /**
+     *
+     */
     public ShopBrowser() {
         super();
     }
 
+    /**
+     * Initializes Tables for purchasable, upgradable and finished Items and adds them to their respective Views.
+     */
     public void init() {
         this.equipmentManager = EquipmentManager.instance();
 
@@ -63,15 +75,12 @@ public class ShopBrowser extends Popup {
         if (!isActive()) {
             return;
         }
-
         super.act(delta);
     }
 
     @Override
     public void show() {
-
         refreshList();
-
         super.show();
     }
 
@@ -80,11 +89,13 @@ public class ShopBrowser extends Popup {
         if (!isActive()) {
             return;
         }
-
         super.draw(batch, parentAlpha);
     }
 
-
+    /**
+     * Returns an empty, scrollable Table for purchasable Items.
+     * @return empty Shop Table
+     */
     private Table initShopTable() {
         Table content = initSubTable();
         content.setName("Shop");
@@ -98,6 +109,10 @@ public class ShopBrowser extends Popup {
         return content;
     }
 
+    /**
+     * Returns an empty, scrollable Table for upgradable Items.
+     * @return empty Upgrade Table
+     */
     private Table initUpgradeTable() {
         Table content = initSubTable();
         content.setName("Upgrades");
@@ -111,6 +126,10 @@ public class ShopBrowser extends Popup {
         return content;
     }
 
+    /**
+     * Returns an empty, scrollable Table for finished Items
+     * @return empty Table for finished Items
+     */
     private Table initFinishedTable() {
         Table content = initSubTable();
         content.setName("Finished");
@@ -124,6 +143,9 @@ public class ShopBrowser extends Popup {
         return content;
     }
 
+    /**
+     * @return touchable Table with border
+     */
     private static Table initSubTable() {
         Table table = new Table();
         table.align(Align.top);
@@ -132,6 +154,10 @@ public class ShopBrowser extends Popup {
         return table;
     }
 
+    /**
+     * Clears and refills the various equipment Containers with {@link ShopUIElement}s for every
+     * Item in the {@link EquipmentManager}'s Item Lists.
+     */
     private void refreshList() {
         shopContainer.clearChildren();
         shopContainer.top();

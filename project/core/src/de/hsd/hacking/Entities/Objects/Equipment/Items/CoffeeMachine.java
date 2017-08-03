@@ -16,6 +16,12 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
+/**
+ * An Equipment Item that increases the All_Purpose Skill
+ * and provides tasty Coffee.
+ * @author Dominik
+ */
+
 public class CoffeeMachine extends Equipment implements Upgradable {
 
     private TextureRegion stillRegion;
