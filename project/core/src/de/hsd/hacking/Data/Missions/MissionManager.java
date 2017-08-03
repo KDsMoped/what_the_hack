@@ -157,7 +157,7 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
         int gameProgress = TeamManager.instance().calcGameProgress();
 
         for (int i = openMissions.size(); i < MAX_OPEN_MISSIONS; i++) {
-            openMissions.add(MissionFactory.CreateRandomMission(gameProgress));
+            openMissions.add(MissionFactory.CreateMission(gameProgress));
         }
     }
 

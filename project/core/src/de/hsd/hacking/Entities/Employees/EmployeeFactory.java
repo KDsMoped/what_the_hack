@@ -120,7 +120,7 @@ public class EmployeeFactory {
     }
 
     /**
-     * Creates the Trump based on the given progress!
+     * Creates the Trump based on the players progress!
      *
      * @return
      */
