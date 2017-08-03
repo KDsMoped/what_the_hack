@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Employees.States;
 
 import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -31,7 +32,7 @@ public class WaitingState extends EmployeeState {
     public void enter() {
         employee.resetElapsedTime();
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Waiting state");
-        employee.setAnimationState(Employee.AnimState.IDLE);
+        employee.setAnimationState(Proto.Employee.AnimState.IDLE);
     }
 
     @Override

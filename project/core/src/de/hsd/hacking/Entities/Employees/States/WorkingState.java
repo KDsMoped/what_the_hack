@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
@@ -49,7 +50,7 @@ public class WorkingState extends EmployeeState implements EventListener {
     @Override
     public void enter() {
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Working State");
-        employee.setAnimationState(Employee.AnimState.WORKING);
+        employee.setAnimationState(Proto.Employee.AnimState.WORKING);
         Interactable workPlace = (Interactable) employee.getMovementProvider().getDiscreteTile(workingPosition).getObject();
         boolean left = workPlace.getFacingDirection() == Direction.LEFT || workPlace.getFacingDirection() == Direction.DOWN;
 //        boolean backFaced = workPlace.getFacingDirection() == Direction.UP || workPlace.getFacingDirection() == Direction.LEFT;
@@ -85,7 +86,7 @@ public class WorkingState extends EmployeeState implements EventListener {
     }
 
     private void reset() {
-        employee.setAnimationState(Employee.AnimState.IDLE);
+        employee.setAnimationState(Proto.Employee.AnimState.IDLE);
         computer.setOn(false);
         computer.deOccupy();
         if (employee.getCurrentMission() != null) {

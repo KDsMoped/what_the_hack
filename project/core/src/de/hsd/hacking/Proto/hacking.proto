@@ -11,6 +11,13 @@ message Global {
   int32 currentStep = 3;
 }
 
+message Resources {
+  int32 money = 1;
+  int32 bandwidth = 2;
+  int32 computationPower = 3;
+  SkillType skill = 4;
+}
+
 message Message {
   string message = 1;
   int32 date = 2;
@@ -116,6 +123,8 @@ message Employee {
   Gender gender = 16;
   repeated Skill skillSet = 17;
   repeated EmployeeSpecial employeeSpecials = 18;
+  bool flipped = 19;
+  AnimState animState = 20;
 
   enum HairStyle {
     CRAZY = 0;
@@ -128,6 +137,13 @@ message Employee {
     UNDECIDED = 0;
     MALE = 1;
     FEMALE = 2;
+  }
+
+  enum AnimState {
+    IDLE = 0;
+    WORKING = 1;
+    WORKING_BACKFACED = 2;
+    MOVING = 3;
   }
 }
 
@@ -152,4 +168,18 @@ message MissionSkillRequirement {
   SkillType skillType = 1;
   float required = 2;
   float current = 3;
+}
+
+message EmployeeState {
+  enum State {
+    IDLE = 0;
+    MOVING = 1;
+    WAITING = 2;
+    WORKING = 3;
+  }
+
+  State state = 1;
+  float workingX = 2;
+  float workingY = 3;
+  int32 computer = 4;
 }

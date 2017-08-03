@@ -285,10 +285,10 @@ public class GameStage extends Stage implements EventListener{
                 this.tileMap.debugCheck(employeeManager.getTeamSize());
             }
         }
-        //teamManager.calcRessorces();
-        statusBar.setMoney(teamManager.resources.money);
-        statusBar.setBandwith(teamManager.resources.bandwidth);
-        statusBar.setWorkplaces(teamManager.getWorkspaceCount());
+        //team.calcRessorces();
+        statusBar.setMoney(TeamManager.instance().resources.getMoney());
+        statusBar.setBandwith(TeamManager.instance().resources.getBandwidth());
+        statusBar.setWorkplaces(TeamManager.instance().getWorkspaceCount());
         statusBar.setEmployees(employeeManager.getTeamSize());
 
     }
