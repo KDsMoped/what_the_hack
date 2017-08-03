@@ -59,8 +59,6 @@ public class EquipmentManager implements Manager, ProtobufHandler {
     }
 
     public void initBasicEquipment(){
-        Load();
-
         List<Workspace> workspaces = GameStage.instance().getWorkspaces();
 
         if (!containsItem("Computer 1")) {
@@ -173,69 +171,6 @@ public class EquipmentManager implements Manager, ProtobufHandler {
         return builder.build();
     }
 
-    /**
-     * Restores the purchased equipment from a previous game.
-     * @return True if equipment was loaded.
-     */
-    public Boolean Load() {
-        Proto.EquipmentManager.Builder proto = SaveGameManager.getEquipmentManager();
-        if (proto != null) {
-            for (Proto.Equipment equipment : proto.getEquipmentList()) {
-                switch (equipment.getType()) {
-                    case CoffeeMachine:
-                        CoffeeMachine coffee = new CoffeeMachine();
-                        coffee.setLevel(equipment.getLevel());
-                        coffee.setPrice(equipment.getPrice());
-                        coffee.setPurchased(true);
-                        purchasedItems.add(coffee);
-                        break;
-                    case Computer:
-                        int number = Integer.parseInt(equipment.getName().substring(equipment.getName().length() - 1)) - 1;
-                        Computer comp = new Computer(equipment.getName(), GameStage.instance().getWorkspaces().get(number));
-                        comp.setLevel(equipment.getLevel());
-                        comp.setPrice(equipment.getPrice());
-                        comp.setPurchased(true);
-                        purchasedItems.add(comp);
-                        break;
-                    case HardwareStation:
-                        HardwareStation hw = new HardwareStation();
-                        hw.setLevel(equipment.getLevel());
-                        hw.setPrice(equipment.getPrice());
-                        hw.setPurchased(true);
-                        purchasedItems.add(hw);
-                        break;
-                    case Modem:
-                        Modem modem = new Modem();
-                        modem.setLevel(equipment.getLevel());
-                        modem.setPrice(equipment.getPrice());
-                        modem.setPurchased(true);
-                        purchasedItems.add(modem);
-                        break;
-                    case Router:
-                        Router router = new Router();
-                        router.setLevel(equipment.getLevel());
-                        router.setPrice(equipment.getPrice());
-                        router.setPurchased(true);
-                        purchasedItems.add(router);
-                        break;
-                    case Server:
-                        Server server = new Server();
-                        server.setLevel(equipment.getLevel());
-                        server.setPrice(equipment.getPrice());
-                        server.setPurchased(true);
-                        purchasedItems.add(server);
-                        break;
-                }
-            }
-
-            TeamManager.instance().updateResources();
-            notifyRefreshListeners();
-
-            return true;
-        }
-        return false;
-    }
-
     public static <E> boolean containsInstance(List<E> list, Class<? extends E> clazz) {
         for (E e : list) {
             if (clazz.isInstance(e)) {
@@ -276,7 +211,67 @@ public class EquipmentManager implements Manager, ProtobufHandler {
      */
     @Override
     public void loadState() {
+        Proto.EquipmentManager.Builder proto = SaveGameManager.getEquipmentManager();
 
+        for (Proto.Equipment equipment : proto.getEquipmentList()) {
+            switch (equipment.getType()) {
+                case CoffeeMachine:
+                    CoffeeMachine coffee = new CoffeeMachine();
+                    coffee.setLevel(equipment.getLevel());
+                    coffee.setPrice(equipment.getPrice());
+                    coffee.setPurchased(true);
+                    purchasedItems.add(coffee);
+                    break;
+                case Computer:
+                    Computer comp = new Computer(equipment.getName(), null);
+                    comp.setLevel(equipment.getLevel());
+                    comp.setPrice(equipment.getPrice());
+                    comp.setPurchased(true);
+                    purchasedItems.add(comp);
+                    break;
+                case HardwareStation:
+                    HardwareStation hw = new HardwareStation();
+                    hw.setLevel(equipment.getLevel());
+                    hw.setPrice(equipment.getPrice());
+                    hw.setPurchased(true);
+                    purchasedItems.add(hw);
+                    break;
+                case Modem:
+                    Modem modem = new Modem();
+                    modem.setLevel(equipment.getLevel());
+                    modem.setPrice(equipment.getPrice());
+                    modem.setPurchased(true);
+                    purchasedItems.add(modem);
+                    break;
+                case Router:
+                    Router router = new Router();
+                    router.setLevel(equipment.getLevel());
+                    router.setPrice(equipment.getPrice());
+                    router.setPurchased(true);
+                    purchasedItems.add(router);
+                    break;
+                case Server:
+                    Server server = new Server();
+                    server.setLevel(equipment.getLevel());
+                    server.setPrice(equipment.getPrice());
+                    server.setPurchased(true);
+                    purchasedItems.add(server);
+                    break;
+            }
+        }
+
+        TeamManager.instance().updateResources();
+        notifyRefreshListeners();
+    }
+
+    public void addComputersToWorkspaces() {
+        for (Equipment equipment: purchasedItems) {
+            if (!equipment.getClass().getSimpleName().equals("Computer"))
+                continue;
+
+            int number = Integer.parseInt(equipment.getName().substring(equipment.getName().length() - 1)) - 1;
+            ((Computer)equipment).setWorkspace(GameStage.instance().getWorkspaces().get(number));
+        }
     }
 
     /**

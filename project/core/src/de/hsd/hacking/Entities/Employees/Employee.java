@@ -2,7 +2,6 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -110,68 +109,27 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      */
     public Employee() {
         super(false, true, false);
+        assets = Assets.instance();
         data = Proto.Employee.newBuilder();
+        randomVisualStyle();
         init(false);
     }
 
     public Employee(Proto.Employee.Builder data) {
         super(false, true, false);
+        assets = Assets.instance();
         this.data = data;
+        setUpAnimations();
         init(true);
     }
-
-//    /**
-//     * Creates a new random employee. This is @deprecated and replaced by {@link Employee()}.
-//     *
-//     * @param level The desired skill Level
-//     */
-//    @Deprecated
-//    public Employee(EmployeeSkillLevel level) {
-//        super(false, true, false);
-//
-//        //Create random name
-//        setName(DataLoader.getInstance().getNewName(Gender.UNDECIDED));
-//        this.skillLevel = level;
-//
-//        //Skill points to spend. NOOB = 55, INTERMEDIATE = 65, PRO = 75, WIZARD = 85
-//        //35 Points are spent by default (5 per Skill)
-//        int skillPoints = 55 + skillLevel.ordinal() * 10;
-//        skillSet = new ArrayList<Skill>(7);
-//        for (SkillType type :
-//                SkillType.values()) {
-//            skillSet.add(new Skill(type, 5));
-//            skillPoints -= 5;
-//        }
-//        salary = (300 + RandomUtils.randomInt(251)) * 100;
-////                ls.random(300, 550) * 100;
-//
-//        //RandomIntPool chooses a number randomly from a set of predefined numbers.
-//        //Used numbers can either be removed or left in the set.
-//        RandomIntPool pool = new RandomIntPool(new FromTo(0, skillSet.size() - 1));
-//
-//        while (skillPoints > 0) {
-//            int randomInt = pool.getRandomNumberWithoutRemoving();
-//            Skill incrementSkill = skillSet.get(randomInt);
-//            if (incrementSkill.getValue() < 15) {
-//                incrementSkill.incrementSkill();
-//                skillPoints--;
-//            } else { //Skill at max -> Remove skill index from possible random indexes
-//                pool.removeNumber(randomInt);
-//            }
-//        }
-//        init();
-//    }
 
     /**
      * Initializes this employee.
      */
     private void init(boolean loaded) {
-        assets = Assets.instance();
-
         data.setAnimState(Proto.Employee.AnimState.IDLE);
-        this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
+        state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
-        setUpAnimations();
 
         if (!loaded) {
             initColors();
@@ -205,6 +163,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         setUpShader();
         debugRenderer = new ShapeRenderer();
+    }
+
+    /**
+     * This is called by the {@link EmployeeFactory} when the creation process is finished.
+     */
+    void finishCreation() {
+        setUpAnimations();
     }
 
     /**
@@ -297,7 +262,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      */
     private void setUpShader() {
 
-        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)GameStage.VIEWPORT_WIDTH, (int)GameStage.VIEWPORT_HEIGHT, false);
+        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int) GameStage.VIEWPORT_WIDTH, (int) GameStage.VIEWPORT_HEIGHT, false);
         this.frameBufferTexture = fbo.getColorBufferTexture();
         this.frameBufferTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         this.frameBufferTextureRegion = new TextureRegion(frameBufferTexture);
@@ -413,7 +378,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     public void removeFromOccupyingTile() {
         if (data.getOccupiedTileNumber() > -1)
-        movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
+            movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
     }
 
     @Override
@@ -448,28 +413,61 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         this.elapsedTime = 0f;
     }
 
+    private void randomVisualStyle() {
+        data.setVisualStyle(Proto.Employee.VisualStyle.DEFAULT);
+        data.setHairStyleFemaleValue(RandomUtils.randomInt(Proto.Employee.HairStyleFemale.values().length - 1));
+        data.setHairStyleMaleValue(RandomUtils.randomInt(Proto.Employee.HairStyleMale.values().length - 1));
+    }
+
+    /**
+     * Defines all animations for this employee based on visual settings.
+     */
     private void setUpAnimations() {
         this.animations = new Animation[Proto.Employee.AnimState.values().length][2];
-        int randHair = RandomUtils.randomInt(Proto.Employee.HairStyle.values().length - 1);
-        data.setHairStyle(Proto.Employee.HairStyle.values()[randHair]);
-        Array<TextureRegion> bodyFrames = assets.getCharacterFrames(data.getHairStyle());
 
-        /* [1-2: Body Walkframes ]  */
-        animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = new Animation<TextureRegion>(.35f, assets.char_shadow.get(0), assets.char_shadow.get(1));
-        animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, bodyFrames.get(0), bodyFrames.get(1));
+        Array<TextureRegion> bodyFrames = assets.getCharBody(data.getVisualStyle(), data.getGender(), data.getHairStyleFemale(), data.getHairStyleMale());
+        Array<TextureRegion> shadowFrames = assets.getCharShadow(data.getVisualStyle());
 
-        /* [1-2: Body Idleframes ]  */
-        animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(3));
-        animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
 
-        /* [1: Body WorkingFrames  ] */
-        animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(4));
-        animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(4));
+        switch (data.getVisualStyle()) {
+            case TRUMP:
+                /* [1-2: Body Walkframes ]  */
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 0, 3);
 
-        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(6), assets.char_shadow.get(7));
-        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(6), bodyFrames.get(7));
+                /* [1-2: Body Idleframes ]  */
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 4, 15);
+
+                /* [1: Body WorkingFrames  ] */
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 16, 30);
+
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 16, 30);
+                break;
+
+            default:
+                /* [1-2: Body Walkframes ]  */
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = Assets.getFrames(.35f, shadowFrames, 0, 2);
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = Assets.getFrames(.35f, bodyFrames, 0, 2);
+
+                /* [1-2: Body Idleframes ]  */
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, shadowFrames.get(2), shadowFrames.get(2), shadowFrames.get(2), shadowFrames.get(3));
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
+
+                /* [1: Body WorkingFrames  ] */
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = Assets.getFrames(.5f, shadowFrames, 4, 4);
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = Assets.getFrames(.5f, bodyFrames, 4, 4);
+
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = Assets.getFrames(.5f, shadowFrames, 6, 7);
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = Assets.getFrames(.5f, bodyFrames, 6, 7);
+                break;
+        }
+
 
     }
+
 
     @Override
     public boolean touchDown(Vector2 position) {
@@ -694,6 +692,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     void setSalary(int salary) {
         data.setSalary(salary);
+    }
+
+    void setVisualStyle(Proto.Employee.VisualStyle visualStyle) {
+        data.setVisualStyle(visualStyle);
     }
 
     /**

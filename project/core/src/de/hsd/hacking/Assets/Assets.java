@@ -3,6 +3,7 @@ package de.hsd.hacking.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -54,6 +55,7 @@ public class Assets {
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> character_1;
     public Array<TextureRegion> character_2;
+    public Array<TextureRegion> character_trump;
     public Array<TextureRegion> char_shadow;
     public Array<TextureRegion> computer;
     public Array<TextureRegion> coffeemachine;
@@ -181,9 +183,11 @@ public class Assets {
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
         character_1 = new Array<TextureRegion>();
         character_2 = new Array<TextureRegion>();
+        character_trump = new Array<TextureRegion>();
         char_shadow = new Array<TextureRegion>();
         character_1.addAll(character_atlas.findRegions("Character01"));
         character_2.addAll(character_atlas.findRegions("Character02"));
+        character_trump.addAll(character_atlas.findRegions("Specials/Trump"));
         char_shadow.addAll(character_atlas.findRegions("Char_Shadow"));
         computer = new Array<TextureRegion>(4);
         computer.addAll(atlas.findRegions("interior/Computer_Backfaced"));
@@ -245,19 +249,67 @@ public class Assets {
 
     }
 
-    public Array<TextureRegion> getCharacterFrames(Proto.Employee.HairStyle hairStyle) {
-        switch (hairStyle) {
-            case CRAZY:
-                return character_1; //TODO
-            case NEAT:
-                return character_1;
-            case NERD:
-                return character_2;
-            case RASTA:
-                return character_2; //TODO
-        }
-        return character_1;
+    public static Animation<TextureRegion> getFrames(float duration, Array<TextureRegion> texture, int from, int to ){
+        Array<TextureRegion> animation = new Array<TextureRegion>();
 
+        for (int i = from; i <= to; i++){
+            animation.add(texture.get(i));
+        }
+
+        return new Animation<TextureRegion>(duration, animation, Animation.PlayMode.LOOP);
+    }
+
+    public Array<TextureRegion> getCharBody(Proto.Employee.VisualStyle visualStyle, Proto.Employee.Gender gender, Proto.Employee.HairStyleFemale femaleHairstyle, Proto.Employee.HairStyleMale maleHairstyle) {
+
+        switch (visualStyle) {
+            case TRUMP:
+                return character_trump;
+        }
+
+        switch (gender){
+            case MALE:
+                return getMaleBody(maleHairstyle);
+            case FEMALE:
+
+                return getFemaleBody(femaleHairstyle);
+            case UNDECIDED:
+                Gdx.app.error("", "Error: There is no face for no gender.");
+                return null;
+        }
+        return null;
+    }
+
+    public Array<TextureRegion> getMaleBody(Proto.Employee.HairStyleMale maleHairstyle){
+        switch (maleHairstyle) {
+           case M_CRAZY:
+                return character_1; //TODO
+            case M_NEAT:
+                return character_1;
+            case M_NERD:
+                return character_2;
+            case M_RASTA:
+                return character_2; //TODO
+
+            default:
+                return character_1;
+        }
+    }
+
+    public Array<TextureRegion> getFemaleBody(Proto.Employee.HairStyleFemale femaleHairstyle){
+        switch (femaleHairstyle) {
+
+            default:
+                return character_1; //TODO: Add female characters
+        }
+    }
+
+    public Array<TextureRegion> getCharShadow(Proto.Employee.VisualStyle visualStyle) {
+        switch (visualStyle) {
+            case TRUMP:
+                return char_shadow;
+            default:
+                return char_shadow;
+        }
     }
 
     public TextureRegion getRandomDesk() {
