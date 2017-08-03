@@ -48,8 +48,8 @@ public abstract class Popup extends Group {
 
         mainTable.align(Align.top);
         // We want a margin around the popup window
-        mainTable.setHeight(GameStage.VIEWPORT_HEIGHT - 2 * popupMargin);
-        mainTable.setWidth(GameStage.VIEWPORT_WIDTH - 2 * popupMargin);
+        mainTable.setHeight(Constants.VIEWPORT_HEIGHT - 2 * popupMargin);
+        mainTable.setWidth(Constants.VIEWPORT_WIDTH - 2 * popupMargin);
 
         // And we want to center the popup on the screen
         mainTable.setPosition(popupMargin, popupMargin);
@@ -78,8 +78,8 @@ public abstract class Popup extends Group {
 
         // No Background Click
         noBackgroundClick.setVisible(false);
-        noBackgroundClick.setHeight(GameStage.VIEWPORT_HEIGHT);
-        noBackgroundClick.setWidth(GameStage.VIEWPORT_WIDTH);
+        noBackgroundClick.setHeight(Constants.VIEWPORT_HEIGHT);
+        noBackgroundClick.setWidth(Constants.VIEWPORT_WIDTH);
         noBackgroundClick.setPosition(0, 0);
         noBackgroundClick.setTouchable(Touchable.enabled);
         noBackgroundClick.setBackground(assets.table_dimm_patch);

@@ -87,6 +87,8 @@ public class MissionWorker implements TimeChangedListener {
                 : employees) {
             for (MissionSkillRequirement req
                     : skillRequirements) {
+                //if requirement is already met, don't work on skill
+                if (req.getCurrentValue() >= req.getValueRequired()){continue;}
                 int value = em.getSkillValue(req.getSkillType());
                 workOnSkill(em, req, value);
             }

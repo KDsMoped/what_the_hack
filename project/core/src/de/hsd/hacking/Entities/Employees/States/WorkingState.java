@@ -34,18 +34,10 @@ public class WorkingState extends EmployeeState implements EventListener {
 
     @Override
     public EmployeeState act(float deltaTime) {
-        if (!isCanceled()){
-            if (workingOnMission){
-                if (missionFinished){
+        if (!isCanceled()) {
+            if (workingOnMission) {
+                if (missionFinished) {
                     employee.onMissionCompleted();
-
-                    return new IdleState(employee);
-                }
-                return null;
-            }else{
-                elapsedTime += deltaTime;
-                if (elapsedTime >= timeBeforeIdle){
-                    Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " DONE working.");
                     return new IdleState(employee);
                 }
                 return null;
@@ -60,7 +52,7 @@ public class WorkingState extends EmployeeState implements EventListener {
         employee.setAnimationState(Employee.AnimState.WORKING);
         Interactable workPlace = (Interactable) employee.getMovementProvider().getDiscreteTile(workingPosition).getObject();
         boolean left = workPlace.getFacingDirection() == Direction.LEFT || workPlace.getFacingDirection() == Direction.DOWN;
-        boolean backFaced = workPlace.getFacingDirection() == Direction.UP || workPlace.getFacingDirection() == Direction.LEFT;
+//        boolean backFaced = workPlace.getFacingDirection() == Direction.UP || workPlace.getFacingDirection() == Direction.LEFT;
         if (left) employee.flipHorizontal(false);
         computer.setOn(true);
 
@@ -73,7 +65,7 @@ public class WorkingState extends EmployeeState implements EventListener {
                 employee.getCurrentMission().addListener(this);
                 Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " started working on " + employee.getCurrentMission().getName());
             } else {
-                cancel(); //TODO, evtl besser anzeigen weswegen Employee nicht arbeitet?
+                cancel();
             }
         } else {
             this.timeBeforeIdle = MathUtils.random(10f, 30f);
@@ -83,18 +75,22 @@ public class WorkingState extends EmployeeState implements EventListener {
 
     @Override
     public void leave() {
-        employee.setAnimationState(Employee.AnimState.IDLE);
-        computer.setOn(false);
-        computer.deOccupy();
-        //TODO mission
-        if (employee.getCurrentMission() != null) {
-            MissionManager.instance().stopWorking(employee);
-        }
+        reset();
     }
 
     @Override
     public void cancel() {
+        reset();
         canceled = true;
+    }
+
+    private void reset() {
+        employee.setAnimationState(Employee.AnimState.IDLE);
+        computer.setOn(false);
+        computer.deOccupy();
+        if (employee.getCurrentMission() != null) {
+            MissionManager.instance().stopWorking(employee);
+        }
     }
 
     @Override

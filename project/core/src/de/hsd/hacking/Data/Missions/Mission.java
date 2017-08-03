@@ -15,15 +15,18 @@ import de.hsd.hacking.Proto;
  * @author Hendrik, Julian
  */
 public class Mission implements EventSender, DataContainer {
+    private ArrayList<EventListener> listeners;    
     Proto.Mission.Builder data;
 
     public Mission() {
         data = Proto.Mission.newBuilder();
         data.setMissionNumber(-1);
+        this.listeners = new ArrayList<EventListener>();
     }
 
     public Mission(Proto.Mission.Builder builder) {
         this.data = builder;
+        this.listeners = new ArrayList<EventListener>();
     }
 
     public Mission(MissionHolder holder) {
@@ -44,6 +47,7 @@ public class Mission implements EventSender, DataContainer {
         data.setRisk(holder.getRisk());
         data.setMinLevel(holder.getMinLevel());
         data.setMaxLevel(holder.getMaxLevel());
+        this.listeners = new ArrayList<EventListener>();
     }
 
     /**

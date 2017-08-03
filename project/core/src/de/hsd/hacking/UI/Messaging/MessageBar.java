@@ -78,7 +78,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
     private void initTable() {
         this.setPosition(0, - COMPACT_HEIGHT);
         this.setHeight(COMPACT_HEIGHT);
-        this.setWidth(GameStage.VIEWPORT_WIDTH);
+        this.setWidth(Constants.VIEWPORT_WIDTH);
         this.setTouchable(Touchable.enabled);
         this.addListener(new ClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
         compactType = new Image();
 
         compactView.add(compactType).left().width(15);
-        compactView.add(compactText).expand().fill().width(GameStage.VIEWPORT_WIDTH - 40).pad(4);
+        compactView.add(compactText).expand().fill().width(Constants.VIEWPORT_WIDTH - 40).pad(4);
         compactView.add(compactArrow).right();
     }
 

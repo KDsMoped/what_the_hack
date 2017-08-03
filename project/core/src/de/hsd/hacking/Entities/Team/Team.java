@@ -200,9 +200,8 @@ public class Team {
         return selectedEmployee;
     }
 
-    public void setSelectedEmployee(Employee selectedEmployee) {
-        deselectEmployee();
-        this.selectedEmployee = selectedEmployee;
+    public void setSelectedEmployee(final Employee selectedEmployee1) {
+        this.selectedEmployee = selectedEmployee1;
     }
 
     public boolean isEmployeeSelected() {
@@ -210,11 +209,13 @@ public class Team {
     }
 
     public void deselectEmployee() {
-        if (selectedEmployee != null) {
-            Employee deselectedEmployee = selectedEmployee;
-            selectedEmployee = null;
-            deselectedEmployee.setSelected(false);
+        if (this.selectedEmployee != null) {
+            Employee previouslySelectedEmployee = this.selectedEmployee;
+            this.selectedEmployee = null;
+            previouslySelectedEmployee.deselect();
+
         }
+
     }
 
     /**
