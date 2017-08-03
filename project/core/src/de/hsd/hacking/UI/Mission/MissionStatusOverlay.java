@@ -16,7 +16,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.MissionSkillRequirement;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.UI.General.LoadingBar;
 import de.hsd.hacking.Utils.Constants;
 
@@ -93,14 +93,14 @@ public class MissionStatusOverlay extends Group implements TimeChangedListener {
 
     @Override
     public void act(float delta) {
-        if (!Team.instance().isEmployeeSelected() || Team.instance().getSelectedEmployee().getCurrentMission() == null) return;
+        if (!TeamManager.instance().isEmployeeSelected() || TeamManager.instance().getSelectedEmployee().getCurrentMission() == null) return;
         super.act(delta);
     }
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (!Team.instance().isEmployeeSelected() || Team.instance().getSelectedEmployee().getCurrentMission() == null) return;
+        if (!TeamManager.instance().isEmployeeSelected() || TeamManager.instance().getSelectedEmployee().getCurrentMission() == null) return;
 
         super.draw(batch, parentAlpha);
     }
@@ -116,7 +116,7 @@ public class MissionStatusOverlay extends Group implements TimeChangedListener {
 
     @Override
     public void timeStepChanged(int step) {
-        if (!Team.instance().isEmployeeSelected() || Team.instance().getSelectedEmployee().getCurrentMission() == null) return;
+        if (!TeamManager.instance().isEmployeeSelected() || TeamManager.instance().getSelectedEmployee().getCurrentMission() == null) return;
         refreshTable();
     }
 

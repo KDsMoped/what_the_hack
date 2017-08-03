@@ -1,7 +1,6 @@
 package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -50,7 +49,7 @@ public class Computer extends Equipment implements Upgradable {
     //Upgrade functions
     public void upgrade() {
         data.setLevel(data.getLevel() + 1);
-        team.updateResources();
+        teamManager.updateResources();
     }
 
     public int getMaxLevel() { return 5; }
@@ -162,10 +161,10 @@ public class Computer extends Equipment implements Upgradable {
     @Override
     public void onTouch() {
         tintFrames += 10;
-        if (team.isEmployeeSelected()) {
-            team.getSelectedEmployee().getState().cancel();
-            team.getSelectedEmployee().setState(interact(team.getSelectedEmployee()));
-            team.deselectEmployee();
+        if (teamManager.isEmployeeSelected()) {
+            teamManager.getSelectedEmployee().getState().cancel();
+            teamManager.getSelectedEmployee().setState(interact(teamManager.getSelectedEmployee()));
+            teamManager.deselectEmployee();
         }
 
 

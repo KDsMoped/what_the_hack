@@ -32,7 +32,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Entity;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Proto;
@@ -158,9 +158,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      * Initializes this employee.
      */
     private void init(boolean loaded) {
-        this.stage = GameStage.instance();
-        this.assets = Assets.instance();
-        movementProvider = stage.getTileMap();
+        assets = Assets.instance();
 
         data.setAnimState(Proto.Employee.AnimState.IDLE);
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
@@ -169,14 +167,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         if (!loaded) {
             initColors();
-        }
-        else {
+        } else {
             skillSet = new ArrayList<Skill>();
-            for (Proto.Skill.Builder builder: data.getSkillSetBuilderList()) {
+            for (Proto.Skill.Builder builder : data.getSkillSetBuilderList()) {
                 skillSet.add(new Skill(builder));
             }
 
-            for (Proto.EmployeeSpecial proto: data.getEmployeeSpecialsList()) {
+            for (Proto.EmployeeSpecial proto : data.getEmployeeSpecialsList()) {
                 try {
                     Class<?> spec = Class.forName(proto.getSpecial());
                     Constructor<?> constructor;
@@ -185,15 +182,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
                     if (proto.getSpecial().equals("de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky")) {
                         constructor = spec.getConstructor(Employee.class, int.class);
                         instance = constructor.newInstance(this, proto.getLevel());
-                    }
-                    else {
+                    } else {
                         constructor = spec.getConstructor(Employee.class);
                         instance = constructor.newInstance(this);
                     }
 
-                    addEmployeeSpecial((EmployeeSpecial)instance);
-                }
-                catch (Exception e) {
+                    addEmployeeSpecial((EmployeeSpecial) instance);
+                } catch (Exception e) {
                     Gdx.app.error(Constants.TAG, e.toString());
                     Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
                 }
@@ -205,12 +200,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     /**
-     * This is called as soon as the employee joins the team.
+     * This is called as soon as the employee is hired.
      */
     public void onEmploy() {
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
 
-        setStartingTile(movementProvider.getStartTile(this));
+        data.setIsEmployed(true);
+        data.setCurrentTileNumber(-1);
+
+        if (GameStage.instance() != null) initEmployeePosition();
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onEmploy();
@@ -220,31 +218,42 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     /**
      * This is called when this employee is deserialized.
      */
-    public void onLoad(){
+    public void onLoad() {
 
-        if(!data.getIsEmployed()) return;
+        if (!data.getIsEmployed()) return;
 
-        setStartingTile(movementProvider.getTile(data.getOccupiedTileNumber()));
+
     }
 
     /**
      * Sets the starting position of this employee.
+     *
      * @param startTile
      */
-    private void setStartingTile(Tile startTile){
+    private void setStartingTile(Tile startTile) {
         Vector2 startPos = startTile.getPosition().cpy();
 //        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
         startTile.setOccupyingEmployee(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
-        data.setIsEmployed(true);
     }
 
     /**
-     * This is called as soon as the employee leaves the team.
+     *
      */
-    public void onDismiss() {
+    public void initEmployeePosition() {
+        movementProvider = GameStage.instance().getTileMap();
+        int tileNr = data.getCurrentTileNumber();
+
+        if (tileNr == -1) setStartingTile(GameStage.instance().getTileMap().getStartTile(this));
+        else setStartingTile(GameStage.instance().getTileMap().getTile(tileNr));
+    }
+
+    /**
+     * This is called as soon as the employee leaves the teamManager.
+     */
+    void onDismiss() {
         state.cancel();
         data.setIsEmployed(false);
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
@@ -255,7 +264,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     /**
      * This is called as soon as the employee levels up.
      */
-    public void onLevelUp() {
+    void onLevelUp() {
         EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.LEVELUP, this);
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
@@ -295,7 +304,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     /**
-     * Flipps the employee sprite according to view direction.
+     * Flips the employee sprite according to view direction.
+     *
      * @param toRight
      */
     public void flipHorizontal(boolean toRight) {
@@ -325,6 +335,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Draws this employee at a desired position on the screen. Used to draw employee icons in UI.
+     *
      * @param batch
      * @param pos
      */
@@ -382,10 +393,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     public void removeFromDrawingTile() {
-        movementProvider.getTile(data.getCurrentTileNumber()).removeEmployeeToDraw(this);
+        if (data.getCurrentTileNumber() > -1)
+            movementProvider.getTile(data.getCurrentTileNumber()).removeEmployeeToDraw(this);
     }
 
     public void removeFromOccupyingTile() {
+        if (data.getOccupiedTileNumber() > -1)
         movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
     }
 
@@ -409,6 +422,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Returns this employees full name.
+     *
      * @return
      */
     @Override
@@ -496,11 +510,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     private void select() {
-        if (Team.instance().isEmployeeSelected()) {
-            Team.instance().deselectEmployee();
+        if (TeamManager.instance().isEmployeeSelected()) {
+            TeamManager.instance().deselectEmployee();
         }
         this.selected = true;
-        Team.instance().setSelectedEmployee(this);
+        TeamManager.instance().setSelectedEmployee(this);
         MissionWorker missionWorker = MissionManager.instance().getMissionWorker(this);
         if (missionWorker != null) {
             GameStage.instance().showMissionStatusOverlay(missionWorker, this);
@@ -509,7 +523,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     public void deselect() {
         this.selected = false;
-        Team.instance().deselectEmployee();
+        TeamManager.instance().deselectEmployee();
         GameStage.instance().hideMissionStatusOverlay();
     }
 
@@ -526,8 +540,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     public boolean isSelected() {
         return selected;
     }
-
-    //GETTER & SETTER
 
     public void setPosition(Vector2 position) {
         super.setPosition(position);
@@ -562,11 +574,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     public GameStage getStage() {
         return stage;
     }
-
-//
-//    public void setStage(GameStage stage) {
-//        this.stage = stage;
-//    }
 
     public Collection<Skill> getSkillset() {
         return Collections.unmodifiableCollection(skillSet);
@@ -607,7 +614,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
             specialRelativeBonus *= s.getSkillRelativeFactor(skill.getType());
         }
 
-        specialAbsoluteBonus += Team.instance().resources.getSkillBonus(skill);
+        specialAbsoluteBonus += TeamManager.instance().resources.getSkillBonus(skill);
 
         return (int) ((skill.getValue() + specialAbsoluteBonus) * specialRelativeBonus);
     }
@@ -630,6 +637,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Makes this employee enter the given state.
+     *
      * @param state
      */
     public void setState(EmployeeState state) {
@@ -692,6 +700,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Returns the salary of this employee in readable string format.
+     *
      * @return
      */
     public String getSalaryText() {
@@ -713,7 +722,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
             specialRelativeBonus *= s.getHiringCostRelativeFactor();
         }
 
-        return (int) (data.getSalary() * 1.5f * GameTime.instance.getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
+        return (int) (data.getSalary() * 1.5f * GameTime.instance().getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
     public String getHiringCostText() {
@@ -730,7 +739,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         if (!special.isApplicable()) return 0; //this special cannot be learned by this employee
 
-        if (data.getIsEmployed() && !special.isLearnable()) return 0; //this special cannot be added to an employed employee
+        if (data.getIsEmployed() && !special.isLearnable())
+            return 0; //this special cannot be added to an employed employee
 
         for (EmployeeSpecial s : employeeSpecials) {
             if (s.getClass() == special.getClass()) return 0; //employee already has this special
@@ -866,16 +876,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     public Proto.Employee getData() {
         data.clearSkillSet();
 
-        for (Skill skill: skillSet) {
+        for (Skill skill : skillSet) {
             data.addSkillSet(skill.getData());
         }
 
-        for (EmployeeSpecial specialus: employeeSpecials) {
+        for (EmployeeSpecial specialus : employeeSpecials) {
             Proto.EmployeeSpecial.Builder builder = Proto.EmployeeSpecial.newBuilder();
             builder.setSpecial(specialus.getClass().getName());
 
             if (specialus.getClass() == Risky.class)
-                builder.setLevel(((Risky)specialus).getLevel());
+                builder.setLevel(((Risky) specialus).getLevel());
 
             data.addEmployeeSpecials(builder.build());
         }

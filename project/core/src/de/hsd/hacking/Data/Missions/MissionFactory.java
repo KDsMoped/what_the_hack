@@ -2,12 +2,8 @@ package de.hsd.hacking.Data.Missions;
 
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.DataLoader;
-import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 

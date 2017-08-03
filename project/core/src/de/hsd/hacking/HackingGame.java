@@ -13,6 +13,7 @@ public class HackingGame extends Game {
 	public void create () {
 		assets = new Assets();
 		assets.load();
+		GameManager.instance();
 
 		ScreenManager.initialize(this);
 		ScreenManager.setMenuScreen();
