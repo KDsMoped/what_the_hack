@@ -240,6 +240,8 @@ public class GameStage extends Stage implements EventListener{
         overlay.addActor(messageBar = new MessageBar());
         GameTime.instance().addTimeChangedListener(statusBar);
 
+
+
     }
 
 

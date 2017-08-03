@@ -28,7 +28,9 @@ public class GameManager {
     private GameManager() {
     }
 
-
+    /**
+     * Exits the game and dostroys all managers.
+     */
     public void exitGame(){
         SaveGameManager.SaveGame();
         ScreenManager.setMenuScreen();
@@ -43,6 +45,9 @@ public class GameManager {
         GameTime.instance().cleanUp();
     }
 
+    /**
+     * Starts a new game and initializes all manager classes.
+     */
     public void newGame(){
         createManagerInstances();
         loadManagerDefaultData();
@@ -50,6 +55,9 @@ public class GameManager {
         ScreenManager.setGameScreen(false);
     }
 
+    /**
+     * Loads a previous game progress and continues it.
+     */
     public void loadGame(){
         SaveGameManager.LoadGame();
         createManagerInstances();
@@ -58,6 +66,9 @@ public class GameManager {
         ScreenManager.setGameScreen(true);
     }
 
+    /**
+     * Instantiates all manager classes.
+     */
     private void createManagerInstances(){
         //first create all manager instances
         MissionManager.createInstance();
@@ -66,7 +77,6 @@ public class GameManager {
         EmployeeManager.createInstance();
         TeamManager.createInstance();
         GameTime.createInstance();
-
 
         //second initialize references between managers
         MissionManager.instance().initReferences();
@@ -77,6 +87,9 @@ public class GameManager {
         GameTime.instance().initReferences();
     }
 
+    /**
+     * Loads default states (for new game) of all manager classes.
+     */
     private void loadManagerDefaultData(){
         MissionManager.instance().loadDefaultState();
         MessageManager.instance().loadDefaultState();
@@ -86,6 +99,9 @@ public class GameManager {
         GameTime.instance().loadDefaultState();
     }
 
+    /**
+     * Reloads data from previous game run.
+     */
     private void loadManagerProtoData(){
         MessageManager.instance().loadState();
         EquipmentManager.instance().loadState();
