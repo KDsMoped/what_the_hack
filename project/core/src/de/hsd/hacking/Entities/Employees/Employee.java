@@ -458,6 +458,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         this.elapsedTime = 0f;
     }
 
+    /**
+     * Randomizes Hairstyles.
+     */
     private void randomVisualStyle() {
         data.setVisualStyle(Proto.Employee.VisualStyle.DEFAULT);
         data.setHairStyleFemaleValue(RandomUtils.randomInt(Proto.Employee.HairStyleFemale.values().length - 1));
@@ -509,10 +512,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
                 animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = Assets.getFrames(.5f, bodyFrames, 6, 7);
                 break;
         }
-
-
     }
-
 
     @Override
     public boolean touchDown(Vector2 position) {
