@@ -31,7 +31,8 @@ public class TileMap extends Group implements TileMovementProvider {
 
     public TileMap(GameStage stage){
         this.stage = stage;
-        IsometricTileManager manager = new IsometricTileManager(new Vector2(Constants.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, Constants.VIEWPORT_HEIGHT - 105f));
+        Gdx.app.log("HackingGame" ,"Tile Startheight: " + (Constants.VIEWPORT_HEIGHT - 105f));
+        IsometricTileManager manager = new IsometricTileManager(new Vector2(Constants.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, 183f));
         tiles = manager.generateTiles(Constants.TILE_WIDTH, Constants.TILES_PER_SIDE);
         this.pathFinder = new TilePathFinder(this);
     }

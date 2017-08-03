@@ -2,9 +2,13 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -53,8 +57,8 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CR
 public class Employee extends Entity implements Comparable<Employee>, Touchable, DataContainer {
     private Proto.Employee.Builder data;
 
-    private final int BODY = 0;
-    private final int HAIR = 1;
+    private final int SHADOW = 0;
+    private final int BODY = 1;
 
     private ShapeRenderer debugRenderer;
 
@@ -75,8 +79,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     //Graphics
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
+    private FrameBuffer fbo;
+    private Texture frameBufferTexture;
+    private TextureRegion frameBufferTextureRegion;
 
-    private ShaderProgram shader;
+    public enum AnimState {
+        IDLE, WORKING, WORKING_BACKFACED, MOVING
+    }
+
+    private ShaderProgram colorShader;
+    private ShaderProgram outlineShader;
 
     //Data
     private ArrayList<Skill> skillSet;
@@ -285,21 +297,27 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     /**
-     * Initializes the shader for this employee.
+     * Initializes the colorShader for this employee.
      */
     private void setUpShader() {
-        String vertexShader = Shader.VERTEX_SHADER;
-        String fragmentShader = Shader.getEmployeeFragmentShader(
+
+        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)GameStage.VIEWPORT_WIDTH, (int)GameStage.VIEWPORT_HEIGHT, false);
+        this.frameBufferTexture = fbo.getColorBufferTexture();
+        this.frameBufferTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        this.frameBufferTextureRegion = new TextureRegion(frameBufferTexture);
+        frameBufferTextureRegion.flip(false, true);
+
+        this.colorShader = new ShaderProgram(Shader.VERTEX_SHADER, Shader.getEmployeeFragmentShader(
                 Color.valueOf(data.getHairColor()),
                 Color.valueOf(data.getSkinColor()),
                 Color.valueOf(data.getShirtColor()),
                 Color.valueOf(data.getTrouserColor()),
                 Color.valueOf(data.getEyeColor()),
-                Color.valueOf(data.getShoeColor()));
-        this.shader = new ShaderProgram(vertexShader, fragmentShader);
+                Color.valueOf(data.getShoeColor()))
+        );
 
-        if (!shader.isCompiled()) {
-            throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
+        if (!colorShader.isCompiled()) {
+            throw new GdxRuntimeException("Couldn't compile colorShader: " + colorShader.getLog());
         }
     }
 
@@ -345,27 +363,26 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     private void drawAt(Batch batch, float parentAlpha, Vector2 pos, boolean _flipped, boolean icon, Proto.Employee.AnimState _animationState) {
 
+        Vector2 pixelPosition = clampToPixels(pos);
+        TextureRegion frame = animations[_animationState.ordinal()][SHADOW].getKeyFrame(elapsedTime, true);
+        batch.draw(frame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
         batch.end();
-        shader.begin();
+        colorShader.begin();
 
         if (selected && !icon) {
-            shader.setUniformi("sel", 1);
-            shader.setUniformf("u_viewportInverse", new Vector2(1f / Constants.VIEWPORT_WIDTH, 1f / Constants.VIEWPORT_HEIGHT));
+            colorShader.setUniformi("sel", 1);
+            colorShader.setUniformf("u_viewportInverse", new Vector2(1f / Constants.VIEWPORT_WIDTH, 1f / Constants.VIEWPORT_HEIGHT));
         } else {
-            shader.setUniformi("sel", 0);
+            colorShader.setUniformi("sel", 0);
         }
-        shader.end();
-        batch.setShader(shader);
+        colorShader.end();
+
         batch.begin();
-        Vector2 pixelPosition = clampToPixels(pos);
-        for (int i = 0; i < 2; i++) {
-            TextureRegion frame = animations[_animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
-            batch.draw(frame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
-        }
+        batch.setShader(colorShader);
+        TextureRegion charFrame = animations[_animationState.ordinal()][BODY].getKeyFrame(elapsedTime, true);
+        batch.draw(charFrame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+
         batch.setShader(null);
-        if (selected && !icon) {
-//            batch.setColor(Color.WHITE);
-        }
 
         for (EmployeeSpecial special : employeeSpecials) {
             special.draw(batch, parentAlpha);
@@ -438,20 +455,22 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         this.animations = new Animation[Proto.Employee.AnimState.values().length][2];
         int randHair = RandomUtils.randomInt(Proto.Employee.HairStyle.values().length - 1);
         data.setHairStyle(Proto.Employee.HairStyle.values()[randHair]);
-        Array<TextureRegion> hairframes = assets.getHairFrames(data.getHairStyle());
+        Array<TextureRegion> bodyFrames = assets.getCharacterFrames(data.getHairStyle());
 
-        /* [1-3: Body Walkframes ]  */
-        animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
-        animations[Proto.Employee.AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.35f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
+        /* [1-2: Body Walkframes ]  */
+        animations[AnimState.MOVING.ordinal()][SHADOW] = new Animation<TextureRegion>(.35f, assets.char_shadow.get(0), assets.char_shadow.get(1));
+        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, bodyFrames.get(0), bodyFrames.get(1));
+
         /* [1-2: Body Idleframes ]  */
-        animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(3));
-        animations[Proto.Employee.AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.7f, hairframes.get(2), hairframes.get(2), hairframes.get(2), hairframes.get(3));
-        /* [1: Body WorkingFrames  ] */
-        animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(4));
-        animations[Proto.Employee.AnimState.WORKING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(4));
+        animations[AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(3));
+        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
 
-        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(6), assets.gray_character_body.get(7));
-        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(6), hairframes.get(7));
+        /* [1: Body WorkingFrames  ] */
+        animations[AnimState.WORKING.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(4));
+        animations[AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(4));
+
+        animations[AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(6), assets.char_shadow.get(7));
+        animations[AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(6), bodyFrames.get(7));
 
     }
 
