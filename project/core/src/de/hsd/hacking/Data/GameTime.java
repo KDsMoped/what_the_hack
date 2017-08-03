@@ -15,7 +15,7 @@ import de.hsd.hacking.Utils.Constants;
  * This class manages the game time.
  * @author Florian Julian
  */
-public class GameTime extends Actor {
+public class GameTime extends Actor implements DataContainer {
     // all persistent data is in here
     Global.Builder data;
     public static GameTime instance;
@@ -125,7 +125,7 @@ public class GameTime extends Actor {
         return timeChangedListeners.remove(timeChangedListener);
     }
 
-    public Global.Builder getData() {
-        return data;
+    public Global getData() {
+        return data.build();
     }
 }

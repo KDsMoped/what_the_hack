@@ -32,17 +32,17 @@ public class CodeMonkey extends EmployeeSpecial {
 
     @Override
     public boolean isApplicable() {
-        return employee.hasSkill(Proto.Skill.SkillType.Software);
+        return employee.hasSkill(Proto.SkillType.Software);
     }
 
     @Override
     public float getSkillRelativeFactor(SkillType type) {
 
-        if(type.skillType == Proto.Skill.SkillType.Software){
+        if(type.skillType == Proto.SkillType.Software){
             return 1.4f;
         }
 
-        if(type.skillType == Proto.Skill.SkillType.Social){
+        if(type.skillType == Proto.SkillType.Social){
             return 0.6f;
         }
 

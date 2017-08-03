@@ -7,31 +7,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.*;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**
  * Class that handles employees working on a particular mission
- * @author Florian
+ * @author Florian, Julian
  */
 
 public class MissionWorker implements TimeChangedListener {
 
+    private Proto.MissionWorker.Builder data;
+    private static final boolean DEBUG = false;
     private static final int DICE_SIDES = 40;
     private Mission mission;
-    private int remainingMissionDays;
     private List<MissionSkillRequirement> skillRequirements;
     private List<Employee> employees;
 
     public MissionWorker(final Mission mission1) {
         this.mission = mission1;
-        this.remainingMissionDays = mission.getDuration();
+
+        data = Proto.MissionWorker.newBuilder();
+
+        data.setRemainingDays(mission.getDuration());
         skillRequirements = new ArrayList<MissionSkillRequirement>(4);
         employees = new ArrayList<Employee>(4);
         for (Skill skill
                 : mission.getSkill()) {
             skillRequirements.add(new MissionSkillRequirement(skill.getType(), skill.getValue() * MathUtils.clamp(mission.getDuration() / 2f, 1f, 99f), 0f));
+        }
+    }
+
+    public MissionWorker(Proto.MissionWorker.Builder builder) {
+        data = builder;
+        skillRequirements = new ArrayList<MissionSkillRequirement>(4);
+        employees = new ArrayList<Employee>(4);
+
+        mission = MissionManager.instance().getActiveMission(data.getMission());
+
+        for (int id: data.getEmployeesList()) {
+            Employee employee = EmployeeManager.instance().getHiredEmployee(id);
+            employee.setCurrentMission(mission);
+            MissionManager.instance().startWorking(employee);
+        }
+
+        for (Proto.MissionSkillRequirement proto: data.getSkillsList()) {
+            skillRequirements.add(new MissionSkillRequirement(proto.toBuilder()));
         }
     }
 
@@ -41,7 +65,8 @@ public class MissionWorker implements TimeChangedListener {
 
     public void addEmployee(final Employee employee) {
         if (employees.contains(employee)) {
-            Gdx.app.error(Constants.TAG, "Employee added to Missionworker that was already part of missionworker");
+            if (DEBUG)
+                Gdx.app.error(Constants.TAG, "Employee added to Missionworker that was already part of missionworker");
         }
         employees.add(employee);
     }
@@ -62,13 +87,16 @@ public class MissionWorker implements TimeChangedListener {
                 : employees) {
             for (MissionSkillRequirement req
                     : skillRequirements) {
+                //if requirement is already met, don't work on skill
+                if (req.getCurrentValue() >= req.getValueRequired()){continue;}
                 int value = em.getSkillValue(req.getSkillType());
                 workOnSkill(em, req, value);
             }
         }
         if (alreadyDone()) {
             mission.setFinished(true);
-            Gdx.app.log(Constants.TAG, "Mission already over!");
+            if (DEBUG)
+                Gdx.app.log(Constants.TAG, "Mission already over!");
             mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
             mission.setCompleted(true);
         }
@@ -113,14 +141,20 @@ public class MissionWorker implements TimeChangedListener {
     @Override
     public void dayChanged(final int days) {
         if (!mission.isFinished()) {
-            Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() +  " Remaining mission days: " + remainingMissionDays);
+            if (DEBUG)
+                Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() +  " Remaining mission days: " + data.getRemainingDays());
             for (MissionSkillRequirement req
                     : skillRequirements) {
-                Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
+                if (DEBUG)
+                    Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
             }
-            if (--remainingMissionDays == 0) {
+
+            data.setRemainingDays(data.getRemainingDays() - 1);
+
+            if (data.getRemainingDays() == 0) {
                 mission.setFinished(true);
-                Gdx.app.log(Constants.TAG, "Mission over!");
+                if (DEBUG)
+                    Gdx.app.log(Constants.TAG, "Mission over!");
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
                 for (MissionSkillRequirement skillReq
                         : skillRequirements) {
@@ -163,14 +197,31 @@ public class MissionWorker implements TimeChangedListener {
     }
 
     public int getRemainingMissionDays() {
-        return remainingMissionDays;
+        return data.getRemainingDays();
     }
 
     public int getPassedMissionDays() {
-        return mission.getDuration() - remainingMissionDays;
+        return mission.getDuration() - data.getRemainingDays();
     }
 
     public int getMissionDays() {
         return mission.getDuration();
+    }
+
+    public Proto.MissionWorker getData() {
+        data.clearSkills();
+        data.clearEmployees();
+
+        data.setMission(MissionManager.instance().getActiveMissionId(mission));
+
+        for (MissionSkillRequirement requirement: skillRequirements) {
+            data.addSkills(requirement.getData());
+        }
+
+        for (Employee employee: employees) {
+            data.addEmployees(EmployeeManager.instance().getHiredEmployeeId(employee));
+        }
+
+        return data.build();
     }
 }

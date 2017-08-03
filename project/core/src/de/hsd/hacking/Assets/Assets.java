@@ -246,7 +246,7 @@ public class Assets {
         return desk_2;
     }
 
-    public TextureRegionDrawable getSkillIcon(Proto.Skill.SkillType skillType) {
+    public TextureRegionDrawable getSkillIcon(Proto.SkillType skillType) {
         switch (skillType) {
             case Social:
                 return  skill_icon_social;

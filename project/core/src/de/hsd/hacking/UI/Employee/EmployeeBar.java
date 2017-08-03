@@ -37,8 +37,8 @@ public class EmployeeBar extends Group {
 
     private void InitUI() {
         int width = 200;
-        int originX = (int) GameStage.VIEWPORT_WIDTH - width - 10;
-        int originY = (int) GameStage.VIEWPORT_HEIGHT - 90;
+        int originX = (int) Constants.VIEWPORT_WIDTH - width - 10;
+        int originY = (int) Constants.VIEWPORT_HEIGHT - 90;
 
         Table table = new Table();
         table.setBackground(Assets.instance().win32_patch);

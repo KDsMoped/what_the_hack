@@ -105,7 +105,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         // we want to center the top bar, to calculate the x position can
         // window_width / 2 - topbar_width / 2
         // so we have to set position as last because we need the width of the top bar
-        items.setPosition((GameStage.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), GameStage.VIEWPORT_HEIGHT - items.getHeight() + 0);
+        items.setPosition((Constants.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), Constants.VIEWPORT_HEIGHT - items.getHeight() + 0);
 
         this.setDate(GameTime.instance.getCurrentDay());
         this.setTime(GameTime.instance.getCurrentStep());

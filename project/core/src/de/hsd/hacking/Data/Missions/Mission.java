@@ -3,6 +3,7 @@ package de.hsd.hacking.Data.Missions;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Data.DataContainer;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Entities.Employees.Skill;
@@ -13,16 +14,19 @@ import de.hsd.hacking.Proto;
  *
  * @author Hendrik, Julian
  */
-public class Mission implements EventSender {
+public class Mission implements EventSender, DataContainer {
+    private ArrayList<EventListener> listeners;    
     Proto.Mission.Builder data;
 
     public Mission() {
         data = Proto.Mission.newBuilder();
         data.setMissionNumber(-1);
+        this.listeners = new ArrayList<EventListener>();
     }
 
     public Mission(Proto.Mission.Builder builder) {
         this.data = builder;
+        this.listeners = new ArrayList<EventListener>();
     }
 
     public Mission(MissionHolder holder) {
@@ -43,6 +47,7 @@ public class Mission implements EventSender {
         data.setRisk(holder.getRisk());
         data.setMinLevel(holder.getMinLevel());
         data.setMaxLevel(holder.getMaxLevel());
+        this.listeners = new ArrayList<EventListener>();
     }
 
     /**

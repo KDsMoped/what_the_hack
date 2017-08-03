@@ -6,6 +6,10 @@ import de.hsd.hacking.Data.PathFinder;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Pathfinder for Tilemaps based on A* - Algorithm.
+ * @author Florian
+ */
 public class TilePathFinder implements PathFinder {
 
     private de.hsd.hacking.Data.Tile.TileMap tileMap;

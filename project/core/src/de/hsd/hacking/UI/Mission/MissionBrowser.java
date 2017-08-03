@@ -102,6 +102,7 @@ public class MissionBrowser extends Popup {
     private void refreshList() {
         openMissionContainer.clearChildren();
         activeMissionsContainer.clearChildren();
+        completedMissionsContainer.clearChildren();
 
         for (final Mission mission : MissionManager.instance().getOpenMissions()) {
             openMissionContainer.add(new MissionUIElement(mission, true, false, "Accept", new ChangeListener() {

@@ -102,6 +102,7 @@ public class EmployeeFactory {
 
         int progress = Math.max(0, gameProgress + RandomUtils.var(PROGRESS_VARIANCE));
 
+//        if (progress > 5 && RandomUtils.randomFloat() > 0.9f );
 
         Employee freshman = new Employee();
 //        final float score = calcScore(progress);
@@ -131,7 +132,7 @@ public class EmployeeFactory {
     private static void learnBasicSkillSet(Employee employee){
 
         ArrayList<Skill> skillSet = new ArrayList<Skill>();
-        skillSet.add(new Skill(Proto.Skill.SkillType.All_Purpose, 1));
+        skillSet.add(new Skill(Proto.SkillType.All_Purpose, 1));
         employee.setSkillSet(skillSet);
 
         //sending freshman to university
@@ -212,7 +213,7 @@ public class EmployeeFactory {
 
         if (skillSet.size() >= MAX_SKILL_NUMBER) return 0;
 
-        Proto.Skill.SkillType skillType;
+        Proto.SkillType skillType;
 
         do {
             skillType = SkillType.getRandomSkill(true);
@@ -230,7 +231,7 @@ public class EmployeeFactory {
      * @param type
      * @return
      */
-    private static boolean isUniqueSkill(Collection<Skill> skillSet, Proto.Skill.SkillType type) {
+    private static boolean isUniqueSkill(Collection<Skill> skillSet, Proto.SkillType type) {
         for (Skill skill : skillSet) {
             if (skill.getType().skillType == type) return false;
         }
@@ -246,7 +247,7 @@ public class EmployeeFactory {
     private static float incrementAllpurpose(Collection<Skill> skillSet) {
 
         for (Skill skill :skillSet) {
-            if (skill.getType().skillType  != Proto.Skill.SkillType.All_Purpose) continue;
+            if (skill.getType().skillType  != Proto.SkillType.All_Purpose) continue;
 
             skill.incrementSkill();
             return COST_INCREMENT_ALLPURPOSE;
@@ -269,7 +270,7 @@ public class EmployeeFactory {
         Skill skill;
         do {
             skill = skillSet.toArray(new Skill[skillSet.size()])[RandomUtils.randomIntWithin(0, skillSet.size() - 1)];
-        }while (skill.getType().skillType == Proto.Skill.SkillType.All_Purpose);
+        }while (skill.getType().skillType == Proto.SkillType.All_Purpose);
 
         skill.incrementSkill();
 

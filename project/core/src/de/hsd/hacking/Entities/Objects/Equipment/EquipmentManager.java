@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
@@ -19,7 +20,7 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
 
 
-public class EquipmentManager {
+public class EquipmentManager implements ProtobufHandler {
 
     private ArrayList<Equipment> shopItems = new ArrayList<Equipment>();
     private ArrayList<Equipment> purchasedItems = new ArrayList<Equipment>();

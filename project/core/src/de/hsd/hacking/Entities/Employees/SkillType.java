@@ -4,16 +4,16 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
 public class SkillType {
-    public Proto.Skill.SkillType skillType;
+    public Proto.SkillType skillType;
 
-    private static final Proto.Skill.SkillType[] VALUES = Proto.Skill.SkillType.values();
+    private static final Proto.SkillType[] VALUES = Proto.SkillType.values();
     public static final int SIZE = VALUES.length;
 
-    public SkillType(Proto.Skill.SkillType skillType) {
+    public SkillType(Proto.SkillType skillType) {
         this.skillType = skillType;
     }
 
-    public static Proto.Skill.SkillType getRandomSkill(Boolean allPurpose) {
+    public static Proto.SkillType getRandomSkill(Boolean allPurpose) {
         if (allPurpose) {
             return VALUES[RandomUtils.randomInt(SIZE - 1)];
         }

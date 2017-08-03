@@ -347,8 +347,9 @@ public class GameStage extends Stage implements EventListener{
                 }
 
                 //If no touchable object is clicked, deselect the current employee
-
-                Team.instance().deselectEmployee();
+                if (Team.instance().isEmployeeSelected()) {
+                    Team.instance().getSelectedEmployee().setSelected(false);
+                }
 
                 if (employeeBar.isEmployeeProfileOpen()) {
                     employeeBar.closeEmployeeProfile();
