@@ -83,10 +83,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     private Texture frameBufferTexture;
     private TextureRegion frameBufferTextureRegion;
 
-    public enum AnimState {
-        IDLE, WORKING, WORKING_BACKFACED, MOVING
-    }
-
     private ShaderProgram colorShader;
     private ShaderProgram outlineShader;
 
@@ -458,19 +454,19 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         Array<TextureRegion> bodyFrames = assets.getCharacterFrames(data.getHairStyle());
 
         /* [1-2: Body Walkframes ]  */
-        animations[AnimState.MOVING.ordinal()][SHADOW] = new Animation<TextureRegion>(.35f, assets.char_shadow.get(0), assets.char_shadow.get(1));
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, bodyFrames.get(0), bodyFrames.get(1));
+        animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = new Animation<TextureRegion>(.35f, assets.char_shadow.get(0), assets.char_shadow.get(1));
+        animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, bodyFrames.get(0), bodyFrames.get(1));
 
         /* [1-2: Body Idleframes ]  */
-        animations[AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(3));
-        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
+        animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(3));
+        animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
 
         /* [1: Body WorkingFrames  ] */
-        animations[AnimState.WORKING.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(4));
-        animations[AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(4));
+        animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(4));
+        animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(4));
 
-        animations[AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(6), assets.char_shadow.get(7));
-        animations[AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(6), bodyFrames.get(7));
+        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(6), assets.char_shadow.get(7));
+        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(6), bodyFrames.get(7));
 
     }
 
@@ -910,8 +906,5 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         }
 
         return data.build();
-    }
-
-    public class AnimState {
     }
 }

@@ -7,10 +7,12 @@ import com.google.protobuf.GeneratedMessageV3;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Arrays;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
@@ -100,7 +102,7 @@ public final class SaveGameManager {
         Proto.Global gameTimeCompiled = gameTime.build();
         SaveProto(gameTimeCompiled, "gametime");
 
-        Proto.Resources resourcesCompiled = Team.instance().resources.getData();
+        Proto.Resources resourcesCompiled = TeamManager.instance().resources.getData();
         SaveProto(resourcesCompiled, "resources");
 
         SaveGameContainer container = GameStage.instance().getSaveGameContainer();

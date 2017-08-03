@@ -15637,6 +15637,786 @@ public final class Proto {
 
   }
 
+  public interface EmployeeStateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.EmployeeState)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+     */
+    int getStateValue();
+    /**
+     * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeState.State getState();
+
+    /**
+     * <code>float workingX = 2;</code>
+     */
+    float getWorkingX();
+
+    /**
+     * <code>float workingY = 3;</code>
+     */
+    float getWorkingY();
+
+    /**
+     * <code>int32 computer = 4;</code>
+     */
+    int getComputer();
+  }
+  /**
+   * Protobuf type {@code what_the_hack.EmployeeState}
+   */
+  public  static final class EmployeeState extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.EmployeeState)
+      EmployeeStateOrBuilder {
+    // Use EmployeeState.newBuilder() to construct.
+    private EmployeeState(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EmployeeState() {
+      state_ = 0;
+      workingX_ = 0F;
+      workingY_ = 0F;
+      computer_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EmployeeState(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+
+              state_ = rawValue;
+              break;
+            }
+            case 21: {
+
+              workingX_ = input.readFloat();
+              break;
+            }
+            case 29: {
+
+              workingY_ = input.readFloat();
+              break;
+            }
+            case 32: {
+
+              computer_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeState_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeState_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.EmployeeState.class, de.hsd.hacking.Proto.EmployeeState.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.EmployeeState.State}
+     */
+    public enum State
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>IDLE = 0;</code>
+       */
+      IDLE(0),
+      /**
+       * <code>MOVING = 1;</code>
+       */
+      MOVING(1),
+      /**
+       * <code>WAITING = 2;</code>
+       */
+      WAITING(2),
+      /**
+       * <code>WORKING = 3;</code>
+       */
+      WORKING(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>IDLE = 0;</code>
+       */
+      public static final int IDLE_VALUE = 0;
+      /**
+       * <code>MOVING = 1;</code>
+       */
+      public static final int MOVING_VALUE = 1;
+      /**
+       * <code>WAITING = 2;</code>
+       */
+      public static final int WAITING_VALUE = 2;
+      /**
+       * <code>WORKING = 3;</code>
+       */
+      public static final int WORKING_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static State valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static State forNumber(int value) {
+        switch (value) {
+          case 0: return IDLE;
+          case 1: return MOVING;
+          case 2: return WAITING;
+          case 3: return WORKING;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<State>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          State> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<State>() {
+              public State findValueByNumber(int number) {
+                return State.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.EmployeeState.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final State[] VALUES = values();
+
+      public static State valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private State(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.EmployeeState.State)
+    }
+
+    public static final int STATE_FIELD_NUMBER = 1;
+    private int state_;
+    /**
+     * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+     */
+    public int getStateValue() {
+      return state_;
+    }
+    /**
+     * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeState.State getState() {
+      de.hsd.hacking.Proto.EmployeeState.State result = de.hsd.hacking.Proto.EmployeeState.State.valueOf(state_);
+      return result == null ? de.hsd.hacking.Proto.EmployeeState.State.UNRECOGNIZED : result;
+    }
+
+    public static final int WORKINGX_FIELD_NUMBER = 2;
+    private float workingX_;
+    /**
+     * <code>float workingX = 2;</code>
+     */
+    public float getWorkingX() {
+      return workingX_;
+    }
+
+    public static final int WORKINGY_FIELD_NUMBER = 3;
+    private float workingY_;
+    /**
+     * <code>float workingY = 3;</code>
+     */
+    public float getWorkingY() {
+      return workingY_;
+    }
+
+    public static final int COMPUTER_FIELD_NUMBER = 4;
+    private int computer_;
+    /**
+     * <code>int32 computer = 4;</code>
+     */
+    public int getComputer() {
+      return computer_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (state_ != de.hsd.hacking.Proto.EmployeeState.State.IDLE.getNumber()) {
+        output.writeEnum(1, state_);
+      }
+      if (workingX_ != 0F) {
+        output.writeFloat(2, workingX_);
+      }
+      if (workingY_ != 0F) {
+        output.writeFloat(3, workingY_);
+      }
+      if (computer_ != 0) {
+        output.writeInt32(4, computer_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (state_ != de.hsd.hacking.Proto.EmployeeState.State.IDLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, state_);
+      }
+      if (workingX_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, workingX_);
+      }
+      if (workingY_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, workingY_);
+      }
+      if (computer_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, computer_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.EmployeeState)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.EmployeeState other = (de.hsd.hacking.Proto.EmployeeState) obj;
+
+      boolean result = true;
+      result = result && state_ == other.state_;
+      result = result && (
+          java.lang.Float.floatToIntBits(getWorkingX())
+          == java.lang.Float.floatToIntBits(
+              other.getWorkingX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getWorkingY())
+          == java.lang.Float.floatToIntBits(
+              other.getWorkingY()));
+      result = result && (getComputer()
+          == other.getComputer());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STATE_FIELD_NUMBER;
+      hash = (53 * hash) + state_;
+      hash = (37 * hash) + WORKINGX_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getWorkingX());
+      hash = (37 * hash) + WORKINGY_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getWorkingY());
+      hash = (37 * hash) + COMPUTER_FIELD_NUMBER;
+      hash = (53 * hash) + getComputer();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.EmployeeState parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.EmployeeState prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.EmployeeState}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.EmployeeState)
+        de.hsd.hacking.Proto.EmployeeStateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeState_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeState_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.EmployeeState.class, de.hsd.hacking.Proto.EmployeeState.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.EmployeeState.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        state_ = 0;
+
+        workingX_ = 0F;
+
+        workingY_ = 0F;
+
+        computer_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_EmployeeState_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.EmployeeState getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.EmployeeState.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.EmployeeState build() {
+        de.hsd.hacking.Proto.EmployeeState result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.EmployeeState buildPartial() {
+        de.hsd.hacking.Proto.EmployeeState result = new de.hsd.hacking.Proto.EmployeeState(this);
+        result.state_ = state_;
+        result.workingX_ = workingX_;
+        result.workingY_ = workingY_;
+        result.computer_ = computer_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.EmployeeState) {
+          return mergeFrom((de.hsd.hacking.Proto.EmployeeState)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.EmployeeState other) {
+        if (other == de.hsd.hacking.Proto.EmployeeState.getDefaultInstance()) return this;
+        if (other.state_ != 0) {
+          setStateValue(other.getStateValue());
+        }
+        if (other.getWorkingX() != 0F) {
+          setWorkingX(other.getWorkingX());
+        }
+        if (other.getWorkingY() != 0F) {
+          setWorkingY(other.getWorkingY());
+        }
+        if (other.getComputer() != 0) {
+          setComputer(other.getComputer());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.EmployeeState parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.EmployeeState) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int state_ = 0;
+      /**
+       * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+       */
+      public int getStateValue() {
+        return state_;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+       */
+      public Builder setStateValue(int value) {
+        state_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeState.State getState() {
+        de.hsd.hacking.Proto.EmployeeState.State result = de.hsd.hacking.Proto.EmployeeState.State.valueOf(state_);
+        return result == null ? de.hsd.hacking.Proto.EmployeeState.State.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+       */
+      public Builder setState(de.hsd.hacking.Proto.EmployeeState.State value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        state_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState.State state = 1;</code>
+       */
+      public Builder clearState() {
+        
+        state_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float workingX_ ;
+      /**
+       * <code>float workingX = 2;</code>
+       */
+      public float getWorkingX() {
+        return workingX_;
+      }
+      /**
+       * <code>float workingX = 2;</code>
+       */
+      public Builder setWorkingX(float value) {
+        
+        workingX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float workingX = 2;</code>
+       */
+      public Builder clearWorkingX() {
+        
+        workingX_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float workingY_ ;
+      /**
+       * <code>float workingY = 3;</code>
+       */
+      public float getWorkingY() {
+        return workingY_;
+      }
+      /**
+       * <code>float workingY = 3;</code>
+       */
+      public Builder setWorkingY(float value) {
+        
+        workingY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float workingY = 3;</code>
+       */
+      public Builder clearWorkingY() {
+        
+        workingY_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private int computer_ ;
+      /**
+       * <code>int32 computer = 4;</code>
+       */
+      public int getComputer() {
+        return computer_;
+      }
+      /**
+       * <code>int32 computer = 4;</code>
+       */
+      public Builder setComputer(int value) {
+        
+        computer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 computer = 4;</code>
+       */
+      public Builder clearComputer() {
+        
+        computer_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.EmployeeState)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.EmployeeState)
+    private static final de.hsd.hacking.Proto.EmployeeState DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.EmployeeState();
+    }
+
+    public static de.hsd.hacking.Proto.EmployeeState getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EmployeeState>
+        PARSER = new com.google.protobuf.AbstractParser<EmployeeState>() {
+      public EmployeeState parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EmployeeState(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EmployeeState> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EmployeeState> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.EmployeeState getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_what_the_hack_Global_descriptor;
   private static final 
@@ -15707,6 +16487,11 @@ public final class Proto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_what_the_hack_MissionSkillRequirement_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_EmployeeState_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_EmployeeState_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -15777,11 +16562,15 @@ public final class Proto {
       "\n\007mission\030\003 \001(\005\022\021\n\temployees\030\004 \003(\005\"i\n\027Mi" +
       "ssionSkillRequirement\022+\n\tskillType\030\001 \001(\016",
       "2\030.what_the_hack.SkillType\022\020\n\010required\030\002" +
-      " \001(\002\022\017\n\007current\030\003 \001(\002*i\n\tSkillType\022\n\n\006So" +
-      "cial\020\000\022\014\n\010Hardware\020\001\022\014\n\010Software\020\002\022\013\n\007Ne" +
-      "twork\020\003\022\n\n\006Crypto\020\004\022\n\n\006Search\020\005\022\017\n\013All_P" +
-      "urpose\020\006B\027\n\016de.hsd.hackingB\005Protob\006proto" +
-      "3"
+      " \001(\002\022\017\n\007current\030\003 \001(\002\"\261\001\n\rEmployeeState\022" +
+      "1\n\005state\030\001 \001(\0162\".what_the_hack.EmployeeS" +
+      "tate.State\022\020\n\010workingX\030\002 \001(\002\022\020\n\010workingY" +
+      "\030\003 \001(\002\022\020\n\010computer\030\004 \001(\005\"7\n\005State\022\010\n\004IDL" +
+      "E\020\000\022\n\n\006MOVING\020\001\022\013\n\007WAITING\020\002\022\013\n\007WORKING\020" +
+      "\003*i\n\tSkillType\022\n\n\006Social\020\000\022\014\n\010Hardware\020\001" +
+      "\022\014\n\010Software\020\002\022\013\n\007Network\020\003\022\n\n\006Crypto\020\004\022" +
+      "\n\n\006Search\020\005\022\017\n\013All_Purpose\020\006B\027\n\016de.hsd.h" +
+      "ackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -15879,6 +16668,12 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MissionSkillRequirement_descriptor,
         new java.lang.String[] { "SkillType", "Required", "Current", });
+    internal_static_what_the_hack_EmployeeState_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_what_the_hack_EmployeeState_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_EmployeeState_descriptor,
+        new java.lang.String[] { "State", "WorkingX", "WorkingY", "Computer", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
