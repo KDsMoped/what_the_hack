@@ -8440,67 +8440,85 @@ public final class Proto {
         getShoeColorBytes();
 
     /**
-     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
      */
-    int getHairStyleValue();
+    int getVisualStyleValue();
     /**
-     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
      */
-    de.hsd.hacking.Proto.Employee.HairStyle getHairStyle();
+    de.hsd.hacking.Proto.Employee.VisualStyle getVisualStyle();
 
     /**
-     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+     */
+    int getHairStyleMaleValue();
+    /**
+     * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+     */
+    de.hsd.hacking.Proto.Employee.HairStyleMale getHairStyleMale();
+
+    /**
+     * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+     */
+    int getHairStyleFemaleValue();
+    /**
+     * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+     */
+    de.hsd.hacking.Proto.Employee.HairStyleFemale getHairStyleFemale();
+
+    /**
+     * <code>.what_the_hack.Employee.Gender gender = 18;</code>
      */
     int getGenderValue();
     /**
-     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     * <code>.what_the_hack.Employee.Gender gender = 18;</code>
      */
     de.hsd.hacking.Proto.Employee.Gender getGender();
 
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     java.util.List<de.hsd.hacking.Proto.Skill> 
         getSkillSetList();
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     de.hsd.hacking.Proto.Skill getSkillSet(int index);
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     int getSkillSetCount();
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     java.util.List<? extends de.hsd.hacking.Proto.SkillOrBuilder> 
         getSkillSetOrBuilderList();
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     de.hsd.hacking.Proto.SkillOrBuilder getSkillSetOrBuilder(
         int index);
 
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> 
         getEmployeeSpecialsList();
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     de.hsd.hacking.Proto.EmployeeSpecial getEmployeeSpecials(int index);
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     int getEmployeeSpecialsCount();
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     java.util.List<? extends de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
         getEmployeeSpecialsOrBuilderList();
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
         int index);
@@ -8531,7 +8549,9 @@ public final class Proto {
       shirtColor_ = "";
       trouserColor_ = "";
       shoeColor_ = "";
-      hairStyle_ = 0;
+      visualStyle_ = 0;
+      hairStyleMale_ = 0;
+      hairStyleFemale_ = 0;
       gender_ = 0;
       skillSet_ = java.util.Collections.emptyList();
       employeeSpecials_ = java.util.Collections.emptyList();
@@ -8643,28 +8663,40 @@ public final class Proto {
             case 120: {
               int rawValue = input.readEnum();
 
-              hairStyle_ = rawValue;
+              visualStyle_ = rawValue;
               break;
             }
             case 128: {
               int rawValue = input.readEnum();
 
+              hairStyleMale_ = rawValue;
+              break;
+            }
+            case 136: {
+              int rawValue = input.readEnum();
+
+              hairStyleFemale_ = rawValue;
+              break;
+            }
+            case 144: {
+              int rawValue = input.readEnum();
+
               gender_ = rawValue;
               break;
             }
-            case 138: {
-              if (!((mutable_bitField0_ & 0x00010000) == 0x00010000)) {
+            case 154: {
+              if (!((mutable_bitField0_ & 0x00040000) == 0x00040000)) {
                 skillSet_ = new java.util.ArrayList<de.hsd.hacking.Proto.Skill>();
-                mutable_bitField0_ |= 0x00010000;
+                mutable_bitField0_ |= 0x00040000;
               }
               skillSet_.add(
                   input.readMessage(de.hsd.hacking.Proto.Skill.parser(), extensionRegistry));
               break;
             }
-            case 146: {
-              if (!((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+            case 162: {
+              if (!((mutable_bitField0_ & 0x00080000) == 0x00080000)) {
                 employeeSpecials_ = new java.util.ArrayList<de.hsd.hacking.Proto.EmployeeSpecial>();
-                mutable_bitField0_ |= 0x00020000;
+                mutable_bitField0_ |= 0x00080000;
               }
               employeeSpecials_.add(
                   input.readMessage(de.hsd.hacking.Proto.EmployeeSpecial.parser(), extensionRegistry));
@@ -8678,10 +8710,10 @@ public final class Proto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00010000) == 0x00010000)) {
+        if (((mutable_bitField0_ & 0x00040000) == 0x00040000)) {
           skillSet_ = java.util.Collections.unmodifiableList(skillSet_);
         }
-        if (((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+        if (((mutable_bitField0_ & 0x00080000) == 0x00080000)) {
           employeeSpecials_ = java.util.Collections.unmodifiableList(employeeSpecials_);
         }
         makeExtensionsImmutable();
@@ -8700,45 +8732,29 @@ public final class Proto {
     }
 
     /**
-     * Protobuf enum {@code what_the_hack.Employee.HairStyle}
+     * Protobuf enum {@code what_the_hack.Employee.VisualStyle}
      */
-    public enum HairStyle
+    public enum VisualStyle
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>CRAZY = 0;</code>
+       * <code>DEFAULT = 0;</code>
        */
-      CRAZY(0),
+      DEFAULT(0),
       /**
-       * <code>NEAT = 1;</code>
+       * <code>TRUMP = 1;</code>
        */
-      NEAT(1),
-      /**
-       * <code>NERD = 2;</code>
-       */
-      NERD(2),
-      /**
-       * <code>RASTA = 3;</code>
-       */
-      RASTA(3),
+      TRUMP(1),
       UNRECOGNIZED(-1),
       ;
 
       /**
-       * <code>CRAZY = 0;</code>
+       * <code>DEFAULT = 0;</code>
        */
-      public static final int CRAZY_VALUE = 0;
+      public static final int DEFAULT_VALUE = 0;
       /**
-       * <code>NEAT = 1;</code>
+       * <code>TRUMP = 1;</code>
        */
-      public static final int NEAT_VALUE = 1;
-      /**
-       * <code>NERD = 2;</code>
-       */
-      public static final int NERD_VALUE = 2;
-      /**
-       * <code>RASTA = 3;</code>
-       */
-      public static final int RASTA_VALUE = 3;
+      public static final int TRUMP_VALUE = 1;
 
 
       public final int getNumber() {
@@ -8753,29 +8769,27 @@ public final class Proto {
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
-      public static HairStyle valueOf(int value) {
+      public static VisualStyle valueOf(int value) {
         return forNumber(value);
       }
 
-      public static HairStyle forNumber(int value) {
+      public static VisualStyle forNumber(int value) {
         switch (value) {
-          case 0: return CRAZY;
-          case 1: return NEAT;
-          case 2: return NERD;
-          case 3: return RASTA;
+          case 0: return DEFAULT;
+          case 1: return TRUMP;
           default: return null;
         }
       }
 
-      public static com.google.protobuf.Internal.EnumLiteMap<HairStyle>
+      public static com.google.protobuf.Internal.EnumLiteMap<VisualStyle>
           internalGetValueMap() {
         return internalValueMap;
       }
       private static final com.google.protobuf.Internal.EnumLiteMap<
-          HairStyle> internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<HairStyle>() {
-              public HairStyle findValueByNumber(int number) {
-                return HairStyle.forNumber(number);
+          VisualStyle> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<VisualStyle>() {
+              public VisualStyle findValueByNumber(int number) {
+                return VisualStyle.forNumber(number);
               }
             };
 
@@ -8792,9 +8806,9 @@ public final class Proto {
         return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(0);
       }
 
-      private static final HairStyle[] VALUES = values();
+      private static final VisualStyle[] VALUES = values();
 
-      public static HairStyle valueOf(
+      public static VisualStyle valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -8808,11 +8822,243 @@ public final class Proto {
 
       private final int value;
 
-      private HairStyle(int value) {
+      private VisualStyle(int value) {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.HairStyle)
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.VisualStyle)
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.Employee.HairStyleMale}
+     */
+    public enum HairStyleMale
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>M_CRAZY = 0;</code>
+       */
+      M_CRAZY(0),
+      /**
+       * <code>M_NEAT = 1;</code>
+       */
+      M_NEAT(1),
+      /**
+       * <code>M_NERD = 2;</code>
+       */
+      M_NERD(2),
+      /**
+       * <code>M_RASTA = 3;</code>
+       */
+      M_RASTA(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>M_CRAZY = 0;</code>
+       */
+      public static final int M_CRAZY_VALUE = 0;
+      /**
+       * <code>M_NEAT = 1;</code>
+       */
+      public static final int M_NEAT_VALUE = 1;
+      /**
+       * <code>M_NERD = 2;</code>
+       */
+      public static final int M_NERD_VALUE = 2;
+      /**
+       * <code>M_RASTA = 3;</code>
+       */
+      public static final int M_RASTA_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static HairStyleMale valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static HairStyleMale forNumber(int value) {
+        switch (value) {
+          case 0: return M_CRAZY;
+          case 1: return M_NEAT;
+          case 2: return M_NERD;
+          case 3: return M_RASTA;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<HairStyleMale>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          HairStyleMale> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<HairStyleMale>() {
+              public HairStyleMale findValueByNumber(int number) {
+                return HairStyleMale.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final HairStyleMale[] VALUES = values();
+
+      public static HairStyleMale valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private HairStyleMale(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.HairStyleMale)
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.Employee.HairStyleFemale}
+     */
+    public enum HairStyleFemale
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>F_CRAZY = 0;</code>
+       */
+      F_CRAZY(0),
+      /**
+       * <code>F_NEAT = 1;</code>
+       */
+      F_NEAT(1),
+      /**
+       * <code>F_NERD = 2;</code>
+       */
+      F_NERD(2),
+      /**
+       * <code>F_RASTA = 3;</code>
+       */
+      F_RASTA(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>F_CRAZY = 0;</code>
+       */
+      public static final int F_CRAZY_VALUE = 0;
+      /**
+       * <code>F_NEAT = 1;</code>
+       */
+      public static final int F_NEAT_VALUE = 1;
+      /**
+       * <code>F_NERD = 2;</code>
+       */
+      public static final int F_NERD_VALUE = 2;
+      /**
+       * <code>F_RASTA = 3;</code>
+       */
+      public static final int F_RASTA_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static HairStyleFemale valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static HairStyleFemale forNumber(int value) {
+        switch (value) {
+          case 0: return F_CRAZY;
+          case 1: return F_NEAT;
+          case 2: return F_NERD;
+          case 3: return F_RASTA;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<HairStyleFemale>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          HairStyleFemale> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<HairStyleFemale>() {
+              public HairStyleFemale findValueByNumber(int number) {
+                return HairStyleFemale.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(2);
+      }
+
+      private static final HairStyleFemale[] VALUES = values();
+
+      public static HairStyleFemale valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private HairStyleFemale(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.HairStyleFemale)
     }
 
     /**
@@ -8896,7 +9142,7 @@ public final class Proto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(1);
+        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(3);
       }
 
       private static final Gender[] VALUES = values();
@@ -9259,102 +9505,134 @@ public final class Proto {
       }
     }
 
-    public static final int HAIRSTYLE_FIELD_NUMBER = 15;
-    private int hairStyle_;
+    public static final int VISUALSTYLE_FIELD_NUMBER = 15;
+    private int visualStyle_;
     /**
-     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
      */
-    public int getHairStyleValue() {
-      return hairStyle_;
+    public int getVisualStyleValue() {
+      return visualStyle_;
     }
     /**
-     * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+     * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
      */
-    public de.hsd.hacking.Proto.Employee.HairStyle getHairStyle() {
-      de.hsd.hacking.Proto.Employee.HairStyle result = de.hsd.hacking.Proto.Employee.HairStyle.valueOf(hairStyle_);
-      return result == null ? de.hsd.hacking.Proto.Employee.HairStyle.UNRECOGNIZED : result;
+    public de.hsd.hacking.Proto.Employee.VisualStyle getVisualStyle() {
+      de.hsd.hacking.Proto.Employee.VisualStyle result = de.hsd.hacking.Proto.Employee.VisualStyle.valueOf(visualStyle_);
+      return result == null ? de.hsd.hacking.Proto.Employee.VisualStyle.UNRECOGNIZED : result;
     }
 
-    public static final int GENDER_FIELD_NUMBER = 16;
+    public static final int HAIRSTYLEMALE_FIELD_NUMBER = 16;
+    private int hairStyleMale_;
+    /**
+     * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+     */
+    public int getHairStyleMaleValue() {
+      return hairStyleMale_;
+    }
+    /**
+     * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+     */
+    public de.hsd.hacking.Proto.Employee.HairStyleMale getHairStyleMale() {
+      de.hsd.hacking.Proto.Employee.HairStyleMale result = de.hsd.hacking.Proto.Employee.HairStyleMale.valueOf(hairStyleMale_);
+      return result == null ? de.hsd.hacking.Proto.Employee.HairStyleMale.UNRECOGNIZED : result;
+    }
+
+    public static final int HAIRSTYLEFEMALE_FIELD_NUMBER = 17;
+    private int hairStyleFemale_;
+    /**
+     * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+     */
+    public int getHairStyleFemaleValue() {
+      return hairStyleFemale_;
+    }
+    /**
+     * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+     */
+    public de.hsd.hacking.Proto.Employee.HairStyleFemale getHairStyleFemale() {
+      de.hsd.hacking.Proto.Employee.HairStyleFemale result = de.hsd.hacking.Proto.Employee.HairStyleFemale.valueOf(hairStyleFemale_);
+      return result == null ? de.hsd.hacking.Proto.Employee.HairStyleFemale.UNRECOGNIZED : result;
+    }
+
+    public static final int GENDER_FIELD_NUMBER = 18;
     private int gender_;
     /**
-     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     * <code>.what_the_hack.Employee.Gender gender = 18;</code>
      */
     public int getGenderValue() {
       return gender_;
     }
     /**
-     * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+     * <code>.what_the_hack.Employee.Gender gender = 18;</code>
      */
     public de.hsd.hacking.Proto.Employee.Gender getGender() {
       de.hsd.hacking.Proto.Employee.Gender result = de.hsd.hacking.Proto.Employee.Gender.valueOf(gender_);
       return result == null ? de.hsd.hacking.Proto.Employee.Gender.UNRECOGNIZED : result;
     }
 
-    public static final int SKILLSET_FIELD_NUMBER = 17;
+    public static final int SKILLSET_FIELD_NUMBER = 19;
     private java.util.List<de.hsd.hacking.Proto.Skill> skillSet_;
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     public java.util.List<de.hsd.hacking.Proto.Skill> getSkillSetList() {
       return skillSet_;
     }
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     public java.util.List<? extends de.hsd.hacking.Proto.SkillOrBuilder> 
         getSkillSetOrBuilderList() {
       return skillSet_;
     }
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     public int getSkillSetCount() {
       return skillSet_.size();
     }
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     public de.hsd.hacking.Proto.Skill getSkillSet(int index) {
       return skillSet_.get(index);
     }
     /**
-     * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+     * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
      */
     public de.hsd.hacking.Proto.SkillOrBuilder getSkillSetOrBuilder(
         int index) {
       return skillSet_.get(index);
     }
 
-    public static final int EMPLOYEESPECIALS_FIELD_NUMBER = 18;
+    public static final int EMPLOYEESPECIALS_FIELD_NUMBER = 20;
     private java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> employeeSpecials_;
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     public java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> getEmployeeSpecialsList() {
       return employeeSpecials_;
     }
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     public java.util.List<? extends de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
         getEmployeeSpecialsOrBuilderList() {
       return employeeSpecials_;
     }
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     public int getEmployeeSpecialsCount() {
       return employeeSpecials_.size();
     }
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     public de.hsd.hacking.Proto.EmployeeSpecial getEmployeeSpecials(int index) {
       return employeeSpecials_.get(index);
     }
     /**
-     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+     * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
      */
     public de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
         int index) {
@@ -9415,17 +9693,23 @@ public final class Proto {
       if (!getShoeColorBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 14, shoeColor_);
       }
-      if (hairStyle_ != de.hsd.hacking.Proto.Employee.HairStyle.CRAZY.getNumber()) {
-        output.writeEnum(15, hairStyle_);
+      if (visualStyle_ != de.hsd.hacking.Proto.Employee.VisualStyle.DEFAULT.getNumber()) {
+        output.writeEnum(15, visualStyle_);
+      }
+      if (hairStyleMale_ != de.hsd.hacking.Proto.Employee.HairStyleMale.M_CRAZY.getNumber()) {
+        output.writeEnum(16, hairStyleMale_);
+      }
+      if (hairStyleFemale_ != de.hsd.hacking.Proto.Employee.HairStyleFemale.F_CRAZY.getNumber()) {
+        output.writeEnum(17, hairStyleFemale_);
       }
       if (gender_ != de.hsd.hacking.Proto.Employee.Gender.UNDECIDED.getNumber()) {
-        output.writeEnum(16, gender_);
+        output.writeEnum(18, gender_);
       }
       for (int i = 0; i < skillSet_.size(); i++) {
-        output.writeMessage(17, skillSet_.get(i));
+        output.writeMessage(19, skillSet_.get(i));
       }
       for (int i = 0; i < employeeSpecials_.size(); i++) {
-        output.writeMessage(18, employeeSpecials_.get(i));
+        output.writeMessage(20, employeeSpecials_.get(i));
       }
     }
 
@@ -9482,21 +9766,29 @@ public final class Proto {
       if (!getShoeColorBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, shoeColor_);
       }
-      if (hairStyle_ != de.hsd.hacking.Proto.Employee.HairStyle.CRAZY.getNumber()) {
+      if (visualStyle_ != de.hsd.hacking.Proto.Employee.VisualStyle.DEFAULT.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(15, hairStyle_);
+          .computeEnumSize(15, visualStyle_);
+      }
+      if (hairStyleMale_ != de.hsd.hacking.Proto.Employee.HairStyleMale.M_CRAZY.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(16, hairStyleMale_);
+      }
+      if (hairStyleFemale_ != de.hsd.hacking.Proto.Employee.HairStyleFemale.F_CRAZY.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(17, hairStyleFemale_);
       }
       if (gender_ != de.hsd.hacking.Proto.Employee.Gender.UNDECIDED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(16, gender_);
+          .computeEnumSize(18, gender_);
       }
       for (int i = 0; i < skillSet_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, skillSet_.get(i));
+          .computeMessageSize(19, skillSet_.get(i));
       }
       for (int i = 0; i < employeeSpecials_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(18, employeeSpecials_.get(i));
+          .computeMessageSize(20, employeeSpecials_.get(i));
       }
       memoizedSize = size;
       return size;
@@ -9546,7 +9838,9 @@ public final class Proto {
           .equals(other.getTrouserColor());
       result = result && getShoeColor()
           .equals(other.getShoeColor());
-      result = result && hairStyle_ == other.hairStyle_;
+      result = result && visualStyle_ == other.visualStyle_;
+      result = result && hairStyleMale_ == other.hairStyleMale_;
+      result = result && hairStyleFemale_ == other.hairStyleFemale_;
       result = result && gender_ == other.gender_;
       result = result && getSkillSetList()
           .equals(other.getSkillSetList());
@@ -9593,8 +9887,12 @@ public final class Proto {
       hash = (53 * hash) + getTrouserColor().hashCode();
       hash = (37 * hash) + SHOECOLOR_FIELD_NUMBER;
       hash = (53 * hash) + getShoeColor().hashCode();
-      hash = (37 * hash) + HAIRSTYLE_FIELD_NUMBER;
-      hash = (53 * hash) + hairStyle_;
+      hash = (37 * hash) + VISUALSTYLE_FIELD_NUMBER;
+      hash = (53 * hash) + visualStyle_;
+      hash = (37 * hash) + HAIRSTYLEMALE_FIELD_NUMBER;
+      hash = (53 * hash) + hairStyleMale_;
+      hash = (37 * hash) + HAIRSTYLEFEMALE_FIELD_NUMBER;
+      hash = (53 * hash) + hairStyleFemale_;
       hash = (37 * hash) + GENDER_FIELD_NUMBER;
       hash = (53 * hash) + gender_;
       if (getSkillSetCount() > 0) {
@@ -9764,19 +10062,23 @@ public final class Proto {
 
         shoeColor_ = "";
 
-        hairStyle_ = 0;
+        visualStyle_ = 0;
+
+        hairStyleMale_ = 0;
+
+        hairStyleFemale_ = 0;
 
         gender_ = 0;
 
         if (skillSetBuilder_ == null) {
           skillSet_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00040000);
         } else {
           skillSetBuilder_.clear();
         }
         if (employeeSpecialsBuilder_ == null) {
           employeeSpecials_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00020000);
+          bitField0_ = (bitField0_ & ~0x00080000);
         } else {
           employeeSpecialsBuilder_.clear();
         }
@@ -9818,21 +10120,23 @@ public final class Proto {
         result.shirtColor_ = shirtColor_;
         result.trouserColor_ = trouserColor_;
         result.shoeColor_ = shoeColor_;
-        result.hairStyle_ = hairStyle_;
+        result.visualStyle_ = visualStyle_;
+        result.hairStyleMale_ = hairStyleMale_;
+        result.hairStyleFemale_ = hairStyleFemale_;
         result.gender_ = gender_;
         if (skillSetBuilder_ == null) {
-          if (((bitField0_ & 0x00010000) == 0x00010000)) {
+          if (((bitField0_ & 0x00040000) == 0x00040000)) {
             skillSet_ = java.util.Collections.unmodifiableList(skillSet_);
-            bitField0_ = (bitField0_ & ~0x00010000);
+            bitField0_ = (bitField0_ & ~0x00040000);
           }
           result.skillSet_ = skillSet_;
         } else {
           result.skillSet_ = skillSetBuilder_.build();
         }
         if (employeeSpecialsBuilder_ == null) {
-          if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          if (((bitField0_ & 0x00080000) == 0x00080000)) {
             employeeSpecials_ = java.util.Collections.unmodifiableList(employeeSpecials_);
-            bitField0_ = (bitField0_ & ~0x00020000);
+            bitField0_ = (bitField0_ & ~0x00080000);
           }
           result.employeeSpecials_ = employeeSpecials_;
         } else {
@@ -9930,8 +10234,14 @@ public final class Proto {
           shoeColor_ = other.shoeColor_;
           onChanged();
         }
-        if (other.hairStyle_ != 0) {
-          setHairStyleValue(other.getHairStyleValue());
+        if (other.visualStyle_ != 0) {
+          setVisualStyleValue(other.getVisualStyleValue());
+        }
+        if (other.hairStyleMale_ != 0) {
+          setHairStyleMaleValue(other.getHairStyleMaleValue());
+        }
+        if (other.hairStyleFemale_ != 0) {
+          setHairStyleFemaleValue(other.getHairStyleFemaleValue());
         }
         if (other.gender_ != 0) {
           setGenderValue(other.getGenderValue());
@@ -9940,7 +10250,7 @@ public final class Proto {
           if (!other.skillSet_.isEmpty()) {
             if (skillSet_.isEmpty()) {
               skillSet_ = other.skillSet_;
-              bitField0_ = (bitField0_ & ~0x00010000);
+              bitField0_ = (bitField0_ & ~0x00040000);
             } else {
               ensureSkillSetIsMutable();
               skillSet_.addAll(other.skillSet_);
@@ -9953,7 +10263,7 @@ public final class Proto {
               skillSetBuilder_.dispose();
               skillSetBuilder_ = null;
               skillSet_ = other.skillSet_;
-              bitField0_ = (bitField0_ & ~0x00010000);
+              bitField0_ = (bitField0_ & ~0x00040000);
               skillSetBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getSkillSetFieldBuilder() : null;
@@ -9966,7 +10276,7 @@ public final class Proto {
           if (!other.employeeSpecials_.isEmpty()) {
             if (employeeSpecials_.isEmpty()) {
               employeeSpecials_ = other.employeeSpecials_;
-              bitField0_ = (bitField0_ & ~0x00020000);
+              bitField0_ = (bitField0_ & ~0x00080000);
             } else {
               ensureEmployeeSpecialsIsMutable();
               employeeSpecials_.addAll(other.employeeSpecials_);
@@ -9979,7 +10289,7 @@ public final class Proto {
               employeeSpecialsBuilder_.dispose();
               employeeSpecialsBuilder_ = null;
               employeeSpecials_ = other.employeeSpecials_;
-              bitField0_ = (bitField0_ & ~0x00020000);
+              bitField0_ = (bitField0_ & ~0x00080000);
               employeeSpecialsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getEmployeeSpecialsFieldBuilder() : null;
@@ -10753,59 +11063,147 @@ public final class Proto {
         return this;
       }
 
-      private int hairStyle_ = 0;
+      private int visualStyle_ = 0;
       /**
-       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
        */
-      public int getHairStyleValue() {
-        return hairStyle_;
+      public int getVisualStyleValue() {
+        return visualStyle_;
       }
       /**
-       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
        */
-      public Builder setHairStyleValue(int value) {
-        hairStyle_ = value;
+      public Builder setVisualStyleValue(int value) {
+        visualStyle_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
        */
-      public de.hsd.hacking.Proto.Employee.HairStyle getHairStyle() {
-        de.hsd.hacking.Proto.Employee.HairStyle result = de.hsd.hacking.Proto.Employee.HairStyle.valueOf(hairStyle_);
-        return result == null ? de.hsd.hacking.Proto.Employee.HairStyle.UNRECOGNIZED : result;
+      public de.hsd.hacking.Proto.Employee.VisualStyle getVisualStyle() {
+        de.hsd.hacking.Proto.Employee.VisualStyle result = de.hsd.hacking.Proto.Employee.VisualStyle.valueOf(visualStyle_);
+        return result == null ? de.hsd.hacking.Proto.Employee.VisualStyle.UNRECOGNIZED : result;
       }
       /**
-       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
        */
-      public Builder setHairStyle(de.hsd.hacking.Proto.Employee.HairStyle value) {
+      public Builder setVisualStyle(de.hsd.hacking.Proto.Employee.VisualStyle value) {
         if (value == null) {
           throw new NullPointerException();
         }
         
-        hairStyle_ = value.getNumber();
+        visualStyle_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>.what_the_hack.Employee.HairStyle hairStyle = 15;</code>
+       * <code>.what_the_hack.Employee.VisualStyle visualStyle = 15;</code>
        */
-      public Builder clearHairStyle() {
+      public Builder clearVisualStyle() {
         
-        hairStyle_ = 0;
+        visualStyle_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int hairStyleMale_ = 0;
+      /**
+       * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+       */
+      public int getHairStyleMaleValue() {
+        return hairStyleMale_;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+       */
+      public Builder setHairStyleMaleValue(int value) {
+        hairStyleMale_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.HairStyleMale getHairStyleMale() {
+        de.hsd.hacking.Proto.Employee.HairStyleMale result = de.hsd.hacking.Proto.Employee.HairStyleMale.valueOf(hairStyleMale_);
+        return result == null ? de.hsd.hacking.Proto.Employee.HairStyleMale.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+       */
+      public Builder setHairStyleMale(de.hsd.hacking.Proto.Employee.HairStyleMale value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        hairStyleMale_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleMale hairStyleMale = 16;</code>
+       */
+      public Builder clearHairStyleMale() {
+        
+        hairStyleMale_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int hairStyleFemale_ = 0;
+      /**
+       * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+       */
+      public int getHairStyleFemaleValue() {
+        return hairStyleFemale_;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+       */
+      public Builder setHairStyleFemaleValue(int value) {
+        hairStyleFemale_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.HairStyleFemale getHairStyleFemale() {
+        de.hsd.hacking.Proto.Employee.HairStyleFemale result = de.hsd.hacking.Proto.Employee.HairStyleFemale.valueOf(hairStyleFemale_);
+        return result == null ? de.hsd.hacking.Proto.Employee.HairStyleFemale.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+       */
+      public Builder setHairStyleFemale(de.hsd.hacking.Proto.Employee.HairStyleFemale value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        hairStyleFemale_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.HairStyleFemale hairStyleFemale = 17;</code>
+       */
+      public Builder clearHairStyleFemale() {
+        
+        hairStyleFemale_ = 0;
         onChanged();
         return this;
       }
 
       private int gender_ = 0;
       /**
-       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       * <code>.what_the_hack.Employee.Gender gender = 18;</code>
        */
       public int getGenderValue() {
         return gender_;
       }
       /**
-       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       * <code>.what_the_hack.Employee.Gender gender = 18;</code>
        */
       public Builder setGenderValue(int value) {
         gender_ = value;
@@ -10813,14 +11211,14 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       * <code>.what_the_hack.Employee.Gender gender = 18;</code>
        */
       public de.hsd.hacking.Proto.Employee.Gender getGender() {
         de.hsd.hacking.Proto.Employee.Gender result = de.hsd.hacking.Proto.Employee.Gender.valueOf(gender_);
         return result == null ? de.hsd.hacking.Proto.Employee.Gender.UNRECOGNIZED : result;
       }
       /**
-       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       * <code>.what_the_hack.Employee.Gender gender = 18;</code>
        */
       public Builder setGender(de.hsd.hacking.Proto.Employee.Gender value) {
         if (value == null) {
@@ -10832,7 +11230,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>.what_the_hack.Employee.Gender gender = 16;</code>
+       * <code>.what_the_hack.Employee.Gender gender = 18;</code>
        */
       public Builder clearGender() {
         
@@ -10844,9 +11242,9 @@ public final class Proto {
       private java.util.List<de.hsd.hacking.Proto.Skill> skillSet_ =
         java.util.Collections.emptyList();
       private void ensureSkillSetIsMutable() {
-        if (!((bitField0_ & 0x00010000) == 0x00010000)) {
+        if (!((bitField0_ & 0x00040000) == 0x00040000)) {
           skillSet_ = new java.util.ArrayList<de.hsd.hacking.Proto.Skill>(skillSet_);
-          bitField0_ |= 0x00010000;
+          bitField0_ |= 0x00040000;
          }
       }
 
@@ -10854,7 +11252,7 @@ public final class Proto {
           de.hsd.hacking.Proto.Skill, de.hsd.hacking.Proto.Skill.Builder, de.hsd.hacking.Proto.SkillOrBuilder> skillSetBuilder_;
 
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public java.util.List<de.hsd.hacking.Proto.Skill> getSkillSetList() {
         if (skillSetBuilder_ == null) {
@@ -10864,7 +11262,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public int getSkillSetCount() {
         if (skillSetBuilder_ == null) {
@@ -10874,7 +11272,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public de.hsd.hacking.Proto.Skill getSkillSet(int index) {
         if (skillSetBuilder_ == null) {
@@ -10884,7 +11282,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder setSkillSet(
           int index, de.hsd.hacking.Proto.Skill value) {
@@ -10901,7 +11299,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder setSkillSet(
           int index, de.hsd.hacking.Proto.Skill.Builder builderForValue) {
@@ -10915,7 +11313,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder addSkillSet(de.hsd.hacking.Proto.Skill value) {
         if (skillSetBuilder_ == null) {
@@ -10931,7 +11329,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder addSkillSet(
           int index, de.hsd.hacking.Proto.Skill value) {
@@ -10948,7 +11346,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder addSkillSet(
           de.hsd.hacking.Proto.Skill.Builder builderForValue) {
@@ -10962,7 +11360,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder addSkillSet(
           int index, de.hsd.hacking.Proto.Skill.Builder builderForValue) {
@@ -10976,7 +11374,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder addAllSkillSet(
           java.lang.Iterable<? extends de.hsd.hacking.Proto.Skill> values) {
@@ -10991,12 +11389,12 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder clearSkillSet() {
         if (skillSetBuilder_ == null) {
           skillSet_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00040000);
           onChanged();
         } else {
           skillSetBuilder_.clear();
@@ -11004,7 +11402,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public Builder removeSkillSet(int index) {
         if (skillSetBuilder_ == null) {
@@ -11017,14 +11415,14 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public de.hsd.hacking.Proto.Skill.Builder getSkillSetBuilder(
           int index) {
         return getSkillSetFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public de.hsd.hacking.Proto.SkillOrBuilder getSkillSetOrBuilder(
           int index) {
@@ -11034,7 +11432,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public java.util.List<? extends de.hsd.hacking.Proto.SkillOrBuilder> 
            getSkillSetOrBuilderList() {
@@ -11045,14 +11443,14 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public de.hsd.hacking.Proto.Skill.Builder addSkillSetBuilder() {
         return getSkillSetFieldBuilder().addBuilder(
             de.hsd.hacking.Proto.Skill.getDefaultInstance());
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public de.hsd.hacking.Proto.Skill.Builder addSkillSetBuilder(
           int index) {
@@ -11060,7 +11458,7 @@ public final class Proto {
             index, de.hsd.hacking.Proto.Skill.getDefaultInstance());
       }
       /**
-       * <code>repeated .what_the_hack.Skill skillSet = 17;</code>
+       * <code>repeated .what_the_hack.Skill skillSet = 19;</code>
        */
       public java.util.List<de.hsd.hacking.Proto.Skill.Builder> 
            getSkillSetBuilderList() {
@@ -11073,7 +11471,7 @@ public final class Proto {
           skillSetBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               de.hsd.hacking.Proto.Skill, de.hsd.hacking.Proto.Skill.Builder, de.hsd.hacking.Proto.SkillOrBuilder>(
                   skillSet_,
-                  ((bitField0_ & 0x00010000) == 0x00010000),
+                  ((bitField0_ & 0x00040000) == 0x00040000),
                   getParentForChildren(),
                   isClean());
           skillSet_ = null;
@@ -11084,9 +11482,9 @@ public final class Proto {
       private java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> employeeSpecials_ =
         java.util.Collections.emptyList();
       private void ensureEmployeeSpecialsIsMutable() {
-        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
+        if (!((bitField0_ & 0x00080000) == 0x00080000)) {
           employeeSpecials_ = new java.util.ArrayList<de.hsd.hacking.Proto.EmployeeSpecial>(employeeSpecials_);
-          bitField0_ |= 0x00020000;
+          bitField0_ |= 0x00080000;
          }
       }
 
@@ -11094,7 +11492,7 @@ public final class Proto {
           de.hsd.hacking.Proto.EmployeeSpecial, de.hsd.hacking.Proto.EmployeeSpecial.Builder, de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> employeeSpecialsBuilder_;
 
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public java.util.List<de.hsd.hacking.Proto.EmployeeSpecial> getEmployeeSpecialsList() {
         if (employeeSpecialsBuilder_ == null) {
@@ -11104,7 +11502,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public int getEmployeeSpecialsCount() {
         if (employeeSpecialsBuilder_ == null) {
@@ -11114,7 +11512,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public de.hsd.hacking.Proto.EmployeeSpecial getEmployeeSpecials(int index) {
         if (employeeSpecialsBuilder_ == null) {
@@ -11124,7 +11522,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder setEmployeeSpecials(
           int index, de.hsd.hacking.Proto.EmployeeSpecial value) {
@@ -11141,7 +11539,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder setEmployeeSpecials(
           int index, de.hsd.hacking.Proto.EmployeeSpecial.Builder builderForValue) {
@@ -11155,7 +11553,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder addEmployeeSpecials(de.hsd.hacking.Proto.EmployeeSpecial value) {
         if (employeeSpecialsBuilder_ == null) {
@@ -11171,7 +11569,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder addEmployeeSpecials(
           int index, de.hsd.hacking.Proto.EmployeeSpecial value) {
@@ -11188,7 +11586,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder addEmployeeSpecials(
           de.hsd.hacking.Proto.EmployeeSpecial.Builder builderForValue) {
@@ -11202,7 +11600,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder addEmployeeSpecials(
           int index, de.hsd.hacking.Proto.EmployeeSpecial.Builder builderForValue) {
@@ -11216,7 +11614,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder addAllEmployeeSpecials(
           java.lang.Iterable<? extends de.hsd.hacking.Proto.EmployeeSpecial> values) {
@@ -11231,12 +11629,12 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder clearEmployeeSpecials() {
         if (employeeSpecialsBuilder_ == null) {
           employeeSpecials_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00020000);
+          bitField0_ = (bitField0_ & ~0x00080000);
           onChanged();
         } else {
           employeeSpecialsBuilder_.clear();
@@ -11244,7 +11642,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public Builder removeEmployeeSpecials(int index) {
         if (employeeSpecialsBuilder_ == null) {
@@ -11257,14 +11655,14 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public de.hsd.hacking.Proto.EmployeeSpecial.Builder getEmployeeSpecialsBuilder(
           int index) {
         return getEmployeeSpecialsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
           int index) {
@@ -11274,7 +11672,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public java.util.List<? extends de.hsd.hacking.Proto.EmployeeSpecialOrBuilder> 
            getEmployeeSpecialsOrBuilderList() {
@@ -11285,14 +11683,14 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public de.hsd.hacking.Proto.EmployeeSpecial.Builder addEmployeeSpecialsBuilder() {
         return getEmployeeSpecialsFieldBuilder().addBuilder(
             de.hsd.hacking.Proto.EmployeeSpecial.getDefaultInstance());
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public de.hsd.hacking.Proto.EmployeeSpecial.Builder addEmployeeSpecialsBuilder(
           int index) {
@@ -11300,7 +11698,7 @@ public final class Proto {
             index, de.hsd.hacking.Proto.EmployeeSpecial.getDefaultInstance());
       }
       /**
-       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 18;</code>
+       * <code>repeated .what_the_hack.EmployeeSpecial employeeSpecials = 20;</code>
        */
       public java.util.List<de.hsd.hacking.Proto.EmployeeSpecial.Builder> 
            getEmployeeSpecialsBuilderList() {
@@ -11313,7 +11711,7 @@ public final class Proto {
           employeeSpecialsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               de.hsd.hacking.Proto.EmployeeSpecial, de.hsd.hacking.Proto.EmployeeSpecial.Builder, de.hsd.hacking.Proto.EmployeeSpecialOrBuilder>(
                   employeeSpecials_,
-                  ((bitField0_ & 0x00020000) == 0x00020000),
+                  ((bitField0_ & 0x00080000) == 0x00080000),
                   getParentForChildren(),
                   isClean());
           employeeSpecials_ = null;
@@ -14811,35 +15209,41 @@ public final class Proto {
       "\022\023\n\017HardwareStation\020\002\022\t\n\005Modem\020\003\022\n\n\006Rout" +
       "er\020\004\022\n\n\006Server\020\005\"?\n\020EquipmentManager\022+\n\t" +
       "equipment\030\001 \003(\0132\030.what_the_hack.Equipmen",
-      "t\"\315\004\n\010Employee\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030" +
+      "t\"\311\006\n\010Employee\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030" +
       "\002 \001(\t\022\016\n\006salary\030\003 \001(\005\022\031\n\021currentTileNumb" +
       "er\030\004 \001(\005\022\032\n\022occupiedTileNumber\030\005 \001(\005\022\021\n\t" +
       "usedScore\030\006 \001(\002\022\021\n\tfreeScore\030\007 \001(\002\022\022\n\nis" +
       "Employed\030\010 \001(\010\022\021\n\thairColor\030\t \001(\t\022\020\n\010eye" +
       "Color\030\n \001(\t\022\021\n\tskinColor\030\013 \001(\t\022\022\n\nshirtC" +
       "olor\030\014 \001(\t\022\024\n\014trouserColor\030\r \001(\t\022\021\n\tshoe" +
-      "Color\030\016 \001(\t\0224\n\thairStyle\030\017 \001(\0162!.what_th" +
-      "e_hack.Employee.HairStyle\022.\n\006gender\030\020 \001(" +
-      "\0162\036.what_the_hack.Employee.Gender\022&\n\010ski",
-      "llSet\030\021 \003(\0132\024.what_the_hack.Skill\0228\n\020emp" +
-      "loyeeSpecials\030\022 \003(\0132\036.what_the_hack.Empl" +
-      "oyeeSpecial\"5\n\tHairStyle\022\t\n\005CRAZY\020\000\022\010\n\004N" +
-      "EAT\020\001\022\010\n\004NERD\020\002\022\t\n\005RASTA\020\003\"-\n\006Gender\022\r\n\t" +
-      "UNDECIDED\020\000\022\010\n\004MALE\020\001\022\n\n\006FEMALE\020\002\"w\n\017Emp" +
-      "loyeeManager\0223\n\022availableEmployees\030\001 \003(\013" +
-      "2\027.what_the_hack.Employee\022/\n\016hiredEmploy" +
-      "ees\030\002 \003(\0132\027.what_the_hack.Employee\"1\n\017Em" +
-      "ployeeSpecial\022\r\n\005level\030\001 \001(\005\022\017\n\007special\030" +
-      "\002 \001(\t\"\202\001\n\rMissionWorker\022\025\n\rremainingDays",
-      "\030\001 \001(\005\0226\n\006skills\030\002 \003(\0132&.what_the_hack.M" +
-      "issionSkillRequirement\022\017\n\007mission\030\003 \001(\005\022" +
-      "\021\n\temployees\030\004 \003(\005\"i\n\027MissionSkillRequir" +
-      "ement\022+\n\tskillType\030\001 \001(\0162\030.what_the_hack" +
-      ".SkillType\022\020\n\010required\030\002 \001(\002\022\017\n\007current\030" +
-      "\003 \001(\002*i\n\tSkillType\022\n\n\006Social\020\000\022\014\n\010Hardwa" +
-      "re\020\001\022\014\n\010Software\020\002\022\013\n\007Network\020\003\022\n\n\006Crypt" +
-      "o\020\004\022\n\n\006Search\020\005\022\017\n\013All_Purpose\020\006B\027\n\016de.h" +
-      "sd.hackingB\005Protob\006proto3"
+      "Color\030\016 \001(\t\0228\n\013visualStyle\030\017 \001(\0162#.what_" +
+      "the_hack.Employee.VisualStyle\022<\n\rhairSty" +
+      "leMale\030\020 \001(\0162%.what_the_hack.Employee.Ha",
+      "irStyleMale\022@\n\017hairStyleFemale\030\021 \001(\0162\'.w" +
+      "hat_the_hack.Employee.HairStyleFemale\022.\n" +
+      "\006gender\030\022 \001(\0162\036.what_the_hack.Employee.G" +
+      "ender\022&\n\010skillSet\030\023 \003(\0132\024.what_the_hack." +
+      "Skill\0228\n\020employeeSpecials\030\024 \003(\0132\036.what_t" +
+      "he_hack.EmployeeSpecial\"%\n\013VisualStyle\022\013" +
+      "\n\007DEFAULT\020\000\022\t\n\005TRUMP\020\001\"A\n\rHairStyleMale\022" +
+      "\013\n\007M_CRAZY\020\000\022\n\n\006M_NEAT\020\001\022\n\n\006M_NERD\020\002\022\013\n\007" +
+      "M_RASTA\020\003\"C\n\017HairStyleFemale\022\013\n\007F_CRAZY\020" +
+      "\000\022\n\n\006F_NEAT\020\001\022\n\n\006F_NERD\020\002\022\013\n\007F_RASTA\020\003\"-",
+      "\n\006Gender\022\r\n\tUNDECIDED\020\000\022\010\n\004MALE\020\001\022\n\n\006FEM" +
+      "ALE\020\002\"w\n\017EmployeeManager\0223\n\022availableEmp" +
+      "loyees\030\001 \003(\0132\027.what_the_hack.Employee\022/\n" +
+      "\016hiredEmployees\030\002 \003(\0132\027.what_the_hack.Em" +
+      "ployee\"1\n\017EmployeeSpecial\022\r\n\005level\030\001 \001(\005" +
+      "\022\017\n\007special\030\002 \001(\t\"\202\001\n\rMissionWorker\022\025\n\rr" +
+      "emainingDays\030\001 \001(\005\0226\n\006skills\030\002 \003(\0132&.wha" +
+      "t_the_hack.MissionSkillRequirement\022\017\n\007mi" +
+      "ssion\030\003 \001(\005\022\021\n\temployees\030\004 \003(\005\"i\n\027Missio" +
+      "nSkillRequirement\022+\n\tskillType\030\001 \001(\0162\030.w",
+      "hat_the_hack.SkillType\022\020\n\010required\030\002 \001(\002" +
+      "\022\017\n\007current\030\003 \001(\002*i\n\tSkillType\022\n\n\006Social" +
+      "\020\000\022\014\n\010Hardware\020\001\022\014\n\010Software\020\002\022\013\n\007Networ" +
+      "k\020\003\022\n\n\006Crypto\020\004\022\n\n\006Search\020\005\022\017\n\013All_Purpo" +
+      "se\020\006B\027\n\016de.hsd.hackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -14906,7 +15310,7 @@ public final class Proto {
     internal_static_what_the_hack_Employee_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Employee_descriptor,
-        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "HairStyle", "Gender", "SkillSet", "EmployeeSpecials", });
+        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "VisualStyle", "HairStyleMale", "HairStyleFemale", "Gender", "SkillSet", "EmployeeSpecials", });
     internal_static_what_the_hack_EmployeeManager_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_what_the_hack_EmployeeManager_fieldAccessorTable = new
