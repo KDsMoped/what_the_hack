@@ -10,11 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
@@ -118,11 +120,13 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
     /**
      * Show the MessageBar if not visible already.
      */
-    public void Show() {
+    public void Show(boolean notify) {
         if (visible)
             return;
 
         isShowing = true;
+        if(notify)
+            AudioManager.instance().playNotificationSound();
     }
 
     /**
@@ -170,7 +174,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
     }
 
     private void NewMessage(Message newMe) {
-        Show();
+        Show(true);
 
         if (messages.size() > MESSAGE_BUFFER - 2) {
             messages.remove(0);
@@ -197,7 +201,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
             ScreenManager.setSwipeUpAction(new Runnable() {
                 @Override
                 public void run() {
-                    Show();
+                    Show(false);
                 }
             });
         }
