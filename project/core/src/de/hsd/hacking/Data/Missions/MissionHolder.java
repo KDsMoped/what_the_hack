@@ -2,8 +2,6 @@ package de.hsd.hacking.Data.Missions;
 
 import java.util.List;
 
-import de.hsd.hacking.Entities.Employees.Skill;
-
 
 /**
  * This class is only used to deserialize the mission objects.

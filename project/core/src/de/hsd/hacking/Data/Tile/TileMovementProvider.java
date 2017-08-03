@@ -7,10 +7,6 @@ import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Tile;
 
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
-
 public interface TileMovementProvider extends MovementProvider {
 
     /**

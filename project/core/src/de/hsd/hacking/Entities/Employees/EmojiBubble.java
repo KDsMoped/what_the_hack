@@ -6,13 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Timer;
 
 import de.hsd.hacking.Entities.Entity;
-
-/**
- * Created by Cuddl3s on 09.07.2017.
- */
 
 public class EmojiBubble extends Actor {
 
@@ -55,10 +50,10 @@ public class EmojiBubble extends Actor {
         batch.setColor(Color.WHITE);
     }
 
-    @Override
     /**
-     * Act method overide. Needed for fadein /fadeout
+     * Act method override. Needed for fadein /fadeout
      */
+    @Override
     public void act(float delta) {
         super.act(delta);
     }

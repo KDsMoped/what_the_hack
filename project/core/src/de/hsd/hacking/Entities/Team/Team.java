@@ -2,20 +2,13 @@ package de.hsd.hacking.Entities.Team;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Employees.EmployeeFactory;
-import de.hsd.hacking.Entities.Employees.Skill;
 import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
-import de.hsd.hacking.Stages.GameStage;
-import de.hsd.hacking.UI.Employee.EmployeeUIElement;
 import de.hsd.hacking.Utils.Constants;
 
 /**

@@ -2,10 +2,6 @@ package de.hsd.hacking.Utils;
 
 import com.badlogic.gdx.graphics.Color;
 
-/**
- * Created by Cuddl3s on 29.05.2017.
- */
-
 public class ColorPair {
 
     public Color oldColor;

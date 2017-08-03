@@ -2,7 +2,6 @@ package de.hsd.hacking.Entities.Objects.Equipment.Items;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -16,8 +15,6 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
-
-import static de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager.instance;
 
 public class CoffeeMachine extends Equipment implements Upgradable {
 
@@ -46,7 +43,7 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     public int getMaxLevel() { return 5; }
 
     @Override
-    public int getAllPurposeSkillBonus() { return data.getLevel() * 1; }
+    public int getAllPurposeSkillBonus() { return data.getLevel(); }
 
     @Override
     public void setPurchased(boolean isPurchased) {

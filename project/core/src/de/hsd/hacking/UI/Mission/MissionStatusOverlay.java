@@ -16,15 +16,9 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.MissionSkillRequirement;
-import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.UI.General.LoadingBar;
-import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
-
-/**
- * Created by Cuddl3s on 12.07.2017.
- */
 
 public class MissionStatusOverlay extends Group implements TimeChangedListener {
 
@@ -69,7 +63,7 @@ public class MissionStatusOverlay extends Group implements TimeChangedListener {
         skillTable.clearChildren();
         bars = new ArrayList<LoadingBar>();
         if (missionWorker != null) {
-            missionNameLabel.setText(missionWorker.getMission().getName().substring(0, 8) + "...");
+            missionNameLabel.setText(missionWorker.getMission().getShortenedName(12));
             for (MissionSkillRequirement req
                     : missionWorker1.getSkillRequirements()) {
                 Image icon = new Image(Assets.instance().getSkillIcon(req.getSkillType().skillType));
@@ -85,6 +79,7 @@ public class MissionStatusOverlay extends Group implements TimeChangedListener {
         }
 
     }
+
 
     private void refreshTable() {
         if (missionWorker != null) {

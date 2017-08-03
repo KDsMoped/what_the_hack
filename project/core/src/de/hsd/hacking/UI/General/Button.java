@@ -7,10 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Created by Cuddl3s on 21.04.2017.
- */
-
 public abstract class Button extends Actor {
 
     private boolean disabled = false;

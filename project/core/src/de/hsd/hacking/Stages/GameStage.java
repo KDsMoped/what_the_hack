@@ -22,7 +22,6 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
-import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.SaveGameContainer;
 import de.hsd.hacking.Data.SaveGameManager;
@@ -34,11 +33,7 @@ import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.UI.Mission.MissionStatusOverlay;
-import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Objects.Chair;
-import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
-import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.ObjectFactory;
 import de.hsd.hacking.Entities.Objects.ObjectType;
 import de.hsd.hacking.Entities.Team.Team;
@@ -78,7 +73,9 @@ public class GameStage extends Stage implements EventListener{
 
     private final MissionBrowser missionBrowser = new MissionBrowser();
 
-    private Group foreground, background, ui, popups, overlay;
+    private Group ui;
+    private Group popups;
+    private Group overlay;
 
     private static GameStage instance;
     private boolean employeesTouchable = true;
@@ -109,8 +106,8 @@ public class GameStage extends Stage implements EventListener{
     }
 
     private void InitRootObjects() {
-        foreground = new Group();
-        background = new Group();
+        Group foreground = new Group();
+        Group background = new Group();
         ui = new Group();
         popups = new Group();
         overlay = new Group();

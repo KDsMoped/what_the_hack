@@ -2,17 +2,12 @@ package de.hsd.hacking.Data.Messaging;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Proto;
-import de.hsd.hacking.UI.Messaging.MessageBar;
-import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.DateUtils;
 
 /**

@@ -17,10 +17,6 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
-
 public class Tile extends Actor {
 
 

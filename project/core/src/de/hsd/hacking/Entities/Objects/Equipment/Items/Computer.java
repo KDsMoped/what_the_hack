@@ -27,10 +27,6 @@ import de.hsd.hacking.Entities.Employees.States.MovingState;
 import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 06.06.2017.
- */
-
 public class Computer extends Equipment implements Upgradable {
 
     private TextureRegion stillRegion;
@@ -42,7 +38,7 @@ public class Computer extends Equipment implements Upgradable {
     private Workspace workspace;
 
     public Computer(String name, Workspace workspace) {
-        super(name, 400, Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
+        super(name, 1600, Assets.instance().computer.get(0), true, Direction.DOWN, 0, Direction.DOWN);
         this.data.setType(Proto.Equipment.EquipmentType.Computer);
 
         Assets assets = Assets.instance();

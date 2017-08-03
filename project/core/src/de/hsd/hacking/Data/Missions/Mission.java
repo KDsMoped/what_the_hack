@@ -1,18 +1,11 @@
 package de.hsd.hacking.Data.Missions;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.google.gson.annotations.Expose;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Proto;
 
 /**
@@ -241,6 +234,17 @@ public class Mission implements EventSender {
 
     public void setRewardMoney(int reward) {
         data.setRewardMoney(reward);
+    }
+
+    /**
+     * Returns the name of the mission with a maximum length of characters.
+     * @return
+     */
+    public String getShortenedName(int maxLength){
+        String name = data.getName();
+
+        if (name.length() < maxLength) return name;
+        else return name.substring(0, maxLength - 3) + "...";
     }
 
     public Proto.Mission getData() {

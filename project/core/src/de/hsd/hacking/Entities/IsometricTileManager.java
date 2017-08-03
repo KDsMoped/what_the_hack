@@ -1,13 +1,6 @@
 package de.hsd.hacking.Entities;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-
-import de.hsd.hacking.Assets.Assets;
-
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
 
 public class IsometricTileManager {
 

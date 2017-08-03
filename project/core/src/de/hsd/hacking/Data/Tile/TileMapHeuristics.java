@@ -1,10 +1,6 @@
 package de.hsd.hacking.Data.Tile;
 
 
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
-
 public class TileMapHeuristics {
 
     /**

@@ -6,9 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by ju on 06.07.17.
+ *
+ *
+ * @author Julian
  */
-
 public final class DateUtils {
     /**
      * converts days starting from 1 to an date object starting 1.1.

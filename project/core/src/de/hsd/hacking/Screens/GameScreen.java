@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import de.hsd.hacking.HackingGame;
 import de.hsd.hacking.Stages.GameStage;
@@ -17,12 +16,11 @@ import de.hsd.hacking.Utils.Constants;
  */
 class GameScreen implements Screen {
 
-    private HackingGame game;
     private GameStage stage;
     private Runnable swipeUpAction;
 
     public GameScreen(HackingGame game) {
-        this.game = game;
+        HackingGame game1 = game;
         this.stage = new GameStage();
 
         InputMultiplexer multiplexer = new InputMultiplexer();

@@ -2,14 +2,9 @@ package de.hsd.hacking.Entities.Objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Entity;
-
-/**
- * Created by Cuddl3s on 30.05.2017.
- */
 
 public abstract class Object extends Entity {
 

@@ -24,12 +24,10 @@ import de.hsd.hacking.Utils.Constants;
  * @author Julian
  */
 public class MissionBrowser extends Popup {
-    private Table openMissions, activeMissions, completedMissions;
 
     private Label title;
 
     private Table openMissionContainer, activeMissionsContainer, completedMissionsContainer;
-    private ScrollPane openMissionScroller, activeMissionScroller, completedMissionsScroller;
 
 
     public MissionBrowser() {
@@ -47,37 +45,37 @@ public class MissionBrowser extends Popup {
 
     private void initTable() {
         // Setup open Missions table
-        openMissions = new Table();
+        Table openMissions = new Table();
         initSubTable(openMissions);
         openMissions.setName("Open");
 
 
         // Setup running missions table
-        activeMissions = new Table();
+        Table activeMissions = new Table();
         initSubTable(activeMissions);
         activeMissions.setName("Active");
 
         // Setup completed missions table
-        completedMissions = new Table();
+        Table completedMissions = new Table();
         initSubTable(completedMissions);
         completedMissions.setName("Completed");
 
 
         // Add everything to the helper tables
         openMissionContainer = new Table();
-        openMissionScroller = new ScrollPane(openMissionContainer);
+        ScrollPane openMissionScroller = new ScrollPane(openMissionContainer);
         openMissionScroller.setStyle(Constants.ScrollPaneStyleWin32());
         openMissionScroller.setFadeScrollBars(false);
         openMissions.add(openMissionScroller).expand().fill().maxHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         activeMissionsContainer = new Table();
-        activeMissionScroller = new ScrollPane(activeMissionsContainer);
+        ScrollPane activeMissionScroller = new ScrollPane(activeMissionsContainer);
         activeMissionScroller.setStyle(Constants.ScrollPaneStyleWin32());
         activeMissionScroller.setFadeScrollBars(false);
         activeMissions.add(activeMissionScroller).expand().fill().prefHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);
 
         completedMissionsContainer = new Table();
-        completedMissionsScroller = new ScrollPane(completedMissionsContainer);
+        ScrollPane completedMissionsScroller = new ScrollPane(completedMissionsContainer);
         completedMissionsScroller.setStyle(Constants.ScrollPaneStyleWin32());
         completedMissionsScroller.setFadeScrollBars(false);
         completedMissions.add(completedMissionsScroller).expand().fill().prefHeight(SCROLLER_HEIGHT).prefWidth(SCROLLER_WIDTH).maxWidth(SCROLLER_WIDTH).pad(SCROLLER_ELEMENT_PADDING);

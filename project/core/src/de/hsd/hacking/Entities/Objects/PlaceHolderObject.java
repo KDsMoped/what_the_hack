@@ -4,10 +4,6 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
-/**
- * Created by Cuddl3s on 20.06.2017.
- */
-
 public class PlaceHolderObject extends Object implements Interactable {
 
 
@@ -52,10 +48,7 @@ public class PlaceHolderObject extends Object implements Interactable {
 
     @Override
     public boolean isDelegatingInteraction() {
-        if (isInteractable()) {
-            return ((Interactable) placeHolderForObject).isDelegatingInteraction();
-        }
-        return false;
+        return isInteractable() && ((Interactable) placeHolderForObject).isDelegatingInteraction();
     }
 
     @Override

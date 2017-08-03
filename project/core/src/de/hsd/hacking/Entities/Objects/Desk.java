@@ -8,10 +8,6 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 06.06.2017.
- */
-
 public class Desk extends ContainerObject {
 
     private TextureRegion desk;

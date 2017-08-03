@@ -1,5 +1,6 @@
 package de.hsd.hacking.UI.Employee;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -89,7 +90,12 @@ public class EmployeeBar extends Group {
         addActor(profilePopup = new EmployeeProfile(new EmployeeProvider() {
             @Override
             public Employee get() {
-                return GetSelected();
+
+                Employee e = GetSelected();
+
+                if(e == null) Gdx.app.error("", "ERROR: No employee selected but reference tries to access it!");
+
+                return e;
             }
         }));
     }

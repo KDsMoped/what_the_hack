@@ -2,14 +2,12 @@ package de.hsd.hacking.UI.Mission;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
@@ -27,11 +25,6 @@ import java.util.List;
  */
 public class MissionUIElement extends Table {
     private Mission mission;
-
-    private Label name;
-    private Label description, outcomeDescription;
-    private Label money;
-    private Table skills;
 
     private TextButton actionButton;
 
@@ -67,10 +60,10 @@ public class MissionUIElement extends Table {
         this.pad(4f);
 
         // create and setup all ui elements
-        name = new Label(mission.getName(), Constants.LabelStyle());
+        Label name = new Label(mission.getName(), Constants.LabelStyle());
         name.setFontScale(1.05f);
 
-        money = new Label("" + mission.getRewardMoney(), Constants.LabelStyle());
+        Label money = new Label("" + mission.getRewardMoney(), Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
 
 
@@ -78,16 +71,14 @@ public class MissionUIElement extends Table {
         //skill table in bottom left corner
         List<Skill> skill = mission.getSkill();
 
-        skills = new Table();
+        Table skills = new Table();
 //        skills.setDebug(true);
         skills.align(Align.left);
 
         skills.add(new Label("Requirements:", Constants.LabelStyle())).left().colspan(4).padBottom(5).row();
 
         //skills
-        for (int i = 0; i < skill.size(); i++) {
-            Skill s = skill.get(i);
-
+        for (Skill s : skill) {
             Image icon = new Image(Assets.instance().getSkillIcon(s.getType().skillType));
             Label text = new Label(s.getDisplayValue(false), Constants.LabelStyle());
             text.setAlignment(Align.left);
@@ -121,14 +112,14 @@ public class MissionUIElement extends Table {
         add(name).expandX().fillX().left();
 
         if (showDescription) {
-            description = new Label(mission.getDescription(), Constants.LabelStyle());
+            Label description = new Label(mission.getDescription(), Constants.LabelStyle());
             description.setWrap(true);
             row().padTop(10f);
             add(description).left().expand().fill();
         }
 
         if (showOutcome) {
-            outcomeDescription = new Label(mission.getSuccessText(), Constants.LabelStyle());
+            Label outcomeDescription = new Label(mission.getSuccessText(), Constants.LabelStyle());
             outcomeDescription.setWrap(true);
             row().padTop(10f);
             add(outcomeDescription).left().expand().fill();

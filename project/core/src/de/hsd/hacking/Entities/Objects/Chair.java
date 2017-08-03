@@ -13,10 +13,6 @@ import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 
-/**
- * Created by Cuddl3s on 20.06.2017.
- */
-
 public class Chair extends InteractableObject {
     private Array<TextureRegion> regions;
     private Computer computer;

@@ -21,12 +21,12 @@ public final class MissionFactory {
     private static final float MISSION_DIFFICULTY_VARIANCE = 0.15f;
     private static final int MISSION_DURATION_MINIMUM = 2;
     private static final int MISSION_DURATION_VARIANCE = 1;
-    private static final float MISSION_REWARDMONEY_VARIANCE = 0.15f;
-    private static final int MISSION_REWARDMONEY_FACTOR = 16;
-    private static final int MISSION_BASE_POWER = 16;
+    private static final float MISSION_REWARDMONEY_VARIANCE = 0.1f;
+    private static final int MISSION_REWARDMONEY_FACTOR = 10;
+    private static final int MISSION_BASE_POWER = 18;
     private static final int MISSION_BANDWIDTH_BASE = 100;
     private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.1f;
-    private static final float SKILL_POWER_PER_DIFFICULTY = 2.5f;
+    private static final float SKILL_POWER_PER_DIFFICULTY = 3.5f;
     private static final float SKILL_DIFFICULTY_VARIANCE = 0.3f;
 
     /**
@@ -114,6 +114,7 @@ public final class MissionFactory {
 
     /**
      * Calculates the bandwidth used by this mission based on its difficulty.
+     *
      * @param mission
      */
     public static void calcBandwidth(Mission mission) {
@@ -127,7 +128,7 @@ public final class MissionFactory {
      * @return
      */
     public static int calcRewardMoney(Mission mission) {
-        return (int) (mission.getDifficulty() * (1 + mission.getRisk()) * RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
+        return (int) (mission.getDifficulty() * /*(1 + mission.getRisk()) * */ RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
     }
 
     /**

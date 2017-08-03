@@ -2,7 +2,6 @@ package de.hsd.hacking.Entities.Team;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.Tile.TileMap;
-import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Entities.Objects.Desk;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
@@ -21,10 +20,9 @@ public class Workspace {
     private Computer computer = null;
     private Desk desk;
     private Chair chair;
-    private TileMap tileMap;
 
     public Workspace(TileMap tileMap, int tileX, int tileY) {
-        this.tileMap = tileMap;
+        TileMap tileMap1 = tileMap;
         desk = new Desk(Assets.instance(), Direction.RIGHT, 1);
         tileMap.addObject(tileX, tileY, desk);
         chair = new Chair(Assets.instance());

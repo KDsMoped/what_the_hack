@@ -5,10 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.gson.annotations.Expose;
 
-/**
- * Created by Cuddl3s on 24.05.2017.
- */
-
 public abstract class Entity extends Actor {
 
     @Expose

@@ -10,10 +10,6 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
-/**
- * Created by domin on 28.06.2017.
- */
-
 public class Router extends Equipment implements Upgradable {
 
     public Router() {
@@ -35,7 +31,7 @@ public class Router extends Equipment implements Upgradable {
         return Assets.instance().router_icon;
     }
 
-    public void onTouch() {};
+    public void onTouch() {}
 
     @Override
     public EmployeeState interact(Employee e) {

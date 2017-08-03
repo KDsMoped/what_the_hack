@@ -3,10 +3,6 @@ package de.hsd.hacking.Entities.Employees.States;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.Team;
 
-/**
- * Created by Cuddl3s on 14.06.2017.
- */
-
 public class SelectedState extends EmployeeState {
 
 

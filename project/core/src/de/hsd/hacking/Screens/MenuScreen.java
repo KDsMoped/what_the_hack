@@ -14,11 +14,10 @@ import de.hsd.hacking.Stages.MenuStage;
  */
 class MenuScreen implements Screen {
 
-    private final HackingGame game;
     private Stage stage;
 
     public MenuScreen(HackingGame game){
-        this.game = game;
+        HackingGame game1 = game;
         this.stage = new MenuStage();
         Gdx.input.setInputProcessor(stage);
     }

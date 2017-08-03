@@ -12,10 +12,6 @@ import java.text.SimpleDateFormat;
 
 import de.hsd.hacking.Assets.Assets;
 
-/**
- * Created by Cuddl3s on 21.04.2017.
- */
-
 public class Constants {
 
     public static final String TAG = "HackingGame";
@@ -31,7 +27,7 @@ public class Constants {
 
     public static final int MAX_EMPLOYEE_COUNT = 4;
     public static final int STARTING_TEAM_SIZE = 2;
-    public static final int STARTING_MONEY = 15000;
+    public static final int STARTING_MONEY = 8000;
 
     //UI
 

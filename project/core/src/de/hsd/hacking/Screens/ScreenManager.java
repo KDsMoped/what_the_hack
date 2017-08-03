@@ -6,10 +6,6 @@ import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.HackingGame;
 
-/**
- * Created by Cuddl3s on 21.04.2017.
- */
-
 public class ScreenManager {
 
     private static HackingGame game;
@@ -53,11 +49,7 @@ public class ScreenManager {
     }
 
     public static boolean isGameRunning() {
-        if (currentScreen.getClass() == GameScreen.class) {
-            return true;
-        }
-        else
-            return false;
+        return currentScreen.getClass() == GameScreen.class;
     }
 
     private static void initSingletons() {

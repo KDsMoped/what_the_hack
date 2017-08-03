@@ -27,8 +27,8 @@ public class EmployeeFactory {
     private static final int PROGRESS_VARIANCE = 6;
     private static final int LEVELUP_THRESHOLD = 10;
 
-    public static final float SCORE_MISSION_COMPLETED = 2;
-    public static final float SCORE_MISSION_COMPLETED_PERLEVEL = 0.5f;
+    public static final float SCORE_MISSION_COMPLETED = 1;
+    public static final float SCORE_MISSION_COMPLETED_PERLEVEL = 0.2f;
     public static final float SCORE_MISSION_CRITICAL_SUCCESS = 0.1f;
 
 

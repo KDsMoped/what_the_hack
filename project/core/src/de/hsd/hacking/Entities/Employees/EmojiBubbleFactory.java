@@ -5,10 +5,6 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Stages.GameStage;
 
-/**
- * Created by Florian Kaulfersch on 28.06.2017.
- */
-
 public class EmojiBubbleFactory {
 
     public static EmojiBubbleFactory instance = new EmojiBubbleFactory();

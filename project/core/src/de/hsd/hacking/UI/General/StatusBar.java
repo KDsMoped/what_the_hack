@@ -18,14 +18,8 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.DateUtils;
 
-/**
- * Created by ju on 05.06.17.
- */
 // TODO Vor dem Zahltag -15.000$ blinken lassen
 public class StatusBar extends Actor implements TimeChangedListener {
-    // Constants
-    private final int STATUS_BAR_HEIGHT = 20;
-    private final int STATUS_BAR_ANIMATION_TIME = 1;
 
     private Assets assets;
 
@@ -53,14 +47,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
     private int oldMoney = money;
     private int oldBandwidth = bandwidth;
 
-    // sprite objects that will be added to the table.
-    private Image moneyLabel;
-    private Image bandwidthLabel;
-    private Image employeesLabel;
     private Image timeLabel;
-
-    // Label style with font
-    private Label.LabelStyle titlebarStyle;
 
     // label objects that will be added to the table.
     private Label moneyText;
@@ -83,17 +70,18 @@ public class StatusBar extends Actor implements TimeChangedListener {
         items.align(Align.center);
 //        items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
         items.setWidth(312);
+        int STATUS_BAR_HEIGHT = 20;
         items.setHeight(STATUS_BAR_HEIGHT);
         // the green terminal background style
         items.setBackground(assets.terminal_patch);
 
         // font style for the text, use monospace!
-        titlebarStyle = Constants.TerminalLabelStyle();
+        Label.LabelStyle titlebarStyle = Constants.TerminalLabelStyle();
 
         // labels with sprites
-        moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
-        bandwidthLabel = new Image(assets.bandwith_icon, Scaling.none, Align.bottom);
-        employeesLabel = new Image(assets.employees_icon, Scaling.none, Align.bottom);
+        Image moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
+        Image bandwidthLabel = new Image(assets.bandwith_icon, Scaling.none, Align.bottom);
+        Image employeesLabel = new Image(assets.employees_icon, Scaling.none, Align.bottom);
         timeLabel = new Image(assets.clock_icon.first(), Scaling.none, Align.bottom);
 
         // set font to label objects
@@ -170,6 +158,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
     private int AnimateIntChange(int newValue, int oldValue, float elapsed) {
         int animatedValue;
 
+        int STATUS_BAR_ANIMATION_TIME = 1;
         float progress = Math.min(1.0f, elapsed / STATUS_BAR_ANIMATION_TIME);
         float interpol = Interpolation.sineOut.apply(progress);
 

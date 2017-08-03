@@ -5,10 +5,6 @@ import de.hsd.hacking.Proto;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cuddl3s on 21.05.2017.
- */
-
 public class NameHolder {
 
     private ArrayList<String> surNamesMale;

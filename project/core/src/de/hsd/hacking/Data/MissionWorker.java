@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.MathUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Entities.Employees.*;
 import de.hsd.hacking.Utils.Constants;
@@ -107,10 +106,7 @@ public class MissionWorker implements TimeChangedListener {
                 notFinishedSkills++;
             }
         }
-        if (notFinishedSkills > 0) {
-            return false;
-        }
-        return true;
+        return notFinishedSkills <= 0;
     }
 
 

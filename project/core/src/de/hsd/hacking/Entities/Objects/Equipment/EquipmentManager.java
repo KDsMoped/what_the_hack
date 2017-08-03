@@ -5,9 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Json;
-
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
@@ -15,18 +12,12 @@ import de.hsd.hacking.Entities.Objects.Equipment.Items.HardwareStation;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Modem;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Router;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Server;
-import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
-import de.hsd.hacking.Utils.Constants;
 
-
-/**
- * Created by domin on 28.06.2017.
- */
 
 public class EquipmentManager {
 

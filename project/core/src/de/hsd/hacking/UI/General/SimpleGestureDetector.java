@@ -2,10 +2,6 @@ package de.hsd.hacking.UI.General;
 
 import com.badlogic.gdx.input.GestureDetector;
 
-/**
- * Created by ju on 12.07.17.
- */
-
 public class SimpleGestureDetector extends GestureDetector {
     public interface DirectionListener {
         void onLeft();

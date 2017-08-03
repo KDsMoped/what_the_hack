@@ -12,10 +12,6 @@ import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 
-/**
- * Created by Cuddl3s on 20.06.2017.
- */
-
 public class WorkingState extends EmployeeState implements EventListener {
 
     private Vector2 workingPosition;

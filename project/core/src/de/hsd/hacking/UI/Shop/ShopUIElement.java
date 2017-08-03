@@ -1,6 +1,5 @@
 package de.hsd.hacking.UI.Shop;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
@@ -14,17 +13,11 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
-import de.hsd.hacking.Entities.Employees.Skill;
-import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
-
-/**
- * Created by domin on 28.06.2017.
- */
 
 public class ShopUIElement extends Table {
 
@@ -36,11 +29,7 @@ public class ShopUIElement extends Table {
     EquipmentManager equipmentManager;
     ShopBrowser shopBrowser;
 
-    private Label name;
-    private Label price;
     private Label level;
-
-    private Image icon;
 
     TextButton buyButton;
     TextButton upgradeButton;
@@ -86,9 +75,9 @@ public class ShopUIElement extends Table {
         midContent = new Table();
         rightContent = new Table();
 
-        name = new Label(equipment.getName(), Constants.LabelStyle());
+        Label name = new Label(equipment.getName(), Constants.LabelStyle());
 
-        icon = new Image(equipment.getIcon());
+        Image icon = new Image(equipment.getIcon());
         Container<Image> iconContainer = new Container<Image>(icon);
         iconContainer.setBackground(Assets.instance().table_border_patch);
 
@@ -150,7 +139,7 @@ public class ShopUIElement extends Table {
 
         midContent.add(skillContent).left();
 
-        price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
+        Label price = new Label(Float.toString(equipment.getPrice()) + "$", Constants.LabelStyle());
         level = new Label("Lvl: " + Integer.toString(equipment.getLevel()), Constants.LabelStyle());
 
 
