@@ -2,6 +2,7 @@ package de.hsd.hacking.Data.Tile;
 
 import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Data.PathFinder;
+import de.hsd.hacking.Utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +33,13 @@ public class TilePathFinder implements PathFinder {
     @Override
     public Path findPath(int sx, int sy, int tx, int ty) {
         int maxSearchDistance = 2 * (Math.max(sx, tileMap.getWidthInTiles() - sx) + Math.max(sy, tileMap.getHeightInTiles() - sy));
+
+        if(alreadyOnTile(sx, sy, tx, ty)) {
+            Path path = new Path();
+            int tileNumber = sy * Constants.TILES_PER_SIDE + sx;
+            path.addToPath(tileMap.getTile(tileNumber));
+            return path;
+        }
 
         if (!isValidTargetLocation(sx, sy, tx, ty))return null;
 
@@ -140,6 +148,10 @@ public class TilePathFinder implements PathFinder {
         return path;
     }
 
+    private boolean alreadyOnTile(int sx, int sy, int tx, int ty) {
+        return  sx == tx && sy == ty;
+    }
+
 
     /**
      * Get the first element from the open list. This is the next
@@ -219,7 +231,7 @@ public class TilePathFinder implements PathFinder {
     protected boolean isValidTargetLocation(int sx, int sy, int x, int y) {
         boolean invalid = (x < 0) || (y < 0) || (x >= tileMap.getWidthInTiles()) || (y >= tileMap.getHeightInTiles());
 
-        if ((!invalid) && ((sx != x) || (sy != y))) {
+        if (!invalid) {
             invalid = !tileMap.getTiles()[x][y].isMovableTo();
         }
         return !invalid;
@@ -237,7 +249,7 @@ public class TilePathFinder implements PathFinder {
     protected boolean isValidMoveLocation(int sx, int sy, int x, int y) {
         boolean invalid = (x < 0) || (y < 0) || (x >= tileMap.getWidthInTiles()) || (y >= tileMap.getHeightInTiles());
 
-        if ((!invalid) && ((sx != x) || (sy != y))) {
+        if (!invalid) {
             invalid = !tileMap.getTiles()[x][y].isMovableThrough();
         }
         return !invalid;

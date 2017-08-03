@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.IsometricTileManager;
+import de.hsd.hacking.Entities.Objects.ContainerObject;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Objects.PlaceHolderObject;
 import de.hsd.hacking.Entities.Tile;
@@ -329,4 +330,24 @@ public class TileMap extends Group implements TileMovementProvider {
 
     }
 
+    public Tile findObject(Object obj) {
+        for (int i = 0; i < Constants.TILES_PER_SIDE; i++) {
+            for (int j = 0; j < Constants.TILES_PER_SIDE; j++) {
+                if (tiles[i][j].getObject() == null)
+                    continue;
+
+                if (tiles[i][j].getObject() == obj){
+                    return tiles[i][j];
+                }
+
+                if (ContainerObject.class.isAssignableFrom(tiles[i][j].getObject().getClass())) {
+                    if (((ContainerObject)tiles[i][j].getObject()).getContainedObject(0) == obj) {
+                        return tiles[i][j];
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
 }

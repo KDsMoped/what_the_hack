@@ -26,7 +26,7 @@ public interface Manager {
     void loadState();
 
     /**
-     * Destroys manager this instance.
+     * Destroys this manager instance.
      */
     void cleanUp();
 }

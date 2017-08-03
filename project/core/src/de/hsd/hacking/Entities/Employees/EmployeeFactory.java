@@ -354,17 +354,17 @@ public class EmployeeFactory {
     }
 
     /**
-     * Given that the employees free score point exceed the level-up threshold,
+     * Given that the employees free score point exceed the level-up threshold, this levels up
      * @param employee
      */
     public static void levelUp(Employee employee){
         if(employee.getFreeScore() < LEVELUP_THRESHOLD) return;
 
-        Gdx.app.log(Constants.TAG, employee.getName() + " levels up!");
+        if(Constants.DEBUG) Gdx.app.log(Constants.TAG, employee.getName() + " levels up!");
 
         spendScorePoints(employee);
 
-        Gdx.app.log(Constants.TAG, employee.getName() + " has now " + employee.getUsedScore() + " score.");
+        if(Constants.DEBUG) Gdx.app.log(Constants.TAG, employee.getName() + " has now " + employee.getUsedScore() + " score.");
 
         employee.onLevelUp();
     }

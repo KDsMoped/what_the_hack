@@ -176,7 +176,7 @@ public class GameTime extends Actor implements Manager, DataContainer {
     }
 
     /**
-     * Destroys manager this instance.
+     * Destroys this manager instance.
      */
     @Override
     public void cleanUp() {

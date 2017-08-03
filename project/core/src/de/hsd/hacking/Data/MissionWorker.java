@@ -48,12 +48,6 @@ public class MissionWorker implements TimeChangedListener {
 
         mission = MissionManager.instance().getActiveMission(data.getMission());
 
-        for (int id: data.getEmployeesList()) {
-            Employee employee = EmployeeManager.instance().getHiredEmployee(id);
-            employee.setCurrentMission(mission);
-            MissionManager.instance().startWorking(employee);
-        }
-
         for (Proto.MissionSkillRequirement proto: data.getSkillsList()) {
             skillRequirements.add(new MissionSkillRequirement(proto.toBuilder()));
         }
