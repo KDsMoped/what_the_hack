@@ -168,7 +168,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     /**
      * This is called by the {@link EmployeeFactory} when the creation process is finished.
      */
-    void finishCreation(){
+    void finishCreation() {
         setUpAnimations();
     }
 
@@ -262,7 +262,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      */
     private void setUpShader() {
 
-        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)GameStage.VIEWPORT_WIDTH, (int)GameStage.VIEWPORT_HEIGHT, false);
+        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int) GameStage.VIEWPORT_WIDTH, (int) GameStage.VIEWPORT_HEIGHT, false);
         this.frameBufferTexture = fbo.getColorBufferTexture();
         this.frameBufferTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         this.frameBufferTextureRegion = new TextureRegion(frameBufferTexture);
@@ -377,7 +377,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     public void removeFromOccupyingTile() {
         if (data.getOccupiedTileNumber() > -1)
-        movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
+            movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
     }
 
     @Override
@@ -412,7 +412,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         this.elapsedTime = 0f;
     }
 
-    private void randomVisualStyle(){
+    private void randomVisualStyle() {
         data.setVisualStyle(Proto.Employee.VisualStyle.DEFAULT);
         data.setHairStyleFemaleValue(RandomUtils.randomInt(Proto.Employee.HairStyleFemale.values().length - 1));
         data.setHairStyleMaleValue(RandomUtils.randomInt(Proto.Employee.HairStyleMale.values().length - 1));
@@ -427,22 +427,46 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         Array<TextureRegion> bodyFrames = assets.getCharBody(data.getVisualStyle(), data.getGender(), data.getHairStyleFemale(), data.getHairStyleMale());
         Array<TextureRegion> shadowFrames = assets.getCharShadow(data.getVisualStyle());
 
-        /* [1-2: Body Walkframes ]  */
-        animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = new Animation<TextureRegion>(.35f,shadowFrames.get(0), shadowFrames.get(1));
-        animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, bodyFrames.get(0), bodyFrames.get(1));
 
-        /* [1-2: Body Idleframes ]  */
-        animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, shadowFrames.get(2), shadowFrames.get(2), shadowFrames.get(2), shadowFrames.get(3));
-        animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
+        switch (data.getVisualStyle()) {
+            case TRUMP:
+                /* [1-2: Body Walkframes ]  */
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 0, 3);
 
-        /* [1: Body WorkingFrames  ] */
-        animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, shadowFrames.get(4));
-        animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(4));
+                /* [1-2: Body Idleframes ]  */
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 4, 15);
 
-        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, shadowFrames.get(6),shadowFrames.get(7));
-        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(6), bodyFrames.get(7));
+                /* [1: Body WorkingFrames  ] */
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 16, 30);
+
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = Assets.getFrames(.2f, shadowFrames, 0, 0);
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = Assets.getFrames(.2f, bodyFrames, 16, 30);
+                break;
+
+            default:
+                /* [1-2: Body Walkframes ]  */
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = Assets.getFrames(.35f, shadowFrames, 0, 2);
+                animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = Assets.getFrames(.35f, bodyFrames, 0, 2);
+
+                /* [1-2: Body Idleframes ]  */
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, shadowFrames.get(2), shadowFrames.get(2), shadowFrames.get(2), shadowFrames.get(3));
+                animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
+
+                /* [1: Body WorkingFrames  ] */
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = Assets.getFrames(.5f, shadowFrames, 4, 4);
+                animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = Assets.getFrames(.5f, bodyFrames, 4, 4);
+
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = Assets.getFrames(.5f, shadowFrames, 6, 7);
+                animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = Assets.getFrames(.5f, bodyFrames, 6, 7);
+                break;
+        }
+
 
     }
+
 
     @Override
     public boolean touchDown(Vector2 position) {
@@ -669,7 +693,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         data.setSalary(salary);
     }
 
-    void setVisualStyle(Proto.Employee.VisualStyle visualStyle){
+    void setVisualStyle(Proto.Employee.VisualStyle visualStyle) {
         data.setVisualStyle(visualStyle);
     }
 

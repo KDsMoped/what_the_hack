@@ -3,6 +3,7 @@ package de.hsd.hacking.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -248,6 +249,16 @@ public class Assets {
 
     }
 
+    public static Animation<TextureRegion> getFrames(float duration, Array<TextureRegion> texture, int from, int to ){
+        Array<TextureRegion> animation = new Array<TextureRegion>();
+
+        for (int i = from; i <= to; i++){
+            animation.add(texture.get(i));
+        }
+
+        return new Animation<TextureRegion>(duration, animation, Animation.PlayMode.LOOP);
+    }
+
     public Array<TextureRegion> getCharBody(Proto.Employee.VisualStyle visualStyle, Proto.Employee.Gender gender, Proto.Employee.HairStyleFemale femaleHairstyle, Proto.Employee.HairStyleMale maleHairstyle) {
 
         switch (visualStyle) {
@@ -259,6 +270,7 @@ public class Assets {
             case MALE:
                 return getMaleBody(maleHairstyle);
             case FEMALE:
+
                 return getFemaleBody(femaleHairstyle);
             case UNDECIDED:
                 Gdx.app.error("", "Error: There is no face for no gender.");
