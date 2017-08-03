@@ -16,7 +16,8 @@ import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
 /**
- * @author Hendrik, Julian, Florian
+ * This class is used to load the data for missions and employees from json files.
+ * @author Florian, Julian
  */
 public class DataLoader {
 
@@ -62,10 +63,19 @@ public class DataLoader {
         }
     }
 
+    /**
+     *
+     * @return Random last name.
+     */
     public String getNewLastName(){
         return RandomUtils.randomElement(names.getLastNames());
     }
 
+    /**
+     * A Full name is a name + surname.
+     * @param gender
+     * @return full name.
+     */
     public String getNewFullName(Proto.Employee.Gender gender){
         String[] name = getNewName(gender);
 

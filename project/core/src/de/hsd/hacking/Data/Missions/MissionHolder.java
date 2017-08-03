@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This class is only used to deserialize the mission objects.
- * @author Julian Geywitz
+ * @author Julian
  */
 public class MissionHolder {
     private String name, description, onSuccess, onFail;

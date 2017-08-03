@@ -3,6 +3,7 @@ package de.hsd.hacking.Data;
 
 /**
  * Generic event sender interface.
+ * @author Julian
  */
 public interface EventSender {
 

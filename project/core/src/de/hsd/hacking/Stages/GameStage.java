@@ -45,6 +45,9 @@ import de.hsd.hacking.UI.Shop.ShopBrowser;
 import de.hsd.hacking.UI.General.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * @author Florian, Hendrik, Julian
+ */
 public class GameStage extends Stage implements EventListener{
 
     private Assets assets;

@@ -13,7 +13,7 @@ import de.hsd.hacking.Utils.RandomUtils;
 
 /**
  * Class that handles employees working on a particular mission
- * Created by Cuddl3s on 28.06.2017.
+ * @author Florian
  */
 
 public class MissionWorker implements TimeChangedListener {

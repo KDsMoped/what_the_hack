@@ -22,6 +22,10 @@ import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ *
+ * @author Julian
+ */
 public final class SaveGameManager {
     static Proto.MessageBar messageBar;
     static Proto.MissionManager missionManager;

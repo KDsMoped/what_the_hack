@@ -26,7 +26,7 @@ import de.hsd.hacking.Utils.Constants;
 
 /**
  * UI element to display messages for the player.
- * @author Julian Geywitz
+ * @author Julian
  */
 // TODO scroll down
 public class MessageBar extends Table implements EventListener{

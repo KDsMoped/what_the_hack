@@ -3,6 +3,7 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.google.protobuf.Internal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,12 @@ import java.util.List;
 import de.hsd.hacking.Proto.Global;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * This class manages the game time.
+ * @author Florian Julian
+ */
 public class GameTime extends Actor {
+    // all persistent data is in here
     Global.Builder data;
     public static GameTime instance;
 

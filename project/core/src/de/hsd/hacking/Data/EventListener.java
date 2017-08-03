@@ -2,6 +2,7 @@ package de.hsd.hacking.Data;
 
 /**
  * A generic event listener interface.
+ * @author Julian
  */
 public interface EventListener {
     /**

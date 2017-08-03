@@ -10,6 +10,10 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.UI.General.SimpleGestureDetector;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * This class represents the game screen.
+ * @author Florian, Julian
+ */
 class GameScreen implements Screen {
 
     private GameStage stage;
