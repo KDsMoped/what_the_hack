@@ -213,7 +213,26 @@
     "Seattle",
     "Havanna",
     "Hong Kong",
-    "Taipeh"
+    "Taipeh",
+    "Gotham City",
+    "Hogsmeade",
+    "Metropolis",
+    "Atlantis",
+    "King's Landing",
+    "Silent Hill",
+    "Liberty City",
+    "Arkham",
+    "Bikini Bottom",
+    "Rapture",
+    "Vertania City",
+    "New Vegas",
+    "Whiterun",
+    "Smallville",
+    "Zion",
+    "Hill Valley",
+    "Waterdeep",
+    "Kakariko Village",
+    "Sim City"
   ],
   "webservices": [
     "web shop",
@@ -331,6 +350,15 @@
     "Korea",
     "Bangladesh",
     "Latvia",
-    "Estonia"
+    "Estonia",
+    "Mordor",
+    "Osgiliath",
+    "Rivendell",
+    "Mushroom Kingdom",
+    "Skyrim",
+    "Morrowind",
+    "Hyrule",
+    "Arendelle",
+    "Oceania"
   ]
 }
