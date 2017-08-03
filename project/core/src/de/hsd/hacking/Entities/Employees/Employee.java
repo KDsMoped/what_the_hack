@@ -365,9 +365,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         batch.end();
         colorShader.begin();
 
+        TextureRegion charFrame = animations[_animationState.ordinal()][BODY].getKeyFrame(elapsedTime, true);
         if (selected && !icon) {
             colorShader.setUniformi("sel", 1);
-            colorShader.setUniformf("u_viewportInverse", new Vector2(1f / Constants.VIEWPORT_WIDTH, 1f / Constants.VIEWPORT_HEIGHT));
+            colorShader.setUniformf("u_viewportInverse", new Vector2(1f / charFrame.getTexture().getWidth(), 1f / charFrame.getTexture().getHeight()));
         } else {
             colorShader.setUniformi("sel", 0);
         }
@@ -375,8 +376,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         batch.begin();
         batch.setShader(colorShader);
-        TextureRegion charFrame = animations[_animationState.ordinal()][BODY].getKeyFrame(elapsedTime, true);
-        batch.draw(charFrame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+
+        batch.draw(charFrame, _flipped ? pixelPosition.x + charFrame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -charFrame.getRegionWidth() : charFrame.getRegionWidth(), charFrame.getRegionHeight());
 
         batch.setShader(null);
 
