@@ -19,14 +19,12 @@ public class Shader {
             "   gl_Position =  u_projTrans * a_position;  \n"      +
             "}                            \n" ;
 
-    private static final String EMPLOYEE_FRAGMENT_SHADER = "#ifdef GL_ES\n" +
+    private static final String EMPLOYEE_COLOR_FRAGMENT_SHADER = "#ifdef GL_ES\n" +
             "precision mediump float;\n" +
             "#endif\n" +
             "varying vec4 v_color;\n" +
             "varying vec2 v_texCoords;\n" +
             "uniform sampler2D u_texture;\n" +
-            "uniform int sel;\n" +
-            "uniform vec2 u_viewportInverse; \n" +
             "void main()                                  \n" +
             "{                                            \n" +
             "vec4 color = texture2D(u_texture, v_texCoords).rgba; \n" +
@@ -49,20 +47,11 @@ public class Shader {
             "else if (color.r == {{eyeold}} && color.g == {{eyeold}} && color.b == {{eyeold}}){ \n" +
             "newColor = vec4({{eye}}, 1.0); \n" +
             "} \n" +
-            "}else{ \n" +
-                "if (sel == 1) { \n" +
-                    "if (texture2D(u_texture, vec2(v_texCoords.x + 1.0 * u_viewportInverse.x, v_texCoords.y) ).a > 0.0 || " +
-            "texture2D(u_texture, vec2(v_texCoords.x - 1.0 * u_viewportInverse.x, v_texCoords.y)).a > 0.0 ||" +
-            "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y + 1.0 * u_viewportInverse.y)).a > 0.0 || " +
-            "texture2D(u_texture, vec2(v_texCoords.x, v_texCoords.y - 1.0 * u_viewportInverse.y)).a > 0.0) { \n" +
-                "newColor = vec4(1.0, 1.0, 1.0, 1.0); \n" +
-            "} \n" +
-                "} \n" +
-            "} \n" +
+            "}" +
             "  gl_FragColor = newColor * v_color;\n" +
             "}";
 
-    public static final String OUTLINE_SHADER = "#ifdef GL_ES\n" +
+    public static final String OUTLINE_FRAGMENT_SHADER = "#ifdef GL_ES\n" +
         "precision mediump float;\n" +
         "#endif\n" +
         "varying vec4 v_color;\n" +
@@ -95,7 +84,7 @@ public class Shader {
         String eye = eyeColor.r + "," + eyeColor.g + "," + eyeColor.b;
         String shoe = shoeColor.r + "," + shoeColor.g + "," + shoeColor.b;
 
-        String fragment = EMPLOYEE_FRAGMENT_SHADER.replace("{{hairold}}", ColorHolder.Hair);
+        String fragment = EMPLOYEE_COLOR_FRAGMENT_SHADER.replace("{{hairold}}", ColorHolder.Hair);
         fragment = fragment.replace("{{trousersold}}", ColorHolder.Trousers);
         fragment = fragment.replace("{{skinold}}", ColorHolder.Skin);
         fragment = fragment.replace("{{shirtold}}", ColorHolder.Shirt);

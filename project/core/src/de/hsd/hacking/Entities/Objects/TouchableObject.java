@@ -26,7 +26,7 @@ public abstract class TouchableObject extends Object implements Touchable {
         super(drawableRegion, blocking, true, interactable, occupyDirection, occupyAmount);
         this.touched = false;
         this.bounds = new Rectangle();
-        this.outlineShader = new ShaderProgram(Shader.VERTEX_SHADER, Shader.OUTLINE_SHADER);
+        this.outlineShader = new ShaderProgram(Shader.VERTEX_SHADER, Shader.OUTLINE_FRAGMENT_SHADER);
         if (!outlineShader.isCompiled()) {
             throw new GdxRuntimeException("Couldn't compile shader: " + outlineShader.getLog());
         }
