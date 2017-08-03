@@ -213,18 +213,31 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     /**
      * This is called as soon as the employee joins the team.
      */
-    public void onEmploy(Boolean loaded) {
+    public void onEmploy() {
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
 
-        Tile startTile;
+        setStartingTile(movementProvider.getStartTile(this));
 
-        if (loaded) {
-            startTile = movementProvider.getTile(data.getOccupiedTileNumber());
+        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
+            special.onEmploy();
         }
-        else {
-            startTile = movementProvider.getStartTile(this);
-        }
+    }
 
+    /**
+     * This is called when this employee is deserialized.
+     */
+    public void onLoad(){
+
+        if(!data.getIsEmployed()) return;
+
+        setStartingTile(movementProvider.getTile(data.getOccupiedTileNumber()));
+    }
+
+    /**
+     * Sets the starting position of this employee.
+     * @param startTile
+     */
+    private void setStartingTile(Tile startTile){
         Vector2 startPos = startTile.getPosition().cpy();
 //        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
@@ -232,10 +245,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
         data.setIsEmployed(true);
-
-        for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
-            special.onEmploy();
-        }
     }
 
     /**

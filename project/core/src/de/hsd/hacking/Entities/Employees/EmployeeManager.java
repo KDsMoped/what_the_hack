@@ -91,7 +91,7 @@ public class EmployeeManager implements TimeChangedListener, ProtobufHandler {
 
     public void initTeam() {
         dismissAll();
-        employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE), false, false);
+        employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE), false);
     }
 
     /**
@@ -108,9 +108,9 @@ public class EmployeeManager implements TimeChangedListener, ProtobufHandler {
      *
      * @param employees
      */
-    public void employ(Collection<Employee> employees, boolean pay, boolean loaded) {
+    public void employ(Collection<Employee> employees, boolean pay) {
         for (Employee employee : employees) {
-            employ(employee, pay, loaded);
+            employ(employee, pay);
         }
     }
 
@@ -119,7 +119,7 @@ public class EmployeeManager implements TimeChangedListener, ProtobufHandler {
      *
      * @param employee
      */
-    public void employ(Employee employee, Boolean pay, Boolean loaded) {
+    public void employ(Employee employee, Boolean pay) {
         if (hiredEmployees.contains(employee)) {
             Gdx.app.error(Constants.TAG, "Error: This employees is already hired!");
             return;
@@ -143,7 +143,7 @@ public class EmployeeManager implements TimeChangedListener, ProtobufHandler {
         hiredEmployees.add(employee);
 
 //        GameStage.instance().addTouchable(employee);
-        employee.onEmploy(loaded);
+        employee.onEmploy();
         notifyRefreshListeners();
     }
 
@@ -300,7 +300,7 @@ public class EmployeeManager implements TimeChangedListener, ProtobufHandler {
             for (Proto.Employee employee : proto.getHiredEmployeesList()) {
                 Employee e = new Employee(employee.toBuilder());
                 availableEmployees.add(e);
-                employ(e, false, true);
+                employ(e, false);
             }
 
             for (Proto.Employee employee : proto.getAvailableEmployeesList()) {

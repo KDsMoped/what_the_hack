@@ -12,5 +12,9 @@ public abstract class Manager implements ProtobufHandler {
     public abstract void createInstance();
     public abstract void instance();
 
-    public abstract void init(boolean restore);
+    public abstract void initSelf();
+    public abstract void initReferences();
+
+    public abstract void loadDefaultState();
+    public abstract void loadState();
 }

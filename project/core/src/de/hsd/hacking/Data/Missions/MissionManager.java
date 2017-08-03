@@ -100,7 +100,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
     private void fillOpenMissions() {
         int gameProgress = Team.instance().calcGameProgress();
 
-        for (int i = 0; i < MAX_OPEN_MISSIONS; i++) {
+        for (int i = openMissions.size(); i < MAX_OPEN_MISSIONS; i++) {
             openMissions.add(MissionFactory.CreateRandomMission(gameProgress));
         }
     }
@@ -375,7 +375,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
             builder.addOpenMissions(mission.getData());
         }
 
-        for (MissionWorker worker: runningMissions) {
+        for (MissionWorker worker: runningMissionWorkers) {
             builder.addWorkers(worker.getData());
         }
 
@@ -404,7 +404,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
             }
 
             for (Proto.MissionWorker worker : proto.getWorkersList()) {
-                runningMissions.add(new MissionWorker(worker.toBuilder()));
+                runningMissionWorkers.add(new MissionWorker(worker.toBuilder()));
             }
 
             return true;
