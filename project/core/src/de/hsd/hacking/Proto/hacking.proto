@@ -125,6 +125,8 @@ message Employee {
   repeated EmployeeSpecial employeeSpecials = 18;
   bool flipped = 19;
   AnimState animState = 20;
+  EmployeeState state = 21;
+  int32 missionNumber = 22;
 
   enum HairStyle {
     CRAZY = 0;

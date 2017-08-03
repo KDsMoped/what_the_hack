@@ -162,5 +162,4 @@ public class ShopUIElement extends Table {
         this.add(rightContent).expandX().fillX().right().width(100);
 
     }
-
 }

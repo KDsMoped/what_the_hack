@@ -31,11 +31,19 @@ import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
+import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
+import de.hsd.hacking.Entities.Employees.States.IdleState;
+import de.hsd.hacking.Entities.Employees.States.MovingState;
+import de.hsd.hacking.Entities.Employees.States.WaitingState;
+import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Entity;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
+import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
+import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
@@ -168,12 +176,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     private void init(boolean loaded) {
         assets = Assets.instance();
 
-        data.setAnimState(Proto.Employee.AnimState.IDLE);
-        this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
         setUpAnimations();
 
+        data.setAnimState(Proto.Employee.AnimState.IDLE);
+        this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
+
         if (!loaded) {
+            data.setCurrentTileNumber(-1);
             initColors();
         } else {
             skillSet = new ArrayList<Skill>();
@@ -214,7 +224,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
 
         data.setIsEmployed(true);
-        data.setCurrentTileNumber(-1);
 
         if (GameStage.instance() != null) initEmployeePosition();
 
@@ -227,10 +236,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      * This is called when this employee is deserialized.
      */
     public void onLoad() {
-
         if (!data.getIsEmployed()) return;
-
-
     }
 
     /**
@@ -256,6 +262,41 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         if (tileNr == -1) setStartingTile(GameStage.instance().getTileMap().getStartTile(this));
         else setStartingTile(GameStage.instance().getTileMap().getTile(tileNr));
+    }
+
+    /**
+     *
+     */
+    public void restoreWorkingState() {
+        if (MissionManager.instance().getActiveMissions().size() > 0)
+            currentMission = MissionManager.instance().getActiveMission(data.getMissionNumber());
+
+        switch (data.getState().getState()) {
+
+            case IDLE:
+            case MOVING:
+            case WAITING:
+            case UNRECOGNIZED:
+                data.setAnimState(Proto.Employee.AnimState.IDLE);
+                this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
+                break;
+            case WORKING:
+//                data.setAnimState(Proto.Employee.AnimState.WORKING);
+//                Vector2 vector = new Vector2(data.getState().getWorkingX(), data.getState().getWorkingY());
+                Computer computer;
+                for (Equipment equipment: EquipmentManager.instance().getPurchasedItemList()) {
+                    if (equipment.getClass() != Computer.class)
+                        continue;
+
+                    if (equipment.getName().contains(Integer.toString(data.getState().getComputer()))) {
+                        computer = (Computer) equipment;
+
+                        setState(new MovingState(this, movementProvider.getDiscreteTile(computer.getWorkingChair().getPosition())));
+                    }
+                }
+
+                break;
+        }
     }
 
     /**
@@ -666,6 +707,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     public void setCurrentMission(Mission currentMission) {
         this.currentMission = currentMission;
+        data.setMissionNumber(MissionManager.instance().getActiveMissionId(currentMission));
     }
 
     void setGender(Proto.Employee.Gender gender) {
@@ -904,6 +946,28 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
             data.addEmployeeSpecials(builder.build());
         }
+
+        Proto.EmployeeState.Builder stateBuilder = Proto.EmployeeState.newBuilder();
+
+        if (state.getClass() == IdleState.class) {
+            stateBuilder.setState(Proto.EmployeeState.State.IDLE);
+        }
+        else if (state.getClass() == MovingState.class) {
+            stateBuilder.setState(Proto.EmployeeState.State.IDLE);
+        }
+        else if (state.getClass() == WaitingState.class) {
+            stateBuilder.setState(Proto.EmployeeState.State.IDLE);
+        }
+        else if (state.getClass() == WorkingState.class) {
+            stateBuilder.setState(Proto.EmployeeState.State.WORKING);
+            stateBuilder.setWorkingX(((WorkingState)state).getWorkingPosition().x);
+            stateBuilder.setWorkingY(((WorkingState)state).getWorkingPosition().y);
+            Computer computer = ((WorkingState) state).getComputer();
+            int number = Integer.parseInt(computer.getName().substring(computer.getName().length() - 1));
+            stateBuilder.setComputer(number);
+        }
+
+        data.setState(stateBuilder.build());
 
         return data.build();
     }

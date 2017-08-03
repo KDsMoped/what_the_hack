@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.*;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Entities.Employees.Employee;
+import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Callback.Callback;
@@ -99,7 +100,15 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
         }
 
         for (Proto.MissionWorker worker : proto.getWorkersList()) {
-            runningMissionWorkers.add(new MissionWorker(worker.toBuilder()));
+            MissionWorker mWorker = new MissionWorker(worker.toBuilder());
+            runningMissionWorkers.add(mWorker);
+            GameTime.instance().addTimeChangedListener(mWorker);
+            for (int id: worker.getEmployeesList()) {
+                Employee employee = EmployeeManager.instance().getHiredEmployee(id);
+                Mission mission = MissionManager.instance().getActiveMission(worker.getMission());
+                employee.setCurrentMission(mission);
+                MissionManager.instance().startWorking(employee);
+            }
         }
     }
 
