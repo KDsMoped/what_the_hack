@@ -177,7 +177,7 @@ public class EmployeeUIElement extends Table {
                             "now");
         }
 
-//        if (Team.instance().getMoney() < employee.getHiringCost()) {
+//        if (TeamManager.instance().getMoney() < employee.getHiringCost()) {
 //            money.setColor(Color.RED);
 //            employButton.setDisabled(true);
 //

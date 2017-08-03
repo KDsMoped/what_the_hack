@@ -107,8 +107,8 @@ public class StatusBar extends Actor implements TimeChangedListener {
         // so we have to set position as last because we need the width of the top bar
         items.setPosition((Constants.VIEWPORT_WIDTH / 2) - (items.getWidth() / 2), Constants.VIEWPORT_HEIGHT - items.getHeight() + 0);
 
-        this.setDate(GameTime.instance.getCurrentDay());
-        this.setTime(GameTime.instance.getCurrentStep());
+        this.setDate(GameTime.instance().getCurrentDay());
+        this.setTime(GameTime.instance().getCurrentStep());
     }
 
     /**

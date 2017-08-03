@@ -2,6 +2,8 @@ package de.hsd.hacking.Entities.Team;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import de.hsd.hacking.Data.Manager;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -12,17 +14,51 @@ import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * Created by domin on 30.05.2017.
  * This class manages Emplyoees and Equipment in ArrayLists;
+ *
+ * @author Hendrik, Dominik
  */
 
-public class Team {
-    private String teamName;
-
+public class TeamManager implements Manager {
     private ArrayList<Workspace> listOfWorkspaces;
     private Employee selectedEmployee;
 
-    /* Resources */
+    /**
+     * Initializes this manager class in terms of references towards other objects. This is guaranteed to be called
+     * after all other managers have been initialized.
+     */
+    @Override
+    public void initReferences() {
+
+    }
+
+    /**
+     * Creates the default state of this manager when a new game is started.
+     */
+    @Override
+    public void loadDefaultState() {
+
+    }
+
+    /**
+     * Recreates the state this manager had before serialization.
+     */
+    @Override
+    public void loadState() {
+        updateResources();
+    }
+
+    /**
+     * Destroys manager this instance.
+     */
+    @Override
+    public void cleanUp() {
+        instance = null;
+    }
+
+    /**
+     * This class represents resources of the team.
+     */
     public class Resources {
         public int money = Constants.STARTING_MONEY;
         public int bandwidth = 0;
@@ -37,98 +73,64 @@ public class Team {
             public int crypto;
             public int search;
         }
+
         public Skill skill = new Skill();
 
-        public int getSkillBonus(de.hsd.hacking.Entities.Employees.Skill s){
-            switch (s.getType().skillType){
-                case All_Purpose:   return skill.allPurpose;
-                case Software:   return skill.software;
-                case Social:   return skill.social;
-                case Search:   return skill.search;
-                case Network:   return skill.network;
-                case Hardware:   return skill.hardware;
-                case Crypto:   return skill.crypto;
-                default: return 0;
+        public int getSkillBonus(de.hsd.hacking.Entities.Employees.Skill s) {
+            switch (s.getType().skillType) {
+                case All_Purpose:
+                    return skill.allPurpose;
+                case Software:
+                    return skill.software;
+                case Social:
+                    return skill.social;
+                case Search:
+                    return skill.search;
+                case Network:
+                    return skill.network;
+                case Hardware:
+                    return skill.hardware;
+                case Crypto:
+                    return skill.crypto;
+                default:
+                    return 0;
             }
         }
     }
+
     public final Resources resources;
 
-    private int[] TeamSkills = new int[SkillType.SIZE];
+    private static TeamManager instance;
 
-    private static Team instance;
+    /**
+     * Creates an instance of this manager.
+     */
+    public static void createInstance() {
+        if (instance != null) {
+            Gdx.app.error("", "ERROR: Instance of TeamManager has not been destroyed before creating new one.");
+            return;
+        }
 
-    public Team() {
-//        listOfEquipment = new ArrayList<Equipment>();
-        listOfWorkspaces = new ArrayList<Workspace>();
-        resources = new Resources();
-    }
-
-    public static Team instance() {
-        return instance;
+        instance = new TeamManager();
     }
 
     /**
-     *Getting and Setting Team Name
+     * Provides an instance of this manager;
+     *
+     * @return
      */
-    public void setTeamName(String newTeamName) {
-        teamName = newTeamName;
+    public static TeamManager instance() {
+
+        if (instance == null)
+            Gdx.app.error("", "ERROR: Instance of TeamManager has not been created yet. Use createInstance() to do so.");
+
+        return instance;
     }
 
-    public String getTeamName() {
-        return teamName;
+    private TeamManager() {
+        listOfWorkspaces = new ArrayList<Workspace>();
+        resources = new Resources();
     }
-
-    /* Returns the current number of Employees in the Team.
-     */
-
-    // Manage Equipment ////////////////////////////////////////////////////////////////////////////
-
-    /* Create Equipment of the specified type and add it to the Team.
-     */
-/*    public void createAndAddEquipment(Equipment.EquipmentType type) {
-        Equipment equipment = EquipmentFactory.getEquipment(type);
-        if (equipment != null) {
-            listOfEquipment.add(equipment);
-        }
-        updateResources();
-    }
-*/
-
-    /* Add given Equipment to the Team.
-     */
-//    public void addEquipment(Equipment equipment) {
-//        listOfEquipment.add(equipment);
-//        updateResources();
-//    }
-
-//    /* Returns the Equipment object associated with the given index.
-//     */
-//    public Equipment getEquipment(int index) {
-//        return listOfEquipment.get(index);
-//    }
-//
-//    /* Removes the given Equipment from the list.
-//     */
-//    public void removeEquipment(Equipment e) {
-//        listOfEquipment.remove(e);
-//        updateResources();
-//        //equipment.removeActor(e);
-//    }
-//
-//    /* Removes the Equipment with the given index from the list.
-//     */
-//    public void removeEquipment(int index) {
-//        listOfEquipment.remove(index);
-//        Equipment e = getEquipment(index);
-//        updateResources();
-//        //equipment.removeActor(e);
-//    }
-
-//    public ArrayList<Equipment> getEquipmentList() {
-//        return listOfEquipment;
-//    }
-
 
     // Manage Workspaces ///////////////////////////////////////////////////////////////////////////
 
@@ -142,7 +144,9 @@ public class Team {
 
     // Manage Resources ////////////////////////////////////////////////////////////////////////////
 
-    public int getMoney() { return resources.money; }
+    public int getMoney() {
+        return resources.money;
+    }
 
     public void addMoney(int value) {
         resources.money += value;
@@ -153,7 +157,7 @@ public class Team {
     }
 
     /**
-     * Runs through all the equipment the Team currently holds and updates the resources.
+     * Runs through all the equipment the TeamManager currently holds and updates the resources.
      */
     public void updateResources() {
         int newBandwidth = 0;
@@ -166,7 +170,7 @@ public class Team {
         int newNetwork = 0;
         int newSearch = 0;
 
-        for(Equipment equipment : EquipmentManager.instance().getPurchasedItemList()) {
+        for (Equipment equipment : EquipmentManager.instance().getPurchasedItemList()) {
             newBandwidth += equipment.getBandwidthBonus();
             newComputationPower += equipment.getComputationPowerBonus();
             newAllPurpose += equipment.getAllPurposeSkillBonus();
@@ -178,7 +182,7 @@ public class Team {
             newSearch += equipment.getSearchSkillBonus();
         }
 
-        for(Mission mission : MissionManager.instance().getActiveMissions()){
+        for (Mission mission : MissionManager.instance().getActiveMissions()) {
             newBandwidth -= mission.getUsedBandwidth();
         }
 
@@ -220,6 +224,7 @@ public class Team {
 
     /**
      * Calculates the players game progress based on resources and completed missions.
+     *
      * @return
      */
     public int calcGameProgress() {
@@ -238,7 +243,7 @@ public class Team {
         return (int) result;
     }
 
-    public static void setInstance(Team instance) {
-        Team.instance = instance;
-    }
+//    public static void setInstance(TeamManager instance) {
+//        TeamManager.instance = instance;
+//    }
 }

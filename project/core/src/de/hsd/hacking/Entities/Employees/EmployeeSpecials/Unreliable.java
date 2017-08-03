@@ -8,7 +8,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * This employee special makes an employee leave the team randomly at a small chance.
+ * This employee special makes an employee leave the teamManager randomly at a small chance.
  *
  * @author Hendrik
  */
@@ -36,8 +36,8 @@ public class Unreliable extends EmployeeSpecial {
     public void dayChanged(int days) {
         if (MathUtils.random() > chance) return;
 
-        if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the team.");
-        MessageManager.instance().Warning("An unreliable employee " + employee.getName() + " has left the team.");
+        if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "An unreliable employee " + employee.getName() + " has left the teamManager.");
+        MessageManager.instance().Warning("An unreliable employee " + employee.getName() + " has left the teamManager.");
 
         EmployeeManager.instance().dismiss(employee);
     }

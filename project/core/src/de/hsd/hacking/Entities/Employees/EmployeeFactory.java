@@ -3,14 +3,13 @@ package de.hsd.hacking.Entities.Employees;
 import com.badlogic.gdx.Gdx;
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.*;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * This creates Employees based on the players progress. It creates their skill set and cares for automatic level up.
@@ -61,7 +60,7 @@ public class EmployeeFactory {
      * @return
      */
     public static ArrayList<Employee> createEmployees(int amount) {
-        return createEmployees(amount, Team.instance().calcGameProgress());
+        return createEmployees(amount, TeamManager.instance().calcGameProgress());
     }
 
     /**
@@ -89,7 +88,7 @@ public class EmployeeFactory {
      */
     public static Employee createEmployee() {
 
-        return createEmployee(Team.instance().calcGameProgress());
+        return createEmployee(TeamManager.instance().calcGameProgress());
     }
 
     /**

@@ -19,7 +19,7 @@ public class Modem extends Equipment implements Upgradable {
 
     public void upgrade() {
         data.setLevel(data.getLevel() + 1);
-        team.updateResources();
+        teamManager.updateResources();
     }
 
     public int getMaxLevel() { return 5; }

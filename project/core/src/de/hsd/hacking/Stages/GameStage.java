@@ -24,21 +24,19 @@ import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.SaveGameContainer;
-import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.Tile.TileMap;
-import de.hsd.hacking.Entities.Employees.EmployeeFactory;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Team.Workspace;
+import de.hsd.hacking.GameManager;
 import de.hsd.hacking.UI.Employee.EmployeeBrowser;
 import de.hsd.hacking.UI.Messaging.MessageBar;
 import de.hsd.hacking.UI.Mission.MissionStatusOverlay;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.ObjectFactory;
 import de.hsd.hacking.Entities.Objects.ObjectType;
-import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Entities.Touchable;
-import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.UI.Employee.EmployeeBar;
 import de.hsd.hacking.UI.Mission.MissionBrowser;
 import de.hsd.hacking.UI.Shop.ShopBrowser;
@@ -61,7 +59,7 @@ public class GameStage extends Stage implements EventListener{
 
     private Vector2 checkVector;
     private TileMap tileMap;
-    private Team team;
+    private TeamManager teamManager;
     private EmployeeManager employeeManager;
     private StatusBar statusBar;
     private MessageBar messageBar;
@@ -119,7 +117,7 @@ public class GameStage extends Stage implements EventListener{
         // the order the actors are added is important
         // it is also the drawing order
         // meaning the last added item will also be drawn last
-        addActor(GameTime.instance);
+        addActor(GameTime.instance());
         addActor(background);
         addActor(tileMap);
         addActor(foreground);
@@ -171,7 +169,7 @@ public class GameStage extends Stage implements EventListener{
         missionStatusOverlay = new MissionStatusOverlay();
         missionStatusOverlay.setVisible(false);
         popups.addActor(missionStatusOverlay);
-        GameTime.instance.addTimeChangedListener(missionStatusOverlay);
+        GameTime.instance().addTimeChangedListener(missionStatusOverlay);
 
         //Init Mission Window
         popups.addActor(missionBrowser);
@@ -184,7 +182,7 @@ public class GameStage extends Stage implements EventListener{
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Team.instance().deselectEmployee();
+                TeamManager.instance().deselectEmployee();
                 shopBrowser.toggleView();
                 AudioManager.instance().playUIButtonSound();
             }
@@ -199,7 +197,7 @@ public class GameStage extends Stage implements EventListener{
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Team.instance().deselectEmployee();
+                TeamManager.instance().deselectEmployee();
                 missionBrowser.toggleView();
                 AudioManager.instance().playUIButtonSound();
             }
@@ -213,7 +211,7 @@ public class GameStage extends Stage implements EventListener{
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Team.instance().deselectEmployee();
+                TeamManager.instance().deselectEmployee();
                 employeeBrowser.toggleView();
                 AudioManager.instance().playUIButtonSound();
             }
@@ -227,10 +225,7 @@ public class GameStage extends Stage implements EventListener{
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                SaveGameManager.SaveGame();
-                ScreenManager.setMenuScreen();
-                AudioManager.instance().playUIButtonSound();
-                AudioManager.instance().stopMusic();
+                GameManager.instance().exitGame();
             }
         });
         exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
@@ -239,14 +234,18 @@ public class GameStage extends Stage implements EventListener{
         //Init status bar, message bar & employee details
         overlay.addActor(statusBar = new StatusBar());
         overlay.addActor(messageBar = new MessageBar());
-        GameTime.instance.addTimeChangedListener(statusBar);
+        GameTime.instance().addTimeChangedListener(statusBar);
 
     }
 
 
     private void InitTeam() {
         employeeManager = EmployeeManager.instance();
-        team = Team.instance();
+        teamManager = TeamManager.instance();
+
+        for (Employee e : employeeManager.getHiredEmployees()) {
+            e.initEmployeePosition();
+        }
 
         EquipmentManager.instance().initBasicEquipment();
     }
@@ -286,10 +285,10 @@ public class GameStage extends Stage implements EventListener{
                 this.tileMap.debugCheck(employeeManager.getTeamSize());
             }
         }
-        //team.calcRessorces();
-        statusBar.setMoney(team.resources.money);
-        statusBar.setBandwith(team.resources.bandwidth);
-        statusBar.setWorkplaces(team.getWorkspaceCount());
+        //teamManager.calcRessorces();
+        statusBar.setMoney(teamManager.resources.money);
+        statusBar.setBandwith(teamManager.resources.bandwidth);
+        statusBar.setWorkplaces(teamManager.getWorkspaceCount());
         statusBar.setEmployees(employeeManager.getTeamSize());
 
     }
@@ -347,8 +346,8 @@ public class GameStage extends Stage implements EventListener{
                 }
 
                 //If no touchable object is clicked, deselect the current employee
-                if (Team.instance().isEmployeeSelected()) {
-                    Team.instance().getSelectedEmployee().setSelected(false);
+                if (TeamManager.instance().isEmployeeSelected()) {
+                    TeamManager.instance().getSelectedEmployee().setSelected(false);
                 }
 
                 if (employeeBar.isEmployeeProfileOpen()) {
