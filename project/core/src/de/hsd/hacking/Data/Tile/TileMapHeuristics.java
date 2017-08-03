@@ -1,6 +1,10 @@
 package de.hsd.hacking.Data.Tile;
 
 
+/**
+ * Holds Heuristic Tile Movement Cost values
+ * @author Florian
+ */
 public class TileMapHeuristics {
 
     /**

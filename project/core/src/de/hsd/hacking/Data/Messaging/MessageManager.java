@@ -2,7 +2,9 @@ package de.hsd.hacking.Data.Messaging;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
@@ -21,8 +23,11 @@ public class MessageManager implements EventSender{
 
     private Message message;
 
+    private List<EventListener> listeners;
+
     public MessageManager() {
         instance = this;
+        this.listeners = new ArrayList<EventListener>();
     }
 
     /**
@@ -42,7 +47,6 @@ public class MessageManager implements EventSender{
         Message message = CreateNewMessage(text, listener);
         message.setType(Proto.Message.Type.INFO);
         this.message = message;
-
         notifyListeners(TYPE);
     }
 

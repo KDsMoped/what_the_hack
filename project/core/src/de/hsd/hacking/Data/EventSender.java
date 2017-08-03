@@ -1,13 +1,10 @@
 package de.hsd.hacking.Data;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Generic event sender interface.
  */
 public interface EventSender {
-    List<EventListener> listeners = new ArrayList<EventListener>();
 
     /**
      * Add a listener to the list.

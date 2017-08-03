@@ -102,6 +102,7 @@ public class EmployeeFactory {
 
         int progress = Math.max(0, gameProgress + RandomUtils.var(PROGRESS_VARIANCE));
 
+//        if (progress > 5 && RandomUtils.randomFloat() > 0.9f );
 
         Employee freshman = new Employee();
 //        final float score = calcScore(progress);

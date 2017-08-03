@@ -72,13 +72,7 @@ public class Computer extends Equipment implements Upgradable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (tintFrames > 0) {
-            batch.setColor(Color.RED);
-        }
         super.draw(batch, parentAlpha);
-        if (tintFrames > 0) {
-            batch.setColor(Color.WHITE);
-        }
     }
 
     @Override

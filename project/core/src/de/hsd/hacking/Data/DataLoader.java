@@ -15,6 +15,9 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
+/**
+ * @author Hendrik, Julian, Florian
+ */
 public class DataLoader {
 
     private static DataLoader INSTANCE;
