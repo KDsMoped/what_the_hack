@@ -25,8 +25,13 @@ public class AudioManager {
         assets.menuButtonSound.play();
     }
 
-    public void playMusicLoop() {
+    public void playMusic() {
+        assets.gameMusic.play();
+        assets.gameMusic.setLooping(true);
+    }
 
+    public void stopMusic() {
+        assets.gameMusic.stop();
     }
 
 

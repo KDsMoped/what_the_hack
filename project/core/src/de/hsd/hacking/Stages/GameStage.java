@@ -103,6 +103,8 @@ public class GameStage extends Stage implements EventListener{
         InitTeam();
         InitUI();
         InitSaveGameList();
+
+        AudioManager.instance().playMusic();
     }
 
     private void InitRootObjects() {
@@ -228,6 +230,7 @@ public class GameStage extends Stage implements EventListener{
                 SaveGameManager.SaveGame();
                 ScreenManager.setMenuScreen();
                 AudioManager.instance().playUIButtonSound();
+                AudioManager.instance().stopMusic();
             }
         });
         exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
