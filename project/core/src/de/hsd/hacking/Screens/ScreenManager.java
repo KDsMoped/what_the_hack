@@ -3,7 +3,7 @@ package de.hsd.hacking.Screens;
 import com.badlogic.gdx.Screen;
 
 import de.hsd.hacking.Data.GameTime;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.HackingGame;
 
 public class ScreenManager {
@@ -28,11 +28,6 @@ public class ScreenManager {
             currentScreen.dispose();
         }
 
-        if (!resumed)
-            initSingletons();
-
-        Team.setInstance(new Team());
-
         currentScreen = new GameScreen(game);
         game.setScreen(currentScreen);
     }
@@ -50,10 +45,5 @@ public class ScreenManager {
 
     public static boolean isGameRunning() {
         return currentScreen.getClass() == GameScreen.class;
-    }
-
-    private static void initSingletons() {
-        GameTime.instance = new GameTime();
-        Team.setInstance(new Team());
     }
 }

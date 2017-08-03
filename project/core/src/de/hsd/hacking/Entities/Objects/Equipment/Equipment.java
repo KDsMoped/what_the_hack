@@ -3,16 +3,17 @@ package de.hsd.hacking.Entities.Objects.Equipment;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import de.hsd.hacking.Data.DataContainer;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
-import de.hsd.hacking.Entities.Team.Team;
 
-public abstract class Equipment extends TouchableInteractableObject {
+public abstract class Equipment extends TouchableInteractableObject implements DataContainer {
     protected Proto.Equipment.Builder data;
     protected boolean isPurchased = false;
 
-    protected Team team;
+    protected TeamManager teamManager;
 
     public Equipment(String name,
                      float price,
@@ -23,7 +24,7 @@ public abstract class Equipment extends TouchableInteractableObject {
         data.setName(name);
         data.setPrice(price);
         data.setLevel(1);
-        this.team = Team.instance();
+        this.teamManager = TeamManager.instance();
     }
 
     public int getLevel() { return data.getLevel(); }

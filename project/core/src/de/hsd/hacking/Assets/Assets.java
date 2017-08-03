@@ -2,6 +2,7 @@ package de.hsd.hacking.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -88,6 +89,8 @@ public class Assets {
     public TextureRegionDrawable coffeemachine_icon;
 
     // Audio Assets
+    public Music gameMusic;
+
     public Sound menuButtonSound;
     public Sound uiButtonSound;
 
@@ -106,6 +109,7 @@ public class Assets {
 
         manager.load("sounds/Retro_Game_Sounds_SFX_28_16bit.wav", Sound.class);
         manager.load("sounds/button_on_off_064_16bit.wav", Sound.class);
+        manager.load("sounds/Background_Music_16bit.wav", Music.class);
 
         gold_font = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
         gold_font_small = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
@@ -121,6 +125,7 @@ public class Assets {
         character_atlas = manager.get("img/Character_Assets.atlas");
 
         // Sounds
+        gameMusic = manager.get("sounds/Background_Music_16bit.wav");
         menuButtonSound = manager.get("sounds/Retro_Game_Sounds_SFX_28_16bit.wav");
         uiButtonSound = manager.get("sounds/button_on_off_064_16bit.wav");
 
@@ -240,7 +245,7 @@ public class Assets {
         return desk_2;
     }
 
-    public TextureRegionDrawable getSkillIcon(Proto.Skill.SkillType skillType) {
+    public TextureRegionDrawable getSkillIcon(Proto.SkillType skillType) {
         switch (skillType) {
             case Social:
                 return  skill_icon_social;

@@ -8,7 +8,7 @@ import de.hsd.hacking.Proto;
  */
 public class SkillHolder {
     private int value;
-    private Proto.Skill.SkillType type;
+    private Proto.SkillType type;
 
     public SkillHolder() {
 
@@ -22,11 +22,11 @@ public class SkillHolder {
         this.value = value;
     }
 
-    public Proto.Skill.SkillType getType() {
+    public Proto.SkillType getType() {
         return type;
     }
 
-    public void setType(Proto.Skill.SkillType type) {
+    public void setType(Proto.SkillType type) {
         this.type = type;
     }
 }

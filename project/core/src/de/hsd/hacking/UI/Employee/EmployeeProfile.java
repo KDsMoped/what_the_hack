@@ -45,7 +45,7 @@ public class EmployeeProfile extends Popup {
 
         this.employee = employee;
         mainTable.setTouchable(Touchable.enabled);
-        mainTable.setDebug(true);
+//        mainTable.setDebug(true);
 
         initTable();
 }

@@ -29,14 +29,14 @@ public abstract class EmployeeSpecial extends Actor implements TimeChangedListen
     public void draw(Batch batch, float parentAlpha){}
 
     public final void onEmploy(){
-        GameTime.instance.addTimeChangedListener(this);
+        GameTime.instance().addTimeChangedListener(this);
         employ();
     }
 
     protected void employ(){}
 
     public final void onDismiss(){
-        GameTime.instance.removeTimeChangedListener(this);
+        GameTime.instance().removeTimeChangedListener(this);
         dismiss();
     }
 

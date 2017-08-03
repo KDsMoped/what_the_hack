@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import de.hsd.hacking.Data.Manager;
+import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.CoffeeMachine;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
@@ -12,14 +15,14 @@ import de.hsd.hacking.Entities.Objects.Equipment.Items.HardwareStation;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Modem;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Router;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Server;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Team.Workspace;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
 
 
-public class EquipmentManager {
+public class EquipmentManager implements Manager, ProtobufHandler {
 
     private ArrayList<Equipment> shopItems = new ArrayList<Equipment>();
     private ArrayList<Equipment> purchasedItems = new ArrayList<Equipment>();
@@ -29,6 +32,30 @@ public class EquipmentManager {
     private ArrayList<Callback> refreshEquipmentListener = new ArrayList<Callback>();
 
     private EquipmentManager() {
+    }
+
+    /**
+     * Creates an instance of this manager.
+     */
+    public static void createInstance() {
+        if (instance != null){
+            Gdx.app.error("", "ERROR: Instance of EquipmentManager has not been destroyed before creating new one.");
+            return;
+        }
+
+        instance = new EquipmentManager();
+    }
+
+    /**
+     * Provides an instance of this manager;
+     * @return
+     */
+    public static EquipmentManager instance() {
+
+        if (instance == null)
+            Gdx.app.error("", "ERROR: Instance of EquipmentManager has not been created yet. Use createInstance() to do so.");
+
+        return instance;
     }
 
     public void initBasicEquipment(){
@@ -75,40 +102,33 @@ public class EquipmentManager {
         }
     }
 
-    public static EquipmentManager instance() {
-        if (instance == null) {
-            instance = new EquipmentManager();
-        }
-        return instance;
-    }
-
     public int buyItem(Equipment equipment, Boolean pay) {
-        Team team = Team.instance();
+        TeamManager teamManager = TeamManager.instance();
         if (pay) {
             int price = (int)equipment.getPrice();
-            if (team.getMoney() < price)
+            if (teamManager.getMoney() < price)
                 return 1;
-            team.reduceMoney(price);
+            teamManager.reduceMoney(price);
         }
 //        Gdx.app.log(Constants.TAG, "buying " + equipment.getName() + " for " + price + "$.");
 
         shopItems.remove(equipment);
         purchasedItems.add(equipment);
         equipment.setPurchased(true);
-        team.updateResources();
+        teamManager.updateResources();
 
         notifyRefreshListeners();
         return 0;
     }
 
     public int upgradeItem(Equipment equipment) {
-        Team team = Team.instance();
+        TeamManager teamManager = TeamManager.instance();
         int price = (int)equipment.getPrice();
-        if (team.getMoney() < price)
+        if (teamManager.getMoney() < price)
             return 1;
-        team.reduceMoney(price);
+        teamManager.reduceMoney(price);
         ((Upgradable) equipment).upgrade();
-        team.updateResources();
+        teamManager.updateResources();
 
 //        Gdx.app.log(Constants.TAG, "upgrading " + equipment.getName() + " for " + price + "$.");
 
@@ -208,7 +228,7 @@ public class EquipmentManager {
                 }
             }
 
-            Team.instance().updateResources();
+            TeamManager.instance().updateResources();
             notifyRefreshListeners();
 
             return true;
@@ -232,5 +252,38 @@ public class EquipmentManager {
             }
         }
         return false;
+    }
+
+    /**
+     * Initializes this manager class in terms of references towards other objects. This is guaranteed to be called
+     * after all other managers have been initialized.
+     */
+    @Override
+    public void initReferences() {
+
+    }
+
+    /**
+     * Creates the default state of this manager when a new game is started.
+     */
+    @Override
+    public void loadDefaultState() {
+
+    }
+
+    /**
+     * Recreates the state this manager had before serialization.
+     */
+    @Override
+    public void loadState() {
+
+    }
+
+    /**
+     * Destroys manager this instance.
+     */
+    @Override
+    public void cleanUp() {
+        instance = null;
     }
 }

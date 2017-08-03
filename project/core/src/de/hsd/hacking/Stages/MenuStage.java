@@ -18,6 +18,7 @@ import de.hsd.hacking.Assets.Assets;
 
 import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Data.SaveGameManager;
+import de.hsd.hacking.GameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
@@ -48,9 +49,7 @@ public class MenuStage extends Stage {
         resumeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
-                   audioManager.playMenuButtonSound();
-                   SaveGameManager.LoadGame();
-                   ScreenManager.setGameScreen(true);
+                GameManager.instance().loadGame();
                }
            }
         );
@@ -59,12 +58,11 @@ public class MenuStage extends Stage {
             resumeButton.setVisible(false);
         }
 
-        TextButton newButton = new TextButton("New", Constants.TextButtonStyle());
+        final TextButton newButton = new TextButton("New", Constants.TextButtonStyle());
         newButton.addListener(new ChangeListener() {
                                @Override
                                public void changed(ChangeEvent event, Actor actor) {
-                                   audioManager.playMenuButtonSound();
-                                   ScreenManager.setGameScreen(false);
+                                   GameManager.instance().newGame();
                                }
                            }
         );
@@ -75,6 +73,8 @@ public class MenuStage extends Stage {
         newButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 265, 194, 40);
         addActor(newButton);
     }
+
+
 
     @Override
     public void act(float delta){

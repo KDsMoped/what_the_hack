@@ -3,22 +3,15 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
-import com.google.gson.annotations.Expose;
 import com.google.protobuf.GeneratedMessageV3;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
-import de.hsd.hacking.Entities.Team.Team;
 import de.hsd.hacking.Proto;
-import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -38,7 +31,7 @@ public final class SaveGameManager {
             Proto.Global global = Proto.Global.parseFrom(stream);
 
             Proto.Global.Builder builder = global.toBuilder();
-            new GameTime(builder);
+//            new GameTime(builder); //TODO: fix this
         }
 
         catch (Exception e) {
@@ -50,16 +43,6 @@ public final class SaveGameManager {
         try {
             FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/messagebar");
             messageBar = Proto.MessageBar.parseFrom(stream);
-        }
-        catch (Exception e) {
-            Gdx.app.error(Constants.TAG, "Error loading savegame.");
-            Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
-        }
-
-        try {
-            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/missionmanager");
-            missionManager = Proto.MissionManager.parseFrom(stream);
         }
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
@@ -86,13 +69,23 @@ public final class SaveGameManager {
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/missionmanager");
+            missionManager = Proto.MissionManager.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
     public static boolean SaveGame() {
         boolean success = false;
 
         // Game Time
-        Proto.Global.Builder gameTime = GameTime.instance.getData();
+        Proto.Global.Builder gameTime = GameTime.instance().getData().toBuilder();
         Proto.Global gameTimeCompiled = gameTime.build();
         SaveProto(gameTimeCompiled, "gametime");
 
