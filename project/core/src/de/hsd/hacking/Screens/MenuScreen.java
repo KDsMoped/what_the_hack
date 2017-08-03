@@ -8,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.hsd.hacking.HackingGame;
 import de.hsd.hacking.Stages.MenuStage;
 
+/**
+ * This class represents the menu screen.
+ * @author Florian
+ */
 class MenuScreen implements Screen {
 
     private Stage stage;

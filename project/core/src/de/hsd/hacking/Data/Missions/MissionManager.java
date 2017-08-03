@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
+import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -23,7 +24,7 @@ import java.util.Collections;
  *
  * @author Hendrik
  */
-public class MissionManager implements TimeChangedListener {
+public class MissionManager implements TimeChangedListener, ProtobufHandler {
     private static final int MAX_ACTIVE_MISSIONS = 4;
     private static final int MAX_OPEN_MISSIONS = 6;
     private static final float REFRESH_RATE = 0.3f;
@@ -34,7 +35,7 @@ public class MissionManager implements TimeChangedListener {
     private ArrayList<Mission> activeMissions;
     private ArrayList<Mission> openMissions;
     private ArrayList<Mission> completedMissions;
-    private ArrayList<MissionWorker> runningMissions;
+    private ArrayList<MissionWorker> runningMissionWorkers;
     private ArrayList<Callback> refreshMissionListener = new ArrayList<Callback>();
 
     private MessageManager messageManager;
@@ -53,7 +54,7 @@ public class MissionManager implements TimeChangedListener {
         activeMissions = new ArrayList<Mission>(MAX_ACTIVE_MISSIONS);
         openMissions = new ArrayList<Mission>(MAX_OPEN_MISSIONS);
         completedMissions = new ArrayList<Mission>();
-        runningMissions = new ArrayList<MissionWorker>(MAX_ACTIVE_MISSIONS);
+        runningMissionWorkers = new ArrayList<MissionWorker>(MAX_ACTIVE_MISSIONS);
 
         GameTime.instance.addTimeChangedListener(this);
 
@@ -107,63 +108,67 @@ public class MissionManager implements TimeChangedListener {
     /**
      * Completes the given mission.
      *
-     * @param mission
+     * @param mission1
      */
-    public void completeMission(Mission mission) {
-        activeMissions.remove(mission);
-        completedMissions.add(mission);
+    public void completeMission(final Mission mission1) {
+        if (activeMissions.remove(mission1)){
+            completedMissions.add(mission1);
+            messageManager.Info("Job " + mission1.getName() + ": " +  mission1.getSuccessText());
+            Gdx.app.log(Constants.TAG, "Job " + mission1.getName() + ": " +  mission1.getSuccessText());
+
+            int money = mission1.getRewardMoney();
+            String text;
+
+            if (mission1.hasSuccessText()) text = "Job '" + mission1.getName() + "' completed! " + mission1.getSuccessText() + " You've earned " + money + "$.";
+            else text = "Job '" + mission1.getName() + "' completed! You've earned " + money + "$.";
+
+            Team.instance().addMoney(money);
+            messageManager.Info(text);
+            Gdx.app.log(Constants.TAG, text);
+
+            Team.instance().updateResources();
+            notifyRefreshListeners();
+        }
 //        mission.setOutcome(outcome);
-
-        int money = mission.getRewardMoney();
-        String text;
-
-        if (mission.hasSuccessText()) text = "Job '" + mission.getName() + "' completed! " + mission.getSuccessText() + " You've earned " + money + "$.";
-        else text = "Job '" + mission.getName() + "' completed! You've earned " + money + "$.";
-
-        Team.instance().addMoney(money);
-        messageManager.Info(text);
-        Gdx.app.log(Constants.TAG, text);
-
-        Team.instance().updateResources();
-        notifyRefreshListeners();
     }
 
     /**
      * Fails the given mission.
      *
-     * @param mission
+     * @param mission1
      */
-    public void failMission(Mission mission) {
-        activeMissions.remove(mission);
+    public void failMission(final Mission mission1) {
+        if (activeMissions.remove(mission1)) {
+            String failText;
+            if (mission1.hasFailText()) failText = "Job '" + mission1.getName() + "' failed. " + mission1.getFailText();
+            else failText = "Job '" + mission1.getName() + "' failed.";
 
-        String failText;
-        if (mission.hasFailText()) failText = "Job '" + mission.getName() + "' failed. " + mission.getFailText();
-        else failText = "Job '" + mission.getName() + "' failed.";
+            messageManager.Info(failText);
+            Gdx.app.log(Constants.TAG, failText);
 
-        messageManager.Info(failText);
-        Gdx.app.log(Constants.TAG, failText);
-
-        Team.instance().updateResources();
-        notifyRefreshListeners();
+            Team.instance().updateResources();
+            notifyRefreshListeners();
+        }
     }
 
 
     /**
      * Aborts the given mission.
      *
-     * @param mission
+     * @param mission1
      */
-    public void abortMission(Mission mission) {
-        activeMissions.remove(mission);
-//        completedMissions.add(mission);
-//        mission.setOutcome(outcome);
-        mission.Abort();
+    public void abortMission(Mission mission1) {
+        activeMissions.remove(mission1);
+        int i = isMissionRunning(mission1);
+        if (i >= 0) {
+            MissionWorker m = runningMissionWorkers.get(i);
+            GameTime.instance.removeTimeChangedListener(m);
+            mission1.Abort();
+            runningMissionWorkers.remove(m);
+        }
 
         Team.instance().updateResources();
         notifyRefreshListeners();
-
-
-        //TODO: Remove MissionWorkers
     }
 
     /**
@@ -195,7 +200,7 @@ public class MissionManager implements TimeChangedListener {
         int workerNumber = isMissionRunning(mission);
         if (workerNumber < 0) {
             MissionWorker worker = new MissionWorker(mission);
-            runningMissions.add(worker);
+            runningMissionWorkers.add(worker);
             GameTime.instance.addTimeChangedListener(worker);
         }
     }
@@ -210,14 +215,14 @@ public class MissionManager implements TimeChangedListener {
         if (employee.getCurrentMission() == null) return null;
         int workerNumber = isMissionRunning(employee.getCurrentMission());
         if (workerNumber > -1) {
-            MissionWorker worker = runningMissions.get(workerNumber);
+            MissionWorker worker = runningMissionWorkers.get(workerNumber);
             worker.addEmployee(employee);
             return worker;
         } else {
             if (activeMissions.contains(employee.getCurrentMission())) {
                 MissionWorker worker = new MissionWorker(employee.getCurrentMission());
                 worker.addEmployee(employee);
-                runningMissions.add(worker);
+                runningMissionWorkers.add(worker);
                 GameTime.instance.addTimeChangedListener(worker);
                 return worker;
             } else {
@@ -232,19 +237,18 @@ public class MissionManager implements TimeChangedListener {
      *
      * @param employee Employee to remove
      */
-    public void stopWorking(Employee employee) {
+    public void stopWorking(final Employee employee) {
         if (employee.getCurrentMission() != null) {
             int workerNumber = isMissionRunning(employee.getCurrentMission());
             if (workerNumber > -1) {
-                MissionWorker worker = runningMissions.get(workerNumber);
+                MissionWorker worker = runningMissionWorkers.get(workerNumber);
                 if (worker.removeEmployee(employee)) {
                     employee.setCurrentMission(null);
                 }
                 //Remove MissionWorker instance if no longer needed, and add to completed missions;
                 if (worker.hasNoWorkers() && worker.getMission().isFinished()) {
-                    runningMissions.remove(worker);
+                    runningMissionWorkers.remove(worker);
                     GameTime.instance.removeTimeChangedListener(worker);
-                    activeMissions.remove(worker.getMission());
 
                     if (worker.getMission().isCompleted()) {
                         completeMission(worker.getMission());
@@ -267,7 +271,7 @@ public class MissionManager implements TimeChangedListener {
         if (employee.getCurrentMission() != null) {
             int workerNumber = isMissionRunning(employee.getCurrentMission());
             if (workerNumber > -1) {
-                return runningMissions.get(workerNumber);
+                return runningMissionWorkers.get(workerNumber);
             }
         }
         return null;
@@ -286,8 +290,8 @@ public class MissionManager implements TimeChangedListener {
     }
 
     private int isMissionRunning(Mission mission) {
-        for (int i = 0; i < runningMissions.size(); i++) {
-            if (runningMissions.get(i).getMission().getMissionNumber() == mission.getMissionNumber()) {
+        for (int i = 0; i < runningMissionWorkers.size(); i++) {
+            if (runningMissionWorkers.get(i).getMission().getMissionNumber() == mission.getMissionNumber()) {
                 return i;
             }
         }
@@ -338,8 +342,16 @@ public class MissionManager implements TimeChangedListener {
         this.completedMissions = completedMissions;
     }
 
-    public void setRunningMissions(ArrayList<MissionWorker> runningMissions) {
-        this.runningMissions = runningMissions;
+    public void setRunningMissionWorkers(ArrayList<MissionWorker> runningMissionWorkers) {
+        this.runningMissionWorkers = runningMissionWorkers;
+    }
+
+    public int getActiveMissionId(Mission mission) {
+        return activeMissions.indexOf(mission);
+    }
+
+    public Mission getActiveMission(int id) {
+        return activeMissions.get(id);
     }
 
     /**
@@ -361,6 +373,10 @@ public class MissionManager implements TimeChangedListener {
 
         for (Mission mission: openMissions) {
             builder.addOpenMissions(mission.getData());
+        }
+
+        for (MissionWorker worker: runningMissions) {
+            builder.addWorkers(worker.getData());
         }
 
         return builder.build();
@@ -385,6 +401,10 @@ public class MissionManager implements TimeChangedListener {
 
             for (Proto.Mission mission : proto.getCompletedMissionsList()) {
                 completedMissions.add(new Mission(mission.toBuilder()));
+            }
+
+            for (Proto.MissionWorker worker : proto.getWorkersList()) {
+                runningMissions.add(new MissionWorker(worker.toBuilder()));
             }
 
             return true;

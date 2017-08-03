@@ -45,6 +45,9 @@ import de.hsd.hacking.UI.Shop.ShopBrowser;
 import de.hsd.hacking.UI.General.StatusBar;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * @author Florian, Hendrik, Julian
+ */
 public class GameStage extends Stage implements EventListener{
 
     private Assets assets;
@@ -341,8 +344,9 @@ public class GameStage extends Stage implements EventListener{
                 }
 
                 //If no touchable object is clicked, deselect the current employee
-
-                Team.instance().deselectEmployee();
+                if (Team.instance().isEmployeeSelected()) {
+                    Team.instance().getSelectedEmployee().setSelected(false);
+                }
 
                 if (employeeBar.isEmployeeProfileOpen()) {
                     employeeBar.closeEmployeeProfile();

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Stores color values of the texture that need to be changed and the values they can be changed to
- * Created by Cuddl3s on 29.05.2017.
+ * @author Florian
  */
 
 public class ColorHolder {

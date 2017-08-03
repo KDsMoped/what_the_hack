@@ -21,6 +21,9 @@ import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * @author Florian, Julian
+ */
 public class MenuStage extends Stage {
 
     public static final float VIEWPORT_WIDTH = 512f;

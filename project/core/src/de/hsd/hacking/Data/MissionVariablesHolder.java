@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * This class is a simple data holder for random company names.
+ * @author Florian, Julian
  */
 public class MissionVariablesHolder {
     private ArrayList<String> companyNames = new ArrayList<String>();

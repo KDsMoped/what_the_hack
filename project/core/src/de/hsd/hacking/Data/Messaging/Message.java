@@ -10,10 +10,10 @@ import de.hsd.hacking.Utils.DateUtils;
 
 /**
  * This class represents a message to the user.
+ * @author Julian
  */
 public class Message{
     Proto.Message.Builder data;
-
     // TODO EventListener serialization
     private ClickListener listener;
 

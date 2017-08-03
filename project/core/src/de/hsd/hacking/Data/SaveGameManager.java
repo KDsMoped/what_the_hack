@@ -22,6 +22,10 @@ import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ *
+ * @author Julian
+ */
 public final class SaveGameManager {
     static Proto.MessageBar messageBar;
     static Proto.MissionManager missionManager;
@@ -54,16 +58,6 @@ public final class SaveGameManager {
         }
 
         try {
-            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/missionmanager");
-            missionManager = Proto.MissionManager.parseFrom(stream);
-        }
-        catch (Exception e) {
-            Gdx.app.error(Constants.TAG, "Error loading savegame.");
-            Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
-        }
-
-        try {
             FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/equipmentmanager");
             equipmentManager = Proto.EquipmentManager.parseFrom(stream);
         }
@@ -82,13 +76,23 @@ public final class SaveGameManager {
             Gdx.app.error(Constants.TAG, e.getMessage());
             Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
         }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/missionmanager");
+            missionManager = Proto.MissionManager.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+        }
     }
 
     public static boolean SaveGame() {
         boolean success = false;
 
         // Game Time
-        Proto.Global.Builder gameTime = GameTime.instance.getData();
+        Proto.Global.Builder gameTime = GameTime.instance.getData().toBuilder();
         Proto.Global gameTimeCompiled = gameTime.build();
         SaveProto(gameTimeCompiled, "gametime");
 

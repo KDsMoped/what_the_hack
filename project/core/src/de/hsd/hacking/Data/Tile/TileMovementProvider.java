@@ -7,6 +7,10 @@ import de.hsd.hacking.Data.Path;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Tile;
 
+/**
+ * Returns various types of tiles from underlying TileMap.
+ * @author Florian
+ */
 public interface TileMovementProvider extends MovementProvider {
 
     /**

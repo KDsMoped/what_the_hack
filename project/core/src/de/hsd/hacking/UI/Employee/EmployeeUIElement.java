@@ -81,7 +81,7 @@ public class EmployeeUIElement extends Table {
         employButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EmployeeManager.instance().employ(employee, true);
+                EmployeeManager.instance().employ(employee, true, false);
                 AudioManager.instance().playUIButtonSound();
             }
         });

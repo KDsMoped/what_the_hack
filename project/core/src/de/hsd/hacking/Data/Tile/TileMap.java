@@ -20,7 +20,7 @@ import de.hsd.hacking.Utils.RandomIntPool;
 
 /**
  * Holds all tiles in game and manages tile-movement through A* Pathfinder
- * Created by Cuddl3s on 24.05.2017.
+ * @author Florian
  */
 public class TileMap extends Group implements TileMovementProvider {
 
@@ -31,7 +31,7 @@ public class TileMap extends Group implements TileMovementProvider {
 
     public TileMap(GameStage stage){
         this.stage = stage;
-        IsometricTileManager manager = new IsometricTileManager(new Vector2(GameStage.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, GameStage.VIEWPORT_HEIGHT - 105f));
+        IsometricTileManager manager = new IsometricTileManager(new Vector2(Constants.VIEWPORT_WIDTH / 2f - Constants.TILE_WIDTH / 2f, Constants.VIEWPORT_HEIGHT - 105f));
         tiles = manager.generateTiles(Constants.TILE_WIDTH, Constants.TILES_PER_SIDE);
         this.pathFinder = new TilePathFinder(this);
     }
