@@ -9,6 +9,8 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 
+
+
 public abstract class Equipment extends TouchableInteractableObject implements DataContainer {
     protected Proto.Equipment.Builder data;
     protected boolean isPurchased = false;

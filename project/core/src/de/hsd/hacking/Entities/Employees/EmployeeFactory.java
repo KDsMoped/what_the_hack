@@ -99,15 +99,11 @@ public class EmployeeFactory {
      */
     public static Employee createEmployee(int gameProgress) {
 
-        int progress = Math.max(0, gameProgress + RandomUtils.var(PROGRESS_VARIANCE));
-
-//        if (progress > 5 && RandomUtils.randomFloat() > 0.9f );
+        int progress = calcEmployeeProgress(gameProgress);
 
         Employee freshman = new Employee();
-//        final float score = calcScore(progress);
         freshman.incrementFreeScore(calcScore(progress));
 
-//        float remainingScore = score;
 
         Proto.Employee.Gender gender = Employee.randomGender();
         freshman.setGender(gender);
@@ -116,10 +112,57 @@ public class EmployeeFactory {
         //spend score points on random attributes and skills
         learnBasicSkillSet(freshman);
 
-//        freshman.incrementUsedScore(score - remainingScore);
         freshman.setSalary(calcSalary(progress, freshman.getUsedScore()/* + freshman.getFreeScore()*/));
 
+        freshman.finishCreation();
+
         return freshman;
+    }
+
+    /**
+     * Creates the Trump based on the given progress!
+     *
+     * @return
+     */
+    public static Employee createTrump(){
+        return createTrump(TeamManager.instance().calcGameProgress());
+    }
+
+    /**
+     * Creates the Trump based on the given progress!
+     *
+     * @param gameProgress
+     * @return
+     */
+    public static Employee createTrump(int gameProgress) {
+
+        int progress = calcEmployeeProgress(gameProgress);
+
+        Employee trump = new Employee();
+        trump.incrementFreeScore(calcScore(progress));
+
+        trump.setGender(Proto.Employee.Gender.MALE);
+        trump.setName("Tonald", "Drump");
+
+        //spend score points on random attributes and skills
+        learnBasicSkillSet(trump);
+
+        trump.setSalary(calcSalary(progress, trump.getUsedScore()/* + freshman.getFreeScore()*/));
+
+        trump.setVisualStyle(Proto.Employee.VisualStyle.TRUMP);
+
+        trump.finishCreation();
+
+        return trump;
+    }
+
+    /**
+     * Returns the progress level of an employee.
+     * @param gameProgress
+     * @return
+     */
+    private static int calcEmployeeProgress(int gameProgress){
+        return Math.max(0, gameProgress + RandomUtils.var(PROGRESS_VARIANCE));
     }
 
     /**

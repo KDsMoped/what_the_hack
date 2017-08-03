@@ -119,20 +119,35 @@ message Employee {
   string shirtColor = 12;
   string trouserColor = 13;
   string shoeColor = 14;
-  HairStyle hairStyle = 15;
-  Gender gender = 16;
-  repeated Skill skillSet = 17;
-  repeated EmployeeSpecial employeeSpecials = 18;
-  bool flipped = 19;
-  AnimState animState = 20;
-  EmployeeState state = 21;
-  int32 missionNumber = 22;
+  VisualStyle visualStyle = 15;
+  HairStyleMale hairStyleMale = 16;
+  HairStyleFemale hairStyleFemale = 17;
+  Gender gender = 18;
+  repeated Skill skillSet = 19;
+  repeated EmployeeSpecial employeeSpecials = 20;
+  bool flipped = 21;
+  AnimState animState = 22;
+  EmployeeState state = 23;
+  int32 missionNumber = 24;
 
-  enum HairStyle {
-    CRAZY = 0;
-    NEAT = 1;
-    NERD = 2;
-    RASTA = 3;
+  
+  enum VisualStyle{
+    DEFAULT = 0;
+    TRUMP = 1;
+  }
+
+  enum HairStyleMale {
+    M_CRAZY = 0;
+    M_NEAT = 1;
+    M_NERD = 2;
+    M_RASTA = 3;
+  }
+
+  enum HairStyleFemale {
+    F_CRAZY = 0;
+    F_NEAT = 1;
+    F_NERD = 2;
+    F_RASTA = 3;
   }
 
   enum Gender {

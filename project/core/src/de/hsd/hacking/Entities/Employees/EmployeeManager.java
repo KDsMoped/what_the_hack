@@ -307,6 +307,7 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
     public void loadDefaultState() {
         populateAvailableEmployees();
         employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE), false);
+        employ(EmployeeFactory.createTrump(), false);
     }
 
     /**

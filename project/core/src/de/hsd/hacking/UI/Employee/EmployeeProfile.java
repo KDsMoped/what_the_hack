@@ -19,6 +19,7 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
+import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.UI.General.DoubleLabelElement;
 import de.hsd.hacking.UI.General.Popup;
 import de.hsd.hacking.Utils.Constants;
@@ -77,12 +78,11 @@ public class EmployeeProfile extends Popup {
         leftColumn.row();
         leftColumn.add(icon).padBottom(10).center().row();
 
-        TextButton dismissButton = new TextButton("Dismiss", Constants.TextButtonStyle());
+        AudioTextButton dismissButton = new AudioTextButton("Dismiss", Constants.TextButtonStyle());
         dismissButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 onDismissButton();
-                AudioManager.instance().playUIButtonSound();
             }
         });
 //        dismissButton.setBounds(leftUILine, topUILine - 40, 80, 20);

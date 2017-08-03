@@ -266,7 +266,7 @@ public class TeamManager implements Manager {
     /**
      * Calculates the players game progress based on resources and completed missions.
      *
-     * @return
+     * @return the game Progress as Integer value.
      */
     public int calcGameProgress() {
         float result = 1;

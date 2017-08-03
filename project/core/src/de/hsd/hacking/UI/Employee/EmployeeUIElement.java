@@ -14,6 +14,7 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.Skill;
+import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.Utils.Constants;
 
 import java.util.Collection;
@@ -77,12 +78,11 @@ public class EmployeeUIElement extends Table {
         money = new Label(employee.getSalaryText(), Constants.LabelStyle());
         money.setAlignment(Align.topRight);
 
-        TextButton employButton = new TextButton("Employ", Constants.TextButtonStyle());
+        AudioTextButton employButton = new AudioTextButton("Employ", Constants.TextButtonStyle());
         employButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 EmployeeManager.instance().employ(employee, true);
-                AudioManager.instance().playUIButtonSound();
             }
         });
 
@@ -102,7 +102,7 @@ public class EmployeeUIElement extends Table {
         money = new Label(employee.getSalaryText(), Constants.LabelStyle());
         money.setAlignment(Align.topRight);
 
-        TextButton employButton = new TextButton("Dismiss", Constants.TextButtonStyle());
+        AudioTextButton employButton = new AudioTextButton("Dismiss", Constants.TextButtonStyle());
         employButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

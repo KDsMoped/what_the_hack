@@ -17,7 +17,13 @@ import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Proto;
+import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.Utils.Constants;
+
+/**
+ * This class is an ui element that displays an {@link Equipment} item with it's properties and buttons.
+ * @author Dominik
+ */
 
 public class ShopUIElement extends Table {
 
@@ -30,8 +36,8 @@ public class ShopUIElement extends Table {
 
     private Label level;
 
-    TextButton buyButton;
-    TextButton upgradeButton;
+    AudioTextButton buyButton;
+    AudioTextButton upgradeButton;
 
     public ShopUIElement(Equipment equipment) {
         this.equipment = equipment;
@@ -41,26 +47,31 @@ public class ShopUIElement extends Table {
         InitTable();
     }
 
+    /**
+     * Initializes the Buttons to buy or upgrade an Item.
+     */
     public void InitControls() {
-        buyButton = new TextButton("Buy", Constants.TextButtonStyle());
+        buyButton = new AudioTextButton("Buy", Constants.TextButtonStyle());
         buyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                AudioManager.instance().playUIButtonSound();
                 if(equipmentManager.buyItem(equipment, true) == 1) {}
             }
         });
 
-        upgradeButton = new TextButton("Upgrade", Constants.TextButtonStyle());
+        upgradeButton = new AudioTextButton("Upgrade", Constants.TextButtonStyle());
         upgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                AudioManager.instance().playUIButtonSound();
                 if (equipmentManager.upgradeItem(equipment) == 1) {}
             }
         });
     }
 
+    /**
+     * Initializes a set of Tables, containing Item information like name, bonuses, and price. Also
+     * adds the respective button to buy or upgrade.
+     */
     public void InitTable() {
         this.setTouchable(Touchable.enabled);
         this.align(Align.top);

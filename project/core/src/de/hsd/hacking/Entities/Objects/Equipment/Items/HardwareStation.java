@@ -7,6 +7,11 @@ import de.hsd.hacking.Entities.Objects.Equipment.Upgradable;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 
+/**
+ * An Equipment Item that increases the Hardware Skill
+ * @author Dominik
+ */
+
 public class HardwareStation extends Equipment implements Upgradable {
 
     private float elapsedTime = 0f;

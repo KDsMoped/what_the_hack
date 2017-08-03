@@ -83,7 +83,7 @@ public abstract class TouchableObject extends Object implements Touchable {
         if (outlineFrames > 0) {
             batch.end();
             outlineShader.begin();
-            outlineShader.setUniformf("u_viewportInverse", new Vector2(1f / 1024f, 1f / Constants.VIEWPORT_HEIGHT));
+            outlineShader.setUniformf("u_viewportInverse", new Vector2(1f / drawableRegion.getTexture().getWidth(), 1f / drawableRegion.getTexture().getHeight()));
             outlineShader.end();
             batch.setShader(outlineShader);
             batch.begin();

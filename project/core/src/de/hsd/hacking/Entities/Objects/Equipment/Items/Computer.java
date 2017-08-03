@@ -26,6 +26,11 @@ import de.hsd.hacking.Entities.Employees.States.MovingState;
 import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * An Equipment Item that can be assigned to a workspace to complete missions
+ * @author Dominik
+ */
+
 public class Computer extends Equipment implements Upgradable {
 
     private TextureRegion stillRegion;

@@ -10,6 +10,12 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
+/**
+ * An Equipment Item that increases the Bandwidth resource
+ * @author Dominik
+ */
+
+
 public class Router extends Equipment implements Upgradable {
 
     public Router() {
