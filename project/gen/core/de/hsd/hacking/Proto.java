@@ -726,6 +726,664 @@ public final class Proto {
 
   }
 
+  public interface ResourcesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:what_the_hack.Resources)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 money = 1;</code>
+     */
+    int getMoney();
+
+    /**
+     * <code>int32 bandwidth = 2;</code>
+     */
+    int getBandwidth();
+
+    /**
+     * <code>int32 computationPower = 3;</code>
+     */
+    int getComputationPower();
+
+    /**
+     * <code>.what_the_hack.SkillType skill = 4;</code>
+     */
+    int getSkillValue();
+    /**
+     * <code>.what_the_hack.SkillType skill = 4;</code>
+     */
+    de.hsd.hacking.Proto.SkillType getSkill();
+  }
+  /**
+   * Protobuf type {@code what_the_hack.Resources}
+   */
+  public  static final class Resources extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:what_the_hack.Resources)
+      ResourcesOrBuilder {
+    // Use Resources.newBuilder() to construct.
+    private Resources(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Resources() {
+      money_ = 0;
+      bandwidth_ = 0;
+      computationPower_ = 0;
+      skill_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private Resources(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              money_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              bandwidth_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              computationPower_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              skill_ = rawValue;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_Resources_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return de.hsd.hacking.Proto.internal_static_what_the_hack_Resources_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              de.hsd.hacking.Proto.Resources.class, de.hsd.hacking.Proto.Resources.Builder.class);
+    }
+
+    public static final int MONEY_FIELD_NUMBER = 1;
+    private int money_;
+    /**
+     * <code>int32 money = 1;</code>
+     */
+    public int getMoney() {
+      return money_;
+    }
+
+    public static final int BANDWIDTH_FIELD_NUMBER = 2;
+    private int bandwidth_;
+    /**
+     * <code>int32 bandwidth = 2;</code>
+     */
+    public int getBandwidth() {
+      return bandwidth_;
+    }
+
+    public static final int COMPUTATIONPOWER_FIELD_NUMBER = 3;
+    private int computationPower_;
+    /**
+     * <code>int32 computationPower = 3;</code>
+     */
+    public int getComputationPower() {
+      return computationPower_;
+    }
+
+    public static final int SKILL_FIELD_NUMBER = 4;
+    private int skill_;
+    /**
+     * <code>.what_the_hack.SkillType skill = 4;</code>
+     */
+    public int getSkillValue() {
+      return skill_;
+    }
+    /**
+     * <code>.what_the_hack.SkillType skill = 4;</code>
+     */
+    public de.hsd.hacking.Proto.SkillType getSkill() {
+      de.hsd.hacking.Proto.SkillType result = de.hsd.hacking.Proto.SkillType.valueOf(skill_);
+      return result == null ? de.hsd.hacking.Proto.SkillType.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (money_ != 0) {
+        output.writeInt32(1, money_);
+      }
+      if (bandwidth_ != 0) {
+        output.writeInt32(2, bandwidth_);
+      }
+      if (computationPower_ != 0) {
+        output.writeInt32(3, computationPower_);
+      }
+      if (skill_ != de.hsd.hacking.Proto.SkillType.Social.getNumber()) {
+        output.writeEnum(4, skill_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (money_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, money_);
+      }
+      if (bandwidth_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, bandwidth_);
+      }
+      if (computationPower_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, computationPower_);
+      }
+      if (skill_ != de.hsd.hacking.Proto.SkillType.Social.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, skill_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof de.hsd.hacking.Proto.Resources)) {
+        return super.equals(obj);
+      }
+      de.hsd.hacking.Proto.Resources other = (de.hsd.hacking.Proto.Resources) obj;
+
+      boolean result = true;
+      result = result && (getMoney()
+          == other.getMoney());
+      result = result && (getBandwidth()
+          == other.getBandwidth());
+      result = result && (getComputationPower()
+          == other.getComputationPower());
+      result = result && skill_ == other.skill_;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MONEY_FIELD_NUMBER;
+      hash = (53 * hash) + getMoney();
+      hash = (37 * hash) + BANDWIDTH_FIELD_NUMBER;
+      hash = (53 * hash) + getBandwidth();
+      hash = (37 * hash) + COMPUTATIONPOWER_FIELD_NUMBER;
+      hash = (53 * hash) + getComputationPower();
+      hash = (37 * hash) + SKILL_FIELD_NUMBER;
+      hash = (53 * hash) + skill_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Resources parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Resources parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static de.hsd.hacking.Proto.Resources parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(de.hsd.hacking.Proto.Resources prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code what_the_hack.Resources}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:what_the_hack.Resources)
+        de.hsd.hacking.Proto.ResourcesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Resources_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Resources_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                de.hsd.hacking.Proto.Resources.class, de.hsd.hacking.Proto.Resources.Builder.class);
+      }
+
+      // Construct using de.hsd.hacking.Proto.Resources.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        money_ = 0;
+
+        bandwidth_ = 0;
+
+        computationPower_ = 0;
+
+        skill_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return de.hsd.hacking.Proto.internal_static_what_the_hack_Resources_descriptor;
+      }
+
+      public de.hsd.hacking.Proto.Resources getDefaultInstanceForType() {
+        return de.hsd.hacking.Proto.Resources.getDefaultInstance();
+      }
+
+      public de.hsd.hacking.Proto.Resources build() {
+        de.hsd.hacking.Proto.Resources result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public de.hsd.hacking.Proto.Resources buildPartial() {
+        de.hsd.hacking.Proto.Resources result = new de.hsd.hacking.Proto.Resources(this);
+        result.money_ = money_;
+        result.bandwidth_ = bandwidth_;
+        result.computationPower_ = computationPower_;
+        result.skill_ = skill_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof de.hsd.hacking.Proto.Resources) {
+          return mergeFrom((de.hsd.hacking.Proto.Resources)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(de.hsd.hacking.Proto.Resources other) {
+        if (other == de.hsd.hacking.Proto.Resources.getDefaultInstance()) return this;
+        if (other.getMoney() != 0) {
+          setMoney(other.getMoney());
+        }
+        if (other.getBandwidth() != 0) {
+          setBandwidth(other.getBandwidth());
+        }
+        if (other.getComputationPower() != 0) {
+          setComputationPower(other.getComputationPower());
+        }
+        if (other.skill_ != 0) {
+          setSkillValue(other.getSkillValue());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        de.hsd.hacking.Proto.Resources parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (de.hsd.hacking.Proto.Resources) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int money_ ;
+      /**
+       * <code>int32 money = 1;</code>
+       */
+      public int getMoney() {
+        return money_;
+      }
+      /**
+       * <code>int32 money = 1;</code>
+       */
+      public Builder setMoney(int value) {
+        
+        money_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 money = 1;</code>
+       */
+      public Builder clearMoney() {
+        
+        money_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int bandwidth_ ;
+      /**
+       * <code>int32 bandwidth = 2;</code>
+       */
+      public int getBandwidth() {
+        return bandwidth_;
+      }
+      /**
+       * <code>int32 bandwidth = 2;</code>
+       */
+      public Builder setBandwidth(int value) {
+        
+        bandwidth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 bandwidth = 2;</code>
+       */
+      public Builder clearBandwidth() {
+        
+        bandwidth_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int computationPower_ ;
+      /**
+       * <code>int32 computationPower = 3;</code>
+       */
+      public int getComputationPower() {
+        return computationPower_;
+      }
+      /**
+       * <code>int32 computationPower = 3;</code>
+       */
+      public Builder setComputationPower(int value) {
+        
+        computationPower_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 computationPower = 3;</code>
+       */
+      public Builder clearComputationPower() {
+        
+        computationPower_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int skill_ = 0;
+      /**
+       * <code>.what_the_hack.SkillType skill = 4;</code>
+       */
+      public int getSkillValue() {
+        return skill_;
+      }
+      /**
+       * <code>.what_the_hack.SkillType skill = 4;</code>
+       */
+      public Builder setSkillValue(int value) {
+        skill_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.SkillType skill = 4;</code>
+       */
+      public de.hsd.hacking.Proto.SkillType getSkill() {
+        de.hsd.hacking.Proto.SkillType result = de.hsd.hacking.Proto.SkillType.valueOf(skill_);
+        return result == null ? de.hsd.hacking.Proto.SkillType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.SkillType skill = 4;</code>
+       */
+      public Builder setSkill(de.hsd.hacking.Proto.SkillType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        skill_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.SkillType skill = 4;</code>
+       */
+      public Builder clearSkill() {
+        
+        skill_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:what_the_hack.Resources)
+    }
+
+    // @@protoc_insertion_point(class_scope:what_the_hack.Resources)
+    private static final de.hsd.hacking.Proto.Resources DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new de.hsd.hacking.Proto.Resources();
+    }
+
+    public static de.hsd.hacking.Proto.Resources getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Resources>
+        PARSER = new com.google.protobuf.AbstractParser<Resources>() {
+      public Resources parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Resources(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Resources> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Resources> getParserForType() {
+      return PARSER;
+    }
+
+    public de.hsd.hacking.Proto.Resources getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:what_the_hack.Message)
       com.google.protobuf.MessageOrBuilder {
@@ -8504,6 +9162,20 @@ public final class Proto {
      */
     de.hsd.hacking.Proto.EmployeeSpecialOrBuilder getEmployeeSpecialsOrBuilder(
         int index);
+
+    /**
+     * <code>bool flipped = 19;</code>
+     */
+    boolean getFlipped();
+
+    /**
+     * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+     */
+    int getAnimStateValue();
+    /**
+     * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+     */
+    de.hsd.hacking.Proto.Employee.AnimState getAnimState();
   }
   /**
    * Protobuf type {@code what_the_hack.Employee}
@@ -8535,6 +9207,8 @@ public final class Proto {
       gender_ = 0;
       skillSet_ = java.util.Collections.emptyList();
       employeeSpecials_ = java.util.Collections.emptyList();
+      flipped_ = false;
+      animState_ = 0;
     }
 
     @java.lang.Override
@@ -8668,6 +9342,17 @@ public final class Proto {
               }
               employeeSpecials_.add(
                   input.readMessage(de.hsd.hacking.Proto.EmployeeSpecial.parser(), extensionRegistry));
+              break;
+            }
+            case 152: {
+
+              flipped_ = input.readBool();
+              break;
+            }
+            case 160: {
+              int rawValue = input.readEnum();
+
+              animState_ = rawValue;
               break;
             }
           }
@@ -8920,6 +9605,122 @@ public final class Proto {
       }
 
       // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.Gender)
+    }
+
+    /**
+     * Protobuf enum {@code what_the_hack.Employee.AnimState}
+     */
+    public enum AnimState
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>IDLE = 0;</code>
+       */
+      IDLE(0),
+      /**
+       * <code>WORKING = 1;</code>
+       */
+      WORKING(1),
+      /**
+       * <code>WORKING_BACKFACED = 2;</code>
+       */
+      WORKING_BACKFACED(2),
+      /**
+       * <code>MOVING = 3;</code>
+       */
+      MOVING(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>IDLE = 0;</code>
+       */
+      public static final int IDLE_VALUE = 0;
+      /**
+       * <code>WORKING = 1;</code>
+       */
+      public static final int WORKING_VALUE = 1;
+      /**
+       * <code>WORKING_BACKFACED = 2;</code>
+       */
+      public static final int WORKING_BACKFACED_VALUE = 2;
+      /**
+       * <code>MOVING = 3;</code>
+       */
+      public static final int MOVING_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static AnimState valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static AnimState forNumber(int value) {
+        switch (value) {
+          case 0: return IDLE;
+          case 1: return WORKING;
+          case 2: return WORKING_BACKFACED;
+          case 3: return MOVING;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<AnimState>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          AnimState> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<AnimState>() {
+              public AnimState findValueByNumber(int number) {
+                return AnimState.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return de.hsd.hacking.Proto.Employee.getDescriptor().getEnumTypes().get(2);
+      }
+
+      private static final AnimState[] VALUES = values();
+
+      public static AnimState valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private AnimState(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:what_the_hack.Employee.AnimState)
     }
 
     private int bitField0_;
@@ -9361,6 +10162,31 @@ public final class Proto {
       return employeeSpecials_.get(index);
     }
 
+    public static final int FLIPPED_FIELD_NUMBER = 19;
+    private boolean flipped_;
+    /**
+     * <code>bool flipped = 19;</code>
+     */
+    public boolean getFlipped() {
+      return flipped_;
+    }
+
+    public static final int ANIMSTATE_FIELD_NUMBER = 20;
+    private int animState_;
+    /**
+     * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+     */
+    public int getAnimStateValue() {
+      return animState_;
+    }
+    /**
+     * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+     */
+    public de.hsd.hacking.Proto.Employee.AnimState getAnimState() {
+      de.hsd.hacking.Proto.Employee.AnimState result = de.hsd.hacking.Proto.Employee.AnimState.valueOf(animState_);
+      return result == null ? de.hsd.hacking.Proto.Employee.AnimState.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -9426,6 +10252,12 @@ public final class Proto {
       }
       for (int i = 0; i < employeeSpecials_.size(); i++) {
         output.writeMessage(18, employeeSpecials_.get(i));
+      }
+      if (flipped_ != false) {
+        output.writeBool(19, flipped_);
+      }
+      if (animState_ != de.hsd.hacking.Proto.Employee.AnimState.IDLE.getNumber()) {
+        output.writeEnum(20, animState_);
       }
     }
 
@@ -9498,6 +10330,14 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(18, employeeSpecials_.get(i));
       }
+      if (flipped_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(19, flipped_);
+      }
+      if (animState_ != de.hsd.hacking.Proto.Employee.AnimState.IDLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(20, animState_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -9552,6 +10392,9 @@ public final class Proto {
           .equals(other.getSkillSetList());
       result = result && getEmployeeSpecialsList()
           .equals(other.getEmployeeSpecialsList());
+      result = result && (getFlipped()
+          == other.getFlipped());
+      result = result && animState_ == other.animState_;
       return result;
     }
 
@@ -9605,6 +10448,11 @@ public final class Proto {
         hash = (37 * hash) + EMPLOYEESPECIALS_FIELD_NUMBER;
         hash = (53 * hash) + getEmployeeSpecialsList().hashCode();
       }
+      hash = (37 * hash) + FLIPPED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFlipped());
+      hash = (37 * hash) + ANIMSTATE_FIELD_NUMBER;
+      hash = (53 * hash) + animState_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9780,6 +10628,10 @@ public final class Proto {
         } else {
           employeeSpecialsBuilder_.clear();
         }
+        flipped_ = false;
+
+        animState_ = 0;
+
         return this;
       }
 
@@ -9838,6 +10690,8 @@ public final class Proto {
         } else {
           result.employeeSpecials_ = employeeSpecialsBuilder_.build();
         }
+        result.flipped_ = flipped_;
+        result.animState_ = animState_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -9987,6 +10841,12 @@ public final class Proto {
               employeeSpecialsBuilder_.addAllMessages(other.employeeSpecials_);
             }
           }
+        }
+        if (other.getFlipped() != false) {
+          setFlipped(other.getFlipped());
+        }
+        if (other.animState_ != 0) {
+          setAnimStateValue(other.getAnimStateValue());
         }
         onChanged();
         return this;
@@ -11319,6 +12179,76 @@ public final class Proto {
           employeeSpecials_ = null;
         }
         return employeeSpecialsBuilder_;
+      }
+
+      private boolean flipped_ ;
+      /**
+       * <code>bool flipped = 19;</code>
+       */
+      public boolean getFlipped() {
+        return flipped_;
+      }
+      /**
+       * <code>bool flipped = 19;</code>
+       */
+      public Builder setFlipped(boolean value) {
+        
+        flipped_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool flipped = 19;</code>
+       */
+      public Builder clearFlipped() {
+        
+        flipped_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int animState_ = 0;
+      /**
+       * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+       */
+      public int getAnimStateValue() {
+        return animState_;
+      }
+      /**
+       * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+       */
+      public Builder setAnimStateValue(int value) {
+        animState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+       */
+      public de.hsd.hacking.Proto.Employee.AnimState getAnimState() {
+        de.hsd.hacking.Proto.Employee.AnimState result = de.hsd.hacking.Proto.Employee.AnimState.valueOf(animState_);
+        return result == null ? de.hsd.hacking.Proto.Employee.AnimState.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+       */
+      public Builder setAnimState(de.hsd.hacking.Proto.Employee.AnimState value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        animState_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.Employee.AnimState animState = 20;</code>
+       */
+      public Builder clearAnimState() {
+        
+        animState_ = 0;
+        onChanged();
+        return this;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -14713,6 +15643,11 @@ public final class Proto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_what_the_hack_Global_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_what_the_hack_Resources_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_what_the_hack_Resources_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_what_the_hack_Message_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -14783,63 +15718,70 @@ public final class Proto {
     java.lang.String[] descriptorData = {
       "\n\rhacking.proto\022\rwhat_the_hack\"8\n\006Global" +
       "\022\013\n\003day\030\001 \001(\005\022\014\n\004time\030\002 \001(\002\022\023\n\013currentSt" +
-      "ep\030\003 \001(\005\"\207\001\n\007Message\022\017\n\007message\030\001 \001(\t\022\014\n" +
-      "\004date\030\002 \001(\005\022)\n\004type\030\003 \001(\0162\033.what_the_hac" +
-      "k.Message.Type\"2\n\004Type\022\010\n\004INFO\020\000\022\013\n\007WARN" +
-      "ING\020\001\022\t\n\005ERROR\020\002\022\010\n\004HELP\020\003\"6\n\nMessageBar" +
-      "\022(\n\010messages\030\001 \003(\0132\026.what_the_hack.Messa" +
-      "ge\">\n\005Skill\022\r\n\005value\030\001 \001(\005\022&\n\004type\030\002 \001(\016" +
-      "2\030.what_the_hack.SkillType\"\310\002\n\007Mission\022\025" +
-      "\n\rmissionNumber\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\023\n\013d",
-      "escription\030\003 \001(\t\022\021\n\tonSuccess\030\004 \001(\t\022\016\n\006o" +
-      "nFail\030\005 \001(\t\022\020\n\010duration\030\006 \001(\005\022\023\n\013difficu" +
-      "lity\030\007 \001(\005\022\020\n\010hardness\030\010 \001(\002\022\014\n\004risk\030\t \001" +
-      "(\002\022\021\n\tcompleted\030\n \001(\010\022\020\n\010finished\030\013 \001(\010\022" +
-      "\020\n\010minLevel\030\014 \001(\005\022\020\n\010maxLevel\030\r \001(\005\022$\n\006s" +
-      "kills\030\016 \003(\0132\024.what_the_hack.Skill\022\023\n\013rew" +
-      "ardMoney\030\017 \001(\005\022\025\n\rusedBandwidth\030\020 \001(\005\"\356\001" +
-      "\n\016MissionManager\022\034\n\024currentMissionNumber" +
-      "\030\001 \001(\005\022.\n\016activeMissions\030\002 \003(\0132\026.what_th" +
-      "e_hack.Mission\022,\n\014openMissions\030\003 \003(\0132\026.w",
-      "hat_the_hack.Mission\0221\n\021completedMission" +
-      "s\030\004 \003(\0132\026.what_the_hack.Mission\022-\n\007worke" +
-      "rs\030\005 \003(\0132\034.what_the_hack.MissionWorker\"\327" +
-      "\001\n\tEquipment\0224\n\004type\030\001 \001(\0162&.what_the_ha" +
-      "ck.Equipment.EquipmentType\022\014\n\004name\030\002 \001(\t" +
-      "\022\r\n\005price\030\003 \001(\002\022\r\n\005level\030\004 \001(\005\"h\n\rEquipm" +
-      "entType\022\021\n\rCoffeeMachine\020\000\022\014\n\010Computer\020\001" +
-      "\022\023\n\017HardwareStation\020\002\022\t\n\005Modem\020\003\022\n\n\006Rout" +
-      "er\020\004\022\n\n\006Server\020\005\"?\n\020EquipmentManager\022+\n\t" +
-      "equipment\030\001 \003(\0132\030.what_the_hack.Equipmen",
-      "t\"\315\004\n\010Employee\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030" +
-      "\002 \001(\t\022\016\n\006salary\030\003 \001(\005\022\031\n\021currentTileNumb" +
-      "er\030\004 \001(\005\022\032\n\022occupiedTileNumber\030\005 \001(\005\022\021\n\t" +
-      "usedScore\030\006 \001(\002\022\021\n\tfreeScore\030\007 \001(\002\022\022\n\nis" +
-      "Employed\030\010 \001(\010\022\021\n\thairColor\030\t \001(\t\022\020\n\010eye" +
-      "Color\030\n \001(\t\022\021\n\tskinColor\030\013 \001(\t\022\022\n\nshirtC" +
-      "olor\030\014 \001(\t\022\024\n\014trouserColor\030\r \001(\t\022\021\n\tshoe" +
-      "Color\030\016 \001(\t\0224\n\thairStyle\030\017 \001(\0162!.what_th" +
-      "e_hack.Employee.HairStyle\022.\n\006gender\030\020 \001(" +
-      "\0162\036.what_the_hack.Employee.Gender\022&\n\010ski",
-      "llSet\030\021 \003(\0132\024.what_the_hack.Skill\0228\n\020emp" +
-      "loyeeSpecials\030\022 \003(\0132\036.what_the_hack.Empl" +
-      "oyeeSpecial\"5\n\tHairStyle\022\t\n\005CRAZY\020\000\022\010\n\004N" +
-      "EAT\020\001\022\010\n\004NERD\020\002\022\t\n\005RASTA\020\003\"-\n\006Gender\022\r\n\t" +
-      "UNDECIDED\020\000\022\010\n\004MALE\020\001\022\n\n\006FEMALE\020\002\"w\n\017Emp" +
-      "loyeeManager\0223\n\022availableEmployees\030\001 \003(\013" +
-      "2\027.what_the_hack.Employee\022/\n\016hiredEmploy" +
-      "ees\030\002 \003(\0132\027.what_the_hack.Employee\"1\n\017Em" +
-      "ployeeSpecial\022\r\n\005level\030\001 \001(\005\022\017\n\007special\030" +
-      "\002 \001(\t\"\202\001\n\rMissionWorker\022\025\n\rremainingDays",
-      "\030\001 \001(\005\0226\n\006skills\030\002 \003(\0132&.what_the_hack.M" +
-      "issionSkillRequirement\022\017\n\007mission\030\003 \001(\005\022" +
-      "\021\n\temployees\030\004 \003(\005\"i\n\027MissionSkillRequir" +
-      "ement\022+\n\tskillType\030\001 \001(\0162\030.what_the_hack" +
-      ".SkillType\022\020\n\010required\030\002 \001(\002\022\017\n\007current\030" +
-      "\003 \001(\002*i\n\tSkillType\022\n\n\006Social\020\000\022\014\n\010Hardwa" +
-      "re\020\001\022\014\n\010Software\020\002\022\013\n\007Network\020\003\022\n\n\006Crypt" +
-      "o\020\004\022\n\n\006Search\020\005\022\017\n\013All_Purpose\020\006B\027\n\016de.h" +
-      "sd.hackingB\005Protob\006proto3"
+      "ep\030\003 \001(\005\"p\n\tResources\022\r\n\005money\030\001 \001(\005\022\021\n\t" +
+      "bandwidth\030\002 \001(\005\022\030\n\020computationPower\030\003 \001(" +
+      "\005\022\'\n\005skill\030\004 \001(\0162\030.what_the_hack.SkillTy" +
+      "pe\"\207\001\n\007Message\022\017\n\007message\030\001 \001(\t\022\014\n\004date\030" +
+      "\002 \001(\005\022)\n\004type\030\003 \001(\0162\033.what_the_hack.Mess" +
+      "age.Type\"2\n\004Type\022\010\n\004INFO\020\000\022\013\n\007WARNING\020\001\022" +
+      "\t\n\005ERROR\020\002\022\010\n\004HELP\020\003\"6\n\nMessageBar\022(\n\010me" +
+      "ssages\030\001 \003(\0132\026.what_the_hack.Message\">\n\005",
+      "Skill\022\r\n\005value\030\001 \001(\005\022&\n\004type\030\002 \001(\0162\030.wha" +
+      "t_the_hack.SkillType\"\310\002\n\007Mission\022\025\n\rmiss" +
+      "ionNumber\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\023\n\013descrip" +
+      "tion\030\003 \001(\t\022\021\n\tonSuccess\030\004 \001(\t\022\016\n\006onFail\030" +
+      "\005 \001(\t\022\020\n\010duration\030\006 \001(\005\022\023\n\013difficulity\030\007" +
+      " \001(\005\022\020\n\010hardness\030\010 \001(\002\022\014\n\004risk\030\t \001(\002\022\021\n\t" +
+      "completed\030\n \001(\010\022\020\n\010finished\030\013 \001(\010\022\020\n\010min" +
+      "Level\030\014 \001(\005\022\020\n\010maxLevel\030\r \001(\005\022$\n\006skills\030" +
+      "\016 \003(\0132\024.what_the_hack.Skill\022\023\n\013rewardMon" +
+      "ey\030\017 \001(\005\022\025\n\rusedBandwidth\030\020 \001(\005\"\356\001\n\016Miss",
+      "ionManager\022\034\n\024currentMissionNumber\030\001 \001(\005" +
+      "\022.\n\016activeMissions\030\002 \003(\0132\026.what_the_hack" +
+      ".Mission\022,\n\014openMissions\030\003 \003(\0132\026.what_th" +
+      "e_hack.Mission\0221\n\021completedMissions\030\004 \003(" +
+      "\0132\026.what_the_hack.Mission\022-\n\007workers\030\005 \003" +
+      "(\0132\034.what_the_hack.MissionWorker\"\327\001\n\tEqu" +
+      "ipment\0224\n\004type\030\001 \001(\0162&.what_the_hack.Equ" +
+      "ipment.EquipmentType\022\014\n\004name\030\002 \001(\t\022\r\n\005pr" +
+      "ice\030\003 \001(\002\022\r\n\005level\030\004 \001(\005\"h\n\rEquipmentTyp" +
+      "e\022\021\n\rCoffeeMachine\020\000\022\014\n\010Computer\020\001\022\023\n\017Ha",
+      "rdwareStation\020\002\022\t\n\005Modem\020\003\022\n\n\006Router\020\004\022\n" +
+      "\n\006Server\020\005\"?\n\020EquipmentManager\022+\n\tequipm" +
+      "ent\030\001 \003(\0132\030.what_the_hack.Equipment\"\333\005\n\010" +
+      "Employee\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030\002 \001(\t\022" +
+      "\016\n\006salary\030\003 \001(\005\022\031\n\021currentTileNumber\030\004 \001" +
+      "(\005\022\032\n\022occupiedTileNumber\030\005 \001(\005\022\021\n\tusedSc" +
+      "ore\030\006 \001(\002\022\021\n\tfreeScore\030\007 \001(\002\022\022\n\nisEmploy" +
+      "ed\030\010 \001(\010\022\021\n\thairColor\030\t \001(\t\022\020\n\010eyeColor\030" +
+      "\n \001(\t\022\021\n\tskinColor\030\013 \001(\t\022\022\n\nshirtColor\030\014" +
+      " \001(\t\022\024\n\014trouserColor\030\r \001(\t\022\021\n\tshoeColor\030",
+      "\016 \001(\t\0224\n\thairStyle\030\017 \001(\0162!.what_the_hack" +
+      ".Employee.HairStyle\022.\n\006gender\030\020 \001(\0162\036.wh" +
+      "at_the_hack.Employee.Gender\022&\n\010skillSet\030" +
+      "\021 \003(\0132\024.what_the_hack.Skill\0228\n\020employeeS" +
+      "pecials\030\022 \003(\0132\036.what_the_hack.EmployeeSp" +
+      "ecial\022\017\n\007flipped\030\023 \001(\010\0224\n\tanimState\030\024 \001(" +
+      "\0162!.what_the_hack.Employee.AnimState\"5\n\t" +
+      "HairStyle\022\t\n\005CRAZY\020\000\022\010\n\004NEAT\020\001\022\010\n\004NERD\020\002" +
+      "\022\t\n\005RASTA\020\003\"-\n\006Gender\022\r\n\tUNDECIDED\020\000\022\010\n\004" +
+      "MALE\020\001\022\n\n\006FEMALE\020\002\"E\n\tAnimState\022\010\n\004IDLE\020",
+      "\000\022\013\n\007WORKING\020\001\022\025\n\021WORKING_BACKFACED\020\002\022\n\n" +
+      "\006MOVING\020\003\"w\n\017EmployeeManager\0223\n\022availabl" +
+      "eEmployees\030\001 \003(\0132\027.what_the_hack.Employe" +
+      "e\022/\n\016hiredEmployees\030\002 \003(\0132\027.what_the_hac" +
+      "k.Employee\"1\n\017EmployeeSpecial\022\r\n\005level\030\001" +
+      " \001(\005\022\017\n\007special\030\002 \001(\t\"\202\001\n\rMissionWorker\022" +
+      "\025\n\rremainingDays\030\001 \001(\005\0226\n\006skills\030\002 \003(\0132&" +
+      ".what_the_hack.MissionSkillRequirement\022\017" +
+      "\n\007mission\030\003 \001(\005\022\021\n\temployees\030\004 \003(\005\"i\n\027Mi" +
+      "ssionSkillRequirement\022+\n\tskillType\030\001 \001(\016",
+      "2\030.what_the_hack.SkillType\022\020\n\010required\030\002" +
+      " \001(\002\022\017\n\007current\030\003 \001(\002*i\n\tSkillType\022\n\n\006So" +
+      "cial\020\000\022\014\n\010Hardware\020\001\022\014\n\010Software\020\002\022\013\n\007Ne" +
+      "twork\020\003\022\n\n\006Crypto\020\004\022\n\n\006Search\020\005\022\017\n\013All_P" +
+      "urpose\020\006B\027\n\016de.hsd.hackingB\005Protob\006proto" +
+      "3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -14859,74 +15801,80 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Global_descriptor,
         new java.lang.String[] { "Day", "Time", "CurrentStep", });
-    internal_static_what_the_hack_Message_descriptor =
+    internal_static_what_the_hack_Resources_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_what_the_hack_Resources_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_what_the_hack_Resources_descriptor,
+        new java.lang.String[] { "Money", "Bandwidth", "ComputationPower", "Skill", });
+    internal_static_what_the_hack_Message_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_what_the_hack_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Message_descriptor,
         new java.lang.String[] { "Message", "Date", "Type", });
     internal_static_what_the_hack_MessageBar_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_what_the_hack_MessageBar_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MessageBar_descriptor,
         new java.lang.String[] { "Messages", });
     internal_static_what_the_hack_Skill_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_what_the_hack_Skill_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Skill_descriptor,
         new java.lang.String[] { "Value", "Type", });
     internal_static_what_the_hack_Mission_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_what_the_hack_Mission_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Mission_descriptor,
         new java.lang.String[] { "MissionNumber", "Name", "Description", "OnSuccess", "OnFail", "Duration", "Difficulity", "Hardness", "Risk", "Completed", "Finished", "MinLevel", "MaxLevel", "Skills", "RewardMoney", "UsedBandwidth", });
     internal_static_what_the_hack_MissionManager_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_what_the_hack_MissionManager_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MissionManager_descriptor,
         new java.lang.String[] { "CurrentMissionNumber", "ActiveMissions", "OpenMissions", "CompletedMissions", "Workers", });
     internal_static_what_the_hack_Equipment_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_what_the_hack_Equipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Equipment_descriptor,
         new java.lang.String[] { "Type", "Name", "Price", "Level", });
     internal_static_what_the_hack_EquipmentManager_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_what_the_hack_EquipmentManager_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_EquipmentManager_descriptor,
         new java.lang.String[] { "Equipment", });
     internal_static_what_the_hack_Employee_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_what_the_hack_Employee_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Employee_descriptor,
-        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "HairStyle", "Gender", "SkillSet", "EmployeeSpecials", });
+        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "HairStyle", "Gender", "SkillSet", "EmployeeSpecials", "Flipped", "AnimState", });
     internal_static_what_the_hack_EmployeeManager_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_what_the_hack_EmployeeManager_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_EmployeeManager_descriptor,
         new java.lang.String[] { "AvailableEmployees", "HiredEmployees", });
     internal_static_what_the_hack_EmployeeSpecial_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_what_the_hack_EmployeeSpecial_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_EmployeeSpecial_descriptor,
         new java.lang.String[] { "Level", "Special", });
     internal_static_what_the_hack_MissionWorker_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_what_the_hack_MissionWorker_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MissionWorker_descriptor,
         new java.lang.String[] { "RemainingDays", "Skills", "Mission", "Employees", });
     internal_static_what_the_hack_MissionSkillRequirement_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_what_the_hack_MissionSkillRequirement_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_MissionSkillRequirement_descriptor,

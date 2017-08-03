@@ -76,13 +76,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
 
-    public enum AnimState {
-        IDLE, WORKING, WORKING_BACKFACED, MOVING
-    }
-
     private ShaderProgram shader;
-    private AnimState animationState;
-    private boolean flipped;
 
     //Data
     private ArrayList<Skill> skillSet;
@@ -168,7 +162,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         this.assets = Assets.instance();
         movementProvider = stage.getTileMap();
 
-        this.animationState = AnimState.IDLE;
+        data.setAnimState(Proto.Employee.AnimState.IDLE);
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
         setUpAnimations();
@@ -305,16 +299,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      * @param toRight
      */
     public void flipHorizontal(boolean toRight) {
-        this.flipped = toRight;
+        data.setFlipped(toRight);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (animationState == AnimState.WORKING) {
-            drawAt(batch, parentAlpha, getPosition().sub(0, Constants.TILE_WIDTH / 4f), flipped, false, animationState);
+        if (data.getAnimState() == Proto.Employee.AnimState.WORKING) {
+            drawAt(batch, parentAlpha, getPosition().sub(0, Constants.TILE_WIDTH / 4f), data.getFlipped(), false, data.getAnimState());
         } else {
-            drawAt(batch, parentAlpha, getPosition(), flipped, false, animationState);
+            drawAt(batch, parentAlpha, getPosition(), data.getFlipped(), false, data.getAnimState());
         }
 
         if (Constants.DEBUG) {
@@ -335,10 +329,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      * @param pos
      */
     public void drawAt(Batch batch, Vector2 pos) {
-        drawAt(batch, 1f, pos, false, true, AnimState.IDLE);
+        drawAt(batch, 1f, pos, false, true, Proto.Employee.AnimState.IDLE);
     }
 
-    private void drawAt(Batch batch, float parentAlpha, Vector2 pos, boolean _flipped, boolean icon, AnimState _animationState) {
+    private void drawAt(Batch batch, float parentAlpha, Vector2 pos, boolean _flipped, boolean icon, Proto.Employee.AnimState _animationState) {
 
         batch.end();
         shader.begin();
@@ -427,23 +421,23 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     private void setUpAnimations() {
-        this.animations = new Animation[AnimState.values().length][2];
+        this.animations = new Animation[Proto.Employee.AnimState.values().length][2];
         int randHair = RandomUtils.randomInt(Proto.Employee.HairStyle.values().length - 1);
         data.setHairStyle(Proto.Employee.HairStyle.values()[randHair]);
         Array<TextureRegion> hairframes = assets.getHairFrames(data.getHairStyle());
 
         /* [1-3: Body Walkframes ]  */
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.35f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
+        animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
+        animations[Proto.Employee.AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.35f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
         /* [1-2: Body Idleframes ]  */
-        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(3));
-        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.7f, hairframes.get(2), hairframes.get(2), hairframes.get(2), hairframes.get(3));
+        animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(3));
+        animations[Proto.Employee.AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.7f, hairframes.get(2), hairframes.get(2), hairframes.get(2), hairframes.get(3));
         /* [1: Body WorkingFrames  ] */
-        animations[AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(4));
-        animations[AnimState.WORKING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(4));
+        animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(4));
+        animations[Proto.Employee.AnimState.WORKING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(4));
 
-        animations[AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(6), assets.gray_character_body.get(7));
-        animations[AnimState.WORKING_BACKFACED.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(6), hairframes.get(7));
+        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(6), assets.gray_character_body.get(7));
+        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(6), hairframes.get(7));
 
     }
 
@@ -555,12 +549,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         return movementProvider;
     }
 
-    public AnimState getAnimationState() {
-        return animationState;
+    public Proto.Employee.AnimState getAnimationState() {
+        return data.getAnimState();
     }
 
-    public void setAnimationState(AnimState animationState) {
-        this.animationState = animationState;
+    public void setAnimationState(Proto.Employee.AnimState animationState) {
+        data.setAnimState(animationState);
     }
 
 
@@ -887,5 +881,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         }
 
         return data.build();
+    }
+
+    public class AnimState {
     }
 }

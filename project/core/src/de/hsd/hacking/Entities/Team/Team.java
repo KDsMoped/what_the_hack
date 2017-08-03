@@ -1,14 +1,19 @@
 package de.hsd.hacking.Entities.Team;
 
+import com.google.protobuf.GeneratedMessageV3;
+
 import java.util.ArrayList;
 
+import de.hsd.hacking.Data.DataContainer;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
+import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.SkillType;
 import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 
 /**
@@ -23,10 +28,23 @@ public class Team {
     private Employee selectedEmployee;
 
     /* Resources */
-    public class Resources {
-        public int money = Constants.STARTING_MONEY;
-        public int bandwidth = 0;
-        public int computationPower = 0;
+    public class Resources implements DataContainer {
+        private Proto.Resources.Builder data;
+
+        public Resources() {
+            data = Proto.Resources.newBuilder();
+            data.setMoney(Constants.STARTING_MONEY);
+        }
+
+        public Resources(Proto.Resources.Builder proto) {
+            data = proto;
+            updateResources();
+        }
+
+        @Override
+        public Proto.Resources getData() {
+            return data.build();
+        }
 
         public class Skill {
             public int allPurpose;
@@ -51,6 +69,30 @@ public class Team {
                 default: return 0;
             }
         }
+
+        public int getMoney() {
+            return data.getMoney();
+        }
+
+        public int getBandwidth() {
+            return data.getBandwidth();
+        }
+
+        public int getComputationPower() {
+            return data.getComputationPower();
+        }
+
+        public void setMoney(int money) {
+            data.setMoney(money);
+        }
+
+        public void setBandwidth(int bandwidth) {
+            data.setBandwidth(bandwidth);
+        }
+
+        public void setComputationPower(int power) {
+            data.setComputationPower(power);
+        }
     }
     public final Resources resources;
 
@@ -61,7 +103,11 @@ public class Team {
     public Team() {
 //        listOfEquipment = new ArrayList<Equipment>();
         listOfWorkspaces = new ArrayList<Workspace>();
-        resources = new Resources();
+        if (SaveGameManager.getResources() == null)
+            resources = new Resources();
+        else
+            resources = new Resources(SaveGameManager.getResources());
+
     }
 
     public static Team instance() {
@@ -142,14 +188,14 @@ public class Team {
 
     // Manage Resources ////////////////////////////////////////////////////////////////////////////
 
-    public int getMoney() { return resources.money; }
+    public int getMoney() { return resources.getMoney(); }
 
     public void addMoney(int value) {
-        resources.money += value;
+        resources.setMoney(resources.getMoney() + value);
     }
 
     public void reduceMoney(int value) {
-        resources.money -= value;
+        resources.setMoney(resources.getMoney() - value);
     }
 
     /**
@@ -182,8 +228,8 @@ public class Team {
             newBandwidth -= mission.getUsedBandwidth();
         }
 
-        resources.bandwidth = newBandwidth;
-        resources.computationPower = newComputationPower;
+        resources.setBandwidth(newBandwidth);
+        resources.setComputationPower(newComputationPower);
         resources.skill.allPurpose = newAllPurpose;
         resources.skill.crypto = newCrypto;
         resources.skill.hardware = newHardware;
@@ -225,7 +271,7 @@ public class Team {
     public int calcGameProgress() {
         float result = 1;
 
-        result += resources.money * 0.00001f;
+        result += resources.getMoney() * 0.00001f;
 //        result += resources.bandwidth * 0.005f;
 //        result += resources.computationPower * 0.003f;
 

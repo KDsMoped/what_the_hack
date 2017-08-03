@@ -287,8 +287,8 @@ public class GameStage extends Stage implements EventListener{
             }
         }
         //team.calcRessorces();
-        statusBar.setMoney(team.resources.money);
-        statusBar.setBandwith(team.resources.bandwidth);
+        statusBar.setMoney(team.resources.getMoney());
+        statusBar.setBandwith(team.resources.getBandwidth());
         statusBar.setWorkplaces(team.getWorkspaceCount());
         statusBar.setEmployees(employeeManager.getTeamSize());
 
