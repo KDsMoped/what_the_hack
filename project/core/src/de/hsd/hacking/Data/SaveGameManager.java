@@ -3,22 +3,17 @@ package de.hsd.hacking.Data;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.*;
-import com.google.gson.annotations.Expose;
 import com.google.protobuf.GeneratedMessageV3;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays;
 
 import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
-import de.hsd.hacking.Screens.ScreenManager;
 import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
@@ -31,6 +26,7 @@ public final class SaveGameManager {
     static Proto.MissionManager missionManager;
     static Proto.EquipmentManager equipmentManager;
     static Proto.EmployeeManager employeeManager;
+    static Proto.Resources resources;
 
     public static void LoadGame() {
         try {
@@ -38,13 +34,23 @@ public final class SaveGameManager {
             Proto.Global global = Proto.Global.parseFrom(stream);
 
             Proto.Global.Builder builder = global.toBuilder();
-            new GameTime(builder);
+//            new GameTime(builder); //TODO: fix this
         }
 
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
+        }
+
+        try {
+            FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/resources");
+            resources = Proto.Resources.parseFrom(stream);
+        }
+        catch (Exception e) {
+            Gdx.app.error(Constants.TAG, "Error loading savegame.");
+            Gdx.app.error(Constants.TAG, e.getMessage());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -54,7 +60,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -64,7 +70,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -74,7 +80,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
 
         try {
@@ -84,7 +90,7 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error loading savegame.");
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -92,9 +98,12 @@ public final class SaveGameManager {
         boolean success = false;
 
         // Game Time
-        Proto.Global.Builder gameTime = GameTime.instance.getData().toBuilder();
+        Proto.Global.Builder gameTime = GameTime.instance().getData().toBuilder();
         Proto.Global gameTimeCompiled = gameTime.build();
         SaveProto(gameTimeCompiled, "gametime");
+
+        Proto.Resources resourcesCompiled = TeamManager.instance().resources.getData();
+        SaveProto(resourcesCompiled, "resources");
 
         SaveGameContainer container = GameStage.instance().getSaveGameContainer();
         Proto.MessageBar messageBarCompiled = container.messageBar.Save();
@@ -208,6 +217,13 @@ public final class SaveGameManager {
     public static Proto.EmployeeManager.Builder getEmployeeManager() {
         if (employeeManager != null)
             return employeeManager.toBuilder();
+        else
+            return null;
+    }
+
+    public static Proto.Resources.Builder getResources() {
+        if (resources != null)
+            return resources.toBuilder();
         else
             return null;
     }

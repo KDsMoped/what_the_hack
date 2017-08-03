@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.audio.Sound;
 
-import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Proto;
 
 public class Assets {
@@ -53,9 +52,9 @@ public class Assets {
     public TextureRegion emoji_levelup;
 
     public Array<TextureRegion> floor_tiles;
-    public Array<TextureRegion> gray_character_body;
-    public Array<TextureRegion> hair_01;
-    public Array<TextureRegion> hair_02;
+    public Array<TextureRegion> character_1;
+    public Array<TextureRegion> character_2;
+    public Array<TextureRegion> char_shadow;
     public Array<TextureRegion> computer;
     public Array<TextureRegion> coffeemachine;
     public Array<TextureRegion> mainmenu_bg;
@@ -180,12 +179,12 @@ public class Assets {
         coffeemachine.addAll(atlas.findRegions("interior/CoffeeMachine"));
         floor_tiles = new Array<TextureRegion>();
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
-        gray_character_body = new Array<TextureRegion>();
-        hair_01 = new Array<TextureRegion>();
-        hair_02 = new Array<TextureRegion>();
-        gray_character_body.addAll(character_atlas.findRegions("Char"));
-        hair_01.addAll(character_atlas.findRegions("Hair01"));
-        hair_02.addAll(character_atlas.findRegions("Hair02"));
+        character_1 = new Array<TextureRegion>();
+        character_2 = new Array<TextureRegion>();
+        char_shadow = new Array<TextureRegion>();
+        character_1.addAll(character_atlas.findRegions("Character01"));
+        character_2.addAll(character_atlas.findRegions("Character02"));
+        char_shadow.addAll(character_atlas.findRegions("Char_Shadow"));
         computer = new Array<TextureRegion>(4);
         computer.addAll(atlas.findRegions("interior/Computer_Backfaced"));
 
@@ -246,18 +245,18 @@ public class Assets {
 
     }
 
-    public Array<TextureRegion> getHairFrames(Proto.Employee.HairStyle hairStyle) {
+    public Array<TextureRegion> getCharacterFrames(Proto.Employee.HairStyle hairStyle) {
         switch (hairStyle) {
             case CRAZY:
-                return hair_01;
+                return character_1; //TODO
             case NEAT:
-                return hair_02;
+                return character_1;
             case NERD:
-                return hair_01;
+                return character_2;
             case RASTA:
-                return hair_02;
+                return character_2; //TODO
         }
-        return hair_01;
+        return character_1;
 
     }
 

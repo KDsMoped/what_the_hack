@@ -5,16 +5,28 @@ package de.hsd.hacking.Data;
  * Examples: {@link de.hsd.hacking.Data.Missions.Mission}, {@link de.hsd.hacking.Entities.Employees.Employee}
  * Managers are always singletons. Creating an instance should not fill the manager with default data.
  * Managers are able to create protobuf message objects for everything that needs to be saved/loaded.
- * @author Julian
+ * @author Hendrik, Julian
  */
-public abstract class Manager implements ProtobufHandler {
+public interface Manager {
 
-    public abstract void createInstance();
-    public abstract void instance();
+    /**
+     * Initializes this manager class in terms of references towards other objects. This is guaranteed to be called
+     * after all other managers have been initialized.
+     */
+    void initReferences();
 
-    public abstract void initSelf();
-    public abstract void initReferences();
+    /**
+     * Creates the default state of this manager when a new game is started.
+     */
+    void loadDefaultState();
 
-    public abstract void loadDefaultState();
-    public abstract void loadState();
+    /**
+     * Recreates the state this manager had before serialization.
+     */
+    void loadState();
+
+    /**
+     * Destroys manager this instance.
+     */
+    void cleanUp();
 }

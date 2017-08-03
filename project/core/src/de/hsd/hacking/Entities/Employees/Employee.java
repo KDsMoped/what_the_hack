@@ -2,9 +2,13 @@ package de.hsd.hacking.Entities.Employees;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -32,7 +36,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Entity;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Proto;
@@ -53,8 +57,8 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CR
 public class Employee extends Entity implements Comparable<Employee>, Touchable, DataContainer {
     private Proto.Employee.Builder data;
 
-    private final int BODY = 0;
-    private final int HAIR = 1;
+    private final int SHADOW = 0;
+    private final int BODY = 1;
 
     private ShapeRenderer debugRenderer;
 
@@ -75,14 +79,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     //Graphics
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
+    private FrameBuffer fbo;
+    private Texture frameBufferTexture;
+    private TextureRegion frameBufferTextureRegion;
 
-    public enum AnimState {
-        IDLE, WORKING, WORKING_BACKFACED, MOVING
-    }
-
-    private ShaderProgram shader;
-    private AnimState animationState;
-    private boolean flipped;
+    private ShaderProgram colorShader;
+    private ShaderProgram outlineShader;
 
     //Data
     private ArrayList<Skill> skillSet;
@@ -164,25 +166,22 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      * Initializes this employee.
      */
     private void init(boolean loaded) {
-        this.stage = GameStage.instance();
-        this.assets = Assets.instance();
-        movementProvider = stage.getTileMap();
+        assets = Assets.instance();
 
-        this.animationState = AnimState.IDLE;
+        data.setAnimState(Proto.Employee.AnimState.IDLE);
         this.state = new de.hsd.hacking.Entities.Employees.States.IdleState(this);
         //Graphics
         setUpAnimations();
 
         if (!loaded) {
             initColors();
-        }
-        else {
+        } else {
             skillSet = new ArrayList<Skill>();
-            for (Proto.Skill.Builder builder: data.getSkillSetBuilderList()) {
+            for (Proto.Skill.Builder builder : data.getSkillSetBuilderList()) {
                 skillSet.add(new Skill(builder));
             }
 
-            for (Proto.EmployeeSpecial proto: data.getEmployeeSpecialsList()) {
+            for (Proto.EmployeeSpecial proto : data.getEmployeeSpecialsList()) {
                 try {
                     Class<?> spec = Class.forName(proto.getSpecial());
                     Constructor<?> constructor;
@@ -191,15 +190,13 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
                     if (proto.getSpecial().equals("de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky")) {
                         constructor = spec.getConstructor(Employee.class, int.class);
                         instance = constructor.newInstance(this, proto.getLevel());
-                    }
-                    else {
+                    } else {
                         constructor = spec.getConstructor(Employee.class);
                         instance = constructor.newInstance(this);
                     }
 
-                    addEmployeeSpecial((EmployeeSpecial)instance);
-                }
-                catch (Exception e) {
+                    addEmployeeSpecial((EmployeeSpecial) instance);
+                } catch (Exception e) {
                     Gdx.app.error(Constants.TAG, e.toString());
                     Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
                 }
@@ -211,12 +208,15 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     /**
-     * This is called as soon as the employee joins the team.
+     * This is called as soon as the employee is hired.
      */
     public void onEmploy() {
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
 
-        setStartingTile(movementProvider.getStartTile(this));
+        data.setIsEmployed(true);
+        data.setCurrentTileNumber(-1);
+
+        if (GameStage.instance() != null) initEmployeePosition();
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
             special.onEmploy();
@@ -226,31 +226,42 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     /**
      * This is called when this employee is deserialized.
      */
-    public void onLoad(){
+    public void onLoad() {
 
-        if(!data.getIsEmployed()) return;
+        if (!data.getIsEmployed()) return;
 
-        setStartingTile(movementProvider.getTile(data.getOccupiedTileNumber()));
+
     }
 
     /**
      * Sets the starting position of this employee.
+     *
      * @param startTile
      */
-    private void setStartingTile(Tile startTile){
+    private void setStartingTile(Tile startTile) {
         Vector2 startPos = startTile.getPosition().cpy();
 //        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
         startTile.setOccupyingEmployee(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
         setPosition(startPos);
-        data.setIsEmployed(true);
     }
 
     /**
-     * This is called as soon as the employee leaves the team.
+     *
      */
-    public void onDismiss() {
+    public void initEmployeePosition() {
+        movementProvider = GameStage.instance().getTileMap();
+        int tileNr = data.getCurrentTileNumber();
+
+        if (tileNr == -1) setStartingTile(GameStage.instance().getTileMap().getStartTile(this));
+        else setStartingTile(GameStage.instance().getTileMap().getTile(tileNr));
+    }
+
+    /**
+     * This is called as soon as the employee leaves the teamManager.
+     */
+    void onDismiss() {
         state.cancel();
         data.setIsEmployed(false);
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
@@ -261,7 +272,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     /**
      * This is called as soon as the employee levels up.
      */
-    public void onLevelUp() {
+    void onLevelUp() {
         EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.LEVELUP, this);
 
         for (EmployeeSpecial special : employeeSpecials.toArray(new EmployeeSpecial[employeeSpecials.size()])) {
@@ -282,39 +293,46 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     /**
-     * Initializes the shader for this employee.
+     * Initializes the colorShader for this employee.
      */
     private void setUpShader() {
-        String vertexShader = Shader.VERTEX_SHADER;
-        String fragmentShader = Shader.getEmployeeFragmentShader(
+
+        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)GameStage.VIEWPORT_WIDTH, (int)GameStage.VIEWPORT_HEIGHT, false);
+        this.frameBufferTexture = fbo.getColorBufferTexture();
+        this.frameBufferTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        this.frameBufferTextureRegion = new TextureRegion(frameBufferTexture);
+        frameBufferTextureRegion.flip(false, true);
+
+        this.colorShader = new ShaderProgram(Shader.VERTEX_SHADER, Shader.getEmployeeFragmentShader(
                 Color.valueOf(data.getHairColor()),
                 Color.valueOf(data.getSkinColor()),
                 Color.valueOf(data.getShirtColor()),
                 Color.valueOf(data.getTrouserColor()),
                 Color.valueOf(data.getEyeColor()),
-                Color.valueOf(data.getShoeColor()));
-        this.shader = new ShaderProgram(vertexShader, fragmentShader);
+                Color.valueOf(data.getShoeColor()))
+        );
 
-        if (!shader.isCompiled()) {
-            throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
+        if (!colorShader.isCompiled()) {
+            throw new GdxRuntimeException("Couldn't compile colorShader: " + colorShader.getLog());
         }
     }
 
     /**
-     * Flipps the employee sprite according to view direction.
+     * Flips the employee sprite according to view direction.
+     *
      * @param toRight
      */
     public void flipHorizontal(boolean toRight) {
-        this.flipped = toRight;
+        data.setFlipped(toRight);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (animationState == AnimState.WORKING) {
-            drawAt(batch, parentAlpha, getPosition().sub(0, Constants.TILE_WIDTH / 4f), flipped, false, animationState);
+        if (data.getAnimState() == Proto.Employee.AnimState.WORKING) {
+            drawAt(batch, parentAlpha, getPosition().sub(0, Constants.TILE_WIDTH / 4f), data.getFlipped(), false, data.getAnimState());
         } else {
-            drawAt(batch, parentAlpha, getPosition(), flipped, false, animationState);
+            drawAt(batch, parentAlpha, getPosition(), data.getFlipped(), false, data.getAnimState());
         }
 
         if (Constants.DEBUG) {
@@ -331,36 +349,36 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Draws this employee at a desired position on the screen. Used to draw employee icons in UI.
+     *
      * @param batch
      * @param pos
      */
     public void drawAt(Batch batch, Vector2 pos) {
-        drawAt(batch, 1f, pos, false, true, AnimState.IDLE);
+        drawAt(batch, 1f, pos, false, true, Proto.Employee.AnimState.IDLE);
     }
 
-    private void drawAt(Batch batch, float parentAlpha, Vector2 pos, boolean _flipped, boolean icon, AnimState _animationState) {
+    private void drawAt(Batch batch, float parentAlpha, Vector2 pos, boolean _flipped, boolean icon, Proto.Employee.AnimState _animationState) {
 
-        batch.end();
-        shader.begin();
-
-        if (selected && !icon) {
-            shader.setUniformi("sel", 1);
-            shader.setUniformf("u_viewportInverse", new Vector2(1f / Constants.VIEWPORT_WIDTH, 1f / Constants.VIEWPORT_HEIGHT));
-        } else {
-            shader.setUniformi("sel", 0);
-        }
-        shader.end();
-        batch.setShader(shader);
-        batch.begin();
         Vector2 pixelPosition = clampToPixels(pos);
-        for (int i = 0; i < 2; i++) {
-            TextureRegion frame = animations[_animationState.ordinal()][i].getKeyFrame(elapsedTime, true);
-            batch.draw(frame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
-        }
-        batch.setShader(null);
+        TextureRegion frame = animations[_animationState.ordinal()][SHADOW].getKeyFrame(elapsedTime, true);
+        batch.draw(frame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+        batch.end();
+        colorShader.begin();
+
         if (selected && !icon) {
-//            batch.setColor(Color.WHITE);
+            colorShader.setUniformi("sel", 1);
+            colorShader.setUniformf("u_viewportInverse", new Vector2(1f / Constants.VIEWPORT_WIDTH, 1f / Constants.VIEWPORT_HEIGHT));
+        } else {
+            colorShader.setUniformi("sel", 0);
         }
+        colorShader.end();
+
+        batch.begin();
+        batch.setShader(colorShader);
+        TextureRegion charFrame = animations[_animationState.ordinal()][BODY].getKeyFrame(elapsedTime, true);
+        batch.draw(charFrame, _flipped ? pixelPosition.x + frame.getRegionWidth() : pixelPosition.x, pixelPosition.y, _flipped ? -frame.getRegionWidth() : frame.getRegionWidth(), frame.getRegionHeight());
+
+        batch.setShader(null);
 
         for (EmployeeSpecial special : employeeSpecials) {
             special.draw(batch, parentAlpha);
@@ -388,10 +406,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     public void removeFromDrawingTile() {
-        movementProvider.getTile(data.getCurrentTileNumber()).removeEmployeeToDraw(this);
+        if (data.getCurrentTileNumber() > -1)
+            movementProvider.getTile(data.getCurrentTileNumber()).removeEmployeeToDraw(this);
     }
 
     public void removeFromOccupyingTile() {
+        if (data.getOccupiedTileNumber() > -1)
         movementProvider.getTile(data.getOccupiedTileNumber()).setOccupyingEmployee(null);
     }
 
@@ -415,6 +435,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Returns this employees full name.
+     *
      * @return
      */
     @Override
@@ -427,23 +448,25 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     private void setUpAnimations() {
-        this.animations = new Animation[AnimState.values().length][2];
+        this.animations = new Animation[Proto.Employee.AnimState.values().length][2];
         int randHair = RandomUtils.randomInt(Proto.Employee.HairStyle.values().length - 1);
         data.setHairStyle(Proto.Employee.HairStyle.values()[randHair]);
-        Array<TextureRegion> hairframes = assets.getHairFrames(data.getHairStyle());
+        Array<TextureRegion> bodyFrames = assets.getCharacterFrames(data.getHairStyle());
 
-        /* [1-3: Body Walkframes ]  */
-        animations[AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, assets.gray_character_body.get(0), assets.gray_character_body.get(1), assets.gray_character_body.get(2));
-        animations[AnimState.MOVING.ordinal()][HAIR] = new Animation<TextureRegion>(.35f, hairframes.get(0), hairframes.get(1), hairframes.get(2));
+        /* [1-2: Body Walkframes ]  */
+        animations[Proto.Employee.AnimState.MOVING.ordinal()][SHADOW] = new Animation<TextureRegion>(.35f, assets.char_shadow.get(0), assets.char_shadow.get(1));
+        animations[Proto.Employee.AnimState.MOVING.ordinal()][BODY] = new Animation<TextureRegion>(.35f, bodyFrames.get(0), bodyFrames.get(1));
+
         /* [1-2: Body Idleframes ]  */
-        animations[AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(2), assets.gray_character_body.get(3));
-        animations[AnimState.IDLE.ordinal()][HAIR] = new Animation<TextureRegion>(.7f, hairframes.get(2), hairframes.get(2), hairframes.get(2), hairframes.get(3));
-        /* [1: Body WorkingFrames  ] */
-        animations[AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(4));
-        animations[AnimState.WORKING.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(4));
+        animations[Proto.Employee.AnimState.IDLE.ordinal()][SHADOW] = new Animation<TextureRegion>(.7f, assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(2), assets.char_shadow.get(3));
+        animations[Proto.Employee.AnimState.IDLE.ordinal()][BODY] = new Animation<TextureRegion>(.7f, bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(2), bodyFrames.get(3));
 
-        animations[AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, assets.gray_character_body.get(6), assets.gray_character_body.get(7));
-        animations[AnimState.WORKING_BACKFACED.ordinal()][HAIR] = new Animation<TextureRegion>(.5f, hairframes.get(6), hairframes.get(7));
+        /* [1: Body WorkingFrames  ] */
+        animations[Proto.Employee.AnimState.WORKING.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(4));
+        animations[Proto.Employee.AnimState.WORKING.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(4));
+
+        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][SHADOW] = new Animation<TextureRegion>(.5f, assets.char_shadow.get(6), assets.char_shadow.get(7));
+        animations[Proto.Employee.AnimState.WORKING_BACKFACED.ordinal()][BODY] = new Animation<TextureRegion>(.5f, bodyFrames.get(6), bodyFrames.get(7));
 
     }
 
@@ -502,11 +525,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     }
 
     private void select() {
-        if (Team.instance().isEmployeeSelected()) {
-            Team.instance().deselectEmployee();
+        if (TeamManager.instance().isEmployeeSelected()) {
+            TeamManager.instance().deselectEmployee();
         }
         this.selected = true;
-        Team.instance().setSelectedEmployee(this);
+        TeamManager.instance().setSelectedEmployee(this);
         MissionWorker missionWorker = MissionManager.instance().getMissionWorker(this);
         if (missionWorker != null) {
             GameStage.instance().showMissionStatusOverlay(missionWorker, this);
@@ -515,7 +538,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     public void deselect() {
         this.selected = false;
-        Team.instance().deselectEmployee();
+        TeamManager.instance().deselectEmployee();
         GameStage.instance().hideMissionStatusOverlay();
     }
 
@@ -532,8 +555,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     public boolean isSelected() {
         return selected;
     }
-
-    //GETTER & SETTER
 
     public void setPosition(Vector2 position) {
         super.setPosition(position);
@@ -555,12 +576,12 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         return movementProvider;
     }
 
-    public AnimState getAnimationState() {
-        return animationState;
+    public Proto.Employee.AnimState getAnimationState() {
+        return data.getAnimState();
     }
 
-    public void setAnimationState(AnimState animationState) {
-        this.animationState = animationState;
+    public void setAnimationState(Proto.Employee.AnimState animationState) {
+        data.setAnimState(animationState);
     }
 
 
@@ -568,11 +589,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     public GameStage getStage() {
         return stage;
     }
-
-//
-//    public void setStage(GameStage stage) {
-//        this.stage = stage;
-//    }
 
     public Collection<Skill> getSkillset() {
         return Collections.unmodifiableCollection(skillSet);
@@ -613,7 +629,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
             specialRelativeBonus *= s.getSkillRelativeFactor(skill.getType());
         }
 
-        specialAbsoluteBonus += Team.instance().resources.getSkillBonus(skill);
+        specialAbsoluteBonus += TeamManager.instance().resources.getSkillBonus(skill);
 
         return (int) ((skill.getValue() + specialAbsoluteBonus) * specialRelativeBonus);
     }
@@ -636,6 +652,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Makes this employee enter the given state.
+     *
      * @param state
      */
     public void setState(EmployeeState state) {
@@ -698,6 +715,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     /**
      * Returns the salary of this employee in readable string format.
+     *
      * @return
      */
     public String getSalaryText() {
@@ -719,7 +737,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
             specialRelativeBonus *= s.getHiringCostRelativeFactor();
         }
 
-        return (int) (data.getSalary() * 1.5f * GameTime.instance.getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
+        return (int) (data.getSalary() * 1.5f * GameTime.instance().getRemainingWeekFraction() * specialRelativeBonus) + specialAbsoluteBonus;
     }
 
     public String getHiringCostText() {
@@ -736,7 +754,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         if (!special.isApplicable()) return 0; //this special cannot be learned by this employee
 
-        if (data.getIsEmployed() && !special.isLearnable()) return 0; //this special cannot be added to an employed employee
+        if (data.getIsEmployed() && !special.isLearnable())
+            return 0; //this special cannot be added to an employed employee
 
         for (EmployeeSpecial s : employeeSpecials) {
             if (s.getClass() == special.getClass()) return 0; //employee already has this special
@@ -872,16 +891,16 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     public Proto.Employee getData() {
         data.clearSkillSet();
 
-        for (Skill skill: skillSet) {
+        for (Skill skill : skillSet) {
             data.addSkillSet(skill.getData());
         }
 
-        for (EmployeeSpecial specialus: employeeSpecials) {
+        for (EmployeeSpecial specialus : employeeSpecials) {
             Proto.EmployeeSpecial.Builder builder = Proto.EmployeeSpecial.newBuilder();
             builder.setSpecial(specialus.getClass().getName());
 
             if (specialus.getClass() == Risky.class)
-                builder.setLevel(((Risky)specialus).getLevel());
+                builder.setLevel(((Risky) specialus).getLevel());
 
             data.addEmployeeSpecials(builder.build());
         }

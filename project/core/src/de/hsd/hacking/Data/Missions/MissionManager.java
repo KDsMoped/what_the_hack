@@ -3,14 +3,10 @@ package de.hsd.hacking.Data.Missions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
-import de.hsd.hacking.Data.GameTime;
+import de.hsd.hacking.Data.*;
 import de.hsd.hacking.Data.Messaging.MessageManager;
-import de.hsd.hacking.Data.MissionWorker;
-import de.hsd.hacking.Data.ProtobufHandler;
-import de.hsd.hacking.Data.SaveGameManager;
-import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Team.Team;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
@@ -24,7 +20,7 @@ import java.util.Collections;
  *
  * @author Hendrik
  */
-public class MissionManager implements TimeChangedListener, ProtobufHandler {
+public class MissionManager implements Manager, TimeChangedListener, ProtobufHandler {
     private static final int MAX_ACTIVE_MISSIONS = 4;
     private static final int MAX_OPEN_MISSIONS = 6;
     private static final float REFRESH_RATE = 0.3f;
@@ -40,27 +36,69 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
 
     private MessageManager messageManager;
 
+    /**
+     * Creates an instance of this manager.
+     */
+    public static void createInstance() {
+        if (instance != null){
+            Gdx.app.error("", "ERROR: Instance of MissionManager has not been destroyed before creating new one.");
+            return;
+        }
+
+        instance = new MissionManager();
+    }
+
+    /**
+     * Provides an instance of this manager;
+     * @return
+     */
     public static MissionManager instance() {
 
-        if (instance == null) return new MissionManager();
+        if (instance == null)
+            Gdx.app.error("", "ERROR: Instance of MissionManager has not been created yet. Use createInstance() to do so.");
+
         return instance;
     }
 
-    private MissionManager() {
-        instance = this;
-
+    /**
+     * Initializes this manager class in terms of references towards other objects. This is guaranteed to be called
+     * after all other managers have been initialized.
+     */
+    @Override
+    public void initReferences() {
         messageManager = MessageManager.instance();
+        GameTime.instance().addTimeChangedListener(this);
+    }
+
+    /**
+     * Creates the default state of this manager when a new game is started.
+     */
+    @Override
+    public void loadDefaultState() {
+        fillOpenMissions();
+    }
+
+    /**
+     * Recreates the state this manager had before serialization.
+     */
+    @Override
+    public void loadState() {
+    }
+
+    /**
+     * Destroys manager this instance.
+     */
+    @Override
+    public void cleanUp() {
+        instance = null;
+    }
+
+    private MissionManager() {
         currentMissionNumber = 0;
         activeMissions = new ArrayList<Mission>(MAX_ACTIVE_MISSIONS);
         openMissions = new ArrayList<Mission>(MAX_OPEN_MISSIONS);
         completedMissions = new ArrayList<Mission>();
         runningMissionWorkers = new ArrayList<MissionWorker>(MAX_ACTIVE_MISSIONS);
-
-        GameTime.instance.addTimeChangedListener(this);
-
-        Boolean loaded = Load();
-        if (!loaded)
-            fillOpenMissions();
     }
 
     /**
@@ -98,7 +136,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
      * Creates open missions until the maximum is reached.
      */
     private void fillOpenMissions() {
-        int gameProgress = Team.instance().calcGameProgress();
+        int gameProgress = TeamManager.instance().calcGameProgress();
 
         for (int i = openMissions.size(); i < MAX_OPEN_MISSIONS; i++) {
             openMissions.add(MissionFactory.CreateRandomMission(gameProgress));
@@ -111,22 +149,23 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
      * @param mission1
      */
     public void completeMission(final Mission mission1) {
-        if (activeMissions.remove(mission1)){
+        if (activeMissions.remove(mission1)) {
             completedMissions.add(mission1);
-            messageManager.Info("Job " + mission1.getName() + ": " +  mission1.getSuccessText());
-            Gdx.app.log(Constants.TAG, "Job " + mission1.getName() + ": " +  mission1.getSuccessText());
+            messageManager.Info("Job " + mission1.getName() + ": " + mission1.getSuccessText());
+            Gdx.app.log(Constants.TAG, "Job " + mission1.getName() + ": " + mission1.getSuccessText());
 
             int money = mission1.getRewardMoney();
             String text;
 
-            if (mission1.hasSuccessText()) text = "Job '" + mission1.getName() + "' completed! " + mission1.getSuccessText() + " You've earned " + money + "$.";
+            if (mission1.hasSuccessText())
+                text = "Job '" + mission1.getName() + "' completed! " + mission1.getSuccessText() + " You've earned " + money + "$.";
             else text = "Job '" + mission1.getName() + "' completed! You've earned " + money + "$.";
 
-            Team.instance().addMoney(money);
+            TeamManager.instance().addMoney(money);
             messageManager.Info(text);
             Gdx.app.log(Constants.TAG, text);
 
-            Team.instance().updateResources();
+            TeamManager.instance().updateResources();
             notifyRefreshListeners();
         }
 //        mission.setOutcome(outcome);
@@ -146,7 +185,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
             messageManager.Info(failText);
             Gdx.app.log(Constants.TAG, failText);
 
-            Team.instance().updateResources();
+            TeamManager.instance().updateResources();
             notifyRefreshListeners();
         }
     }
@@ -162,12 +201,12 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
         int i = isMissionRunning(mission1);
         if (i >= 0) {
             MissionWorker m = runningMissionWorkers.get(i);
-            GameTime.instance.removeTimeChangedListener(m);
+            GameTime.instance().removeTimeChangedListener(m);
             mission1.Abort();
             runningMissionWorkers.remove(m);
         }
 
-        Team.instance().updateResources();
+        TeamManager.instance().updateResources();
         notifyRefreshListeners();
     }
 
@@ -191,7 +230,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
         activeMissions.add(mission);
         mission.Start();
 
-        Team.instance().updateResources();
+        TeamManager.instance().updateResources();
         notifyRefreshListeners();
         createMissionWorker(mission);
     }
@@ -201,7 +240,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
         if (workerNumber < 0) {
             MissionWorker worker = new MissionWorker(mission);
             runningMissionWorkers.add(worker);
-            GameTime.instance.addTimeChangedListener(worker);
+            GameTime.instance().addTimeChangedListener(worker);
         }
     }
 
@@ -223,7 +262,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
                 MissionWorker worker = new MissionWorker(employee.getCurrentMission());
                 worker.addEmployee(employee);
                 runningMissionWorkers.add(worker);
-                GameTime.instance.addTimeChangedListener(worker);
+                GameTime.instance().addTimeChangedListener(worker);
                 return worker;
             } else {
                 Gdx.app.error(Constants.TAG, "Mission that was not active was chosen to be worked on.");
@@ -248,7 +287,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
                 //Remove MissionWorker instance if no longer needed, and add to completed missions;
                 if (worker.hasNoWorkers() && worker.getMission().isFinished()) {
                     runningMissionWorkers.remove(worker);
-                    GameTime.instance.removeTimeChangedListener(worker);
+                    GameTime.instance().removeTimeChangedListener(worker);
 
                     if (worker.getMission().isCompleted()) {
                         completeMission(worker.getMission());
@@ -318,7 +357,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
     @Override
     public void weekChanged(int week) {
         //TODO: Tell user about game progress
-        Gdx.app.log(Constants.TAG, "Your game progress is: " + Team.instance().calcGameProgress());
+        Gdx.app.log(Constants.TAG, "Your game progress is: " + TeamManager.instance().calcGameProgress());
         refreshOpenMissions();
     }
 
@@ -356,6 +395,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
 
     /**
      * Save all the current missions
+     *
      * @return Build Proto MissionManager object to write to disk.
      */
     public Proto.MissionManager Save() {
@@ -363,19 +403,19 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
 
         builder.setCurrentMissionNumber(currentMissionNumber);
 
-        for (Mission mission: activeMissions) {
+        for (Mission mission : activeMissions) {
             builder.addActiveMissions(mission.getData());
         }
 
-        for (Mission mission: completedMissions) {
+        for (Mission mission : completedMissions) {
             builder.addCompletedMissions(mission.getData());
         }
 
-        for (Mission mission: openMissions) {
+        for (Mission mission : openMissions) {
             builder.addOpenMissions(mission.getData());
         }
 
-        for (MissionWorker worker: runningMissionWorkers) {
+        for (MissionWorker worker : runningMissionWorkers) {
             builder.addWorkers(worker.getData());
         }
 
@@ -384,6 +424,7 @@ public class MissionManager implements TimeChangedListener, ProtobufHandler {
 
     /**
      * Restores the missions from a previous game.
+     *
      * @return True if missions where loaded.
      */
     public Boolean Load() {

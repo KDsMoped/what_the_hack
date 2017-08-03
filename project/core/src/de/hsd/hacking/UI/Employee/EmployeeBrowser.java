@@ -18,7 +18,7 @@ import de.hsd.hacking.Utils.Callback.Callback;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * The EmployeeBrowser is a UI element that shows all {@link Employee}s you have in your team and those available for hiring.
+ * The EmployeeBrowser is a UI element that shows all {@link Employee}s you have in your teamManager and those available for hiring.
  *
  * @author Hendrik
  */
@@ -90,7 +90,7 @@ public class EmployeeBrowser extends Popup {
 
     private Table initHiredEmployees() {
         Table content = initSubTable();
-        content.setName("Team");
+        content.setName("TeamManager");
 
         ScrollPane scroller = new ScrollPane(hiredEmployeeContainer = new Table());
         scroller.setStyle(Constants.ScrollPaneStyleWin32());

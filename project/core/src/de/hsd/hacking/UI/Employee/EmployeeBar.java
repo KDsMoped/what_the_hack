@@ -12,8 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Entities.Team.Team;
-import de.hsd.hacking.Stages.GameStage;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Provider.EmployeeProvider;
 
@@ -105,13 +104,13 @@ public class EmployeeBar extends Group {
     }
 
     private void onDeselectClick(){
-        Team.instance().deselectEmployee();
+        TeamManager.instance().deselectEmployee();
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (!Team.instance().isEmployeeSelected()
-                || Team.instance().getSelectedEmployee().getCurrentMission() != null) return;
+        if (!TeamManager.instance().isEmployeeSelected()
+                || TeamManager.instance().getSelectedEmployee().getCurrentMission() != null) return;
 
         super.draw(batch, parentAlpha);
     }
@@ -119,8 +118,8 @@ public class EmployeeBar extends Group {
     @Override
     public void act(float delta) {
 
-        if (!Team.instance().isEmployeeSelected()
-                || Team.instance().getSelectedEmployee().getCurrentMission() != null) return;
+        if (!TeamManager.instance().isEmployeeSelected()
+                || TeamManager.instance().getSelectedEmployee().getCurrentMission() != null) return;
 
         nameLabel.setText("" + GetSelected().getName());
 //        jobLabel.setText("" + GetSelected().getState().getDisplayName());
@@ -129,7 +128,7 @@ public class EmployeeBar extends Group {
     }
 
     private Employee GetSelected() {
-        return Team.instance().getSelectedEmployee();
+        return TeamManager.instance().getSelectedEmployee();
     }
 
     public boolean isEmployeeProfileOpen(){
