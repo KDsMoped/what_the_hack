@@ -34,6 +34,7 @@ public class Computer extends Equipment implements Upgradable {
     private float elapsedTime = 0f;
     private int tintFrames = 0;
     private Chair workingChair;
+
     private Workspace workspace;
 
     public Computer(String name, Workspace workspace) {
@@ -61,7 +62,8 @@ public class Computer extends Equipment implements Upgradable {
     public void setPurchased(boolean isPurchased) {
         super.setPurchased(isPurchased);
 
-        workspace.addComputer(this);
+        if (workspace != null)
+            workspace.addComputer(this);
     }
 
     @Override
@@ -186,5 +188,10 @@ public class Computer extends Equipment implements Upgradable {
 
     public boolean isOn() {
         return on;
+    }
+
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
+        workspace.addComputer(this);
     }
 }

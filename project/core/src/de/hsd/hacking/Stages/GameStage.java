@@ -26,6 +26,7 @@ import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.SaveGameContainer;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
+import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Team.Workspace;
@@ -99,6 +100,7 @@ public class GameStage extends Stage implements EventListener{
         InitRootObjects();
         InitInterior();
         InitTeam();
+        InitEquipment();
         InitUI();
         InitSaveGameList();
 
@@ -159,6 +161,10 @@ public class GameStage extends Stage implements EventListener{
         workspaces.add(workspace4);
     }
 
+    private void InitEquipment() {
+        EquipmentManager.instance().addComputersToWorkspaces();
+    }
+
     private void InitUI() {
         int buttonHeight = 20;
         int buttonSpacing = 5;
@@ -176,7 +182,7 @@ public class GameStage extends Stage implements EventListener{
 
 
         //Init Shop button
-        final ShopBrowser shopBrowser = ShopBrowser.instance();
+        final ShopBrowser shopBrowser = new ShopBrowser();
         shopBrowser.init();
         TextButton shopButton = new TextButton("Shop", Constants.TextButtonStyle());
         shopButton.addListener(new ChangeListener() {

@@ -289,28 +289,6 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
     }
 
     /**
-     * Restores the missions from a previous game.
-     * @return True if missions where loaded.
-     */
-    public Boolean Load() {
-        Proto.EmployeeManager.Builder proto = SaveGameManager.getEmployeeManager();
-        if (proto != null) {
-            for (Proto.Employee employee : proto.getHiredEmployeesList()) {
-                Employee e = new Employee(employee.toBuilder());
-                availableEmployees.add(e);
-                employ(e, false);
-            }
-
-            for (Proto.Employee employee : proto.getAvailableEmployeesList()) {
-                availableEmployees.add(new Employee(employee.toBuilder()));
-            }
-
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Initializes this manager class in terms of references towards other objects. This is guaranteed to be called
      * after all other managers have been initialized.
      */
@@ -336,7 +314,17 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
      */
     @Override
     public void loadState() {
+        Proto.EmployeeManager.Builder proto = SaveGameManager.getEmployeeManager();
 
+        for (Proto.Employee employee : proto.getHiredEmployeesList()) {
+            Employee e = new Employee(employee.toBuilder());
+            availableEmployees.add(e);
+            employ(e, false);
+        }
+
+        for (Proto.Employee employee : proto.getAvailableEmployeesList()) {
+            availableEmployees.add(new Employee(employee.toBuilder()));
+        }
     }
 
     /**
