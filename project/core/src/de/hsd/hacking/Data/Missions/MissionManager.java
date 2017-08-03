@@ -25,8 +25,8 @@ import java.util.Collections;
  */
 public class MissionManager implements TimeChangedListener {
     private static final int MAX_ACTIVE_MISSIONS = 4;
-    private static final int MAX_OPEN_MISSIONS = 12;
-    private static final float REFRESH_RATE = 0.2f;
+    private static final int MAX_OPEN_MISSIONS = 6;
+    private static final float REFRESH_RATE = 0.3f;
 
     private static MissionManager instance;
     private int currentMissionNumber;
