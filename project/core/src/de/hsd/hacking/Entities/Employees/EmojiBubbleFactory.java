@@ -2,6 +2,7 @@ package de.hsd.hacking.Entities.Employees;
 
 
 import de.hsd.hacking.Assets.Assets;
+import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Stages.GameStage;
 
@@ -39,7 +40,10 @@ public class EmojiBubbleFactory {
             case LEVELUP:
                 GameStage.instance().addToUILayer(new EmojiBubble(entity, Assets.instance().emoji_levelup));
                 break;
+
         }
+
+        AudioManager.instance().playEmojiSound(type);
     }
 
 }
