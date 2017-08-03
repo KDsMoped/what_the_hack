@@ -27,14 +27,14 @@ public final class SaveGameManager {
     static Proto.EquipmentManager equipmentManager;
     static Proto.EmployeeManager employeeManager;
     static Proto.Resources resources;
+    static Proto.Global gameTime;
 
     public static void LoadGame() {
         try {
             FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/gametime");
             Proto.Global global = Proto.Global.parseFrom(stream);
 
-            Proto.Global.Builder builder = global.toBuilder();
-//            new GameTime(builder); //TODO: fix this
+            gameTime = global;
         }
 
         catch (Exception e) {
@@ -224,6 +224,13 @@ public final class SaveGameManager {
     public static Proto.Resources.Builder getResources() {
         if (resources != null)
             return resources.toBuilder();
+        else
+            return null;
+    }
+
+    public static Proto.Global.Builder getGameTime() {
+        if (gameTime != null)
+            return gameTime.toBuilder();
         else
             return null;
     }

@@ -33,7 +33,6 @@ public class ShopUIElement extends Table {
 
     Equipment equipment;
     EquipmentManager equipmentManager;
-    ShopBrowser shopBrowser;
 
     private Label level;
 
@@ -43,7 +42,6 @@ public class ShopUIElement extends Table {
     public ShopUIElement(Equipment equipment) {
         this.equipment = equipment;
         this.equipmentManager = EquipmentManager.instance();
-        this.shopBrowser = ShopBrowser.instance();
 
         InitControls();
         InitTable();

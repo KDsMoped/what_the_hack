@@ -21,7 +21,7 @@ public final class MissionFactory {
     private static final int MISSION_REWARDMONEY_FACTOR = 10;
     private static final int MISSION_BASE_POWER = 18;
     private static final int MISSION_BANDWIDTH_BASE = 100;
-    private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.1f;
+    private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.08f;
     private static final float SKILL_POWER_PER_DIFFICULTY = 3.5f;
     private static final float SKILL_DIFFICULTY_VARIANCE = 0.3f;
 

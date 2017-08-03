@@ -83,6 +83,24 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
      */
     @Override
     public void loadState() {
+        Proto.MissionManager.Builder proto = SaveGameManager.getMissionManager();
+        currentMissionNumber = proto.getCurrentMissionNumber();
+
+        for (Proto.Mission mission : proto.getOpenMissionsList()) {
+            openMissions.add(new Mission(mission.toBuilder()));
+        }
+
+        for (Proto.Mission mission : proto.getActiveMissionsList()) {
+            activeMissions.add(new Mission(mission.toBuilder()));
+        }
+
+        for (Proto.Mission mission : proto.getCompletedMissionsList()) {
+            completedMissions.add(new Mission(mission.toBuilder()));
+        }
+
+        for (Proto.MissionWorker worker : proto.getWorkersList()) {
+            runningMissionWorkers.add(new MissionWorker(worker.toBuilder()));
+        }
     }
 
     /**

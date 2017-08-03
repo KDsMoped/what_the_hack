@@ -52,8 +52,8 @@ public class GameManager {
 
     public void loadGame(){
         SaveGameManager.LoadGame();
-
         createManagerInstances();
+        loadManagerProtoData();
 
         ScreenManager.setGameScreen(true);
     }
@@ -84,5 +84,14 @@ public class GameManager {
         EmployeeManager.instance().loadDefaultState();
         TeamManager.instance().loadDefaultState();
         GameTime.instance().loadDefaultState();
+    }
+
+    private void loadManagerProtoData(){
+        MessageManager.instance().loadState();
+        EquipmentManager.instance().loadState();
+        EmployeeManager.instance().loadState();
+        MissionManager.instance().loadState();
+        TeamManager.instance().loadState();
+        GameTime.instance().loadState();
     }
 }

@@ -172,7 +172,7 @@ public class GameTime extends Actor implements Manager, DataContainer {
      */
     @Override
     public void loadState() {
-
+        data = SaveGameManager.getGameTime();
     }
 
     /**

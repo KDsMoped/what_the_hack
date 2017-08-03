@@ -50,6 +50,7 @@ public class TeamManager implements Manager {
      */
     @Override
     public void loadState() {
+        resources = new Resources(SaveGameManager.getResources());
         updateResources();
     }
 
@@ -140,7 +141,7 @@ public class TeamManager implements Manager {
         }
     }
 
-    public final Resources resources;
+    public Resources resources;
 
     private static TeamManager instance;
 

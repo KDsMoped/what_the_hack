@@ -26,8 +26,6 @@ import de.hsd.hacking.Utils.Constants;
 
 public class ShopBrowser extends Popup {
 
-    private static ShopBrowser instance = null;
-
     private Table shopContainer, upgradeContainer, finishedContainer;
     private EquipmentManager equipmentManager;
 
@@ -61,13 +59,6 @@ public class ShopBrowser extends Popup {
 
         // Set tabbed view as main view
         this.addMainContent(tabbedView);
-    }
-
-    public static ShopBrowser instance() {
-        if (instance == null) {
-            instance = new ShopBrowser();
-        }
-        return instance;
     }
 
     @Override
