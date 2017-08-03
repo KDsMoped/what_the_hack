@@ -9,6 +9,7 @@ import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Entities.Objects.InteractableObject;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Entities.Tile;
+import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 
 public class MovingState extends EmployeeState {
@@ -127,7 +128,7 @@ public class MovingState extends EmployeeState {
     public void enter() {
         employee.resetElapsedTime();
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Employee " + employee.getName() + " transitioning to Moving State");
-        employee.setAnimationState(Employee.AnimState.MOVING);
+        employee.setAnimationState(Proto.Employee.AnimState.MOVING);
     }
 
     @Override

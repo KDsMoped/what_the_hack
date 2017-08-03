@@ -94,6 +94,13 @@ public class Assets {
 
     public Sound menuButtonSound;
     public Sound uiButtonSound;
+    public Sound notificationSound;
+    public Sound emojiFailureSound;
+    public Sound emojiLevelUpSound;
+    public Sound emojiNoSound;
+    public Sound emojiOkSound;
+    public Sound emojiSpeakingSound;
+    public Sound emojiSuccessSound;
 
 
     public Assets() {
@@ -108,9 +115,16 @@ public class Assets {
         manager.load("img/UI_Assets.atlas", TextureAtlas.class);
         manager.load("img/Character_Assets.atlas", TextureAtlas.class);
 
-        manager.load("sounds/Retro_Game_Sounds_SFX_28_16bit.wav", Sound.class);
-        manager.load("sounds/button_on_off_064_16bit.wav", Sound.class);
-        manager.load("sounds/Background_Music_16bit.wav", Music.class);
+        manager.load("sounds/Game_Music.wav", Music.class);
+        manager.load("sounds/Menu_Button_Sound.wav", Sound.class);
+        manager.load("sounds/UI_Button_Sound.wav", Sound.class);
+        manager.load("sounds/Notification_Sound.wav", Sound.class);
+        manager.load("sounds/Emoji_Failure_Sound.wav", Sound.class);
+        manager.load("sounds/Emoji_LevelUp_Sound.wav", Sound.class);
+        manager.load("sounds/Emoji_No_Sound.wav", Sound.class);
+        manager.load("sounds/Emoji_Ok_Sound.wav", Sound.class);
+        manager.load("sounds/Emoji_Speaking_Sound.wav", Sound.class);
+        manager.load("sounds/Emoji_Success_Sound.wav", Sound.class);
 
         gold_font = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
         gold_font_small = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
@@ -126,9 +140,16 @@ public class Assets {
         character_atlas = manager.get("img/Character_Assets.atlas");
 
         // Sounds
-        gameMusic = manager.get("sounds/Background_Music_16bit.wav");
-        menuButtonSound = manager.get("sounds/Retro_Game_Sounds_SFX_28_16bit.wav");
-        uiButtonSound = manager.get("sounds/button_on_off_064_16bit.wav");
+        gameMusic = manager.get("sounds/Game_Music.wav");
+        menuButtonSound = manager.get("sounds/Menu_Button_Sound.wav");
+        uiButtonSound = manager.get("sounds/UI_Button_Sound.wav");
+        notificationSound = manager.get("sounds/Notification_Sound.wav");
+        emojiFailureSound = manager.get("sounds/Emoji_Failure_Sound.wav");
+        emojiLevelUpSound = manager.get("sounds/Emoji_LevelUp_Sound.wav");
+        emojiNoSound = manager.get("sounds/Emoji_No_Sound.wav");
+        emojiOkSound = manager.get("sounds/Emoji_Ok_Sound.wav");
+        emojiSpeakingSound = manager.get("sounds/Emoji_Speaking_Sound.wav");
+        emojiSuccessSound = manager.get("sounds/Emoji_Success_Sound.wav");
 
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
         standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
@@ -161,6 +182,7 @@ public class Assets {
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
         character_1 = new Array<TextureRegion>();
         character_2 = new Array<TextureRegion>();
+        character_trump = new Array<TextureRegion>();
         char_shadow = new Array<TextureRegion>();
         character_1.addAll(character_atlas.findRegions("Character01"));
         character_2.addAll(character_atlas.findRegions("Character02"));

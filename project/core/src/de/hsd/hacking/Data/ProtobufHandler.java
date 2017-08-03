@@ -13,10 +13,4 @@ public interface ProtobufHandler {
      * @return protobuf message to be saved.
      */
     com.google.protobuf.GeneratedMessageV3 Save();
-
-    /**
-     * Load data from the {@link SaveGameManager} if available.
-     * @return True if data was loaded.
-     */
-    Boolean Load();
 }

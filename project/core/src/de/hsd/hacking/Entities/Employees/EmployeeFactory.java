@@ -128,7 +128,6 @@ public class EmployeeFactory {
         return createTrump(TeamManager.instance().calcGameProgress());
     }
 
-
     /**
      * Creates the Trump based on the given progress!
      *
