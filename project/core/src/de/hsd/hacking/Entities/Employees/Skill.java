@@ -1,9 +1,10 @@
 package de.hsd.hacking.Entities.Employees;
 
+import de.hsd.hacking.Data.DataContainer;
 import de.hsd.hacking.Data.Missions.SkillHolder;
 import de.hsd.hacking.Proto;
 
-public class Skill implements Comparable<Skill>{
+public class Skill implements Comparable<Skill>, DataContainer {
     private Proto.Skill.Builder data;
 
     public Skill() {
@@ -21,7 +22,7 @@ public class Skill implements Comparable<Skill>{
         this.data = data;
     }
 
-    public Skill(Proto.Skill.SkillType type, int value){
+    public Skill(Proto.SkillType type, int value){
         this.data = Proto.Skill.newBuilder();
         this.data.setType(type);
         this.data.setValue(value);
@@ -74,7 +75,7 @@ public class Skill implements Comparable<Skill>{
         return ((Integer) o.getValue()).compareTo(data.getValue());
     }
 
-    public Proto.Skill.Builder getData() {
-        return this.data;
+    public Proto.Skill getData() {
+        return this.data.build();
     }
 }

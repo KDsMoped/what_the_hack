@@ -31,16 +31,16 @@ message MessageBar {
 message Skill {
   int32 value = 1;
   SkillType type = 2;
+}
 
-  enum SkillType {
-    Social = 0;
-    Hardware = 1;
-    Software = 2;
-    Network = 3;
-    Crypto = 4;
-    Search = 5;
-    All_Purpose = 6;
-  }
+enum SkillType {
+  Social = 0;
+  Hardware = 1;
+  Software = 2;
+  Network = 3;
+  Crypto = 4;
+  Search = 5;
+  All_Purpose = 6;
 }
 
 message Mission {
@@ -67,6 +67,7 @@ message MissionManager {
   repeated Mission activeMissions = 2;
   repeated Mission openMissions = 3;
   repeated Mission completedMissions = 4;
+  repeated MissionWorker workers = 5;
 }
 
 message Equipment {
@@ -138,4 +139,17 @@ message EmployeeManager {
 message EmployeeSpecial {
   int32 level = 1;
   string special = 2;
+}
+
+message MissionWorker {
+  int32 remainingDays = 1;
+  repeated MissionSkillRequirement skills = 2;
+  int32 mission = 3;
+  repeated int32 employees = 4;
+}
+
+message MissionSkillRequirement {
+  SkillType skillType = 1;
+  float required = 2;
+  float current = 3;
 }

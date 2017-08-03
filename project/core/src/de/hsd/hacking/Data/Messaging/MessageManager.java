@@ -12,7 +12,7 @@ import de.hsd.hacking.Utils.DateUtils;
 
 /**
  * This class manages all messages for the player.
- * @author Julian Geywitz
+ * @author Julian
  */
 public class MessageManager implements EventSender{
     private final static EventListener.EventType TYPE = EventListener.EventType.MESSAGE_NEW;

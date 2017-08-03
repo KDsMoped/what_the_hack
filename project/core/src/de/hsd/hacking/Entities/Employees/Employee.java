@@ -23,6 +23,7 @@ import java.util.List;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.ColorHolder;
+import de.hsd.hacking.Data.DataContainer;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
@@ -56,7 +57,7 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CR
  *
  * @author Florian, Hendrik, Julian
  */
-public class Employee extends Entity implements Comparable<Employee>, Touchable {
+public class Employee extends Entity implements Comparable<Employee>, Touchable, DataContainer {
     private Proto.Employee.Builder data;
 
     private final int BODY = 0;
@@ -219,9 +220,18 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
     /**
      * This is called as soon as the employee joins the team.
      */
-    public void onEmploy() {
+    public void onEmploy(Boolean loaded) {
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.disabled);
-        Tile startTile = movementProvider.getStartTile(this);
+
+        Tile startTile;
+
+        if (loaded) {
+            startTile = movementProvider.getTile(data.getOccupiedTileNumber());
+        }
+        else {
+            startTile = movementProvider.getStartTile(this);
+        }
+
         Vector2 startPos = startTile.getPosition().cpy();
 //        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
@@ -561,7 +571,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
             Skill skill = skillSet.get(i);
             if (skill.getType() == type) {
                 return evaluateSkill(skill);
-            } else if (skill.getType().skillType == Proto.Skill.SkillType.All_Purpose) {
+            } else if (skill.getType().skillType == Proto.SkillType.All_Purpose) {
                 allPurpposeIndex = i;
             }
         }
@@ -743,7 +753,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
      * @param type
      * @return
      */
-    public boolean hasSkill(Proto.Skill.SkillType type) {
+    public boolean hasSkill(Proto.SkillType type) {
         for (Skill skill : skillSet) {
             if (skill.getType().skillType == type) return true;
         }
@@ -844,7 +854,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable 
         data.clearSkillSet();
 
         for (Skill skill: skillSet) {
-            data.addSkillSet(skill.getData().build());
+            data.addSkillSet(skill.getData());
         }
 
         for (EmployeeSpecial specialus: employeeSpecials) {

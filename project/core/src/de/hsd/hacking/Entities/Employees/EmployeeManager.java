@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Team.Team;
@@ -25,7 +26,7 @@ import java.util.Collections;
  *
  * @author Hendrik
  */
-public class EmployeeManager implements TimeChangedListener {
+public class EmployeeManager implements TimeChangedListener, ProtobufHandler {
     private Proto.EmployeeManager.Builder data;
     private static final int MAX_AVAILABLE_EMPLOYEES = 16;
     private static final int AVAILABLE_EMPLOYEES_VARIANCE = 3;
@@ -90,7 +91,7 @@ public class EmployeeManager implements TimeChangedListener {
 
     public void initTeam() {
         dismissAll();
-        employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE), false);
+        employ(EmployeeFactory.createEmployees(Constants.STARTING_TEAM_SIZE), false, false);
     }
 
     /**
@@ -107,9 +108,9 @@ public class EmployeeManager implements TimeChangedListener {
      *
      * @param employees
      */
-    public void employ(Collection<Employee> employees, boolean pay) {
+    public void employ(Collection<Employee> employees, boolean pay, boolean loaded) {
         for (Employee employee : employees) {
-            employ(employee, pay);
+            employ(employee, pay, loaded);
         }
     }
 
@@ -118,7 +119,7 @@ public class EmployeeManager implements TimeChangedListener {
      *
      * @param employee
      */
-    public void employ(Employee employee, Boolean pay) {
+    public void employ(Employee employee, Boolean pay, Boolean loaded) {
         if (hiredEmployees.contains(employee)) {
             Gdx.app.error(Constants.TAG, "Error: This employees is already hired!");
             return;
@@ -142,7 +143,7 @@ public class EmployeeManager implements TimeChangedListener {
         hiredEmployees.add(employee);
 
 //        GameStage.instance().addTouchable(employee);
-        employee.onEmploy();
+        employee.onEmploy(loaded);
         notifyRefreshListeners();
     }
 
@@ -281,6 +282,14 @@ public class EmployeeManager implements TimeChangedListener {
         return builder.build();
     }
 
+    public int getHiredEmployeeId(Employee employee) {
+        return hiredEmployees.indexOf(employee);
+    }
+
+    public Employee getHiredEmployee(int id) {
+        return hiredEmployees.get(id);
+    }
+
     /**
      * Restores the missions from a previous game.
      * @return True if missions where loaded.
@@ -291,7 +300,7 @@ public class EmployeeManager implements TimeChangedListener {
             for (Proto.Employee employee : proto.getHiredEmployeesList()) {
                 Employee e = new Employee(employee.toBuilder());
                 availableEmployees.add(e);
-                employ(e, false);
+                employ(e, false, true);
             }
 
             for (Proto.Employee employee : proto.getAvailableEmployeesList()) {

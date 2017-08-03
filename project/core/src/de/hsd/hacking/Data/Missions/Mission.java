@@ -3,6 +3,7 @@ package de.hsd.hacking.Data.Missions;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hsd.hacking.Data.DataContainer;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.EventSender;
 import de.hsd.hacking.Entities.Employees.Skill;
@@ -13,7 +14,7 @@ import de.hsd.hacking.Proto;
  *
  * @author Hendrik, Julian
  */
-public class Mission implements EventSender {
+public class Mission implements EventSender, DataContainer {
     Proto.Mission.Builder data;
 
     public Mission() {

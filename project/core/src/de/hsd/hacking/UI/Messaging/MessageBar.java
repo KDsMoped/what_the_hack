@@ -18,6 +18,7 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.EventListener;
 import de.hsd.hacking.Data.Messaging.Message;
 import de.hsd.hacking.Data.Messaging.MessageManager;
+import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Screens.ScreenManager;
@@ -29,7 +30,7 @@ import de.hsd.hacking.Utils.Constants;
  * @author Julian
  */
 // TODO scroll down
-public class MessageBar extends Table implements EventListener{
+public class MessageBar extends Table implements EventListener, ProtobufHandler {
     private final int COMPACT_HEIGHT = 21;
     private final int SCROLLING_TEXT_CHARS = 47;
     private final int INITIAL_WAIT = 1;
@@ -338,7 +339,7 @@ public class MessageBar extends Table implements EventListener{
         return builder.build();
     }
 
-    private void Load() {
+    public Boolean Load() {
         if (SaveGameManager.getMessageBar() != null) {
             for (Proto.Message m:SaveGameManager.getMessageBar().getMessagesList()) {
                 NewMessage(new Message(m.toBuilder()));
@@ -347,6 +348,9 @@ public class MessageBar extends Table implements EventListener{
                 ToggleView();
                 ToggleView();
             }
+            return true;
         }
+        else
+            return false;
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
+import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Data.TimeChangedListener;
 import de.hsd.hacking.Entities.Employees.Employee;
@@ -23,7 +24,7 @@ import java.util.Collections;
  *
  * @author Hendrik
  */
-public class MissionManager implements TimeChangedListener {
+public class MissionManager implements TimeChangedListener, ProtobufHandler {
     private static final int MAX_ACTIVE_MISSIONS = 4;
     private static final int MAX_OPEN_MISSIONS = 12;
     private static final float REFRESH_RATE = 0.2f;
@@ -342,6 +343,14 @@ public class MissionManager implements TimeChangedListener {
         this.runningMissions = runningMissions;
     }
 
+    public int getActiveMissionId(Mission mission) {
+        return activeMissions.indexOf(mission);
+    }
+
+    public Mission getActiveMission(int id) {
+        return activeMissions.get(id);
+    }
+
     /**
      * Save all the current missions
      * @return Build Proto MissionManager object to write to disk.
@@ -361,6 +370,10 @@ public class MissionManager implements TimeChangedListener {
 
         for (Mission mission: openMissions) {
             builder.addOpenMissions(mission.getData());
+        }
+
+        for (MissionWorker worker: runningMissions) {
+            builder.addWorkers(worker.getData());
         }
 
         return builder.build();
@@ -385,6 +398,10 @@ public class MissionManager implements TimeChangedListener {
 
             for (Proto.Mission mission : proto.getCompletedMissionsList()) {
                 completedMissions.add(new Mission(mission.toBuilder()));
+            }
+
+            for (Proto.MissionWorker worker : proto.getWorkersList()) {
+                runningMissions.add(new MissionWorker(worker.toBuilder()));
             }
 
             return true;

@@ -1,15 +1,27 @@
 package de.hsd.hacking.Entities.Employees;
 
-public class MissionSkillRequirement {
+import de.hsd.hacking.Data.DataContainer;
+import de.hsd.hacking.Proto;
 
+/**
+ * This class represents a skill requirement and the actual working status of a mission.
+ * @author Florian, Julian
+ */
+public class MissionSkillRequirement implements DataContainer {
+
+    Proto.MissionSkillRequirement.Builder data;
     private SkillType skill;
-    private float valueRequired;
-    private float currentValue;
 
     public MissionSkillRequirement(SkillType skill, float valueRequired, float currentValue) {
+        data = Proto.MissionSkillRequirement.newBuilder();
         this.skill = skill;
-        this.valueRequired = valueRequired;
-        this.currentValue = currentValue;
+        data.setRequired(valueRequired);
+        data.setCurrent(currentValue);
+    }
+
+    public MissionSkillRequirement(Proto.MissionSkillRequirement.Builder builder) {
+        this.data = builder;
+        this.skill = new SkillType(data.getSkillType());
     }
 
     public SkillType getSkillType() {
@@ -17,18 +29,24 @@ public class MissionSkillRequirement {
     }
 
     public float getValueRequired() {
-        return valueRequired;
+        return data.getRequired();
     }
 
     public float getCurrentValue() {
-        return currentValue;
+        return data.getCurrent();
     }
 
     public void incrementCurrentValue(float inc) {
-        this.currentValue += inc;
+        data.setCurrent(data.getCurrent() + inc);
     }
 
     public boolean isSuccessfull(){
-        return currentValue >= valueRequired;
+        return data.getCurrent() >= data.getRequired();
+    }
+
+    public Proto.MissionSkillRequirement getData() {
+        data.setSkillType(skill.skillType);
+
+        return data.build();
     }
 }
