@@ -123,7 +123,6 @@ public class MissionHolder {
      * @return Mission object to use in the game.
      */
     public Mission Clone() {
-        Mission mission = new Mission(this);
-        return mission;
+        return new Mission(this);
     }
 }

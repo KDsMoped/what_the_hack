@@ -448,35 +448,4 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
 
         return builder.build();
     }
-
-    /**
-     * Restores the missions from a previous game.
-     *
-     * @return True if missions where loaded.
-     */
-    public Boolean Load() {
-        Proto.MissionManager.Builder proto = SaveGameManager.getMissionManager();
-        if (proto != null) {
-            currentMissionNumber = proto.getCurrentMissionNumber();
-
-            for (Proto.Mission mission : proto.getOpenMissionsList()) {
-                openMissions.add(new Mission(mission.toBuilder()));
-            }
-
-            for (Proto.Mission mission : proto.getActiveMissionsList()) {
-                activeMissions.add(new Mission(mission.toBuilder()));
-            }
-
-            for (Proto.Mission mission : proto.getCompletedMissionsList()) {
-                completedMissions.add(new Mission(mission.toBuilder()));
-            }
-
-            for (Proto.MissionWorker worker : proto.getWorkersList()) {
-                runningMissionWorkers.add(new MissionWorker(worker.toBuilder()));
-            }
-
-            return true;
-        }
-        return false;
-    }
 }

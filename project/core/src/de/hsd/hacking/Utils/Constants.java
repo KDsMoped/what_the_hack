@@ -35,7 +35,7 @@ public class Constants {
     //UI
 
     private static Skin uiSkin;
-    private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle;
+    private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle, terminalButtonStyle;
     private static ScrollPane.ScrollPaneStyle scrollPaneStyleWin32, scrollPaneStyleTerminal;
     private static Label.LabelStyle labelStyle;
     private static Label.LabelStyle tinyLabelStyle;
@@ -69,6 +69,19 @@ public class Constants {
         }
 
         return textButtonStyle;
+    }
+
+    public static TextButton.TextButtonStyle TerminalButtonStyle() {
+        if (terminalButtonStyle == null) {
+            terminalButtonStyle = new TextButton.TextButtonStyle(UiSkin().getDrawable("terminal_button_normal"), UiSkin().getDrawable("terminal_button_pressed"),
+                    null, Assets.instance().status_bar_font);
+
+            terminalButtonStyle.fontColor = Color.BLACK;
+            terminalButtonStyle.pressedOffsetY = -1f;
+            terminalButtonStyle.pressedOffsetX = 1f;
+        }
+
+        return terminalButtonStyle;
     }
 
     public static ScrollPane.ScrollPaneStyle ScrollPaneStyleWin32() {
