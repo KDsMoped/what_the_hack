@@ -80,7 +80,7 @@ public class MissionAllocatorPopup extends Popup {
 
 //        for (int i = 0; i < 6; i++) {
 //
-//            final Mission mission = MissionFactory.CreateRandomMission();
+//            final Mission mission = MissionFactory.CreateMission();
 //
 //            TextButton button = new TextButton(mission.getName(), Constants.TextButtonStyle());
 //            button.addListener(new ChangeListener() {

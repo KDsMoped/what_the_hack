@@ -9194,6 +9194,24 @@ public final class Proto {
      * <code>.what_the_hack.Employee.AnimState animState = 22;</code>
      */
     de.hsd.hacking.Proto.Employee.AnimState getAnimState();
+
+    /**
+     * <code>.what_the_hack.EmployeeState state = 23;</code>
+     */
+    boolean hasState();
+    /**
+     * <code>.what_the_hack.EmployeeState state = 23;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeState getState();
+    /**
+     * <code>.what_the_hack.EmployeeState state = 23;</code>
+     */
+    de.hsd.hacking.Proto.EmployeeStateOrBuilder getStateOrBuilder();
+
+    /**
+     * <code>int32 missionNumber = 24;</code>
+     */
+    int getMissionNumber();
   }
   /**
    * Protobuf type {@code what_the_hack.Employee}
@@ -9229,6 +9247,7 @@ public final class Proto {
       employeeSpecials_ = java.util.Collections.emptyList();
       flipped_ = false;
       animState_ = 0;
+      missionNumber_ = 0;
     }
 
     @java.lang.Override
@@ -9385,6 +9404,24 @@ public final class Proto {
               int rawValue = input.readEnum();
 
               animState_ = rawValue;
+              break;
+            }
+            case 186: {
+              de.hsd.hacking.Proto.EmployeeState.Builder subBuilder = null;
+              if (state_ != null) {
+                subBuilder = state_.toBuilder();
+              }
+              state_ = input.readMessage(de.hsd.hacking.Proto.EmployeeState.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(state_);
+                state_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 192: {
+
+              missionNumber_ = input.readInt32();
               break;
             }
           }
@@ -10465,6 +10502,36 @@ public final class Proto {
       return result == null ? de.hsd.hacking.Proto.Employee.AnimState.UNRECOGNIZED : result;
     }
 
+    public static final int STATE_FIELD_NUMBER = 23;
+    private de.hsd.hacking.Proto.EmployeeState state_;
+    /**
+     * <code>.what_the_hack.EmployeeState state = 23;</code>
+     */
+    public boolean hasState() {
+      return state_ != null;
+    }
+    /**
+     * <code>.what_the_hack.EmployeeState state = 23;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeState getState() {
+      return state_ == null ? de.hsd.hacking.Proto.EmployeeState.getDefaultInstance() : state_;
+    }
+    /**
+     * <code>.what_the_hack.EmployeeState state = 23;</code>
+     */
+    public de.hsd.hacking.Proto.EmployeeStateOrBuilder getStateOrBuilder() {
+      return getState();
+    }
+
+    public static final int MISSIONNUMBER_FIELD_NUMBER = 24;
+    private int missionNumber_;
+    /**
+     * <code>int32 missionNumber = 24;</code>
+     */
+    public int getMissionNumber() {
+      return missionNumber_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -10542,6 +10609,12 @@ public final class Proto {
       }
       if (animState_ != de.hsd.hacking.Proto.Employee.AnimState.IDLE.getNumber()) {
         output.writeEnum(22, animState_);
+      }
+      if (state_ != null) {
+        output.writeMessage(23, getState());
+      }
+      if (missionNumber_ != 0) {
+        output.writeInt32(24, missionNumber_);
       }
     }
 
@@ -10630,6 +10703,14 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(22, animState_);
       }
+      if (state_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(23, getState());
+      }
+      if (missionNumber_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(24, missionNumber_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -10689,6 +10770,13 @@ public final class Proto {
       result = result && (getFlipped()
           == other.getFlipped());
       result = result && animState_ == other.animState_;
+      result = result && (hasState() == other.hasState());
+      if (hasState()) {
+        result = result && getState()
+            .equals(other.getState());
+      }
+      result = result && (getMissionNumber()
+          == other.getMissionNumber());
       return result;
     }
 
@@ -10751,6 +10839,12 @@ public final class Proto {
           getFlipped());
       hash = (37 * hash) + ANIMSTATE_FIELD_NUMBER;
       hash = (53 * hash) + animState_;
+      if (hasState()) {
+        hash = (37 * hash) + STATE_FIELD_NUMBER;
+        hash = (53 * hash) + getState().hashCode();
+      }
+      hash = (37 * hash) + MISSIONNUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getMissionNumber();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10934,6 +11028,14 @@ public final class Proto {
 
         animState_ = 0;
 
+        if (stateBuilder_ == null) {
+          state_ = null;
+        } else {
+          state_ = null;
+          stateBuilder_ = null;
+        }
+        missionNumber_ = 0;
+
         return this;
       }
 
@@ -10996,6 +11098,12 @@ public final class Proto {
         }
         result.flipped_ = flipped_;
         result.animState_ = animState_;
+        if (stateBuilder_ == null) {
+          result.state_ = state_;
+        } else {
+          result.state_ = stateBuilder_.build();
+        }
+        result.missionNumber_ = missionNumber_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -11157,6 +11265,12 @@ public final class Proto {
         }
         if (other.animState_ != 0) {
           setAnimStateValue(other.getAnimStateValue());
+        }
+        if (other.hasState()) {
+          mergeState(other.getState());
+        }
+        if (other.getMissionNumber() != 0) {
+          setMissionNumber(other.getMissionNumber());
         }
         onChanged();
         return this;
@@ -12645,6 +12759,149 @@ public final class Proto {
       public Builder clearAnimState() {
         
         animState_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private de.hsd.hacking.Proto.EmployeeState state_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          de.hsd.hacking.Proto.EmployeeState, de.hsd.hacking.Proto.EmployeeState.Builder, de.hsd.hacking.Proto.EmployeeStateOrBuilder> stateBuilder_;
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public boolean hasState() {
+        return stateBuilder_ != null || state_ != null;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeState getState() {
+        if (stateBuilder_ == null) {
+          return state_ == null ? de.hsd.hacking.Proto.EmployeeState.getDefaultInstance() : state_;
+        } else {
+          return stateBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public Builder setState(de.hsd.hacking.Proto.EmployeeState value) {
+        if (stateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          state_ = value;
+          onChanged();
+        } else {
+          stateBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public Builder setState(
+          de.hsd.hacking.Proto.EmployeeState.Builder builderForValue) {
+        if (stateBuilder_ == null) {
+          state_ = builderForValue.build();
+          onChanged();
+        } else {
+          stateBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public Builder mergeState(de.hsd.hacking.Proto.EmployeeState value) {
+        if (stateBuilder_ == null) {
+          if (state_ != null) {
+            state_ =
+              de.hsd.hacking.Proto.EmployeeState.newBuilder(state_).mergeFrom(value).buildPartial();
+          } else {
+            state_ = value;
+          }
+          onChanged();
+        } else {
+          stateBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public Builder clearState() {
+        if (stateBuilder_ == null) {
+          state_ = null;
+          onChanged();
+        } else {
+          state_ = null;
+          stateBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeState.Builder getStateBuilder() {
+        
+        onChanged();
+        return getStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      public de.hsd.hacking.Proto.EmployeeStateOrBuilder getStateOrBuilder() {
+        if (stateBuilder_ != null) {
+          return stateBuilder_.getMessageOrBuilder();
+        } else {
+          return state_ == null ?
+              de.hsd.hacking.Proto.EmployeeState.getDefaultInstance() : state_;
+        }
+      }
+      /**
+       * <code>.what_the_hack.EmployeeState state = 23;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          de.hsd.hacking.Proto.EmployeeState, de.hsd.hacking.Proto.EmployeeState.Builder, de.hsd.hacking.Proto.EmployeeStateOrBuilder> 
+          getStateFieldBuilder() {
+        if (stateBuilder_ == null) {
+          stateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              de.hsd.hacking.Proto.EmployeeState, de.hsd.hacking.Proto.EmployeeState.Builder, de.hsd.hacking.Proto.EmployeeStateOrBuilder>(
+                  getState(),
+                  getParentForChildren(),
+                  isClean());
+          state_ = null;
+        }
+        return stateBuilder_;
+      }
+
+      private int missionNumber_ ;
+      /**
+       * <code>int32 missionNumber = 24;</code>
+       */
+      public int getMissionNumber() {
+        return missionNumber_;
+      }
+      /**
+       * <code>int32 missionNumber = 24;</code>
+       */
+      public Builder setMissionNumber(int value) {
+        
+        missionNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 missionNumber = 24;</code>
+       */
+      public Builder clearMissionNumber() {
+        
+        missionNumber_ = 0;
         onChanged();
         return this;
       }
@@ -16931,7 +17188,7 @@ public final class Proto {
       "e\022\021\n\rCoffeeMachine\020\000\022\014\n\010Computer\020\001\022\023\n\017Ha",
       "rdwareStation\020\002\022\t\n\005Modem\020\003\022\n\n\006Router\020\004\022\n" +
       "\n\006Server\020\005\"?\n\020EquipmentManager\022+\n\tequipm" +
-      "ent\030\001 \003(\0132\030.what_the_hack.Equipment\"\327\007\n\010" +
+      "ent\030\001 \003(\0132\030.what_the_hack.Equipment\"\233\010\n\010" +
       "Employee\022\014\n\004name\030\001 \001(\t\022\017\n\007surName\030\002 \001(\t\022" +
       "\016\n\006salary\030\003 \001(\005\022\031\n\021currentTileNumber\030\004 \001" +
       "(\005\022\032\n\022occupiedTileNumber\030\005 \001(\005\022\021\n\tusedSc" +
@@ -16949,32 +17206,34 @@ public final class Proto {
       "8\n\020employeeSpecials\030\024 \003(\0132\036.what_the_hac" +
       "k.EmployeeSpecial\022\017\n\007flipped\030\025 \001(\010\0224\n\tan" +
       "imState\030\026 \001(\0162!.what_the_hack.Employee.A",
-      "nimState\"%\n\013VisualStyle\022\013\n\007DEFAULT\020\000\022\t\n\005" +
-      "TRUMP\020\001\"A\n\rHairStyleMale\022\013\n\007M_CRAZY\020\000\022\n\n" +
-      "\006M_NEAT\020\001\022\n\n\006M_NERD\020\002\022\013\n\007M_RASTA\020\003\"C\n\017Ha" +
-      "irStyleFemale\022\013\n\007F_CRAZY\020\000\022\n\n\006F_NEAT\020\001\022\n" +
-      "\n\006F_NERD\020\002\022\013\n\007F_RASTA\020\003\"-\n\006Gender\022\r\n\tUND" +
-      "ECIDED\020\000\022\010\n\004MALE\020\001\022\n\n\006FEMALE\020\002\"E\n\tAnimSt" +
-      "ate\022\010\n\004IDLE\020\000\022\013\n\007WORKING\020\001\022\025\n\021WORKING_BA" +
-      "CKFACED\020\002\022\n\n\006MOVING\020\003\"w\n\017EmployeeManager" +
-      "\0223\n\022availableEmployees\030\001 \003(\0132\027.what_the_" +
-      "hack.Employee\022/\n\016hiredEmployees\030\002 \003(\0132\027.",
-      "what_the_hack.Employee\"1\n\017EmployeeSpecia" +
-      "l\022\r\n\005level\030\001 \001(\005\022\017\n\007special\030\002 \001(\t\"\202\001\n\rMi" +
-      "ssionWorker\022\025\n\rremainingDays\030\001 \001(\005\0226\n\006sk" +
-      "ills\030\002 \003(\0132&.what_the_hack.MissionSkillR" +
-      "equirement\022\017\n\007mission\030\003 \001(\005\022\021\n\temployees" +
-      "\030\004 \003(\005\"i\n\027MissionSkillRequirement\022+\n\tski" +
-      "llType\030\001 \001(\0162\030.what_the_hack.SkillType\022\020" +
-      "\n\010required\030\002 \001(\002\022\017\n\007current\030\003 \001(\002\"\261\001\n\rEm" +
-      "ployeeState\0221\n\005state\030\001 \001(\0162\".what_the_ha" +
-      "ck.EmployeeState.State\022\020\n\010workingX\030\002 \001(\002",
-      "\022\020\n\010workingY\030\003 \001(\002\022\020\n\010computer\030\004 \001(\005\"7\n\005" +
-      "State\022\010\n\004IDLE\020\000\022\n\n\006MOVING\020\001\022\013\n\007WAITING\020\002" +
-      "\022\013\n\007WORKING\020\003*i\n\tSkillType\022\n\n\006Social\020\000\022\014" +
-      "\n\010Hardware\020\001\022\014\n\010Software\020\002\022\013\n\007Network\020\003\022" +
-      "\n\n\006Crypto\020\004\022\n\n\006Search\020\005\022\017\n\013All_Purpose\020\006" +
-      "B\027\n\016de.hsd.hackingB\005Protob\006proto3"
+      "nimState\022+\n\005state\030\027 \001(\0132\034.what_the_hack." +
+      "EmployeeState\022\025\n\rmissionNumber\030\030 \001(\005\"%\n\013" +
+      "VisualStyle\022\013\n\007DEFAULT\020\000\022\t\n\005TRUMP\020\001\"A\n\rH" +
+      "airStyleMale\022\013\n\007M_CRAZY\020\000\022\n\n\006M_NEAT\020\001\022\n\n" +
+      "\006M_NERD\020\002\022\013\n\007M_RASTA\020\003\"C\n\017HairStyleFemal" +
+      "e\022\013\n\007F_CRAZY\020\000\022\n\n\006F_NEAT\020\001\022\n\n\006F_NERD\020\002\022\013" +
+      "\n\007F_RASTA\020\003\"-\n\006Gender\022\r\n\tUNDECIDED\020\000\022\010\n\004" +
+      "MALE\020\001\022\n\n\006FEMALE\020\002\"E\n\tAnimState\022\010\n\004IDLE\020" +
+      "\000\022\013\n\007WORKING\020\001\022\025\n\021WORKING_BACKFACED\020\002\022\n\n" +
+      "\006MOVING\020\003\"w\n\017EmployeeManager\0223\n\022availabl",
+      "eEmployees\030\001 \003(\0132\027.what_the_hack.Employe" +
+      "e\022/\n\016hiredEmployees\030\002 \003(\0132\027.what_the_hac" +
+      "k.Employee\"1\n\017EmployeeSpecial\022\r\n\005level\030\001" +
+      " \001(\005\022\017\n\007special\030\002 \001(\t\"\202\001\n\rMissionWorker\022" +
+      "\025\n\rremainingDays\030\001 \001(\005\0226\n\006skills\030\002 \003(\0132&" +
+      ".what_the_hack.MissionSkillRequirement\022\017" +
+      "\n\007mission\030\003 \001(\005\022\021\n\temployees\030\004 \003(\005\"i\n\027Mi" +
+      "ssionSkillRequirement\022+\n\tskillType\030\001 \001(\016" +
+      "2\030.what_the_hack.SkillType\022\020\n\010required\030\002" +
+      " \001(\002\022\017\n\007current\030\003 \001(\002\"\261\001\n\rEmployeeState\022",
+      "1\n\005state\030\001 \001(\0162\".what_the_hack.EmployeeS" +
+      "tate.State\022\020\n\010workingX\030\002 \001(\002\022\020\n\010workingY" +
+      "\030\003 \001(\002\022\020\n\010computer\030\004 \001(\005\"7\n\005State\022\010\n\004IDL" +
+      "E\020\000\022\n\n\006MOVING\020\001\022\013\n\007WAITING\020\002\022\013\n\007WORKING\020" +
+      "\003*i\n\tSkillType\022\n\n\006Social\020\000\022\014\n\010Hardware\020\001" +
+      "\022\014\n\010Software\020\002\022\013\n\007Network\020\003\022\n\n\006Crypto\020\004\022" +
+      "\n\n\006Search\020\005\022\017\n\013All_Purpose\020\006B\027\n\016de.hsd.h" +
+      "ackingB\005Protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -17047,7 +17306,7 @@ public final class Proto {
     internal_static_what_the_hack_Employee_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_what_the_hack_Employee_descriptor,
-        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "VisualStyle", "HairStyleMale", "HairStyleFemale", "Gender", "SkillSet", "EmployeeSpecials", "Flipped", "AnimState", });
+        new java.lang.String[] { "Name", "SurName", "Salary", "CurrentTileNumber", "OccupiedTileNumber", "UsedScore", "FreeScore", "IsEmployed", "HairColor", "EyeColor", "SkinColor", "ShirtColor", "TrouserColor", "ShoeColor", "VisualStyle", "HairStyleMale", "HairStyleFemale", "Gender", "SkillSet", "EmployeeSpecials", "Flipped", "AnimState", "State", "MissionNumber", });
     internal_static_what_the_hack_EmployeeManager_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_what_the_hack_EmployeeManager_fieldAccessorTable = new

@@ -70,7 +70,7 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
     /**
      * Refreshes the available employees in the job market.
      */
-    public void refreshAvailableEmployees() {
+    private void refreshAvailableEmployees() {
 
         removeAvailableEmployees(REFRESH_RATE);
         populateAvailableEmployees();
@@ -95,7 +95,7 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
     /**
      * Adds as many new Employees to the available employees until the max number is reached.
      */
-    public void populateAvailableEmployees() {
+    private void populateAvailableEmployees() {
 
         int missing = MAX_AVAILABLE_EMPLOYEES - availableEmployees.size() + RandomUtils.randomIntWithin(-AVAILABLE_EMPLOYEES_VARIANCE, AVAILABLE_EMPLOYEES_VARIANCE);
         if (missing > 0) availableEmployees.addAll(EmployeeFactory.createEmployees(missing, teamManager.calcGameProgress()));
@@ -146,7 +146,7 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
     }
 
     /**
-     * Dismisses the whole teamManager.
+     * Dismisses the whole team.
      */
     public void dismissAll() {
         for (int i = hiredEmployees.size() - 1; i > 0; i--) {

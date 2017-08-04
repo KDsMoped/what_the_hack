@@ -100,8 +100,8 @@ public class GameStage extends Stage implements EventListener{
 
         InitRootObjects();
         InitInterior();
-        InitTeam();
         InitEquipment();
+        InitTeam();
         InitUI();
         InitSaveGameList();
 
@@ -251,6 +251,7 @@ public class GameStage extends Stage implements EventListener{
 
         for (Employee e : employeeManager.getHiredEmployees()) {
             e.initEmployeePosition();
+            e.restoreWorkingState();
         }
 
         EquipmentManager.instance().initBasicEquipment();

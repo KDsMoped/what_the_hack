@@ -16,6 +16,7 @@ import de.hsd.hacking.Utils.Constants;
 public class WorkingState extends EmployeeState implements EventListener {
 
     private Vector2 workingPosition;
+
     private Computer computer;
     private float timeBeforeIdle;
     private float elapsedTime = 0f;
@@ -113,5 +114,13 @@ public class WorkingState extends EmployeeState implements EventListener {
             default:
                 break;
         }
+    }
+
+    public Vector2 getWorkingPosition() {
+        return workingPosition;
+    }
+
+    public Computer getComputer() {
+        return computer;
     }
 }

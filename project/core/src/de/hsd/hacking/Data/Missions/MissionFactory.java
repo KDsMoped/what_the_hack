@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.hsd.hacking.Data.DataLoader;
 import de.hsd.hacking.Entities.Employees.Skill;
+import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.RandomUtils;
 
@@ -26,12 +27,21 @@ public final class MissionFactory {
     private static final float SKILL_DIFFICULTY_VARIANCE = 0.3f;
 
     /**
-     * Create a new random mission object with the required skill values based on the given difficulty.
+     * Creates and returns a new random mission object based on the players game progress.
+     *
+     * @return
+     */
+    public static Mission CreateMission(){
+        return CreateMission(TeamManager.instance().calcGameProgress());
+    }
+
+    /**
+     * Creates and returns a new random mission object with the required skill values based on the given difficulty.
      *
      * @param difficulty
      * @return Random mission with defined difficulty.
      */
-    public static Mission CreateRandomMission(int difficulty) {
+    public static Mission CreateMission(int difficulty) {
         Mission mission = DataLoader.getInstance().getNewMission(difficulty);
 
         ReplacePlaceholders(mission);
@@ -139,7 +149,7 @@ public final class MissionFactory {
     }
 
     /**
-     * Replaces the %XXX% placeholders in mission data with random data.
+     * Replaces the %XXX% placeholders in mission data with random respective data from missionVariables.json.
      *
      * @param mission
      */
@@ -161,6 +171,12 @@ public final class MissionFactory {
         ReplacePlaceholder(mission, "%INSTITUTION%", dl.getNewInstitution());
     }
 
+    /**
+     * Replaces the {@param placeholder} with the given {@param token} for the given {@param mission}.
+     * @param mission
+     * @param placeholder
+     * @param token
+     */
     private static void ReplacePlaceholder(Mission mission, String placeholder, String token) {
         mission.setName(mission.getName().replaceAll(placeholder, token));
         mission.setDescription(mission.getDescription().replaceAll(placeholder, token));

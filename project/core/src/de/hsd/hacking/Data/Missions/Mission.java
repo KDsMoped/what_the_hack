@@ -65,13 +65,6 @@ public class Mission implements EventSender, DataContainer {
         notifyListeners(EventListener.EventType.MISSION_ABORTED);
     }
 
-    /**
-     * Pause the mission.
-     */
-    public void Pause() {
-
-    }
-
     @Override
     public void addListener(EventListener listener) {
         listeners.add(listener);

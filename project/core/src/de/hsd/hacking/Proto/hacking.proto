@@ -127,7 +127,10 @@ message Employee {
   repeated EmployeeSpecial employeeSpecials = 20;
   bool flipped = 21;
   AnimState animState = 22;
+  EmployeeState state = 23;
+  int32 missionNumber = 24;
 
+  
   enum VisualStyle{
     DEFAULT = 0;
     TRUMP = 1;
