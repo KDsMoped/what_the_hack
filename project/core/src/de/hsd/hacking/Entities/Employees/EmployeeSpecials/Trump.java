@@ -1,12 +1,19 @@
 package de.hsd.hacking.Entities.Employees.EmployeeSpecials;
 
+import de.hsd.hacking.Entities.Employees.EmojiBubbleFactory;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Team.TeamManager;
+import de.hsd.hacking.Utils.RandomUtils;
 
 public class Trump extends EmployeeSpecial {
 
     public Trump(Employee employee) {
         super(employee);
+    }
+
+    @Override
+    public void timeStepChanged(int step){
+        if(RandomUtils.randomInt(5) == 1) EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.TWITTER, employee);
     }
 
     @Override

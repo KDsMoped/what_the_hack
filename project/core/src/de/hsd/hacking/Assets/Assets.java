@@ -52,6 +52,7 @@ public class Assets {
     public TextureRegion emoji_ok;
     public TextureRegion emoji_no;
     public TextureRegion emoji_levelup;
+    public TextureRegion emoji_twitter;
 
     public Array<TextureRegion> floor_tiles;
     public Array<TextureRegion> character_1_m;
@@ -184,6 +185,7 @@ public class Assets {
         emoji_ok = character_atlas.findRegion("Emojis/ok");
         emoji_no = character_atlas.findRegion("Emojis/no");
         emoji_levelup = character_atlas.findRegion("Emojis/levelup");
+        emoji_twitter = character_atlas.findRegion("Emojis/twitter");
 
         mainmenu_bg = new Array<TextureRegion>();
         mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));
