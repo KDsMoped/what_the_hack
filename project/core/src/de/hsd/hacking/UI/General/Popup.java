@@ -87,17 +87,6 @@ public abstract class Popup extends Group {
         addActor(mainTable);
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
-
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-    }
-
     /**
      * Enables act and draw for the popup window.
      */

@@ -143,6 +143,7 @@ public class EmployeeFactory {
 
         trump.setGender(Proto.Employee.Gender.MALE);
         trump.setName("Tonald", "Drump");
+        trump.addEmployeeSpecial(new Trump(trump));
 
         //spend score points on random attributes and skills
         learnBasicSkillSet(trump);

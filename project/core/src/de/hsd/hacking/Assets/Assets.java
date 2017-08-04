@@ -72,6 +72,10 @@ public class Assets {
     public Array<TextureRegionDrawable> clock_icon;
     public Array<TextureRegionDrawable> loading_bar;
 
+    public TextureRegionDrawable ui_icon_exit;
+    public TextureRegionDrawable ui_icon_team;
+    public TextureRegionDrawable ui_icon_shop;
+    public TextureRegionDrawable ui_icon_jobs;
     public TextureRegionDrawable ui_calendar;
     public TextureRegionDrawable skill_icon_social;
     public TextureRegionDrawable skill_icon_software;
@@ -221,6 +225,10 @@ public class Assets {
             clock_icon.add(new TextureRegionDrawable(t));
         }
 
+        ui_icon_exit = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Exit"));
+        ui_icon_team = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Team"));
+        ui_icon_shop = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Shop"));
+        ui_icon_jobs = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Jobs"));
         ui_calendar = new TextureRegionDrawable(ui_atlas.findRegion("calendar"));
         ui_up_arrow_inverted = new TextureRegionDrawable(ui_atlas.findRegion("up_arrow_inverted"));
 
@@ -289,7 +297,6 @@ public class Assets {
             case MALE:
                 return getMaleBody(maleHairstyle);
             case FEMALE:
-
                 return getFemaleBody(femaleHairstyle);
             case UNDECIDED:
                 Gdx.app.error("", "Error: There is no face for no gender.");

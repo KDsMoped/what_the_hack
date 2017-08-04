@@ -178,7 +178,6 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
     public void completeMission(final Mission mission1) {
         if (activeMissions.remove(mission1)) {
             completedMissions.add(mission1);
-            messageManager.Info("Job " + mission1.getName() + ": " + mission1.getSuccessText());
             Gdx.app.log(Constants.TAG, "Job " + mission1.getName() + ": " + mission1.getSuccessText());
 
             int money = mission1.getRewardMoney();
@@ -447,36 +446,5 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
         }
 
         return builder.build();
-    }
-
-    /**
-     * Restores the missions from a previous game.
-     *
-     * @return True if missions where loaded.
-     */
-    public Boolean Load() {
-        Proto.MissionManager.Builder proto = SaveGameManager.getMissionManager();
-        if (proto != null) {
-            currentMissionNumber = proto.getCurrentMissionNumber();
-
-            for (Proto.Mission mission : proto.getOpenMissionsList()) {
-                openMissions.add(new Mission(mission.toBuilder()));
-            }
-
-            for (Proto.Mission mission : proto.getActiveMissionsList()) {
-                activeMissions.add(new Mission(mission.toBuilder()));
-            }
-
-            for (Proto.Mission mission : proto.getCompletedMissionsList()) {
-                completedMissions.add(new Mission(mission.toBuilder()));
-            }
-
-            for (Proto.MissionWorker worker : proto.getWorkersList()) {
-                runningMissionWorkers.add(new MissionWorker(worker.toBuilder()));
-            }
-
-            return true;
-        }
-        return false;
     }
 }

@@ -64,8 +64,8 @@ public class Computer extends Equipment implements Upgradable {
     public int getComputationPowerBonus() { return data.getLevel() * 100; }
 
     @Override
-    public void setPurchased(boolean isPurchased) {
-        super.setPurchased(isPurchased);
+    public void onPurchase(boolean isPurchased) {
+        super.onPurchase(isPurchased);
 
         if (workspace != null)
             workspace.addComputer(this);

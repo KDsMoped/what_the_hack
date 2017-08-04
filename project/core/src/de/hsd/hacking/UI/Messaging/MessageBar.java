@@ -346,7 +346,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
         return builder.build();
     }
 
-    public Boolean Load() {
+    public void Load() {
         if (SaveGameManager.getMessageBar() != null) {
             for (Proto.Message m:SaveGameManager.getMessageBar().getMessagesList()) {
                 NewMessage(new Message(m.toBuilder()));
@@ -355,9 +355,6 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
                 ToggleView();
                 ToggleView();
             }
-            return true;
         }
-        else
-            return false;
     }
 }
