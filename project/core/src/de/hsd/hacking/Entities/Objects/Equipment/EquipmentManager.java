@@ -112,7 +112,7 @@ public class EquipmentManager implements Manager, ProtobufHandler {
 
         shopItems.remove(equipment);
         purchasedItems.add(equipment);
-        equipment.setPurchased(true);
+        equipment.onPurchase(true);
         teamManager.updateResources();
 
         notifyRefreshListeners();
@@ -130,24 +130,16 @@ public class EquipmentManager implements Manager, ProtobufHandler {
 
 //        Gdx.app.log(Constants.TAG, "upgrading " + equipment.getName() + " for " + price + "$.");
 
-        if(equipment.getLevel() >= ((Upgradable) equipment).getMaxLevel()) {
-            finishItem(equipment);
-        }
-
         notifyRefreshListeners();
         return 0;
     }
 
-    private void finishItem(Equipment equipment) {
-
-
-    }
 
     public Collection<Equipment> getShopItemList() { return Collections.unmodifiableList(shopItems); }
     public Collection<Equipment> getPurchasedItemList() { return Collections.unmodifiableList(purchasedItems); }
 
 
-    public void addRefreshEmployeeListener(Callback callback) {
+    public void addRefreshEquipmentListener(Callback callback) {
         if (!refreshEquipmentListener.contains(callback)) refreshEquipmentListener.add(callback);
     }
 
@@ -219,42 +211,42 @@ public class EquipmentManager implements Manager, ProtobufHandler {
                     CoffeeMachine coffee = new CoffeeMachine();
                     coffee.setLevel(equipment.getLevel());
                     coffee.setPrice(equipment.getPrice());
-                    coffee.setPurchased(true);
+                    coffee.onPurchase(true);
                     purchasedItems.add(coffee);
                     break;
                 case Computer:
                     Computer comp = new Computer(equipment.getName(), null);
                     comp.setLevel(equipment.getLevel());
                     comp.setPrice(equipment.getPrice());
-                    comp.setPurchased(true);
+                    comp.onPurchase(true);
                     purchasedItems.add(comp);
                     break;
                 case HardwareStation:
                     HardwareStation hw = new HardwareStation();
                     hw.setLevel(equipment.getLevel());
                     hw.setPrice(equipment.getPrice());
-                    hw.setPurchased(true);
+                    hw.onPurchase(true);
                     purchasedItems.add(hw);
                     break;
                 case Modem:
                     Modem modem = new Modem();
                     modem.setLevel(equipment.getLevel());
                     modem.setPrice(equipment.getPrice());
-                    modem.setPurchased(true);
+                    modem.onPurchase(true);
                     purchasedItems.add(modem);
                     break;
                 case Router:
                     Router router = new Router();
                     router.setLevel(equipment.getLevel());
                     router.setPrice(equipment.getPrice());
-                    router.setPurchased(true);
+                    router.onPurchase(true);
                     purchasedItems.add(router);
                     break;
                 case Server:
                     Server server = new Server();
                     server.setLevel(equipment.getLevel());
                     server.setPrice(equipment.getPrice());
-                    server.setPurchased(true);
+                    server.onPurchase(true);
                     purchasedItems.add(server);
                     break;
             }

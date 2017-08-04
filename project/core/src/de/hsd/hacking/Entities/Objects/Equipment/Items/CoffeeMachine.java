@@ -52,8 +52,8 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     public int getAllPurposeSkillBonus() { return data.getLevel(); }
 
     @Override
-    public void setPurchased(boolean isPurchased) {
-        super.setPurchased(isPurchased);
+    public void onPurchase(boolean isPurchased) {
+        super.onPurchase(isPurchased);
 
         TileMap tileMap = GameStage.instance().getTileMap();
 
