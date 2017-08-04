@@ -6,6 +6,10 @@ import de.hsd.hacking.Data.GameTime;
 import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.HackingGame;
 
+/**
+ * Manages different game screens. Disposes resources on change.
+ * @author Florian
+ */
 public class ScreenManager {
 
     private static HackingGame game;

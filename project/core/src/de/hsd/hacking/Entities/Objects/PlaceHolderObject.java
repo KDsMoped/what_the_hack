@@ -4,6 +4,10 @@ import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 
+/**
+ * Object that propagates inputs to another object. Used for Objects that occupy more than one tile.
+ * @author Florian
+ */
 public class PlaceHolderObject extends Object implements Interactable {
 
 

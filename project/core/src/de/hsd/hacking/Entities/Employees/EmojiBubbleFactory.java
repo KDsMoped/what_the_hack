@@ -6,9 +6,16 @@ import de.hsd.hacking.Assets.AudioManager;
 import de.hsd.hacking.Entities.Entity;
 import de.hsd.hacking.Stages.GameStage;
 
+/**
+ * Singleton that creates {@link EmojiBubble} instances.
+ */
 public class EmojiBubbleFactory {
 
     public static EmojiBubbleFactory instance = new EmojiBubbleFactory();
+
+    private EmojiBubbleFactory() {
+
+    }
 
     public enum EmojiType {
         SUCCESS, FAILURE, OK, NO, SPEAKING, LEVELUP, TWITTER

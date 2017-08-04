@@ -30,7 +30,6 @@ import de.hsd.hacking.Data.Messaging.MessageManager;
 import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Missions.Mission;
 import de.hsd.hacking.Data.Missions.MissionManager;
-import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Data.Tile.TileMovementProvider;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.EmployeeSpecial;
 import de.hsd.hacking.Entities.Employees.EmployeeSpecials.Risky;
@@ -64,6 +63,7 @@ import static de.hsd.hacking.Entities.Employees.EmployeeFactory.SCORE_MISSION_CR
 public class Employee extends Entity implements Comparable<Employee>, Touchable, DataContainer {
     private Proto.Employee.Builder data;
 
+    //Helper ints for getting animation information.
     private final int SHADOW = 0;
     private final int BODY = 1;
 
@@ -72,26 +72,11 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     private boolean touched;
     private boolean selected;
 
-//    public enum EmployeeSkillLevel {
-//        NOOB, INTERMEDIATE, PRO, WIZARD;
-//
-//        private static final EmployeeSkillLevel[] VALUES = values();
-//        public static final int SIZE = VALUES.length;
-//
-//        public static EmployeeSkillLevel getRandomSkillLevel() {
-//            return VALUES[MathUtils.random(SIZE - 1)];
-//        }
-//    }
-
     //Graphics
     private Assets assets;
     private Animation<TextureRegion>[][] animations;
-    private FrameBuffer fbo;
-    private Texture frameBufferTexture;
-    private TextureRegion frameBufferTextureRegion;
 
     private ShaderProgram colorShader;
-    private ShaderProgram outlineShader;
 
     //Data
     private ArrayList<Skill> skillSet;
@@ -226,7 +211,7 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         movementProvider = GameStage.instance().getTileMap();
         int tileNr = data.getCurrentTileNumber();
 
-        if (tileNr == -1) setStartingTile(GameStage.instance().getTileMap().getStartTile(this));
+        if (tileNr == -1) setStartingTile(GameStage.instance().getTileMap().findAndSetStartTile(this));
         else setStartingTile(GameStage.instance().getTileMap().getTile(tileNr));
     }
 
@@ -303,12 +288,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      * Initializes the colorShader for this employee.
      */
     private void setUpShader() {
-
-        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int) GameStage.VIEWPORT_WIDTH, (int) GameStage.VIEWPORT_HEIGHT, false);
-        this.frameBufferTexture = fbo.getColorBufferTexture();
-        this.frameBufferTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        this.frameBufferTextureRegion = new TextureRegion(frameBufferTexture);
-        frameBufferTextureRegion.flip(false, true);
 
         this.colorShader = new ShaderProgram(Shader.VERTEX_SHADER, Shader.getEmployeeFragmentShader(
                 Color.valueOf(data.getHairColor()),

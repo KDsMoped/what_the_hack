@@ -20,6 +20,10 @@ import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.UI.General.LoadingBar;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * Overlay that shows current mission status.
+ * @author Florian
+ */
 public class MissionStatusOverlay extends Group implements TimeChangedListener {
 
     private final Label dayLabel;

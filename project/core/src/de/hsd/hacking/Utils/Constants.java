@@ -12,6 +12,10 @@ import java.text.SimpleDateFormat;
 
 import de.hsd.hacking.Assets.Assets;
 
+/**
+ * Class holding constant values.
+ * @author Florian, Hendrik
+ */
 public class Constants {
 
     public static final String TAG = "HackingGame";

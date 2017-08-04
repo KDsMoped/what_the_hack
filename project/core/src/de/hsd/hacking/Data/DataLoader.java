@@ -26,14 +26,14 @@ public class DataLoader {
     private static ArrayList<MissionHolder> missions;
     private static MissionVariablesHolder missionVariables;
 
-    public static DataLoader getInstance(){
+    public static DataLoader getInstance() {
         if (INSTANCE == null){
             INSTANCE = new DataLoader();
         }
         return INSTANCE;
     }
 
-    private DataLoader(){
+    private DataLoader() {
 
         FileHandle employeeNames = Gdx.files.internal("data/names.json");
 

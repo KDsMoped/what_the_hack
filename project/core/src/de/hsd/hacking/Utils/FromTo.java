@@ -1,5 +1,8 @@
 package de.hsd.hacking.Utils;
 
+/**
+ * Helper class.
+ */
 public class FromTo {
     public int from;
     public int to;

@@ -13,13 +13,15 @@ import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 import de.hsd.hacking.Entities.Objects.Interactable;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * State that represents the employee working on a mission.
+ * @author Florian.
+ */
 public class WorkingState extends EmployeeState implements EventListener {
 
     private Vector2 workingPosition;
 
     private Computer computer;
-    private float timeBeforeIdle;
-    private float elapsedTime = 0f;
     private boolean workingOnMission;
     private boolean missionFinished;
 
@@ -69,9 +71,6 @@ public class WorkingState extends EmployeeState implements EventListener {
             } else {
                 cancel();
             }
-        } else {
-            this.timeBeforeIdle = MathUtils.random(10f, 30f);
-            this.workingOnMission = false;
         }
     }
 

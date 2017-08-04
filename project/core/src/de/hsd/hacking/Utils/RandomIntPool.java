@@ -3,6 +3,10 @@ package de.hsd.hacking.Utils;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/**
+ * Helper class that can hold multiple integer values and return a random value out of them.
+ * @author Florian
+ */
 public class RandomIntPool {
 
     private LinkedList<Integer> numbers;

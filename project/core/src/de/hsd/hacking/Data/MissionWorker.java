@@ -27,11 +27,13 @@ public class MissionWorker implements TimeChangedListener {
     private List<MissionSkillRequirement> skillRequirements;
     private List<Employee> employees;
 
+    /**
+     * Initializes MissionWorker using values from given mission.
+     * @param mission1 Mission to initialize MissionWorker with.
+     */
     public MissionWorker(final Mission mission1) {
         this.mission = mission1;
-
         data = Proto.MissionWorker.newBuilder();
-
         data.setRemainingDays(mission.getDuration());
         skillRequirements = new ArrayList<MissionSkillRequirement>(4);
         employees = new ArrayList<Employee>(4);
@@ -65,7 +67,10 @@ public class MissionWorker implements TimeChangedListener {
         employees.add(employee);
     }
 
-
+    /**
+     * Gets called by GameTime. Calculates Mission progress if employees are currently working on mission.
+     * @param step Current time step (0-8). Not used here.
+     */
     @Override
     public void timeStepChanged(final int step) {
         if (!employees.isEmpty() && !mission.isFinished()) {
@@ -74,7 +79,8 @@ public class MissionWorker implements TimeChangedListener {
     }
 
     /**
-     * Gets called every clock step (every ~5s)
+     * Gets called every clock step (every ~5s).
+     * Calculates progress and checks if mission is already finished.
      */
     private void calculateMissionStep() {
         for (Employee em
@@ -82,15 +88,18 @@ public class MissionWorker implements TimeChangedListener {
             for (MissionSkillRequirement req
                     : skillRequirements) {
                 //if requirement is already met, don't work on skill
-                if (req.getCurrentValue() >= req.getValueRequired()){continue;}
+                if (req.getCurrentValue() >= req.getValueRequired()) {
+                    continue;
+                }
                 int value = em.getSkillValue(req.getSkillType());
                 workOnSkill(em, req, value);
             }
         }
         if (alreadyDone()) {
             mission.setFinished(true);
-            if (DEBUG)
+            if (DEBUG) {
                 Gdx.app.log(Constants.TAG, "Mission already over!");
+            }
             mission.notifyListeners(EventListener.EventType.MISSION_FINISHED);
             mission.setCompleted(true);
         }
@@ -99,7 +108,7 @@ public class MissionWorker implements TimeChangedListener {
     /**
      * Gets called every step. Calculates an employees contribution to the overall skill requirement.
      * @param em Employee that is working
-     * @param req The required Skill Object that holds the required and current skill values
+     * @param req The required Skill Object that holds the required and current skill values.
      * @param value The employees skill value for that paricular skill
      */
     private void workOnSkill(final Employee em, final MissionSkillRequirement req, final int value) {
@@ -120,6 +129,10 @@ public class MissionWorker implements TimeChangedListener {
         }
     }
 
+    /**
+     * Checks if all mission requirements are met.
+     * @return True if mission requirements are met.
+     */
     private boolean alreadyDone() {
         int notFinishedSkills = 0;
         for (MissionSkillRequirement skillReq
@@ -132,23 +145,30 @@ public class MissionWorker implements TimeChangedListener {
     }
 
 
+    /**
+     * Gets called by GameTime on day change.
+     * @param days new day in the range 1-365
+     */
     @Override
     public void dayChanged(final int days) {
         if (!mission.isFinished()) {
-            if (DEBUG)
-                Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() +  " Remaining mission days: " + data.getRemainingDays());
+            if (DEBUG) {
+                Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() + " Remaining mission days: " + data.getRemainingDays());
+            }
             for (MissionSkillRequirement req
                     : skillRequirements) {
-                if (DEBUG)
+                if (DEBUG) {
                     Gdx.app.log(Constants.TAG, "Skill " + req.getSkillType().getDisplayName() + "(Current: " + req.getCurrentValue() + ", Needed: " + req.getValueRequired() + ")");
+                }
             }
 
             data.setRemainingDays(data.getRemainingDays() - 1);
 
             if (data.getRemainingDays() == 0) {
                 mission.setFinished(true);
-                if (DEBUG)
+                if (DEBUG) {
                     Gdx.app.log(Constants.TAG, "Mission over!");
+                }
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
                 for (MissionSkillRequirement skillReq
                         : skillRequirements) {

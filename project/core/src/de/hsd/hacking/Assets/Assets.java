@@ -16,11 +16,13 @@ import com.badlogic.gdx.audio.Sound;
 
 import de.hsd.hacking.Proto;
 
+/**
+ * Holds all game assets and manages loading an disposing them.
+ * @author Florian
+ */
 public class Assets {
 
     private static Assets instance;
-
-
 
     public static Assets instance() {
         return instance;
@@ -55,16 +57,16 @@ public class Assets {
     public TextureRegion emoji_twitter;
 
     public Array<TextureRegion> floor_tiles;
-    public Array<TextureRegion> character_1_m;
-    public Array<TextureRegion> character_2_m;
+    private Array<TextureRegion> character_1_m;
+    private Array<TextureRegion> character_2_m;
     private Array<TextureRegion> character_3_m;
     private Array<TextureRegion> character_4_m;
-    public Array<TextureRegion> character_1_f;
-    public Array<TextureRegion> character_2_f;
+    private Array<TextureRegion> character_1_f;
+    private Array<TextureRegion> character_2_f;
     private Array<TextureRegion> character_3_f;
     private Array<TextureRegion> character_4_f;
-    public Array<TextureRegion> character_trump;
-    public Array<TextureRegion> char_shadow;
+    private Array<TextureRegion> character_trump;
+    private Array<TextureRegion> char_shadow;
     public Array<TextureRegion> computer;
     public Array<TextureRegion> coffeemachine;
     public Array<TextureRegion> mainmenu_bg;
@@ -143,7 +145,7 @@ public class Assets {
         gold_font_small = new BitmapFont(Gdx.files.internal("fonts/upheaval_small.fnt"), Gdx.files.internal("fonts/small_gold_highlight.png"), false);
         gold_font_small.getData().setScale(.5f);
 
-        //synchrones Laden. Für mehrere Assets nicht so gut.
+        //Synchrones Laden. Für mehrere Assets nicht so gut.
         //Dann muss in der render-Methode des aktuellen Screens manager.update() aufgerufen werden.
         //Die Methode gibt dann true zurück wenn fertig geladen wurde. Erst danach dürfen die Referenzen gesetzt werden
         manager.finishLoading();

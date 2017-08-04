@@ -13,7 +13,7 @@ import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
  * This is the base class for every Item, providing basic Equipment functionality.
  * Objects implementing this class need to override the respective methods for desired
  * behavior.
- * @author Dominik
+ * @author Dominik, Florian
  */
 
 public abstract class Equipment extends TouchableInteractableObject implements DataContainer {

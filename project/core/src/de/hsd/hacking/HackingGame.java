@@ -5,6 +5,10 @@ import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Data.SaveGameManager;
 import de.hsd.hacking.Screens.ScreenManager;
 
+/**
+ * Main Game class.
+ * @author Florian
+ */
 public class HackingGame extends Game {
 
 	private Assets assets;

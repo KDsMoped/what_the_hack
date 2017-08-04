@@ -12,6 +12,11 @@ import de.hsd.hacking.Entities.Tile;
 import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * State in which an employee moves from point a to b. If b holds an interactable object,
+ * the employee interacts with it on reaching it.
+ * @author Florian.
+ */
 public class MovingState extends EmployeeState {
 
     private Tile nextTile;
@@ -131,6 +136,9 @@ public class MovingState extends EmployeeState {
         employee.setAnimationState(Proto.Employee.AnimState.MOVING);
     }
 
+    /**
+     * Checks if occupying tile number in employee is reflected in tile map. Throws an exception if that is not the case.
+     */
     @Override
     public void leave() {
 
@@ -153,9 +161,9 @@ public class MovingState extends EmployeeState {
 
     }
 
-    private void switchCurrentAndNextTiles(final Tile currentTile, final Tile nextTile) {
-        if (currentTile != null && nextTile != null) {
-            this.currentTile = nextTile;
+    private void switchCurrentAndNextTiles(final Tile currentTile1, final Tile nextTile1) {
+        if (currentTile1 != null && nextTile1 != null) {
+            this.currentTile = nextTile1;
             this.currentTile.addEmployeeToDraw(employee);
         }
     }

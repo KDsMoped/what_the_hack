@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Entity;
 
+/**
+ * Parent class of all game objects that can be set in the tile map.
+ * @author Florian
+ */
 public abstract class Object extends Entity {
 
     protected TextureRegion drawableRegion;

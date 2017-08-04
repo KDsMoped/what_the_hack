@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 
 import de.hsd.hacking.Data.ColorHolder;
 
+/**
+ * Shader for changing visual appearance.
+ * @author Florian
+ */
 public class Shader {
 
     public static final String VERTEX_SHADER = "attribute vec4 a_position;    \n" +
@@ -86,6 +90,16 @@ public class Shader {
             "}" +
         "}";
 
+    /**
+     * Creates a custom colorShader and returns it.
+     * @param hairColor
+     * @param skinColor
+     * @param shirtColor
+     * @param trousersColor
+     * @param eyeColor
+     * @param shoeColor
+     * @return Shader with given colorValues.
+     */
     public static String getEmployeeFragmentShader(Color hairColor, Color skinColor, Color shirtColor, Color trousersColor,
                                                    Color eyeColor, Color shoeColor){
         String trousers = trousersColor.r + "," +trousersColor.g + "," + trousersColor.b;

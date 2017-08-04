@@ -17,6 +17,10 @@ import de.hsd.hacking.Entities.Employees.Employee;
 import de.hsd.hacking.Entities.Objects.Object;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * One single Tile that holds data of entities that are on this tile.
+ * Draws entities on it.
+ */
 public class Tile extends Actor {
 
 
@@ -59,7 +63,7 @@ public class Tile extends Actor {
         this.occupyingEmployee = newOccupyingEmployee;
     }
 
-    public boolean isMovableTo(){
+    public boolean isMovableTo() {
         return occupyingEmployee == null && (object == null || !object.isBlocking());
     }
 
@@ -79,19 +83,17 @@ public class Tile extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (Constants.DEBUG){
+        if (Constants.DEBUG) {
             drawDebug(batch);
         }
 
-        if (object != null){
+        if (object != null) {
             object.draw(batch, parentAlpha);
         }
-        /*if(occupyingEmployee != null && (occupyingEmployee.getAnimationState() != Employee.AnimState.MOVING)){
-            occupyingEmployee.draw(batch, parentAlpha);
-        }*/
 
-        if(employeesToDraw.size() > 0){
-            if (employeesToDraw.size() > 1){
+
+        if (employeesToDraw.size() > 0) {
+            if (employeesToDraw.size() > 1) {
                 Collections.sort(employeesToDraw);
             }
 
@@ -103,7 +105,7 @@ public class Tile extends Actor {
 
     @Override
     public void act(float delta) {
-        if (object != null){
+        if (object != null) {
             this.object.act(delta);
         }
     }
@@ -149,9 +151,9 @@ public class Tile extends Actor {
         testRenderer.setTransformMatrix(batch.getTransformMatrix());
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        if (isMovableThrough()){
-            if (occupyingEmployee == null){
-                if (employeesToDraw.size() > 0){
+        if (isMovableThrough()) {
+            if (occupyingEmployee == null) {
+                if (employeesToDraw.size() > 0) {
                     testRenderer.setColor( Color.YELLOW.cpy().sub(0,0,0, .5f));
                 }else{
                     testRenderer.setColor( Color.RED.cpy().sub(0,0,0, .75f));

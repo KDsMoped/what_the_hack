@@ -7,6 +7,10 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.RandomUtils;
 
+/**
+ * State in which an employee does "nothing" for a random amount of (real-time) seconds.
+ * @author Florian.
+ */
 public class IdleState extends EmployeeState {
 
     private float elapsedTime = 0f;
@@ -21,7 +25,7 @@ public class IdleState extends EmployeeState {
     @Override
     public EmployeeState act(float deltaTime) {
         elapsedTime += deltaTime;
-        if (elapsedTime >= stayTime){
+        if (elapsedTime >= stayTime) {
             return new MovingState(employee);
         }
 

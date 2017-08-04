@@ -1,5 +1,9 @@
 package de.hsd.hacking.Data;
 
+/**
+ * Interface methods for an object that has to be notified about the passage of game time.
+ * @author Florian
+ */
 public interface TimeChangedListener {
 
     /**

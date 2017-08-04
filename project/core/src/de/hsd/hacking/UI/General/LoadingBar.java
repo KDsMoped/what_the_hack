@@ -9,6 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Utils.Constants;
 
+/**
+ * Visual representation of the value of a current state in comparison to the max value. Animated.
+ * @author Florian
+ */
 public class LoadingBar extends Actor {
 
     private static final int SEGMENT_AMOUNT = 10;
@@ -28,7 +32,7 @@ public class LoadingBar extends Actor {
     private float speedAdjust;
     private boolean full;
 
-    public LoadingBar(){
+    public LoadingBar() {
         bar = Assets.instance().loading_bar.get(0).getRegion();
         segment = Assets.instance().loading_bar.get(1).getRegion();
         segment_active = Assets.instance().loading_bar.get(2).getRegion();
@@ -39,7 +43,7 @@ public class LoadingBar extends Actor {
         speedAdjust = 2f;
     }
 
-    public void set(float current, float max){
+    public void set(float current, float max) {
         if (current >= max) {
             Gdx.app.log(Constants.TAG, "Full = true");
             this.full = true;
@@ -50,13 +54,10 @@ public class LoadingBar extends Actor {
                 float change = (current - this.current);
                 if (change <= VALUE_PER_STEP_SLOW) {
                     speedAdjust = 2f;
-                    Gdx.app.log(Constants.TAG, "SLOW CHANGE");
                 } else if (change <= VALUE_PER_STEP_MEDIUM) {
                     speedAdjust = 1f;
-                    Gdx.app.log(Constants.TAG, "MEDIUM CHANGE");
                 } else {
                     speedAdjust = 0.5f;
-                    Gdx.app.log(Constants.TAG, "FAST CHANGE");
                 }
                 active = true;
             }
@@ -83,6 +84,11 @@ public class LoadingBar extends Actor {
         }
     }
 
+    /**
+     * Animation method
+     * @param i number of segment.
+     * @return Whether segment should have "blinking" state
+     */
     private boolean blink(int i) {
         return (elapsedTime % (BLINK_EVERY * speedAdjust) >= i * LIGHT_UP_TIME * speedAdjust) &&
                 (elapsedTime % (BLINK_EVERY * speedAdjust) < (i + 1) * LIGHT_UP_TIME * speedAdjust);

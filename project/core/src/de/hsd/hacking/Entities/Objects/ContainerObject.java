@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Direction;
 
+/**
+ * Object that can hold other objects.
+ * @author Florian
+ */
 public abstract class ContainerObject extends Object {
 
     private Object[] containedObjects;
@@ -39,8 +43,13 @@ public abstract class ContainerObject extends Object {
         return containedObjects[slot];
     }
 
+    /**
+     * Sets an object in the given slot if slot is empty.
+     * @param containedObject Object to be set.
+     * @param slot slotNumber that should be used.
+     */
     public void setContainedObject(final Object containedObject, int slot) {
-        if (slot < 0 || slot >= maxContainedObjects || containedObjects[slot] != null){
+        if (slot < 0 || slot >= maxContainedObjects || containedObjects[slot] != null) {
             Gdx.app.error(Constants.TAG, "setContainedObject called with illegal slot parameter: " + slot);
             return;
         }
@@ -51,7 +60,7 @@ public abstract class ContainerObject extends Object {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         for (int i = 0; i < containedObjects.length; i++) {
-            if (isEmpty(i) == 0){
+            if (isEmpty(i) == 0) {
                 containedObjects[i].draw(batch, parentAlpha);
             }
         }
@@ -67,10 +76,15 @@ public abstract class ContainerObject extends Object {
         }
     }
 
+    /**
+     * Computes the drawing position of a contained object depending on the slot it is in.
+     * @param slot desired slot.
+     * @return
+     */
     public Vector2 getDrawPosition(int slot) {
         int yAdjust = 0;
         int xAdjust = 0;
-        switch (getOccupyDirection()){
+        switch (getOccupyDirection()) {
             case UP:
                 yAdjust = 1;
                 xAdjust = 1;

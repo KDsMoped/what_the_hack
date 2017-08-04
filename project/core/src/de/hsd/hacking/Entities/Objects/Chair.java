@@ -13,8 +13,11 @@ import de.hsd.hacking.Entities.Employees.States.EmployeeState;
 import de.hsd.hacking.Entities.Employees.States.WorkingState;
 import de.hsd.hacking.Entities.Objects.Equipment.Items.Computer;
 
+/**
+ * Chair for a computer. Returns working state when interacted with.
+ * @author Florian
+ */
 public class Chair extends InteractableObject {
-    private Array<TextureRegion> regions;
     private Computer computer;
 
     public Chair(Assets assets) {
@@ -39,7 +42,7 @@ public class Chair extends InteractableObject {
     }
 
     @Override
-    public void draw(Batch batch, float alpha){
+    public void draw(Batch batch, float alpha) {
         Vector2 drawPos = getPosition().sub(0, Constants.TILE_WIDTH / 4f);
         batch.draw(drawableRegion, drawPos.x, drawPos.y);
     }

@@ -3,6 +3,10 @@ package de.hsd.hacking.Entities.Objects;
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Utils.Direction;
 
+/**
+ * Class that generates simple objects.
+ * @author Florian
+ */
 public class ObjectFactory {
 
     public static Object generateObject(ObjectType type, Assets assets){

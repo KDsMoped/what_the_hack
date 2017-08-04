@@ -27,16 +27,9 @@ public interface TileMovementProvider extends MovementProvider {
      */
     Path getPathToTile(Tile startTile, Tile destinationTile);
 
-    /**
-     * Returns the tile to a given position
-     * @param position The position to search a tile for
-     * @return The found tile
-     */
-    Tile getTileWhileMoving(Vector2 position);
-
     Tile getDiscreteTile(Vector2 position);
 
     Tile getTile(int tileNumber);
 
-    Tile getStartTile(Employee employee);
+    Tile findAndSetStartTile(Employee employee);
 }

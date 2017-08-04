@@ -1,9 +1,8 @@
 package de.hsd.hacking.Data;
 
-import de.hsd.hacking.Entities.Employees.Employee;
-import de.hsd.hacking.Proto;
-
 import java.util.ArrayList;
+
+import de.hsd.hacking.Proto;
 
 public class NameHolder {
 

@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import de.hsd.hacking.Utils.Direction;
 
+/**
+ * Object that can be touched by the player and interacted with by the employees.
+ * @author Florian
+ */
 public abstract class TouchableInteractableObject extends TouchableObject implements Interactable {
 
     private boolean occupied;

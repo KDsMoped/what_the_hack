@@ -14,6 +14,10 @@ import de.hsd.hacking.Entities.Touchable;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Utils.Shader;
 
+/**
+ * Object that can be touched by the player.
+ * @author Florian
+ */
 public abstract class TouchableObject extends Object implements Touchable {
 
     private boolean touched;

@@ -4,6 +4,10 @@ import de.hsd.hacking.Data.DataContainer;
 import de.hsd.hacking.Data.Missions.SkillHolder;
 import de.hsd.hacking.Proto;
 
+/**
+ * Class that represents employees aptitude to do a certain thing well.
+ * @author Florian, Hendrik
+ */
 public class Skill implements Comparable<Skill>, DataContainer {
     private Proto.Skill.Builder data;
 
@@ -40,7 +44,7 @@ public class Skill implements Comparable<Skill>, DataContainer {
         return new SkillType(data.getType()).getDisplayName();
     }
 
-    public String getDisplayText(){
+    public String getDisplayText() {
 
         if(data.getValue() < 4 ) return "Newbie";
         if(data.getValue() <  6) return "Greenhorn";
@@ -54,9 +58,8 @@ public class Skill implements Comparable<Skill>, DataContainer {
         return "God";
     }
 
-    public String getDisplayValue(boolean includeText){
-
-        if(includeText) return getDisplayText() + " " + getDisplayValue(false) + "";
+    public String getDisplayValue(final boolean includeText) {
+        if (includeText) return getDisplayText() + " " + getDisplayValue(false) + "";
 
         if(data.getValue() < 10) return " " + String.valueOf(data.getValue());
         else return String.valueOf(data.getValue());

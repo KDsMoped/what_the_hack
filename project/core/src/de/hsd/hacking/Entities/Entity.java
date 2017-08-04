@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.gson.annotations.Expose;
 
+/**
+ * Parent class of all visual Actors in the game.
+ * @author Florian
+ */
 public abstract class Entity extends Actor {
 
     @Expose
@@ -25,7 +29,6 @@ public abstract class Entity extends Actor {
 
     public Vector2 getPosition() {
         return new Vector2(super.getX(), super.getY());
-//        return position.cpy();
     }
 
     public Vector2 getPositionReference(){
@@ -34,7 +37,6 @@ public abstract class Entity extends Actor {
 
     public void setPosition(Vector2 position) {
         super.setPosition(position.x, position.y);
-//        this.position.set(position);
     }
 
     public boolean isBlocking() {

@@ -9,6 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import de.hsd.hacking.Entities.Entity;
 
+/**
+ * Class representing small speech bubbles that appear over characters.
+ * @author
+ */
 public class EmojiBubble extends Actor {
 
     private TextureRegion emoji;

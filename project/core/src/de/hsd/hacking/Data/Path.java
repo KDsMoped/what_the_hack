@@ -5,6 +5,10 @@ import java.util.List;
 
 import de.hsd.hacking.Entities.Tile;
 
+/**
+ * Holds a List of tiles from point a to point b.
+ * @author Florian
+ */
 public class Path {
 
     private List<Tile> path;
@@ -13,8 +17,8 @@ public class Path {
         this.path = new ArrayList<Tile>();
     }
 
-    public void addToPath(Tile tile){
-        if (path.contains(tile)){
+    public void addToPath(final Tile tile) {
+        if (path.contains(tile)) {
             throw new IllegalArgumentException("Path can't contain more than one instance of the same tile");
         }
         path.add(tile);

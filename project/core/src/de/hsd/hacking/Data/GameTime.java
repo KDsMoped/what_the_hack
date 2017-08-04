@@ -25,7 +25,7 @@ public class GameTime extends Actor implements Manager, DataContainer {
      * Creates an instance of this manager.
      */
     public static void createInstance() {
-        if (instance != null){
+        if (instance != null) {
             Gdx.app.error("", "ERROR: Instance of GameTime has not been destroyed before creating new one.");
             return;
         }
@@ -34,8 +34,8 @@ public class GameTime extends Actor implements Manager, DataContainer {
     }
 
     /**
-     * Provides an instance of this manager;
-     * @return
+     * Provides an instance of this manager.
+     * @return GameTime instance.
      */
     public static GameTime instance() {
 
@@ -45,33 +45,39 @@ public class GameTime extends Actor implements Manager, DataContainer {
         return instance;
     }
 
+    /**
+     * Factor that maps real-life seconds to game time. One real second equals 0.025 Days in game.
+     * => One Day in game time equals 40 seconds in real life.
+     */
     private static final float SECONDS_TO_GAME_TIME_DAY_FACTOR = .025f;
+    /**
+     * Number of game time steps per day. Corresponds to clock asset states.
+     */
     private static final int CLOCK_STEPS = 9;
 
     private List<TimeChangedListener> timeChangedListeners;
 
     private GameTime() {
         data = Global.newBuilder();
-
         timeChangedListeners = new ArrayList<TimeChangedListener>(4);
     }
 
-//    public GameTime(Global.Builder data) {
-//        this.data = data;
-//
-//        timeChangedListeners = new ArrayList<TimeChangedListener>(4);
-//        instance = this;
-//    }
 
+    /**
+     * Update loop that gets called each frame.
+     * Notifies listeners of game time changes.
+     * @param delta time since last call in seconds.
+     */
     @Override
     public void act(float delta) {
         data.setTime(data.getTime() + delta * SECONDS_TO_GAME_TIME_DAY_FACTOR);
 
+        //TODO array Umwandlung?!
         //Day is over
         if (data.getTime() >= 1f) {
             data.setTime(0f);
             data.setDay(data.getDay() + 1);
-            if(Constants.DEBUG) Gdx.app.log(Constants.TAG, "Day changed. Now day: " + data.getDay());
+            if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "Day changed. Now day: " + data.getDay());
             for (TimeChangedListener t : timeChangedListeners.toArray(new TimeChangedListener[timeChangedListeners.size()])) {
                 t.dayChanged(data.getDay());
             }
@@ -138,10 +144,10 @@ public class GameTime extends Actor implements Manager, DataContainer {
     }
 
     public float getRemainingWeekFraction(){
-        return 1 - ((data.getDay()) % 7) / (float) 7;
+        return 1 - ((data.getDay()) % 7) / 7f;
     }
 
-    public boolean removeTimeChangedListener(TimeChangedListener timeChangedListener) {
+    public boolean removeTimeChangedListener(final TimeChangedListener timeChangedListener) {
         return timeChangedListeners.remove(timeChangedListener);
     }
 

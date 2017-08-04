@@ -27,8 +27,8 @@ import de.hsd.hacking.Entities.Objects.Chair;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- * An Equipment Item that can be assigned to a workspace to complete missions
- * @author Dominik
+ * An Equipment Item that can be assigned to a workspace to complete missions.
+ * @author Dominik, Florian
  */
 
 public class Computer extends Equipment implements Upgradable {
@@ -88,7 +88,6 @@ public class Computer extends Equipment implements Upgradable {
         if (tintFrames > 0) {
             tintFrames--;
         }
-
         if (on) {
             setDrawableRegion(animation.getKeyFrame(elapsedTime, true));
         } else {
@@ -107,15 +106,19 @@ public class Computer extends Equipment implements Upgradable {
         Gdx.app.log(Constants.TAG, "Interacted with Computer!");
         Gdx.app.log(Constants.TAG, "Trying to Send to chair...");
         if (e.getMovementProvider().getDiscreteTile(workingChair.getPosition()).isMovableTo()) {
-            return AskForMission(e);
-//            return new MovingState(e, e.getMovementProvider().getDiscreteTile(workingChair.getPosition()));
+            return askForMission(e);
         } else {
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.NO, e);
             return new IdleState(e);
         }
     }
 
-    private WaitingState AskForMission(final Employee e) {
+    /**
+     * Lets employee wait while selecting a mission.
+     * @param e Employee that should wait.
+     * @return WaitingState object with following States set.
+     */
+    private WaitingState askForMission(final Employee e) {
         occupy();
         elapsedTime = 0f;
 

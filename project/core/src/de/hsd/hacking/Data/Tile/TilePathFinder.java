@@ -30,11 +30,20 @@ public class TilePathFinder implements PathFinder {
         }
     }
 
+    /**
+     * Finds a path given a starting and end position.
+     * @param sx starting tile column number.
+     * @param sy starting tile row number.
+     * @param tx target column number.
+     * @param ty target row number.
+     * @return Path between Tiles. Returns null if no path found.
+     * Returns a path with only the current tile if already on end tile.
+     */
     @Override
     public Path findPath(int sx, int sy, int tx, int ty) {
         int maxSearchDistance = 2 * (Math.max(sx, tileMap.getWidthInTiles() - sx) + Math.max(sy, tileMap.getHeightInTiles() - sy));
 
-        if(alreadyOnTile(sx, sy, tx, ty)) {
+        if (alreadyOnTile(sx, sy, tx, ty)) {
             Path path = new Path();
             int tileNumber = sy * Constants.TILES_PER_SIDE + sx;
             path.addToPath(tileMap.getTile(tileNumber));
@@ -55,7 +64,7 @@ public class TilePathFinder implements PathFinder {
         nodes[tx][ty].parent = null;
 
         int currentDepth = 0;
-        while (currentDepth < maxSearchDistance && (open.size() != 0)){
+        while (currentDepth < maxSearchDistance && (open.size() != 0)) {
 
             // pull out the first node in our open list, this is determined to
             // be the most likely to be the next step based on our heuristic
