@@ -22,6 +22,11 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Callback.Callback;
 
 
+/**
+ * Creates, stores and manages all {@link Equipment} objects, that can be purchased and upgraded.
+ * @author Dominik
+ */
+
 public class EquipmentManager implements Manager, ProtobufHandler {
 
     private ArrayList<Equipment> shopItems = new ArrayList<Equipment>();
@@ -58,6 +63,9 @@ public class EquipmentManager implements Manager, ProtobufHandler {
         return instance;
     }
 
+    /**
+     * Creates the purchasable Objects to list them in the Shop
+     */
     public void initBasicEquipment(){
         List<Workspace> workspaces = GameStage.instance().getWorkspaces();
 
@@ -100,6 +108,12 @@ public class EquipmentManager implements Manager, ProtobufHandler {
         }
     }
 
+    /**
+     * Purchases the specified Equipment and tells the {@link TeamManager} to update the resources.
+     * @param equipment the Item to buy
+     * @param pay whether to pay or not
+     * @return 0 if succeeds
+     */
     public int buyItem(Equipment equipment, Boolean pay) {
         TeamManager teamManager = TeamManager.instance();
         if (pay) {
@@ -119,6 +133,11 @@ public class EquipmentManager implements Manager, ProtobufHandler {
         return 0;
     }
 
+    /**
+     * Upgrades the specified Equipment and tells the {@link TeamManager} to update the resources.
+     * @param equipment the Item to upgrade
+     * @return 0 if succeeds
+     */
     public int upgradeItem(Equipment equipment) {
         TeamManager teamManager = TeamManager.instance();
         int price = (int)equipment.getPrice();

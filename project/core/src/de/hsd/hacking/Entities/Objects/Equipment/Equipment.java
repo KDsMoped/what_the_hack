@@ -9,7 +9,12 @@ import de.hsd.hacking.Proto;
 import de.hsd.hacking.Utils.Direction;
 import de.hsd.hacking.Entities.Objects.TouchableInteractableObject;
 
-
+/**
+ * This is the base class for every Item, providing basic Equipment functionality.
+ * Objects implementing this class need to override the respective methods for desired
+ * behavior.
+ * @author Dominik
+ */
 
 public abstract class Equipment extends TouchableInteractableObject implements DataContainer {
     protected Proto.Equipment.Builder data;
@@ -38,18 +43,76 @@ public abstract class Equipment extends TouchableInteractableObject implements D
     public float getPrice() { return data.getPrice() * data.getLevel();}
 
     // Bonuses
+
+    /**
+     * Returns 0 as the default Bandwidth increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getBandwidthBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Computation Power increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getComputationPowerBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Social Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getSocialSkillBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Hardware Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getHardwareSkillBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Software Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getSoftwareSkillBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Network Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getNetworkSkillBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Crypto Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getCryptoSkillBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default Search Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getSearchSkillBonus() { return 0; }
+
+    /**
+     * Returns 0 as the default All Purpose Skill increase.
+     * Override this to specify the actual bonus value.
+     * @return 0
+     */
     public int getAllPurposeSkillBonus() { return 0; }
 
 
-    public boolean isPurchased() { return isPurchased; }
+    /**
+     * Is called during <code>buyItem()</code> in the {@link EquipmentManager}.
+     * Override this to specify the desired behavior when the Item is purchased.
+     * @param isPurchased should be true after purchase
+     */
     public void onPurchase(boolean isPurchased) {
         this.isPurchased = isPurchased;
     }
