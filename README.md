@@ -1,7 +1,7 @@
 # Requirements
 - Android Studio
 
-# How to build the release branch
+# How to build
 
 - Clone the git repo
 - Switch to release branch for a stable build
@@ -15,5 +15,8 @@
     + Add new Gradle Task before `Make`
         * Gradle project: `project`
         * Tasks: `texturePacker`
+    + If you're using the master branch setup another Gradle Task before `Make` to compile the protobuf file
+        * Gradle project: `project:core`
+        * Tasks: `generateCoreProto`
 - For an android build setup accordingly
 - Hit run and enjoy!
