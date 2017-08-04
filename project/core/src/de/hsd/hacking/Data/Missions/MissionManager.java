@@ -178,7 +178,6 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
     public void completeMission(final Mission mission1) {
         if (activeMissions.remove(mission1)) {
             completedMissions.add(mission1);
-            messageManager.Info("Job " + mission1.getName() + ": " + mission1.getSuccessText());
             Gdx.app.log(Constants.TAG, "Job " + mission1.getName() + ": " + mission1.getSuccessText());
 
             int money = mission1.getRewardMoney();
