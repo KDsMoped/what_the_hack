@@ -56,7 +56,7 @@ public class EmployeeProfile extends Popup {
         Table contentTable = new Table();
         contentTable.align(Align.top);
         contentTable.setTouchable(Touchable.enabled);
-        contentTable.setDebug(true);
+//        contentTable.setDebug(true);
 
         contentTable.add(initLeftColumn()).left().top().padLeft(20).maxWidth(120).maxHeight(162);
         contentTable.add(initRightColumn()).right().top().padRight(20).maxWidth(310).prefWidth(310).maxHeight(162);
@@ -66,7 +66,7 @@ public class EmployeeProfile extends Popup {
 
     private Table initLeftColumn(){
         Table leftColumn = new Table();
-        leftColumn.setDebug(true);
+//        leftColumn.setDebug(true);
 
 
         EmployeeIcon icon = new EmployeeIcon(employee);
@@ -98,7 +98,7 @@ public class EmployeeProfile extends Popup {
         Table rightColumn = new Table();
         rightColumn.align(Align.top);
         rightColumn.setTouchable(Touchable.enabled);
-        rightColumn.setDebug(true);
+//        rightColumn.setDebug(true);
 
         title = new Label("Name of Employee", Constants.LabelStyle());
         title.setFontScale(1.0f);

@@ -377,14 +377,14 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
 
     @Override
     public void dayChanged(int days) {
-//        refreshOpenMissions(); //Too fast
+        refreshOpenMissions(); //Too fast
     }
 
     @Override
     public void weekChanged(int week) {
         //TODO: Tell user about game progress
         Gdx.app.log(Constants.TAG, "Your game progress is: " + TeamManager.instance().calcGameProgress());
-        refreshOpenMissions();
+//        refreshOpenMissions();
     }
 
     public void addRefreshMissionListener(Callback callback) {
