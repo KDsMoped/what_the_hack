@@ -21,6 +21,7 @@ public class Assets {
     private static Assets instance;
 
 
+
     public static Assets instance() {
         return instance;
     }
@@ -51,10 +52,17 @@ public class Assets {
     public TextureRegion emoji_ok;
     public TextureRegion emoji_no;
     public TextureRegion emoji_levelup;
+    public TextureRegion emoji_twitter;
 
     public Array<TextureRegion> floor_tiles;
-    public Array<TextureRegion> character_1;
-    public Array<TextureRegion> character_2;
+    public Array<TextureRegion> character_1_m;
+    public Array<TextureRegion> character_2_m;
+    private Array<TextureRegion> character_3_m;
+    private Array<TextureRegion> character_4_m;
+    public Array<TextureRegion> character_1_f;
+    public Array<TextureRegion> character_2_f;
+    private Array<TextureRegion> character_3_f;
+    private Array<TextureRegion> character_4_f;
     public Array<TextureRegion> character_trump;
     public Array<TextureRegion> char_shadow;
     public Array<TextureRegion> computer;
@@ -65,6 +73,10 @@ public class Assets {
     public Array<TextureRegionDrawable> clock_icon;
     public Array<TextureRegionDrawable> loading_bar;
 
+    public TextureRegionDrawable ui_icon_exit;
+    public TextureRegionDrawable ui_icon_team;
+    public TextureRegionDrawable ui_icon_shop;
+    public TextureRegionDrawable ui_icon_jobs;
     public TextureRegionDrawable ui_calendar;
     public TextureRegionDrawable skill_icon_social;
     public TextureRegionDrawable skill_icon_software;
@@ -173,6 +185,7 @@ public class Assets {
         emoji_ok = character_atlas.findRegion("Emojis/ok");
         emoji_no = character_atlas.findRegion("Emojis/no");
         emoji_levelup = character_atlas.findRegion("Emojis/levelup");
+        emoji_twitter = character_atlas.findRegion("Emojis/twitter");
 
         mainmenu_bg = new Array<TextureRegion>();
         mainmenu_bg.addAll(ui_atlas.findRegions("MainMenuBackground"));
@@ -181,12 +194,24 @@ public class Assets {
         coffeemachine.addAll(atlas.findRegions("interior/CoffeeMachine"));
         floor_tiles = new Array<TextureRegion>();
         floor_tiles.addAll(atlas.findRegions("ambient/Wood_Floor"));
-        character_1 = new Array<TextureRegion>();
-        character_2 = new Array<TextureRegion>();
+        character_1_m = new Array<TextureRegion>();
+        character_2_m = new Array<TextureRegion>();
+        character_3_m = new Array<TextureRegion>();
+        character_4_m = new Array<TextureRegion>();
+        character_1_f = new Array<TextureRegion>();
+        character_2_f = new Array<TextureRegion>();
+        character_3_f = new Array<TextureRegion>();
+        character_4_f = new Array<TextureRegion>();
         character_trump = new Array<TextureRegion>();
         char_shadow = new Array<TextureRegion>();
-        character_1.addAll(character_atlas.findRegions("Character01"));
-        character_2.addAll(character_atlas.findRegions("Character02"));
+        character_1_m.addAll(character_atlas.findRegions("Character01_M"));
+        character_2_m.addAll(character_atlas.findRegions("Character02_M"));
+        character_3_m.addAll(character_atlas.findRegions("Character03_M"));
+        character_4_m.addAll(character_atlas.findRegions("Character04_M"));
+        character_1_f.addAll(character_atlas.findRegions("Character01_F"));
+        character_2_f.addAll(character_atlas.findRegions("Character02_F"));
+        character_3_f.addAll(character_atlas.findRegions("Character03_F"));
+        character_4_f.addAll(character_atlas.findRegions("Character04_F"));
         character_trump.addAll(character_atlas.findRegions("Specials/Trump"));
         char_shadow.addAll(character_atlas.findRegions("Char_Shadow"));
         computer = new Array<TextureRegion>(4);
@@ -202,6 +227,10 @@ public class Assets {
             clock_icon.add(new TextureRegionDrawable(t));
         }
 
+        ui_icon_exit = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Exit"));
+        ui_icon_team = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Team"));
+        ui_icon_shop = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Shop"));
+        ui_icon_jobs = new TextureRegionDrawable(ui_atlas.findRegion("Icon_Jobs"));
         ui_calendar = new TextureRegionDrawable(ui_atlas.findRegion("calendar"));
         ui_up_arrow_inverted = new TextureRegionDrawable(ui_atlas.findRegion("up_arrow_inverted"));
 
@@ -270,7 +299,6 @@ public class Assets {
             case MALE:
                 return getMaleBody(maleHairstyle);
             case FEMALE:
-
                 return getFemaleBody(femaleHairstyle);
             case UNDECIDED:
                 Gdx.app.error("", "Error: There is no face for no gender.");
@@ -282,24 +310,32 @@ public class Assets {
     public Array<TextureRegion> getMaleBody(Proto.Employee.HairStyleMale maleHairstyle){
         switch (maleHairstyle) {
            case M_CRAZY:
-                return character_1; //TODO
+                return character_4_m; //TODO
             case M_NEAT:
-                return character_1;
+                return character_1_m;
             case M_NERD:
-                return character_2;
+                return character_2_m;
             case M_RASTA:
-                return character_2; //TODO
+                return character_3_m; //TODO
 
             default:
-                return character_1;
+                return character_1_m;
         }
     }
 
     public Array<TextureRegion> getFemaleBody(Proto.Employee.HairStyleFemale femaleHairstyle){
         switch (femaleHairstyle) {
 
+            case F_CRAZY:
+                return character_4_f;
+            case F_NEAT:
+                return character_1_f;
+            case F_NERD:
+                return character_2_f;
+            case F_RASTA:
+                return character_3_f;
             default:
-                return character_1; //TODO: Add female characters
+                return character_1_m; //TODO: Add female characters
         }
     }
 

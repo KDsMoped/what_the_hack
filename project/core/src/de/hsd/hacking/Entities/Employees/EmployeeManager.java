@@ -18,13 +18,13 @@ import java.util.Collections;
 
 /**
  * The EmployeeManager holds lists of {@link Employee}s separated in available employees (the ones you can hire) and
- * hire employees (the ones in your teamManager).
+ * hire employees (the ones in your team).
  *
  * @author Hendrik
  */
 public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHandler {
     private Proto.EmployeeManager.Builder data;
-    private static final int MAX_AVAILABLE_EMPLOYEES = 16;
+    private static final int MAX_AVAILABLE_EMPLOYEES = 9;
     private static final int AVAILABLE_EMPLOYEES_VARIANCE = 3;
     private static final float REFRESH_RATE = 0.15f;
 
@@ -239,8 +239,8 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
 
         if (teamManager.getMoney() < salary) {
             if (Constants.DEBUG)
-                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + " leaves the teamManager!");
-            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + " leaves the teamManager!");
+                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + " leaves the team!");
+            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + " leaves the team!");
             dismiss(employee);
             return;
         }
