@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -167,8 +169,7 @@ public class GameStage extends Stage implements EventListener{
     }
 
     private void InitUI() {
-        int buttonHeight = 20;
-        int buttonSpacing = 5;
+
 
         this.employeeBar = new EmployeeBar();
         popups.addActor(employeeBar);
@@ -182,10 +183,25 @@ public class GameStage extends Stage implements EventListener{
         popups.addActor(missionBrowser);
 
 
-        //Init Shop button
+        InitLeftMenuTable();
+
+
+
+
+        //Init status bar, message bar & employee details
+        overlay.addActor(statusBar = new StatusBar());
+        overlay.addActor(messageBar = new MessageBar());
+        GameTime.instance().addTimeChangedListener(statusBar);
+    }
+
+    private void InitLeftMenuTable(){
+        int buttonHeight = 32;
+        int buttonWidth = 32;
+        int buttonSpacing = 0;
+
+//        Init Shop button
         final ShopBrowser shopBrowser = new ShopBrowser();
-        shopBrowser.init();
-        AudioTextButton shopButton = new AudioTextButton("Shop", Constants.TerminalButtonStyle());
+        AudioTextButton shopButton = new AudioTextButton("", Constants.TerminalButtonStyle());
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -193,13 +209,14 @@ public class GameStage extends Stage implements EventListener{
                 shopBrowser.toggleView();
             }
         });
-        shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
+        shopButton.setBounds(0, VIEWPORT_HEIGHT - buttonHeight, buttonWidth, buttonHeight);
+        shopButton.add(new Image(assets.ui_icon_shop));
         ui.addActor(shopButton);
         popups.addActor(shopBrowser);
 
 
         //Init Missions button
-        AudioTextButton jobsButton = new AudioTextButton("Jobs", Constants.TerminalButtonStyle());
+        AudioTextButton jobsButton = new AudioTextButton("", Constants.TerminalButtonStyle());
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -207,12 +224,13 @@ public class GameStage extends Stage implements EventListener{
                 missionBrowser.toggleView();
             }
         });
-        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight - buttonSpacing, 100, buttonHeight);
+        jobsButton.setBounds(0, VIEWPORT_HEIGHT - 2 * buttonHeight - buttonSpacing, buttonWidth, buttonHeight);
+        jobsButton.add(new Image(assets.ui_icon_jobs));
         ui.addActor(jobsButton);
 
         //Init Recruitment button
         final EmployeeBrowser employeeBrowser = new EmployeeBrowser();
-        AudioTextButton recruitmentButton = new AudioTextButton("Team", Constants.TerminalButtonStyle());
+        AudioTextButton recruitmentButton = new AudioTextButton("", Constants.TerminalButtonStyle());
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -220,28 +238,30 @@ public class GameStage extends Stage implements EventListener{
                 employeeBrowser.toggleView();
             }
         });
-        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, 100, buttonHeight);
+        recruitmentButton.setBounds(0, VIEWPORT_HEIGHT - 3 * buttonHeight - 2 * buttonSpacing, buttonWidth, buttonHeight);
+        recruitmentButton.add(new Image(assets.ui_icon_team));
         ui.addActor(recruitmentButton);
         popups.addActor(employeeBrowser);
 
         //Init Exit button
-        AudioTextButton exitButton = new AudioTextButton("Exit", Constants.TerminalButtonStyle());
+        AudioTextButton exitButton = new AudioTextButton("", Constants.TerminalButtonStyle());
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 GameManager.instance().exitGame();
             }
         });
-        exitButton.setBounds(VIEWPORT_WIDTH - 100, VIEWPORT_HEIGHT - buttonHeight, 100, buttonHeight);
+        exitButton.setBounds(VIEWPORT_WIDTH - buttonWidth, VIEWPORT_HEIGHT - buttonHeight, buttonWidth, buttonHeight);
+        exitButton.add(new Image(assets.ui_icon_exit));
         ui.addActor(exitButton);
 
-        //Init status bar, message bar & employee details
-        overlay.addActor(statusBar = new StatusBar());
-        overlay.addActor(messageBar = new MessageBar());
-        GameTime.instance().addTimeChangedListener(statusBar);
 
-
-
+//        Table leftMenuTable = new Table();
+//
+//        final ShopBrowser shopBrowser = new ShopBrowser();
+//        ImageButton shopButton = new ImageButton()
+//
+//        ui.addActor(leftMenuTable);
     }
 
 

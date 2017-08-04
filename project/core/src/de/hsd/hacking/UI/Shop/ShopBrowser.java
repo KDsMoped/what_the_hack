@@ -34,6 +34,8 @@ public class ShopBrowser extends Popup {
      */
     public ShopBrowser() {
         super();
+
+        init();
     }
 
     /**
