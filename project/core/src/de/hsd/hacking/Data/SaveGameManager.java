@@ -18,23 +18,26 @@ import de.hsd.hacking.Stages.GameStage;
 import de.hsd.hacking.Utils.Constants;
 
 /**
- *
+ * This class reads and writes protobuf messages to/from local storage and provides them
+ * for the managers such as {@link MissionManager}.
  * @author Julian
  */
 public final class SaveGameManager {
-    static Proto.MessageBar messageBar;
-    static Proto.MissionManager missionManager;
-    static Proto.EquipmentManager equipmentManager;
-    static Proto.EmployeeManager employeeManager;
-    static Proto.Resources resources;
-    static Proto.Global gameTime;
+    private static Proto.MessageBar messageBar;
+    private static Proto.MissionManager missionManager;
+    private static Proto.EquipmentManager equipmentManager;
+    private static Proto.EmployeeManager employeeManager;
+    private static Proto.Resources resources;
+    private static Proto.Global gameTime;
 
+    /**
+     * Try to load all protobuf messages from local storage.
+     */
     public static void LoadGame() {
         try {
             FileInputStream stream = new FileInputStream(Gdx.files.getLocalStoragePath() + "/gametime");
-            Proto.Global global = Proto.Global.parseFrom(stream);
 
-            gameTime = global;
+            gameTime = Proto.Global.parseFrom(stream);
         }
 
         catch (Exception e) {
@@ -94,9 +97,10 @@ public final class SaveGameManager {
         }
     }
 
-    public static boolean SaveGame() {
-        boolean success = false;
-
+    /**
+     * Save all protobuf messages to local storage.
+     */
+    public static void SaveGame() {
         // Game Time
         Proto.Global.Builder gameTime = GameTime.instance().getData().toBuilder();
         Proto.Global gameTimeCompiled = gameTime.build();
@@ -117,8 +121,6 @@ public final class SaveGameManager {
 
         Proto.EmployeeManager employeeManagerCompiled = EmployeeManager.instance().Save();
         SaveProto(employeeManagerCompiled, "employeemanager");
-
-        return success;
     }
 
     private static void SaveProto(GeneratedMessageV3 message, String filename) {
@@ -129,68 +131,8 @@ public final class SaveGameManager {
         catch (Exception e) {
             Gdx.app.error(Constants.TAG, "Error while saving " + filename);
             Gdx.app.error(Constants.TAG, e.getMessage());
-            Gdx.app.error(Constants.TAG, e.getStackTrace().toString());
+            Gdx.app.error(Constants.TAG, Arrays.toString(e.getStackTrace()));
         }
-    }
-
-    public static boolean SaveObject(Object obj) {
-        boolean success = false;
-
-        // We only want to serialize exposed members
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
-        Gson gson = gsonBuilder.create();
-
-        String json = gson.toJson(obj);
-
-        // Save file in the apps local storage
-        if (json != null && !json.equals("")) {
-            FileHandle file = Gdx.files.local(obj.getClass().getName());
-            file.writeString(json, false);
-
-            success = true;
-        }
-
-        return success;
-    }
-
-    public static Object LoadObject(String className) {
-        Object obj = null;
-
-        Gson gson = new Gson();
-
-        // Check weather file exists
-        if (Gdx.files.local(className).exists()) {
-            FileHandle file = Gdx.files.local(className);
-
-            String json = file.readString();
-
-            Class c = TryGetClassFromString(className);
-
-            if (c != null) {
-                // deserialize
-                obj = gson.fromJson(json, c);
-            }
-            else {
-                // TBD: UI Error Handling
-            }
-        }
-
-        return obj;
-    }
-
-    private static Class TryGetClassFromString(String className) {
-        Class c = null;
-
-        try {
-            // Find Class for given class name
-            c = Class.forName(className);
-        }
-        catch (Exception e) {
-            Gdx.app.error(Constants.TAG, "Could not find class for string: " + className);
-        }
-
-        return c;
     }
 
     public static Proto.MessageBar.Builder getMessageBar() {

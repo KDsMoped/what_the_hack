@@ -129,7 +129,6 @@ message Employee {
   AnimState animState = 22;
   EmployeeState state = 23;
   int32 missionNumber = 24;
-
   
   enum VisualStyle{
     DEFAULT = 0;

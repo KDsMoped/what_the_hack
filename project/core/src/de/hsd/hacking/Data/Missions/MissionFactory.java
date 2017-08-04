@@ -130,8 +130,8 @@ public final class MissionFactory {
     /**
      * Calculates a reward for the mission
      *
-     * @param mission
-     * @return
+     * @param mission object.
+     * @return reward money.
      */
     public static int calcRewardMoney(Mission mission) {
         return (int) (mission.getDifficulty() * /*(1 + mission.getRisk()) * */ RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
@@ -151,7 +151,7 @@ public final class MissionFactory {
     /**
      * Replaces the %XXX% placeholders in mission data with random respective data from missionVariables.json.
      *
-     * @param mission
+     * @param mission object.
      */
     private static void ReplacePlaceholders(Mission mission) {
 
