@@ -44,7 +44,7 @@ public class ShopBrowser extends Popup {
 
         initShopTable();
 
-        equipmentManager.addRefreshEmployeeListener(new Callback() {
+        equipmentManager.addRefreshEquipmentListener(new Callback() {
             @Override
             public void callback() {
                 refreshList();

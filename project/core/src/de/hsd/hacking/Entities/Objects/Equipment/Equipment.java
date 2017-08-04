@@ -50,7 +50,7 @@ public abstract class Equipment extends TouchableInteractableObject implements D
 
 
     public boolean isPurchased() { return isPurchased; }
-    public void setPurchased(boolean isPurchased) {
+    public void onPurchase(boolean isPurchased) {
         this.isPurchased = isPurchased;
     }
 
