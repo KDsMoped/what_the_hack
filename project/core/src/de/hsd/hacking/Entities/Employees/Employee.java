@@ -110,8 +110,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
     private ArrayList<EmployeeSpecial> employeeSpecials = new ArrayList<EmployeeSpecial>();
     private ArrayList<EmployeeSpecial> employeeSpecialsVisible = new ArrayList<EmployeeSpecial>();
 
-    private transient GameStage stage;
-
     /**
      * Creates a default employee ready to be shaped by the EmployeeFactory.
      */
@@ -215,7 +213,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      */
     private void setStartingTile(Tile startTile) {
         Vector2 startPos = startTile.getPosition().cpy();
-//        this.currentTileNumber = this.occupiedTileNumber = startTile.getTileNumber();
         startTile.addEmployeeToDraw(this);
         startTile.setOccupyingEmployee(this);
         this.bounds = new Rectangle(startPos.x + 5f, startPos.y + 5f, 22f, 45f); //values measured from sprite
@@ -628,12 +625,6 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         data.setAnimState(animationState);
     }
 
-
-    @Override
-    public GameStage getStage() {
-        return stage;
-    }
-
     public Collection<Skill> getSkillset() {
         return Collections.unmodifiableCollection(skillSet);
     }
@@ -914,6 +905,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         return data.getFreeScore();
     }
 
+    /**
+     * This is called
+     */
     public void onMissionCompleted() {
 
         for (EmployeeSpecial special : employeeSpecials) {

@@ -239,8 +239,8 @@ public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHa
 
         if (teamManager.getMoney() < salary) {
             if (Constants.DEBUG)
-                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + " leaves the teamManager!");
-            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + " leaves the teamManager!");
+                Gdx.app.log(Constants.TAG, "You have no money to pay for your employees! " + employee.getName() + " leaves the team!");
+            messageManager.Warning("You have no money to pay for your employees. " + employee.getName() + " leaves the team!");
             dismiss(employee);
             return;
         }

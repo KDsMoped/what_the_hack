@@ -90,7 +90,7 @@ public class EmployeeBrowser extends Popup {
 
     private Table initHiredEmployees() {
         Table content = initSubTable();
-        content.setName("TeamManager");
+        content.setName("Team");
 
         ScrollPane scroller = new ScrollPane(hiredEmployeeContainer = new Table());
         scroller.setStyle(Constants.ScrollPaneStyleWin32());
