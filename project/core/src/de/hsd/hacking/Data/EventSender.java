@@ -9,19 +9,19 @@ public interface EventSender {
 
     /**
      * Add a listener to the list.
-     * @param listener
+     * @param listener that wants to listen.
      */
     void addListener(EventListener listener);
 
     /**
      * Remove a listener from the list.
-     * @param listener
+     * @param listener to be removed.
      */
     void removeListener(EventListener listener);
 
     /**
      * Fire an event with an specific type.
-     * @param type
+     * @param type event type.
      */
     void notifyListeners(EventListener.EventType type);
 }

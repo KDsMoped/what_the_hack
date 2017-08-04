@@ -185,7 +185,7 @@ public class GameStage extends Stage implements EventListener{
         //Init Shop button
         final ShopBrowser shopBrowser = new ShopBrowser();
         shopBrowser.init();
-        AudioTextButton shopButton = new AudioTextButton("Shop", Constants.TextButtonStyle());
+        AudioTextButton shopButton = new AudioTextButton("Shop", Constants.TerminalButtonStyle());
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -199,7 +199,7 @@ public class GameStage extends Stage implements EventListener{
 
 
         //Init Missions button
-        AudioTextButton jobsButton = new AudioTextButton("Jobs", Constants.TextButtonStyle());
+        AudioTextButton jobsButton = new AudioTextButton("Jobs", Constants.TerminalButtonStyle());
         jobsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -212,7 +212,7 @@ public class GameStage extends Stage implements EventListener{
 
         //Init Recruitment button
         final EmployeeBrowser employeeBrowser = new EmployeeBrowser();
-        AudioTextButton recruitmentButton = new AudioTextButton("Team", Constants.TextButtonStyle());
+        AudioTextButton recruitmentButton = new AudioTextButton("Team", Constants.TerminalButtonStyle());
         recruitmentButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -225,7 +225,7 @@ public class GameStage extends Stage implements EventListener{
         popups.addActor(employeeBrowser);
 
         //Init Exit button
-        AudioTextButton exitButton = new AudioTextButton("Exit", Constants.TextButtonStyle());
+        AudioTextButton exitButton = new AudioTextButton("Exit", Constants.TerminalButtonStyle());
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

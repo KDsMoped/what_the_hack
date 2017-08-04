@@ -24,6 +24,10 @@ public class Mission implements EventSender, DataContainer {
         this.listeners = new ArrayList<EventListener>();
     }
 
+    /**
+     * Restore the mission with a protobuf builder.
+     * @param builder protobuf mission builder object.
+     */
     public Mission(Proto.Mission.Builder builder) {
         this.data = builder;
         this.listeners = new ArrayList<EventListener>();
@@ -236,7 +240,7 @@ public class Mission implements EventSender, DataContainer {
 
     /**
      * Returns the name of the mission with a maximum length of characters.
-     * @return
+     * @return shortened mission name.
      */
     public String getShortenedName(int maxLength){
         String name = data.getName();
