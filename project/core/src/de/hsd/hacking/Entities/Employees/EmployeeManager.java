@@ -18,13 +18,13 @@ import java.util.Collections;
 
 /**
  * The EmployeeManager holds lists of {@link Employee}s separated in available employees (the ones you can hire) and
- * hire employees (the ones in your teamManager).
+ * hire employees (the ones in your team).
  *
  * @author Hendrik
  */
 public class EmployeeManager implements Manager, TimeChangedListener, ProtobufHandler {
     private Proto.EmployeeManager.Builder data;
-    private static final int MAX_AVAILABLE_EMPLOYEES = 16;
+    private static final int MAX_AVAILABLE_EMPLOYEES = 9;
     private static final int AVAILABLE_EMPLOYEES_VARIANCE = 3;
     private static final float REFRESH_RATE = 0.15f;
 
