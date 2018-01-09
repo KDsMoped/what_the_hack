@@ -78,3 +78,9 @@ project/android/assets/missionmanager
 project/android/assets/equipmentmanager
 project/android/assets/employeemanager
 project/android/assets/resources
+releases/missionmanager
+releases/messagebar
+releases/equipmentmanager
+releases/employeemanager
+releases/resources
+releases/gametime
