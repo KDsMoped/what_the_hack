@@ -107,6 +107,10 @@ public abstract class Equipment extends TouchableInteractableObject implements D
      */
     public int getAllPurposeSkillBonus() { return 0; }
 
+    /**
+     * This function should be used to place an object on the tile map.
+     */
+    public abstract void addToTileMap();
 
     /**
      * Is called during <code>buyItem()</code> in the {@link EquipmentManager}.

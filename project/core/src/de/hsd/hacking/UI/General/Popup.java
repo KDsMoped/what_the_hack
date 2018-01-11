@@ -21,8 +21,8 @@ import de.hsd.hacking.Utils.Constants;
  * @author Julian
  */
 public abstract class Popup extends Group {
-    protected static final int SCROLLER_WIDTH = 420;
-    protected static final int SCROLLER_HEIGHT = 195;
+    protected static final int SCROLLER_WIDTH = 450;
+    protected static final int SCROLLER_HEIGHT = 198;
     protected static final int SCROLLER_ELEMENT_PADDING = 5;
 
     protected Table mainTable = new Table();

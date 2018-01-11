@@ -55,10 +55,18 @@ public class CoffeeMachine extends Equipment implements Upgradable {
     public void onPurchase(boolean isPurchased) {
         super.onPurchase(isPurchased);
 
+        if(GameStage.instance()!= null){
+            addToTileMap();
+        }
+    }
+
+    @Override
+    public void addToTileMap(){
         TileMap tileMap = GameStage.instance().getTileMap();
 
         Desk desk = new Desk(Assets.instance(), Direction.RIGHT, 1);
         tileMap.addObject(10, 0, desk);
+
         //CoffeeMachine coffeeMachine = new CoffeeMachine();
         desk.setContainedObject(this, 0);
         GameStage.instance().addTouchable(this);

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+
 import de.hsd.hacking.Data.Manager;
 import de.hsd.hacking.Data.ProtobufHandler;
 import de.hsd.hacking.Data.SaveGameManager;
@@ -24,6 +25,7 @@ import de.hsd.hacking.Utils.Callback.Callback;
 
 /**
  * Creates, stores and manages all {@link Equipment} objects, that can be purchased and upgraded.
+ *
  * @author Dominik
  */
 
@@ -43,7 +45,7 @@ public class EquipmentManager implements Manager, ProtobufHandler {
      * Creates an instance of this manager.
      */
     public static void createInstance() {
-        if (instance != null){
+        if (instance != null) {
             Gdx.app.error("", "ERROR: Instance of EquipmentManager has not been destroyed before creating new one.");
             return;
         }
@@ -53,6 +55,7 @@ public class EquipmentManager implements Manager, ProtobufHandler {
 
     /**
      * Provides an instance of this manager;
+     *
      * @return
      */
     public static EquipmentManager instance() {
@@ -66,7 +69,7 @@ public class EquipmentManager implements Manager, ProtobufHandler {
     /**
      * Creates the purchasable Objects to list them in the Shop
      */
-    public void initBasicEquipment(){
+    public void initBasicEquipment() {
         List<Workspace> workspaces = GameStage.instance().getWorkspaces();
 
         if (!containsItem("Computer 1")) {
@@ -110,14 +113,15 @@ public class EquipmentManager implements Manager, ProtobufHandler {
 
     /**
      * Purchases the specified Equipment and tells the {@link TeamManager} to update the resources.
+     *
      * @param equipment the Item to buy
-     * @param pay whether to pay or not
+     * @param pay       whether to pay or not
      * @return 0 if succeeds
      */
     public int buyItem(Equipment equipment, Boolean pay) {
         TeamManager teamManager = TeamManager.instance();
         if (pay) {
-            int price = (int)equipment.getPrice();
+            int price = (int) equipment.getPrice();
             if (teamManager.getMoney() < price)
                 return 1;
             teamManager.reduceMoney(price);
@@ -135,12 +139,13 @@ public class EquipmentManager implements Manager, ProtobufHandler {
 
     /**
      * Upgrades the specified Equipment and tells the {@link TeamManager} to update the resources.
+     *
      * @param equipment the Item to upgrade
      * @return 0 if succeeds
      */
     public int upgradeItem(Equipment equipment) {
         TeamManager teamManager = TeamManager.instance();
-        int price = (int)equipment.getPrice();
+        int price = (int) equipment.getPrice();
         if (teamManager.getMoney() < price)
             return 1;
         teamManager.reduceMoney(price);
@@ -154,8 +159,13 @@ public class EquipmentManager implements Manager, ProtobufHandler {
     }
 
 
-    public Collection<Equipment> getShopItemList() { return Collections.unmodifiableList(shopItems); }
-    public Collection<Equipment> getPurchasedItemList() { return Collections.unmodifiableList(purchasedItems); }
+    public Collection<Equipment> getShopItemList() {
+        return Collections.unmodifiableList(shopItems);
+    }
+
+    public Collection<Equipment> getPurchasedItemList() {
+        return Collections.unmodifiableList(purchasedItems);
+    }
 
 
     public void addRefreshEquipmentListener(Callback callback) {
@@ -170,12 +180,13 @@ public class EquipmentManager implements Manager, ProtobufHandler {
 
     /**
      * Save all the purchased equipment
+     *
      * @return Build Proto EquipmentManager object to write to disk.
      */
     public Proto.EquipmentManager Save() {
         Proto.EquipmentManager.Builder builder = Proto.EquipmentManager.newBuilder();
 
-        for (Equipment equipment: purchasedItems) {
+        for (Equipment equipment : purchasedItems) {
             builder.addEquipment(equipment.getData());
         }
 
@@ -275,13 +286,15 @@ public class EquipmentManager implements Manager, ProtobufHandler {
         notifyRefreshListeners();
     }
 
-    public void addComputersToWorkspaces() {
-        for (Equipment equipment: purchasedItems) {
-            if (!equipment.getClass().getSimpleName().equals("Computer"))
-                continue;
+    public void placeExistingEquipment() {
+        for (Equipment equipment : purchasedItems) {
 
-            int number = Integer.parseInt(equipment.getName().substring(equipment.getName().length() - 1)) - 1;
-            ((Computer)equipment).setWorkspace(GameStage.instance().getWorkspaces().get(number));
+            equipment.addToTileMap();
+
+//            if (equipment instanceof Computer) {
+//
+//
+//            }
         }
     }
 

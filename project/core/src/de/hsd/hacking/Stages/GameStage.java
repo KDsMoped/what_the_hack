@@ -9,9 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -28,7 +25,6 @@ import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.SaveGameContainer;
 import de.hsd.hacking.Data.Tile.TileMap;
 import de.hsd.hacking.Entities.Employees.EmployeeManager;
-import de.hsd.hacking.Entities.Objects.Equipment.Equipment;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Entities.Team.Workspace;
@@ -86,6 +82,7 @@ public class GameStage extends Stage implements EventListener{
     private SaveGameContainer saveGameContainer;
 
     public static GameStage instance() {
+
         return instance;
     }
 
@@ -165,7 +162,7 @@ public class GameStage extends Stage implements EventListener{
     }
 
     private void InitEquipment() {
-        EquipmentManager.instance().addComputersToWorkspaces();
+        EquipmentManager.instance().placeExistingEquipment();
     }
 
     private void InitUI() {
@@ -455,5 +452,12 @@ public class GameStage extends Stage implements EventListener{
 
     public SaveGameContainer getSaveGameContainer() {
         return saveGameContainer;
+    }
+
+    /**
+     * Destroys this manager instance.
+     */
+    public void cleanUp() {
+        instance = null;
     }
 }

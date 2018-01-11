@@ -176,8 +176,8 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
         }
     }
 
-    private void NewMessage(Message newMe) {
-        Show(true);
+    private void NewMessage(Message newMe, boolean show) {
+        if(show) Show(true);
 
         if (messages.size() > MESSAGE_BUFFER - 2) {
             messages.remove(0);
@@ -250,7 +250,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
     @Override
     public void OnEvent(EventType type, Object sender) {
         if (type == EventType.MESSAGE_NEW) {
-            NewMessage((Message) sender);
+            NewMessage((Message) sender, true);
         }
     }
 
@@ -349,7 +349,7 @@ public class MessageBar extends Table implements EventListener, ProtobufHandler 
     public void Load() {
         if (SaveGameManager.getMessageBar() != null) {
             for (Proto.Message m:SaveGameManager.getMessageBar().getMessagesList()) {
-                NewMessage(new Message(m.toBuilder()));
+                NewMessage(new Message(m.toBuilder()), false);
 
                 // hacky but jumps to the last message for compact view
                 ToggleView();
