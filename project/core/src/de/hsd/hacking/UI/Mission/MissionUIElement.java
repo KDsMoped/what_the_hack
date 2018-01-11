@@ -155,7 +155,7 @@ public class MissionUIElement extends Table {
         if (buttonText != null && !buttonText.equals("")) {
             actionButton = new AudioTextButton(buttonText, Constants.TextButtonStyle());
             actionButton.addListener(buttonListener);
-            moneyTimeTable.add(actionButton).width(70).right().colspan(2);
+            moneyTimeTable.add(actionButton).width(70).right().colspan(2).height(18);
         }
     }
 

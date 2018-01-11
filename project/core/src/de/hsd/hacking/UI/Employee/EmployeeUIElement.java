@@ -90,7 +90,7 @@ public class EmployeeUIElement extends Table {
         thirdColumn.row();
         thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
-        thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70);
+        thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70).height(18);
 
         return thirdColumn;
     }
@@ -114,7 +114,7 @@ public class EmployeeUIElement extends Table {
         thirdColumn.row();
         thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
-        thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70);
+        thirdColumn.add(employButton).right().bottom().padTop(5).prefWidth(70).height(18);
 
         return thirdColumn;
     }

@@ -69,7 +69,7 @@ public class StatusBar extends Actor implements TimeChangedListener {
         // align content in cells
         items.align(Align.center);
 //        items.setWidth(GameStage.VIEWPORT_WIDTH * (2.0f / 3.0f));
-        items.setWidth(312);
+        items.setWidth(285);
         int STATUS_BAR_HEIGHT = 20;
         items.setHeight(STATUS_BAR_HEIGHT);
         // the green terminal background style
@@ -79,24 +79,26 @@ public class StatusBar extends Actor implements TimeChangedListener {
         Label.LabelStyle titlebarStyle = Constants.TerminalLabelStyle();
 
         // labels with sprites
-        Image moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
+        // Image moneyLabel = new Image(assets.money_icon, Scaling.none, Align.top);
         Image bandwidthLabel = new Image(assets.bandwith_icon, Scaling.none, Align.bottom);
         Image employeesLabel = new Image(assets.employees_icon, Scaling.none, Align.bottom);
         timeLabel = new Image(assets.clock_icon.first(), Scaling.none, Align.bottom);
 
         // set font to label objects
+        Label moneyLabel = new Label("$", titlebarStyle);
+        moneyLabel.setFontScale(1.6f, 1.6f);
         moneyText = new Label("", titlebarStyle);
         bandwidthText = new Label("", titlebarStyle);
         dateText = new Label("", titlebarStyle);
         employeesText = new Label("", titlebarStyle);
 
         // horizontal spacing between the items
-        items.add(moneyLabel).padLeft(0);
-        items.add(moneyLabel).padRight(1);
+        items.add(moneyLabel).padLeft(-10);
+        items.add(moneyLabel).padRight(0);
         items.add(moneyText).padRight(8);
-        items.add(bandwidthLabel).padRight(4);
+        items.add(bandwidthLabel).padRight(6);
         items.add(bandwidthText).padRight(6);
-        items.add(employeesLabel);
+        items.add(employeesLabel).padRight(2);
         items.add(employeesText).padRight(60);
         items.add(dateText).align(Align.right).padRight(15);
         items.add(timeLabel).align(Align.right).padRight(6);

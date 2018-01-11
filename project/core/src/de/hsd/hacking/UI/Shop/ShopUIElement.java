@@ -155,7 +155,7 @@ public class ShopUIElement extends Table {
         if(equipmentManager.getShopItemList().contains(equipment)) {
             rightContent.add(price).right().padTop(5).padBottom(2);
             rightContent.row();
-            rightContent.add(buyButton).width(70).right().padBottom(5);
+            rightContent.add(buyButton).width(70).right().padBottom(5).height(18);
         }
         else {
             rightContent.add(level).right().top();
@@ -164,7 +164,7 @@ public class ShopUIElement extends Table {
                 rightContent.row();
                 rightContent.add(price).right().padTop(5).padBottom(2);
                 rightContent.row();
-                rightContent.add(upgradeButton).width(80).right().padBottom(5);
+                rightContent.add(upgradeButton).width(80).right().padBottom(5).height(18);
             }
         }
 

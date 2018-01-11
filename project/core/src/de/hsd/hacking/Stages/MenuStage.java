@@ -45,7 +45,7 @@ public class MenuStage extends Stage {
         backgroundAnim = new Animation<TextureRegion>(0.7f, assets.mainmenu_bg);
 
 
-        TextButton resumeButton = new TextButton("Resume", Constants.TextButtonStyle());
+        TextButton resumeButton = new TextButton("Resume", Constants.HugeTextButtonStyle());
         resumeButton.addListener(new ChangeListener() {
                @Override
                public void changed(ChangeEvent event, Actor actor) {
@@ -59,7 +59,7 @@ public class MenuStage extends Stage {
             resumeButton.setVisible(false);
         }
 
-        final TextButton newButton = new TextButton("New", Constants.TextButtonStyle());
+        final TextButton newButton = new TextButton("New", Constants.HugeTextButtonStyle());
         newButton.addListener(new ChangeListener() {
                                @Override
                                public void changed(ChangeEvent event, Actor actor) {
