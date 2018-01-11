@@ -89,7 +89,7 @@ public class EmployeeProfile extends Popup {
         dismissButton.setSize(120, 20);
 //        dismissButton.padTop(15);
 
-        leftColumn.add(dismissButton).center();
+        leftColumn.add(dismissButton).center().height(18);
 
         return leftColumn;
     }

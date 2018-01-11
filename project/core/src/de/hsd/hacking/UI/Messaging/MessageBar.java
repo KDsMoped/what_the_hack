@@ -33,8 +33,8 @@ import de.hsd.hacking.Utils.Constants;
  */
 // TODO scroll down
 public class MessageBar extends Table implements EventListener, ProtobufHandler {
-    private final int COMPACT_HEIGHT = 21;
-    private final int SCROLLING_TEXT_CHARS = 47;
+    private final int COMPACT_HEIGHT = 17;
+    private final int SCROLLING_TEXT_CHARS = 59;
     private final int INITIAL_WAIT = 1;
     private final int MESSAGE_BUFFER = 100;
 
