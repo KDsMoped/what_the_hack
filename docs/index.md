@@ -1,4 +1,4 @@
-![](what_the_hack/images/Poster.jpg)
+![](what_the_hack/images/poster.jpg)
 
 ## Releases
 
