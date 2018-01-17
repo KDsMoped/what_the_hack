@@ -1,5 +1,3 @@
-# What_The_Hack
-
 ![](/what_the_hack/images/Poster.jpg)
 
 A more or less serious dive into a geeks world.
