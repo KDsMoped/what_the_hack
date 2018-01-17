@@ -1,8 +1,8 @@
-![](what_the_hack/images/poster.jpg)
+![](/images/poster.jpg)
 
 ## Releases
 
-- [wth_v1.0.1_release.apk](what_the_hack/releases/wth_v1.0.1_release.apk)
+- [wth_v1.0.1_release.apk](/releases/wth_v1.0.1_release.apk)
 
 ## Contributors
 
