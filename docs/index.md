@@ -1,4 +1,4 @@
-## What_the_Hack
+# What_The_Hack
 
 ![](/what_the_hack/images/Poster.jpg)
 
