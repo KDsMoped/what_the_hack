@@ -1,8 +1,8 @@
-![](/images/poster.jpg)
+![](images/poster.jpg)
 
 ## Releases
 
-- [wth_v1.0.1_release.apk](/releases/wth_v1.0.1_release.apk)
+- [wth_v1.0.1_release.apk](releases/wth_v1.0.1_release.apk)
 
 ## Contributors
 
@@ -15,8 +15,7 @@
 
 Special Thanks goes to
 
-**Prof. Dr. Holger Schmidt**, University of Applied Sciences Düsseldorf
-
-**Sarah Meilwes**, University of Applied Sciences Düsseldorf
+- **Prof. Dr. Holger Schmidt**, University of Applied Sciences Düsseldorf
+- **Sarah Meilwes**, University of Applied Sciences Düsseldorf
 
 for initialization and administration of this project.
