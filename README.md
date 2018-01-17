@@ -1,13 +1,13 @@
-## What_the_Hack
+## What_The_Hack
 
-### [Public Page](https://hendrik-schulte.github.io/what_the_hack/)
+#### [Public Page](https://hendrik-schulte.github.io/what_the_hack/)
 
 ### Building
 
 ### Requirements
 - Android Studio
 - Android SDK
-- - JDK 1.8
+- JDK 1.8
 
 ### How to build
 

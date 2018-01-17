@@ -85,8 +85,7 @@ public class MissionWorker implements TimeChangedListener {
     private void calculateMissionStep() {
         for (Employee em
                 : employees) {
-            for (MissionSkillRequirement req
-                    : skillRequirements) {
+            for (MissionSkillRequirement req : skillRequirements) {
                 //if requirement is already met, don't work on skill
                 if (req.getCurrentValue() >= req.getValueRequired()) {
                     continue;

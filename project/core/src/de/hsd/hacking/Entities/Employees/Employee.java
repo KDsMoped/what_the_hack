@@ -604,6 +604,43 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         data.setAnimState(animationState);
     }
 
+    // region Skills
+
+    void learnSkill(Skill skill, boolean sort) {
+        skillSet.add(skill);
+        if (sort) Collections.sort(skillSet);
+    }
+
+    /**
+     * Returns true if this employee has the skill of the given type.
+     *
+     * @param type
+     * @return
+     */
+    public boolean hasSkill(Proto.SkillType type) {
+        for (Skill skill : skillSet) {
+            if (skill.getType().skillType == type) return true;
+        }
+
+        return false;
+    }
+
+    void sortSkills() {
+        Collections.sort(skillSet);
+    }
+
+
+
+    void setSkillSet(ArrayList<Skill> skillset) {
+//        this.skillSet = new ArrayList<Skill>(skillset);
+        this.skillSet = skillset;
+        Collections.sort(skillSet);
+    }
+
+    /**
+     * Returns the skills of this employee.
+     * @return
+     */
     public Collection<Skill> getSkillset() {
         return Collections.unmodifiableCollection(skillSet);
     }
@@ -627,6 +664,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         return evaluateSkill(skillSet.get(allPurpposeIndex));
     }
 
+    public boolean hasSkill(SkillType type){
+        for (Skill skill : skillSet) {
+            if (skill.getType() == type) return true;
+        }
+
+        return false;
+    }
+
     /**
      * Returns the skill level of the given skill using special and equipment bonuses.
      *
@@ -647,6 +692,8 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
         return (int) ((skill.getValue() + specialAbsoluteBonus) * specialRelativeBonus);
     }
+
+    // endregion
 
     public int getCurrentTileNumber() {
         return data.getCurrentTileNumber();
@@ -691,27 +738,14 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         return data.getGender();
     }
 
-    void setSkillSet(ArrayList<Skill> skillset) {
-//        this.skillSet = new ArrayList<Skill>(skillset);
-        this.skillSet = skillset;
-        Collections.sort(skillSet);
+    void setVisualStyle(Proto.Employee.VisualStyle visualStyle) {
+        data.setVisualStyle(visualStyle);
     }
 
-    void learnSkill(Skill skill, boolean sort) {
-        skillSet.add(skill);
-        if (sort) Collections.sort(skillSet);
-    }
-
-    void sortSkills() {
-        Collections.sort(skillSet);
-    }
+    // region Salary
 
     void setSalary(int salary) {
         data.setSalary(salary);
-    }
-
-    void setVisualStyle(Proto.Employee.VisualStyle visualStyle) {
-        data.setVisualStyle(visualStyle);
     }
 
     /**
@@ -763,6 +797,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         return String.format("%03d", getHiringCost()) + "$";
     }
 
+    // endregion
+
+    // region Employee Specials
+
     /**
      * Adds a new employee special in case the employee does not already have this kind of special and he meets all specials requirements.
      *
@@ -800,22 +838,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
         else return Collections.unmodifiableCollection(employeeSpecialsVisible);
     }
 
+    // endregion
+
     public boolean isEmployed() {
         return data.getIsEmployed();
-    }
-
-    /**
-     * Returns true if this employee has the skill of the given type.
-     *
-     * @param type
-     * @return
-     */
-    public boolean hasSkill(Proto.SkillType type) {
-        for (Skill skill : skillSet) {
-            if (skill.getType().skillType == type) return true;
-        }
-
-        return false;
     }
 
     /**

@@ -286,15 +286,13 @@ public class EquipmentManager implements Manager, ProtobufHandler {
         notifyRefreshListeners();
     }
 
+    /**
+     * Initializes all equipment that is already bought.
+     */
     public void placeExistingEquipment() {
         for (Equipment equipment : purchasedItems) {
 
             equipment.addToTileMap();
-
-//            if (equipment instanceof Computer) {
-//
-//
-//            }
         }
     }
 
