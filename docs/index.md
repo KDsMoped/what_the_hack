@@ -5,6 +5,7 @@ A more or less serious dive into a geeks world.
 ## Releases
 
 ### Android
+- [wth_v1.0.2_release.apk](/what_the_hack/releases/wth_v1.0.2_release.apk)
 - [wth_v1.0.1_release.apk](/what_the_hack/releases/wth_v1.0.1_release.apk)
 
 ## Contributors

@@ -163,6 +163,14 @@ public class Mission implements EventSender, DataContainer {
         return data.getMinLevel();
     }
 
+    public void setRemainingDays(int remainingDays){
+        data.setRemainingDays(remainingDays);
+    }
+
+    public int getRemainingDays(){
+        return data.getRemainingDays();
+    }
+
     public int getMaxLevel() {
 
         if(data.getMaxLevel() < 1) return Integer.MAX_VALUE;
@@ -213,6 +221,10 @@ public class Mission implements EventSender, DataContainer {
         data.setFinished(finished);
     }
 
+    /**
+     * Returns true if this mission has been completed successfully.
+     * @return
+     */
     public boolean isCompleted() {
         return data.getCompleted();
     }
@@ -246,7 +258,7 @@ public class Mission implements EventSender, DataContainer {
         String name = data.getName();
 
         if (name.length() < maxLength) return name;
-        else return name.substring(0, maxLength - 3) + "...";
+        else return name.substring(0, maxLength - 3) + "..";
     }
 
     public Proto.Mission getData() {

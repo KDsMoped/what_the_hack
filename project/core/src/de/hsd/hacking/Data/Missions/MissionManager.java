@@ -354,7 +354,16 @@ public class MissionManager implements Manager, TimeChangedListener, ProtobufHan
         return Collections.unmodifiableCollection(completedMissions);
     }
 
-    private int isMissionRunning(Mission mission) {
+    /**
+     * Returns true if the given mission is currently active.
+     * @param mission
+     * @return
+     */
+    public boolean isActiveMission(Mission mission){
+       return isMissionRunning(mission) != -1;
+    }
+
+    public int isMissionRunning(Mission mission) {
         for (int i = 0; i < runningMissionWorkers.size(); i++) {
             if (runningMissionWorkers.get(i).getMission().getMissionNumber() == mission.getMissionNumber()) {
                 return i;

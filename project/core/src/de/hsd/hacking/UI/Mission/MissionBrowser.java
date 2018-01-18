@@ -1,5 +1,6 @@
 package de.hsd.hacking.UI.Mission;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -100,12 +101,13 @@ public class MissionBrowser extends Popup {
     }
 
     private void refreshList() {
+
         openMissionContainer.clearChildren();
         activeMissionsContainer.clearChildren();
         completedMissionsContainer.clearChildren();
 
         for (final Mission mission : MissionManager.instance().getOpenMissions()) {
-            openMissionContainer.add(new MissionUIElement(mission, true, false, "Accept", new ChangeListener() {
+            openMissionContainer.add(new MissionUIElement(mission, true, false, false, "Accept", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().startMission(mission);
@@ -114,7 +116,7 @@ public class MissionBrowser extends Popup {
         }
 
         for (final Mission mission : MissionManager.instance().getActiveMissions()) {
-            activeMissionsContainer.add(new MissionUIElement(mission, true, false, "Abort", new ChangeListener() {
+            activeMissionsContainer.add(new MissionUIElement(mission, true, false, true, "Abort", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     MissionManager.instance().abortMission(mission);
@@ -123,7 +125,7 @@ public class MissionBrowser extends Popup {
         }
 
         for (final Mission mission : MissionManager.instance().getCompletedMissions()) {
-            completedMissionsContainer.add(new MissionUIElement(mission, true, true, "", new ChangeListener() {
+            completedMissionsContainer.add(new MissionUIElement(mission, true, true, false,"", new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
 

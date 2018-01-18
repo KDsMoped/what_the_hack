@@ -115,7 +115,8 @@ public class Computer extends Equipment implements Upgradable {
             return askForMission(e);
         } else {
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.NO, e);
-            return new IdleState(e);
+//            return new IdleState(e);
+            return new MovingState(e);
         }
     }
 
