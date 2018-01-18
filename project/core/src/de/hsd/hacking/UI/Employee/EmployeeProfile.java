@@ -50,7 +50,9 @@ public class EmployeeProfile extends Popup {
 }
 
     private void initTable() {
-        setAlignment(Align.center);
+        setAlignment(Align.bottom);
+        setBottomMargin(5);
+        setSize(420, 145);
     }
 
     @Override

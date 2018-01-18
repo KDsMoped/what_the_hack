@@ -275,6 +275,10 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
 
     }
 
+    void getLevel() {
+
+    }
+
     private void initColors() {
         data.setHairColor(ColorHolder.HairColors.get(RandomUtils.randomInt(ColorHolder.HairColors.size())));
         data.setSkinColor(ColorHolder.SkinColors.get(RandomUtils.randomInt(ColorHolder.SkinColors.size())));

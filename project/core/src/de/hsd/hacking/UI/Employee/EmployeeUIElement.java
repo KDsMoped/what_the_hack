@@ -78,6 +78,9 @@ public class EmployeeUIElement extends Table {
         money = new Label(employee.getSalaryText(), Constants.LabelStyle());
         money.setAlignment(Align.topRight);
 
+        Label lvl = new Label("Lvl " + Integer.toString((int)Math.floor(employee.getUsedScore() / 10)), Constants.LabelStyle());
+        lvl.setAlignment(Align.topRight);
+
         AudioTextButton employButton = new AudioTextButton("Employ", Constants.TextButtonStyle());
         employButton.addListener(new ChangeListener() {
             @Override
@@ -87,6 +90,8 @@ public class EmployeeUIElement extends Table {
         });
 
         thirdColumn.add(money).right().top();
+        thirdColumn.row();
+        thirdColumn.add(lvl).right().top().padTop(3);
         thirdColumn.row();
         thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
@@ -102,6 +107,9 @@ public class EmployeeUIElement extends Table {
         money = new Label(employee.getSalaryText(), Constants.LabelStyle());
         money.setAlignment(Align.topRight);
 
+        Label lvl = new Label("Lvl " + Integer.toString((int)Math.floor(employee.getUsedScore() / 10)), Constants.LabelStyle());
+        lvl.setAlignment(Align.topRight);
+
         AudioTextButton employButton = new AudioTextButton("Dismiss", Constants.TextButtonStyle());
         employButton.addListener(new ChangeListener() {
             @Override
@@ -111,6 +119,8 @@ public class EmployeeUIElement extends Table {
         });
 
         thirdColumn.add(money).right().top();
+        thirdColumn.row();
+        thirdColumn.add(lvl).right().top().padTop(3);
         thirdColumn.row();
         thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
@@ -173,8 +183,7 @@ public class EmployeeUIElement extends Table {
             money.setText(
                     employee.getSalaryText() + "\n" +
                             "a week\n" +
-                            employee.getHiringCostText() + "\n" +
-                            "now");
+                            employee.getHiringCostText() + " now");
         }
 
 //        if (TeamManager.instance().getMoney() < employee.getHiringCost()) {

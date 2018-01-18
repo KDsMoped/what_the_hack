@@ -120,6 +120,16 @@ public abstract class Popup extends Group {
         this.content.align(align);
     }
 
+    public void setSize(int width, int height) {
+        mainTable.setHeight(height);
+        mainTable.setWidth(width);
+        mainTable.setPosition((Constants.VIEWPORT_WIDTH - width) / 2, (Constants.VIEWPORT_HEIGHT - height) / 2);
+    }
+
+    public void setBottomMargin(int margin) {
+        this.content.padBottom(margin);
+    }
+
     public boolean isActive() {
         return mainTable.isVisible();
     }
