@@ -112,6 +112,14 @@ public abstract class Popup extends Group {
         this.content.addActor(content);
     }
 
+    public void removeMainContent(Actor content) {
+        this.content.removeActor(content);
+    }
+
+    public void setAlignment(int align) {
+        this.content.align(align);
+    }
+
     public boolean isActive() {
         return mainTable.isVisible();
     }
