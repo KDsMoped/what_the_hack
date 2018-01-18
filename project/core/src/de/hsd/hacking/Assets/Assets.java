@@ -110,6 +110,7 @@ public class Assets {
 
     public Sound menuButtonSound;
     public Sound uiButtonSound;
+    public Sound buyButtonSound;
     public Sound notificationSound;
     public Sound emojiFailureSound;
     public Sound emojiLevelUpSound;
@@ -134,6 +135,7 @@ public class Assets {
         manager.load("sounds/Game_Music.wav", Music.class);
         manager.load("sounds/Menu_Button_Sound.wav", Sound.class);
         manager.load("sounds/UI_Button_Sound.wav", Sound.class);
+        manager.load("sounds/Buy_Button_Sound.wav", Sound.class);
         manager.load("sounds/Notification_Sound.wav", Sound.class);
         manager.load("sounds/Emoji_Failure_Sound.wav", Sound.class);
         manager.load("sounds/Emoji_LevelUp_Sound.wav", Sound.class);
@@ -159,6 +161,7 @@ public class Assets {
         gameMusic = manager.get("sounds/Game_Music.wav");
         menuButtonSound = manager.get("sounds/Menu_Button_Sound.wav");
         uiButtonSound = manager.get("sounds/UI_Button_Sound.wav");
+        buyButtonSound = manager.get("sounds/Buy_Button_Sound.wav");
         notificationSound = manager.get("sounds/Notification_Sound.wav");
         emojiFailureSound = manager.get("sounds/Emoji_Failure_Sound.wav");
         emojiLevelUpSound = manager.get("sounds/Emoji_LevelUp_Sound.wav");

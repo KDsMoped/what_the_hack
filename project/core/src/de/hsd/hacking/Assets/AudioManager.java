@@ -34,6 +34,10 @@ public class AudioManager {
         assets.uiButtonSound.play(globalVolume);
     }
 
+    public void playBuyButtonSound() {
+        assets.buyButtonSound.play(globalVolume);
+    }
+
     public void playMenuButtonSound() {
         assets.menuButtonSound.play(globalVolume);
     }

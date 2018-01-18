@@ -58,6 +58,7 @@ public class ShopUIElement extends Table {
                 if(equipmentManager.buyItem(equipment, true) == 1) {}
             }
         });
+        buyButton.setBuyButton(true);
 
         upgradeButton = new AudioTextButton("Upgrade", Constants.TextButtonStyle());
         upgradeButton.addListener(new ChangeListener() {
@@ -66,6 +67,7 @@ public class ShopUIElement extends Table {
                 if (equipmentManager.upgradeItem(equipment) == 1) {}
             }
         });
+        upgradeButton.setBuyButton(true);
     }
 
     /**

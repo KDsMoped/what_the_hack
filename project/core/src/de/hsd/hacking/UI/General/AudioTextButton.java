@@ -15,6 +15,7 @@ import static java.awt.SystemColor.text;
  */
 
 public class AudioTextButton extends TextButton {
+    private boolean buyButton = false;
 
     public AudioTextButton(String text, Skin skin) {
         super(text, skin);
@@ -35,8 +36,17 @@ public class AudioTextButton extends TextButton {
         addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                AudioManager.instance().playUIButtonSound();
+                if (buyButton) {
+                    AudioManager.instance().playBuyButtonSound();
+                }
+                else {
+                    AudioManager.instance().playUIButtonSound();
+                }
             }
         });
+    }
+
+    public void setBuyButton(boolean buyButton) {
+        this.buyButton = buyButton;
     }
 }
