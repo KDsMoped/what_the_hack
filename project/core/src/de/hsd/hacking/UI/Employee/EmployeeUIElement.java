@@ -89,9 +89,9 @@ public class EmployeeUIElement extends Table {
             }
         });
 
-        thirdColumn.add(money).right().top();
+        thirdColumn.add(lvl).right().top();
         thirdColumn.row();
-        thirdColumn.add(lvl).right().top().padTop(3);
+        thirdColumn.add(money).right().top().padTop(8);
         thirdColumn.row();
         thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();
@@ -118,9 +118,9 @@ public class EmployeeUIElement extends Table {
             }
         });
 
-        thirdColumn.add(money).right().top();
+        thirdColumn.add(lvl).right().top();
         thirdColumn.row();
-        thirdColumn.add(lvl).right().top().padTop(3);
+        thirdColumn.add(money).right().top().padTop(8);
         thirdColumn.row();
         thirdColumn.add().prefHeight(0).minHeight(0).expandY().fillY();
         thirdColumn.row();

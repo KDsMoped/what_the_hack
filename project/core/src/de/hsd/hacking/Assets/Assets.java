@@ -135,6 +135,7 @@ public class Assets {
         manager.load("sounds/Game_Music.wav", Music.class);
         manager.load("sounds/Menu_Button_Sound.wav", Sound.class);
         manager.load("sounds/UI_Button_Sound.wav", Sound.class);
+        // CREDIT https://freesound.org/people/creek23/sounds/75235/
         manager.load("sounds/Buy_Button_Sound.wav", Sound.class);
         manager.load("sounds/Notification_Sound.wav", Sound.class);
         manager.load("sounds/Emoji_Failure_Sound.wav", Sound.class);

@@ -220,7 +220,9 @@ public class Employee extends Entity implements Comparable<Employee>, Touchable,
      */
     public void restoreWorkingState() {
         if (MissionManager.instance().getActiveMissions().size() > 0)
-            currentMission = MissionManager.instance().getActiveMission(data.getMissionNumber());
+            if (data.getMissionNumber() != -1) {
+                currentMission = MissionManager.instance().getActiveMission(data.getMissionNumber());
+            }
 
         switch (data.getState().getState()) {
 
