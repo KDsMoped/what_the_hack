@@ -24,7 +24,7 @@ public class Constants {
     public static boolean DEBUG = false;
 
     public static final float VIEWPORT_WIDTH = 512f;
-    public static final float VIEWPORT_HEIGHT = (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    public static final float VIEWPORT_HEIGHT = 288f;
 
     public static final int APP_WIDTH = 1024;
     public static final int APP_HEIGHT = 576;

@@ -27,8 +27,8 @@ import de.hsd.hacking.Utils.Constants;
  */
 public class MenuStage extends Stage {
 
-    public static final float VIEWPORT_WIDTH = 512f;
-    public static final float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    public static float VIEWPORT_WIDTH = 512f;
+    public static float VIEWPORT_HEIGHT =  (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private AudioManager audioManager;
 
@@ -38,7 +38,7 @@ public class MenuStage extends Stage {
 
     public MenuStage(){
         super(Gdx.app.getType() == Application.ApplicationType.Android ? new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
-                : new FitViewport(512f, 288f));
+                : new FitViewport(512f, VIEWPORT_HEIGHT = 288f));
         Assets assets = Assets.instance();
         this.audioManager = AudioManager.instance();
 

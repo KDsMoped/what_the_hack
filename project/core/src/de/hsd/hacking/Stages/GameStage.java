@@ -58,8 +58,9 @@ public class GameStage extends Stage implements EventListener{
     private int framesCount;
     private float elapsedTime = 0f;
 
-    public static final float VIEWPORT_WIDTH = 512f;
-    public static final float VIEWPORT_HEIGHT = (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    public static float VIEWPORT_WIDTH = 512f;
+    public static float VIEWPORT_HEIGHT = 288f;
+            //(Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private Vector2 checkVector;
     private TileMap tileMap;
@@ -90,8 +91,10 @@ public class GameStage extends Stage implements EventListener{
     }
 
     public GameStage() {
-        super(Gdx.app.getType() == Application.ApplicationType.Android ? new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
-        : new FitViewport(512f, 288f));
+        super(
+               /* Gdx.app.getType() == Application.ApplicationType.Android ? new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
+        : */
+                        new FitViewport(512f, VIEWPORT_HEIGHT = 288f));
         if (Constants.DEBUG) Gdx.app.log(Constants.TAG, "WIDTH: " + VIEWPORT_WIDTH + ", HEIGHT: " + VIEWPORT_HEIGHT);
         instance = this;
         this.checkVector = new Vector2();
