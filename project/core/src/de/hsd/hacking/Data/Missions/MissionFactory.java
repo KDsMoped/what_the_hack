@@ -19,7 +19,7 @@ public final class MissionFactory {
     private static final int MISSION_DURATION_MINIMUM = 2;
     private static final int MISSION_DURATION_VARIANCE = 1;
     private static final float MISSION_REWARDMONEY_VARIANCE = 0.1f;
-    private static final int MISSION_REWARDMONEY_FACTOR = 10;
+    private static final int MISSION_REWARDMONEY_FACTOR = 20;
     private static final int MISSION_BASE_POWER = 18;
     private static final int MISSION_BANDWIDTH_BASE = 100;
     private static final float MISSION_BANDWIDTH_PER_DIFFICULTY = 0.08f;
@@ -61,6 +61,7 @@ public final class MissionFactory {
      */
     private static void calcDurationVariance(Mission mission) {
         mission.setDuration(Math.max(MISSION_DURATION_MINIMUM, mission.getDuration() + RandomUtils.var(MISSION_DURATION_VARIANCE)));
+        mission.setRemainingDays(mission.getDuration());
     }
 
     /**
@@ -134,7 +135,7 @@ public final class MissionFactory {
      * @return reward money.
      */
     public static int calcRewardMoney(Mission mission) {
-        return (int) (mission.getDifficulty() * /*(1 + mission.getRisk()) * */ RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
+        return (int) (Math.sqrt(mission.getDifficulty()) * /*(1 + mission.getRisk()) * */ RandomUtils.mult_var(MISSION_REWARDMONEY_VARIANCE) * MISSION_REWARDMONEY_FACTOR) * 10;
     }
 
     /**

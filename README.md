@@ -1,7 +1,15 @@
-# Requirements
-- Android Studio
+## What_The_Hack
 
-# How to build
+#### [Public Page](https://hendrik-schulte.github.io/what_the_hack/)
+
+### Building
+
+### Requirements
+- Android Studio
+- Android SDK
+- JDK 1.8
+
+### How to build
 
 - Clone the git repo
 - Switch to release branch for a stable build

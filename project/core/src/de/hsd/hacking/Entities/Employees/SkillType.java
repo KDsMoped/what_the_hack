@@ -28,7 +28,7 @@ public class SkillType {
             case Crypto:
                 return "Crypto";
             case Search:
-                return "Search";
+                return "Data Analysis";
             case Social:
                 return "Social";
             case Network:

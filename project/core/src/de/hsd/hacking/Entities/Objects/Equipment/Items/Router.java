@@ -55,6 +55,11 @@ public class Router extends Equipment implements Upgradable {
     }
 
     @Override
+    public void addToTileMap(){
+
+    }
+
+    @Override
     public boolean isDelegatingInteraction() {
         return false;
     }

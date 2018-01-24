@@ -20,7 +20,7 @@ class GameScreen implements Screen {
     private Runnable swipeUpAction;
 
     public GameScreen(HackingGame game) {
-        HackingGame game1 = game;
+//        HackingGame game1 = game;
         this.stage = new GameStage();
 
         InputMultiplexer multiplexer = new InputMultiplexer();

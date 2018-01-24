@@ -9,6 +9,7 @@ import de.hsd.hacking.Entities.Employees.EmployeeManager;
 import de.hsd.hacking.Entities.Objects.Equipment.EquipmentManager;
 import de.hsd.hacking.Entities.Team.TeamManager;
 import de.hsd.hacking.Screens.ScreenManager;
+import de.hsd.hacking.Stages.GameStage;
 
 /**
  * This is the central singleton class that controls the game flow and manages instantiation of all other manager classes.
@@ -43,6 +44,7 @@ public class GameManager {
         EmployeeManager.instance().cleanUp();
         TeamManager.instance().cleanUp();
         GameTime.instance().cleanUp();
+        GameStage.instance().cleanUp();
     }
 
     /**

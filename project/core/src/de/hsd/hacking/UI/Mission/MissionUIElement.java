@@ -12,7 +12,9 @@ import com.badlogic.gdx.utils.Align;
 
 import de.hsd.hacking.Assets.Assets;
 import de.hsd.hacking.Assets.AudioManager;
+import de.hsd.hacking.Data.MissionWorker;
 import de.hsd.hacking.Data.Missions.Mission;
+import de.hsd.hacking.Data.Missions.MissionManager;
 import de.hsd.hacking.UI.General.AudioTextButton;
 import de.hsd.hacking.Utils.Constants;
 import de.hsd.hacking.Entities.Employees.Skill;
@@ -28,27 +30,31 @@ public class MissionUIElement extends Table {
     private Mission mission;
 
     private AudioTextButton actionButton;
+    private Label timeLabel;
 
     private String buttonText;
-    private Boolean showDescription;
-    private Boolean showOutcome;
+    private boolean showDescription;
+    private boolean showOutcome;
+    private boolean showRemaining;
 
     private EventListener buttonListener;
 
     /**
      * Constructor.
      *
-     * @param mission        Mission that shall be displayed.
-     * @param showDescription    showDescription hides the mission description.
-     * @param buttonText     Button text.
-     * @param buttonListener Button callback.
+     * @param mission         Mission that shall be displayed.
+     * @param showDescription showDescription hides the mission description.
+     * @param buttonText      Button text.
+     * @param buttonListener  Button callback.
      */
-    public MissionUIElement(Mission mission, boolean showDescription, boolean showOutcome, String buttonText, EventListener buttonListener) {
+    public MissionUIElement(Mission mission, boolean showDescription, boolean showOutcome, boolean showRemaining, String buttonText, EventListener buttonListener) {
         this.mission = mission;
         this.showDescription = showDescription;
         this.showOutcome = showOutcome;
         this.buttonText = buttonText;
+        this.showRemaining = showRemaining;
         this.buttonListener = buttonListener;
+
 
         initTable();
     }
@@ -66,7 +72,6 @@ public class MissionUIElement extends Table {
 
         Label money = new Label("" + mission.getRewardMoney(), Constants.LabelStyle());
         Label dollar = new Label("$", Constants.LabelStyle());
-
 
 
         //skill table in bottom left corner
@@ -102,11 +107,14 @@ public class MissionUIElement extends Table {
         skills.add(text).left().fillX().padLeft(1).padRight(20);
 
         Image calendar = new Image(Assets.instance().ui_calendar);
-        Label time = new Label(Integer.toString(mission.getDuration()), Constants.LabelStyle());
-        time.setAlignment(Align.left);
+
+        timeLabel = new Label("", Constants.LabelStyle());
+        updateTimeLabel();
+
+        timeLabel.setAlignment(Align.left);
 
         skills.add(calendar).left().prefSize(13).maxWidth(13).minWidth(13).prefWidth(13).padLeft(5);
-        skills.add(time).left().fillX().padLeft(1).padRight(20);
+        skills.add(timeLabel).left().fillX().padLeft(1).padRight(20);
 
 
         // Add mission name to main table
@@ -147,7 +155,7 @@ public class MissionUIElement extends Table {
 //        moneyTimeTable.add(calendar).right().padTop(-2);
 //        moneyTimeTable.add(time).right().padLeft(3).padTop(1f);
 //        moneyTimeTable.row().padTop(2f);
-        moneyTimeTable.add(money).right();
+        moneyTimeTable.add(money).right().align(Align.right);
         moneyTimeTable.add(dollar).right();
         moneyTimeTable.row().padTop(2f);
 
@@ -155,8 +163,27 @@ public class MissionUIElement extends Table {
         if (buttonText != null && !buttonText.equals("")) {
             actionButton = new AudioTextButton(buttonText, Constants.TextButtonStyle());
             actionButton.addListener(buttonListener);
-            moneyTimeTable.add(actionButton).width(70).right().colspan(2);
+            moneyTimeTable.add(actionButton).width(70).right().colspan(2).height(18);
         }
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+        updateTimeLabel();
+    }
+
+    private void updateTimeLabel(){
+        String timeString;
+
+        if (showRemaining) {
+            timeString = " " + Integer.toString(mission.getRemainingDays()) + " of " + Integer.toString(mission.getDuration());
+        } else {
+            timeString = " " + Integer.toString(mission.getDuration()) + " days";
+        }
+
+        timeLabel.setText(timeString);
     }
 
     /**

@@ -39,7 +39,7 @@ public class Constants {
     //UI
 
     private static Skin uiSkin;
-    private static TextButton.TextButtonStyle textButtonStyle, tabButtonStyle, terminalButtonStyle;
+    private static TextButton.TextButtonStyle textButtonStyle, hugeTextButtonStyle, tabButtonStyle, terminalButtonStyle;
     private static ScrollPane.ScrollPaneStyle scrollPaneStyleWin32, scrollPaneStyleTerminal;
     private static Label.LabelStyle labelStyle;
     private static Label.LabelStyle tinyLabelStyle;
@@ -73,6 +73,19 @@ public class Constants {
         }
 
         return textButtonStyle;
+    }
+
+    public static TextButton.TextButtonStyle HugeTextButtonStyle() {
+        if (hugeTextButtonStyle == null) {
+            hugeTextButtonStyle = new TextButton.TextButtonStyle(UiSkin().getDrawable("win32_button_9_patch_normal"), UiSkin().getDrawable("win32_button_9_patch_pressed"),
+                    null, Assets.instance().a2_16_font);
+
+            hugeTextButtonStyle.fontColor = Color.BLACK;
+            hugeTextButtonStyle.pressedOffsetY = -1f;
+            hugeTextButtonStyle.pressedOffsetX = 1f;
+        }
+
+        return hugeTextButtonStyle;
     }
 
     public static TextButton.TextButtonStyle TerminalButtonStyle() {
@@ -130,6 +143,7 @@ public class Constants {
             labelStyle = new Label.LabelStyle();
             labelStyle.font = Assets.instance().status_bar_font;
             labelStyle.fontColor = Color.BLACK;
+            labelStyle.font.getData().setLineHeight(13f);
         }
 
         return labelStyle;
@@ -140,6 +154,7 @@ public class Constants {
             tinyLabelStyle = new Label.LabelStyle();
             tinyLabelStyle.font = Assets.instance().tiny_label_font;
             tinyLabelStyle.fontColor = Color.BLACK;
+            tinyLabelStyle.font.getData().setLineHeight(10f);
         }
 
         return tinyLabelStyle;

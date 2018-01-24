@@ -55,7 +55,8 @@ public class Skill implements Comparable<Skill>, DataContainer {
         if(data.getValue() < 16) return "Master";
         if(data.getValue() < 18) return "Grand Master";
         if(data.getValue() < 20) return "Wizard";
-        return "God";
+        if(data.getValue() < 22) return "God";
+        return "Chuck Norris";
     }
 
     public String getDisplayValue(final boolean includeText) {

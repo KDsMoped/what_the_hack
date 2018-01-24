@@ -67,6 +67,7 @@ message Mission {
   repeated Skill skills = 14;
   int32 rewardMoney = 15;
   int32 usedBandwidth = 16;
+  int32 remainingDays = 17;
 }
 
 message MissionManager {
@@ -174,10 +175,9 @@ message EmployeeSpecial {
 }
 
 message MissionWorker {
-  int32 remainingDays = 1;
-  repeated MissionSkillRequirement skills = 2;
-  int32 mission = 3;
-  repeated int32 employees = 4;
+  repeated MissionSkillRequirement skills = 1;
+  int32 mission = 2;
+  repeated int32 employees = 3;
 }
 
 message MissionSkillRequirement {

@@ -72,6 +72,12 @@ public class Computer extends Equipment implements Upgradable {
     }
 
     @Override
+    public void addToTileMap(){
+        int number = Integer.parseInt(getName().substring(getName().length() - 1)) - 1;
+        setWorkspace(GameStage.instance().getWorkspaces().get(number));
+    }
+
+    @Override
     public TextureRegionDrawable getIcon() {
         return Assets.instance().computer_icon;
     }
@@ -109,7 +115,8 @@ public class Computer extends Equipment implements Upgradable {
             return askForMission(e);
         } else {
             EmojiBubbleFactory.show(EmojiBubbleFactory.EmojiType.NO, e);
-            return new IdleState(e);
+//            return new IdleState(e);
+            return new MovingState(e);
         }
     }
 

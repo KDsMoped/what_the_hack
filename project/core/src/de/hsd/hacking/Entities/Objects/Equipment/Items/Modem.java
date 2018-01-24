@@ -21,6 +21,11 @@ public class Modem extends Equipment implements Upgradable {
     }
 
     @Override
+    public void addToTileMap(){
+
+    }
+
+    @Override
     public int getBandwidthBonus() { return data.getLevel() * 100; }
 
     public void upgrade() {

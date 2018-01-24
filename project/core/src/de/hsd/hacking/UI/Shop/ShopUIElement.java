@@ -58,6 +58,7 @@ public class ShopUIElement extends Table {
                 if(equipmentManager.buyItem(equipment, true) == 1) {}
             }
         });
+        buyButton.setBuyButton(true);
 
         upgradeButton = new AudioTextButton("Upgrade", Constants.TextButtonStyle());
         upgradeButton.addListener(new ChangeListener() {
@@ -66,6 +67,7 @@ public class ShopUIElement extends Table {
                 if (equipmentManager.upgradeItem(equipment) == 1) {}
             }
         });
+        upgradeButton.setBuyButton(true);
     }
 
     /**
@@ -155,7 +157,7 @@ public class ShopUIElement extends Table {
         if(equipmentManager.getShopItemList().contains(equipment)) {
             rightContent.add(price).right().padTop(5).padBottom(2);
             rightContent.row();
-            rightContent.add(buyButton).width(70).right().padBottom(5);
+            rightContent.add(buyButton).width(70).right().padBottom(5).height(18);
         }
         else {
             rightContent.add(level).right().top();
@@ -164,7 +166,7 @@ public class ShopUIElement extends Table {
                 rightContent.row();
                 rightContent.add(price).right().padTop(5).padBottom(2);
                 rightContent.row();
-                rightContent.add(upgradeButton).width(80).right().padBottom(5);
+                rightContent.add(upgradeButton).width(80).right().padBottom(5).height(18);
             }
         }
 

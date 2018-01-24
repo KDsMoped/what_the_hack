@@ -100,7 +100,7 @@ public class EmployeeBar extends Group {
     }
 
     private void onDetailsClick(){
-        profilePopup.toggleView();
+        if (TeamManager.instance().isEmployeeSelected()) profilePopup.toggleView();
     }
 
     private void onDeselectClick(){

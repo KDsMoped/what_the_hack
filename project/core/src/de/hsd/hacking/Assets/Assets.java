@@ -36,6 +36,7 @@ public class Assets {
     public static BitmapFont gold_font_small;
     public BitmapFont status_bar_font;
     public BitmapFont tiny_label_font;
+    public BitmapFont a2_16_font;
 
     private TextureAtlas atlas;
     public TextureAtlas ui_atlas;
@@ -109,6 +110,7 @@ public class Assets {
 
     public Sound menuButtonSound;
     public Sound uiButtonSound;
+    public Sound buyButtonSound;
     public Sound notificationSound;
     public Sound emojiFailureSound;
     public Sound emojiLevelUpSound;
@@ -133,6 +135,8 @@ public class Assets {
         manager.load("sounds/Game_Music.wav", Music.class);
         manager.load("sounds/Menu_Button_Sound.wav", Sound.class);
         manager.load("sounds/UI_Button_Sound.wav", Sound.class);
+        // CREDIT https://freesound.org/people/creek23/sounds/75235/
+        manager.load("sounds/Buy_Button_Sound.wav", Sound.class);
         manager.load("sounds/Notification_Sound.wav", Sound.class);
         manager.load("sounds/Emoji_Failure_Sound.wav", Sound.class);
         manager.load("sounds/Emoji_LevelUp_Sound.wav", Sound.class);
@@ -158,6 +162,7 @@ public class Assets {
         gameMusic = manager.get("sounds/Game_Music.wav");
         menuButtonSound = manager.get("sounds/Menu_Button_Sound.wav");
         uiButtonSound = manager.get("sounds/UI_Button_Sound.wav");
+        buyButtonSound = manager.get("sounds/Buy_Button_Sound.wav");
         notificationSound = manager.get("sounds/Notification_Sound.wav");
         emojiFailureSound = manager.get("sounds/Emoji_Failure_Sound.wav");
         emojiLevelUpSound = manager.get("sounds/Emoji_LevelUp_Sound.wav");
@@ -167,10 +172,11 @@ public class Assets {
         emojiSuccessSound = manager.get("sounds/Emoji_Success_Sound.wav");
 
         //BitmapFonts müssen per "Hiero" Tool erzeugt werden. Das Tool findet ihr auf der libgdx Seite.
-        standard_font = new BitmapFont(Gdx.files.internal("fonts/test_font.fnt"), Gdx.files.internal("fonts/test_font.png"), false);
-        tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
-        header_font = new BitmapFont(Gdx.files.internal("fonts/test_font_big_white.fnt"), Gdx.files.internal("fonts/test_font_big_white.png"), false);
-        status_bar_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
+        standard_font = new BitmapFont(Gdx.files.internal("fonts/a2_font_24.fnt"), Gdx.files.internal("fonts/a2_font_24.png"), false);
+        tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/a2_font_8.fnt"), Gdx.files.internal("fonts/a2_font_8.png"), false);
+        header_font = new BitmapFont(Gdx.files.internal("fonts/a2_font_24.fnt"), Gdx.files.internal("fonts/a2_font_24.png"), false);
+        status_bar_font = new BitmapFont(Gdx.files.internal("fonts/a2_font_8.fnt"), Gdx.files.internal("fonts/a2_font_8.png"), false);
+        a2_16_font = new BitmapFont(Gdx.files.internal("fonts/a2_font_16.fnt"), Gdx.files.internal("fonts/a2_font_16.png"), false);
         //tiny_label_font = new BitmapFont(Gdx.files.internal("fonts/status_bar_font.fnt"), Gdx.files.internal("fonts/status_bar_font.png"), false);
         //...//
 

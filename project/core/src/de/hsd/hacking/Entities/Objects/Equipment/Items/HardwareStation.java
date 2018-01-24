@@ -27,6 +27,11 @@ public class HardwareStation extends Equipment implements Upgradable {
         teamManager.updateResources();
     }
 
+    @Override
+    public void addToTileMap(){
+
+    }
+
     public int getMaxLevel() { return 5; }
 
     @Override

@@ -34,7 +34,6 @@ public class MissionWorker implements TimeChangedListener {
     public MissionWorker(final Mission mission1) {
         this.mission = mission1;
         data = Proto.MissionWorker.newBuilder();
-        data.setRemainingDays(mission.getDuration());
         skillRequirements = new ArrayList<MissionSkillRequirement>(4);
         employees = new ArrayList<Employee>(4);
         for (Skill skill
@@ -83,10 +82,8 @@ public class MissionWorker implements TimeChangedListener {
      * Calculates progress and checks if mission is already finished.
      */
     private void calculateMissionStep() {
-        for (Employee em
-                : employees) {
-            for (MissionSkillRequirement req
-                    : skillRequirements) {
+        for (Employee em : employees) {
+            for (MissionSkillRequirement req : skillRequirements) {
                 //if requirement is already met, don't work on skill
                 if (req.getCurrentValue() >= req.getValueRequired()) {
                     continue;
@@ -153,7 +150,7 @@ public class MissionWorker implements TimeChangedListener {
     public void dayChanged(final int days) {
         if (!mission.isFinished()) {
             if (DEBUG) {
-                Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() + " Remaining mission days: " + data.getRemainingDays());
+                Gdx.app.log(Constants.TAG, "Next day. Job: " + mission.getName() + " Remaining mission days: " + mission.getRemainingDays());
             }
             for (MissionSkillRequirement req
                     : skillRequirements) {
@@ -162,16 +159,15 @@ public class MissionWorker implements TimeChangedListener {
                 }
             }
 
-            data.setRemainingDays(data.getRemainingDays() - 1);
+            mission.setRemainingDays(mission.getRemainingDays() - 1);
 
-            if (data.getRemainingDays() == 0) {
+            if (mission.getRemainingDays() == 0) {
                 mission.setFinished(true);
                 if (DEBUG) {
                     Gdx.app.log(Constants.TAG, "Mission over!");
                 }
                 ArrayList<SkillType> failedSkills = new ArrayList<SkillType>(4);
-                for (MissionSkillRequirement skillReq
-                        : skillRequirements) {
+                for (MissionSkillRequirement skillReq : skillRequirements) {
                     if (!skillReq.isSuccessfull()) {
                         failedSkills.add(skillReq.getSkillType());
                     }
@@ -211,11 +207,11 @@ public class MissionWorker implements TimeChangedListener {
     }
 
     public int getRemainingMissionDays() {
-        return data.getRemainingDays();
+        return mission.getRemainingDays();
     }
 
     public int getPassedMissionDays() {
-        return mission.getDuration() - data.getRemainingDays();
+        return mission.getDuration() - mission.getRemainingDays();
     }
 
     public int getMissionDays() {

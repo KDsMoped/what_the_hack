@@ -21,8 +21,8 @@ import de.hsd.hacking.Utils.Constants;
  * @author Julian
  */
 public abstract class Popup extends Group {
-    protected static final int SCROLLER_WIDTH = 420;
-    protected static final int SCROLLER_HEIGHT = 195;
+    protected static final int SCROLLER_WIDTH = 450;
+    protected static final int SCROLLER_HEIGHT = 198;
     protected static final int SCROLLER_ELEMENT_PADDING = 5;
 
     protected Table mainTable = new Table();
@@ -110,6 +110,24 @@ public abstract class Popup extends Group {
 
     public void addMainContent(Actor content) {
         this.content.addActor(content);
+    }
+
+    public void removeMainContent(Actor content) {
+        this.content.removeActor(content);
+    }
+
+    public void setAlignment(int align) {
+        this.content.align(align);
+    }
+
+    public void setSize(int width, int height) {
+        mainTable.setHeight(height);
+        mainTable.setWidth(width);
+        mainTable.setPosition((Constants.VIEWPORT_WIDTH - width) / 2, (Constants.VIEWPORT_HEIGHT - height) / 2);
+    }
+
+    public void setBottomMargin(int margin) {
+        this.content.padBottom(margin);
     }
 
     public boolean isActive() {
