@@ -3,12 +3,13 @@ buildscript {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'org.robovm:robovm-gradle-plugin:1.12.0'
-        classpath "com.badlogicgames.gdx:gdx-tools:1.9.6"
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        //classpath 'org.robovm:robovm-gradle-plugin:1.12.0'
+        classpath "com.badlogicgames.gdx:gdx-tools:1.9.8"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
     }
 }
 
@@ -19,8 +20,8 @@ allprojects {
     version = '1.0'
     ext {
         appName = "hacking-game"
-        gdxVersion = '1.9.6'
-        roboVMVersion = '1.12.0'
+        gdxVersion = '1.9.8'
+        //roboVMVersion = '1.12.0'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
@@ -37,10 +38,9 @@ project(":desktop") {
     apply plugin: "java"
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -50,8 +50,8 @@ project(":android") {
     configurations { natives }
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
@@ -60,31 +60,17 @@ project(":android") {
     }
 }
 
-project(":ios") {
-    apply plugin: "java"
-    apply plugin: "robovm"
-
-
-    dependencies {
-        compile project(":core")
-        compile "org.robovm:robovm-rt:$roboVMVersion"
-        compile "org.robovm:robovm-cocoatouch:$roboVMVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
-    }
-}
-
 project(":core") {
     apply plugin: "java"
     apply plugin: "com.google.protobuf"
 
     dependencies {
-        compile project(":gen")
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile fileTree(dir: '../libs', include: '*.jar')
-        compile 'com.google.code.gson:gson:2.8.0'
-        compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
-        compile 'com.google.protobuf:protobuf-java:3.3.0'
+        implementation project(":gen")
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation fileTree(dir: '../libs', include: '*.jar')
+        implementation 'com.google.code.gson:gson:2.8.0'
+        implementation group: 'org.javatuples', name: 'javatuples', version: '1.2'
+        implementation 'com.google.protobuf:protobuf-java:3.3.0'
     }
 }
 
@@ -92,7 +78,7 @@ project(":gen") {
     apply plugin: "java"
 
     dependencies {
-        compile 'com.google.protobuf:protobuf-java:3.3.0'
+        implementation 'com.google.protobuf:protobuf-java:3.3.0'
     }
 }
 

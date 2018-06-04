@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "25.0.2"
-    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
+    compileSdkVersion 27
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -12,12 +12,12 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
-        instrumentTest.setRoot('tests')
+        // instrumentTest.setRoot('tests')
     }
     defaultConfig {
         applicationId "de.hsd.hacking"
-        minSdkVersion 8
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 27
     }
 }
 // called every time gradle gets executed, takes the native dependencies of

@@ -78,6 +78,7 @@ project/android/assets/missionmanager
 project/android/assets/equipmentmanager
 project/android/assets/employeemanager
 project/android/assets/resources
+project/core/gen/core/de/hsd/hacking/Proto.java
 releases/missionmanager
 releases/messagebar
 releases/equipmentmanager

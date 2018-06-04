@@ -69,10 +69,10 @@ public class MenuStage extends Stage {
                            }
         );
 
-        resumeButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 220, 194, 40);
+        resumeButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 175, 194, 40);
         addActor(resumeButton);
 
-        newButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 265, 194, 40);
+        newButton.setBounds(VIEWPORT_WIDTH / 2 - 97, VIEWPORT_HEIGHT - 220, 194, 40);
         addActor(newButton);
     }
 

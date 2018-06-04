@@ -55,8 +55,7 @@ public class GameStage extends Stage implements EventListener{
     private float elapsedTime = 0f;
 
     public static float VIEWPORT_WIDTH = 512f;
-    public static float VIEWPORT_HEIGHT = 288f;
-            //(Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
+    public static float VIEWPORT_HEIGHT = (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIEWPORT_WIDTH));
 
     private Vector2 checkVector;
     private TileMap tileMap;
